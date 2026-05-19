@@ -1,14 +1,66 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
+
+interface ResourceItem {
+  title: string;
+  description: string;
+  slug: string;
+  tags?: string[];
+}
+
+interface Props {
+  resources?: ResourceItem[];
+  showCTA?: boolean;
+}
+
+const { resources = [], showCTA = true } = Astro.props;
 ---
 
-<section class="py-16 lg:py-24">
+<section class="section-gap bg-warm-100">
   <Container>
-    <div class="flex items-center justify-between">
-      <h2 class="text-3xl font-bold text-gray-900">Recursos psicoeducativos</h2>
-      <Button href="/recursos" variant="ghost">Ver todos</Button>
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+      <div>
+        <span class="label-caps text-sage block mb-5">Psicoeducación</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink leading-tight">
+          Recursos psicoeducativos
+        </h2>
+      </div>
+      {showCTA && <Button href="/recursos" variant="ghost">Ver todos →</Button>}
     </div>
-    <p class="mt-4 text-gray-600">Contenido en construcción.</p>
+
+    {
+      resources.length > 0 ? (
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {resources.map((resource) => (
+            <a
+              href={`/recursos/${resource.slug}`}
+              class="group block p-6 bg-white rounded-2xl border border-ink-border/50 hover:border-sage-300 hover:shadow-[0_8px_32px_rgba(71,91,76,0.08)] transition-all duration-200"
+            >
+              <h3 class="font-display text-xl font-medium text-ink mb-2 group-hover:text-sage transition-colors">
+                {resource.title}
+              </h3>
+              <p class="text-sm text-ink-muted leading-relaxed mb-4">{resource.description}</p>
+              {resource.tags && resource.tags.length > 0 && (
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {resource.tags.map((tag) => (
+                    <span class="px-3 py-1 rounded-full bg-warm-600/20 text-warm-800 text-xs font-semibold uppercase tracking-wide">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <span class="text-sm font-semibold text-sage-600 group-hover:underline underline-offset-2">
+                Leer →
+              </span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-ink-muted text-base leading-relaxed">
+          Próximamente recursos psicoeducativos para acompañarte entre sesiones.
+        </p>
+      )
+    }
   </Container>
 </section>

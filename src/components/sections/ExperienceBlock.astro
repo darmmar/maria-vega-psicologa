@@ -1,10 +1,35 @@
 ---
 import Container from "@/components/ui/Container.astro";
+
+const areas = [
+  "Consulta propia · Adultos y adolescentes",
+  "Psicología infantil y juvenil",
+  "Duelo y pérdidas",
+  "Adicciones comportamentales",
+  "Trastorno del Espectro Autista (TEA) en adultos",
+  "Ansiedad, estrés y regulación emocional",
+];
 ---
 
-<section class="py-16 lg:py-24">
+<section class="section-gap bg-warm-300">
   <Container>
-    <h2 class="mb-6 text-3xl font-bold text-gray-900">Experiencia</h2>
-    <p class="text-lg text-gray-600">Contenido en construcción.</p>
+    <span class="label-caps text-sage block mb-5">Trayectoria</span>
+    <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-10 leading-tight">
+      Experiencia clínica
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-4 max-w-3xl">
+      {
+        areas.map((area) => (
+          <div class="flex items-start gap-3">
+            <span
+              class="mt-[6px] w-2 h-2 rounded-full bg-sage flex-shrink-0"
+              aria-hidden="true"
+            />
+            <span class="text-base text-ink-muted leading-relaxed">{area}</span>
+          </div>
+        ))
+      }
+    </div>
   </Container>
 </section>

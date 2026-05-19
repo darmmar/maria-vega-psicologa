@@ -3,18 +3,48 @@ import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import ServicesGrid from "@/components/sections/ServicesGrid.astro";
 import CTASection from "@/components/sections/CTASection.astro";
+
+const services = [
+  {
+    title: "Terapia de duelo",
+    shortDescription: "Acompañamiento en la pérdida y el proceso de duelo.",
+    href: "/terapia-duelo",
+  },
+  {
+    title: "Ansiedad y estrés",
+    shortDescription: "Herramientas para gestionar el malestar emocional.",
+    href: "/terapia-ansiedad",
+  },
+  {
+    title: "Adicciones",
+    shortDescription: "Apoyo en conductas adictivas y dependencias.",
+    href: "/terapia-adicciones",
+  },
+  {
+    title: "Infantil y juvenil",
+    shortDescription: "Atención a niños y adolescentes.",
+    href: "/terapia-infantil-juvenil",
+  },
+  {
+    title: "Terapia online",
+    shortDescription: "Sesiones a distancia con la misma calidad.",
+    href: "/terapia-online",
+  },
+];
 ---
 
 <Layout
   title="Psicóloga en Málaga"
   description="Psicóloga general sanitaria en Málaga. Terapia individual presencial basada en evidencia científica. Primeras citas disponibles."
 >
-  <section class="py-16">
+  <section class="section-gap">
     <Container>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900">Psicóloga en Málaga</h1>
-      <p class="text-lg text-gray-600">Contenido en construcción.</p>
+      <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
+        Psicóloga en Málaga
+      </h1>
+      <p class="text-lg text-ink-muted leading-relaxed">Contenido en construcción.</p>
     </Container>
   </section>
-  <ServicesGrid />
+  <ServicesGrid services={services} />
   <CTASection />
 </Layout>

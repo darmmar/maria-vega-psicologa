@@ -3,16 +3,54 @@ import Layout from "@/components/layout/Layout.astro";
 import Hero from "@/components/sections/Hero.astro";
 import TherapyApproach from "@/components/sections/TherapyApproach.astro";
 import ServicesGrid from "@/components/sections/ServicesGrid.astro";
+import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
+import TrainingBlock from "@/components/sections/TrainingBlock.astro";
+import CourseHighlight from "@/components/sections/CourseHighlight.astro";
 import CTASection from "@/components/sections/CTASection.astro";
-import { siteConfig } from "@/lib/config/site";
+
+const services = [
+  {
+    title: "Terapia de duelo",
+    shortDescription: "Acompañamiento en la pérdida y el proceso de duelo.",
+    href: "/terapia-duelo",
+  },
+  {
+    title: "Ansiedad y estrés",
+    shortDescription: "Herramientas para gestionar el malestar emocional.",
+    href: "/terapia-ansiedad",
+  },
+  {
+    title: "Adicciones",
+    shortDescription: "Apoyo en conductas adictivas y dependencias.",
+    href: "/terapia-adicciones",
+  },
+  {
+    title: "Infantil y juvenil",
+    shortDescription: "Atención a niños y adolescentes.",
+    href: "/terapia-infantil-juvenil",
+  },
+  {
+    title: "Terapia online",
+    shortDescription: "Sesiones a distancia con la misma calidad.",
+    href: "/terapia-online",
+  },
+  {
+    title: "Terapia presencial",
+    shortDescription: "Consulta en Málaga, en un espacio seguro.",
+    href: "/psicologa-malaga",
+  },
+];
 ---
 
 <Layout
-  title={siteConfig.siteName}
-  description={siteConfig.description}
+  title="María Vega Psicología | Psicóloga en Málaga y online"
+  description="Psicóloga General Sanitaria en Málaga. Terapia contextual, ACT y terapia breve sistémica para adultos, adolescentes y niños."
 >
   <Hero />
   <TherapyApproach />
-  <ServicesGrid />
+  <ServicesGrid services={services} />
+  <ExperienceBlock />
+  <TrainingBlock />
+  <CourseHighlight />
   <CTASection />
 </Layout>

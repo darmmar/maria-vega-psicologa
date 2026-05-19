@@ -1,16 +1,48 @@
 ---
 import Container from "@/components/ui/Container.astro";
+
+const pillars = [
+  {
+    title: "Basada en evidencia",
+    description:
+      "Metodologías validadas científicamente, adaptadas a cada persona y momento vital.",
+  },
+  {
+    title: "Perspectiva de género",
+    description:
+      "Un enfoque que reconoce el impacto del género en la salud mental y el bienestar.",
+  },
+  {
+    title: "Enfoque humanista",
+    description:
+      "La persona en el centro. Sin juicios, con empatía y confianza en tu capacidad de cambio.",
+  },
+];
 ---
 
-<section class="py-16 lg:py-24">
+<section class="section-gap bg-warm-200">
   <Container>
-    <div class="mx-auto max-w-3xl text-center">
-      <h2 class="mb-4 text-3xl font-bold text-gray-900">Mi enfoque terapéutico</h2>
-      <p class="text-lg text-gray-600">
-        Utilizo modelos terapéuticos de tercera generación, basados en evidencia científica. Mi
-        trabajo se centra en comprender tu experiencia única y acompañarte en el proceso de cambio
-        de manera respetuosa y colaborativa.
+    <div class="max-w-3xl mx-auto">
+      <span class="label-caps text-sage block mb-5">Enfoque terapéutico</span>
+      <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-6 leading-tight">
+        Terapia que acompaña, no que dirige
+      </h2>
+      <p class="text-lg text-ink-muted leading-relaxed mb-12 max-w-2xl">
+        Mi trabajo integra las Terapias de Tercera Generación (ACT), el enfoque sistémico y las
+        terapias contextuales. Me adapto a tu momento vital, siempre desde la evidencia
+        científica y el respeto absoluto a tu historia.
       </p>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        {
+          pillars.map((pillar) => (
+            <div class="p-6 rounded-xl bg-white border border-ink-border/40">
+              <h3 class="font-display text-xl font-medium text-ink mb-2">{pillar.title}</h3>
+              <p class="text-sm text-ink-muted leading-relaxed">{pillar.description}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </Container>
 </section>

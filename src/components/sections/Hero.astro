@@ -1,25 +1,56 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
-import { siteConfig } from "@/lib/config/site";
 ---
 
-<section class="bg-gradient-to-b from-primary-50 to-white py-20 lg:py-28">
+<section class="relative overflow-hidden section-gap bg-warm-100">
+  <!-- Decorative organic blob -->
+  <div
+    class="pointer-events-none absolute -right-32 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sage-100/50 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -left-24 bottom-0 w-[300px] h-[300px] rounded-full bg-warm-600/15 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
   <Container>
-    <div class="mx-auto max-w-3xl text-center">
-      <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-600">
-        {siteConfig.professionalTitle} &mdash; {siteConfig.location.city}
-      </p>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
-        Psicología basada en evidencia para tu bienestar
-      </h1>
-      <p class="mb-8 text-lg text-gray-600 sm:text-xl">
-        Terapia presencial en Málaga y online para adultos. Acompañamiento en duelo, ansiedad,
-        relaciones y crecimiento personal con un enfoque científico y humano.
-      </p>
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <Button href="/reserva" size="lg">Pedir cita</Button>
-        <Button href="/conoceme" variant="secondary" size="lg">Conóceme</Button>
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Text content -->
+      <div class="space-y-7">
+        <span class="label-caps text-sage block">Psicóloga General Sanitaria · Málaga</span>
+
+        <h1 class="font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold text-ink leading-[1.1]">
+          Un espacio para cuidarte
+        </h1>
+
+        <p class="text-lg text-ink-muted leading-relaxed max-w-lg">
+          Terapia contextual y ACT en Málaga y online. Acompañamiento en duelo, ansiedad,
+          adicciones y crecimiento personal desde un enfoque humano y basado en evidencia.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-1">
+          <Button href="/reserva" size="lg">Reservar cita</Button>
+          <Button href="/conoceme" variant="secondary" size="lg">Conóceme</Button>
+        </div>
+      </div>
+
+      <!-- Image placeholder (editorial shape) -->
+      <div class="relative hidden lg:flex justify-end">
+        <div
+          class="w-full max-w-[360px] aspect-[4/5] overflow-hidden flex items-end justify-center bg-sage-100"
+          style="border-radius: 200px 200px 0 200px;"
+        >
+          <span class="label-caps text-sage-400 mb-10 pb-2">Foto profesional</span>
+        </div>
+        <!-- Small decorative circle -->
+        <div
+          class="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-warm-600/30"
+          aria-hidden="true"
+        >
+        </div>
       </div>
     </div>
   </Container>

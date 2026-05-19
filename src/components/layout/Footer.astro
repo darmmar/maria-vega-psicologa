@@ -6,23 +6,45 @@ import Container from "@/components/ui/Container.astro";
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-gray-100 bg-gray-50 py-10">
+<footer class="bg-warm-200 border-t border-ink-border/40 py-14">
   <Container>
-    <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
-      <p class="text-sm text-gray-500">
-        &copy; {currentYear}
-        {siteConfig.siteName} &mdash; {siteConfig.professionalTitle}
-      </p>
+    <div class="flex flex-col md:flex-row justify-between gap-10">
+      <!-- Brand -->
+      <div class="max-w-sm">
+        <span class="font-display text-xl font-semibold text-sage block mb-1">
+          {siteConfig.professionalName}
+        </span>
+        <span class="font-body text-xs text-ink-faint block mb-4 uppercase tracking-wider">
+          {siteConfig.professionalTitle}
+        </span>
+        <p class="text-sm text-ink-muted leading-relaxed">
+          {siteConfig.description}
+        </p>
+      </div>
 
-      <nav aria-label="Navegación legal" class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-        {
-          legalNav.map((item) => (
-            <a href={item.href} class="text-sm text-gray-500 hover:text-gray-700 hover:underline">
-              {item.label}
-            </a>
-          ))
-        }
-      </nav>
+      <!-- Legal nav -->
+      <div class="flex flex-col gap-3">
+        <span class="label-caps text-ink-faint">Legal</span>
+        <nav aria-label="Navegación legal" class="flex flex-col gap-2">
+          {
+            legalNav.map((item) => (
+              <a
+                href={item.href}
+                class="text-sm text-ink-muted hover:text-sage-600 hover:underline underline-offset-2 transition-colors"
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-ink-border/40">
+      <p class="text-xs text-ink-faint">
+        &copy; {currentYear}
+        {siteConfig.siteName}. Todos los derechos reservados.
+      </p>
     </div>
   </Container>
 </footer>

@@ -1,54 +1,44 @@
 ---
 import Container from "@/components/ui/Container.astro";
-import Card from "@/components/ui/Card.astro";
 
-const services = [
-  {
-    title: "Terapia presencial en Málaga",
-    description: "Sesiones individuales en consulta.",
-    href: "/psicologa-malaga",
-  },
-  {
-    title: "Terapia online",
-    description: "Sesiones por videollamada desde cualquier lugar.",
-    href: "/terapia-online",
-  },
-  {
-    title: "Duelo y pérdidas",
-    description: "Acompañamiento en procesos de duelo.",
-    href: "/terapia-duelo",
-  },
-  {
-    title: "Ansiedad",
-    description: "Herramientas para gestionar la ansiedad.",
-    href: "/terapia-ansiedad",
-  },
-  {
-    title: "Adicciones",
-    description: "Apoyo en procesos de cambio y adicciones.",
-    href: "/terapia-adicciones",
-  },
-  {
-    title: "Infanto-juvenil",
-    description: "Terapia para niños, niñas y adolescentes.",
-    href: "/terapia-infantil-juvenil",
-  },
-];
+interface ServiceItem {
+  title: string;
+  shortDescription: string;
+  href: string;
+  icon?: string;
+}
+
+interface Props {
+  services: ServiceItem[];
+}
+
+const { services } = Astro.props;
 ---
 
-<section class="bg-gray-50 py-16 lg:py-24">
+<section class="section-gap bg-warm-100">
   <Container>
-    <h2 class="mb-10 text-center text-3xl font-bold text-gray-900">Servicios</h2>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <span class="label-caps text-sage block mb-5">Especialidades</span>
+    <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-12 leading-tight">
+      ¿En qué puedo ayudarte?
+    </h2>
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {
         services.map((service) => (
-          <Card>
-            <h3 class="mb-2 text-lg font-semibold text-gray-900">{service.title}</h3>
-            <p class="mb-4 text-sm text-gray-600">{service.description}</p>
-            <a href={service.href} class="text-sm font-medium text-primary-600 hover:underline">
-              Más información &rarr;
-            </a>
-          </Card>
+          <a
+            href={service.href}
+            class="group block p-6 bg-white rounded-2xl border border-ink-border/50 hover:border-sage-300 hover:shadow-[0_8px_32px_rgba(71,91,76,0.08)] transition-all duration-200"
+          >
+            <h3 class="font-display text-xl font-medium text-ink mb-2 group-hover:text-sage transition-colors">
+              {service.title}
+            </h3>
+            <p class="text-sm text-ink-muted leading-relaxed mb-4">
+              {service.shortDescription}
+            </p>
+            <span class="text-sm font-semibold text-sage-600 group-hover:underline underline-offset-2">
+              Saber más →
+            </span>
+          </a>
         ))
       }
     </div>
