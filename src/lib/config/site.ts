@@ -18,6 +18,7 @@ export type SiteConfig = {
   };
   booking: {
     calComUrl?: string;
+    calComUsername?: string;
   };
   payments: {
     courseDueloPaymentLink?: string;
@@ -50,7 +51,8 @@ export const siteConfig: SiteConfig = {
     linkedin: "",
   },
   booking: {
-    calComUrl: "",
+    calComUrl: "https://cal.com/maria-vega",
+    calComUsername: "maria-vega",
   },
   payments: {
     courseDueloPaymentLink: "",
