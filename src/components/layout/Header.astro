@@ -1,0 +1,43 @@
+---
+import { siteConfig } from "@/lib/config/site";
+import { mainNav } from "@/lib/config/navigation";
+import MobileMenu from "@/components/islands/MobileMenu";
+import Container from "@/components/ui/Container.astro";
+---
+
+<header class="sticky top-0 z-40 border-b border-gray-100 bg-white/95 backdrop-blur">
+  <Container>
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="text-lg font-semibold text-primary-700 hover:text-primary-800"
+        aria-label={`${siteConfig.siteName} - Inicio`}
+      >
+        {siteConfig.professionalName}
+        <span class="ml-1 hidden text-sm font-normal text-gray-500 sm:inline">
+          {siteConfig.professionalTitle}
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex md:items-center md:gap-6" aria-label="Navegación principal">
+        {
+          mainNav.map((item) => (
+            <a
+              href={item.href}
+              class="text-sm font-medium text-gray-600 transition-colors hover:text-primary-700"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Mobile menu island -->
+      <div class="relative">
+        <MobileMenu items={mainNav} client:load />
+      </div>
+    </div>
+  </Container>
+</header>

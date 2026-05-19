@@ -1,0 +1,18 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import TherapyApproach from "@/components/sections/TherapyApproach.astro";
+import ServicesGrid from "@/components/sections/ServicesGrid.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import { siteConfig } from "@/lib/config/site";
+---
+
+<Layout
+  title={siteConfig.siteName}
+  description={siteConfig.description}
+>
+  <Hero />
+  <TherapyApproach />
+  <ServicesGrid />
+  <CTASection />
+</Layout>

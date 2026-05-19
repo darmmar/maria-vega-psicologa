@@ -1,0 +1,26 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import { siteConfig } from "@/lib/config/site";
+---
+
+<section class="bg-gradient-to-b from-primary-50 to-white py-20 lg:py-28">
+  <Container>
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-600">
+        {siteConfig.professionalTitle} &mdash; {siteConfig.location.city}
+      </p>
+      <h1 class="mb-6 text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl">
+        Psicología basada en evidencia para tu bienestar
+      </h1>
+      <p class="mb-8 text-lg text-gray-600 sm:text-xl">
+        Terapia presencial en Málaga y online para adultos. Acompañamiento en duelo, ansiedad,
+        relaciones y crecimiento personal con un enfoque científico y humano.
+      </p>
+      <div class="flex flex-col justify-center gap-4 sm:flex-row">
+        <Button href="/reserva" size="lg">Pedir cita</Button>
+        <Button href="/conoceme" variant="secondary" size="lg">Conóceme</Button>
+      </div>
+    </div>
+  </Container>
+</section>

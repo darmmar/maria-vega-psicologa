@@ -1,0 +1,28 @@
+---
+import { siteConfig } from "@/lib/config/site";
+import { legalNav } from "@/lib/config/navigation";
+import Container from "@/components/ui/Container.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-gray-100 bg-gray-50 py-10">
+  <Container>
+    <div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
+      <p class="text-sm text-gray-500">
+        &copy; {currentYear}
+        {siteConfig.siteName} &mdash; {siteConfig.professionalTitle}
+      </p>
+
+      <nav aria-label="Navegación legal" class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+        {
+          legalNav.map((item) => (
+            <a href={item.href} class="text-sm text-gray-500 hover:text-gray-700 hover:underline">
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </Container>
+</footer>

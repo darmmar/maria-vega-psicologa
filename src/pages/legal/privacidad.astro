@@ -1,0 +1,26 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import { siteConfig } from "@/lib/config/site";
+---
+
+<Layout
+  title="Política de Privacidad"
+  description="Política de privacidad de María Vega Psicología."
+  noindex={true}
+>
+  <section class="py-16">
+    <Container>
+      <div class="prose prose-gray max-w-none">
+        <h1>Política de Privacidad</h1>
+        <p>
+          En cumplimiento del Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD),
+          te informamos sobre el tratamiento de tus datos personales en este sitio web.
+        </p>
+        <h2>Responsable del tratamiento</h2>
+        <p>{siteConfig.professionalName} — {siteConfig.professionalTitle}</p>
+        <p>Esta política se completará próximamente.</p>
+      </div>
+    </Container>
+  </section>
+</Layout>

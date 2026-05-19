@@ -1,0 +1,40 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import { siteConfig } from "@/lib/config/site";
+---
+
+<Layout
+  title="Aviso Legal"
+  description="Aviso legal de María Vega Psicología."
+  noindex={true}
+>
+  <section class="py-16">
+    <Container>
+      <div class="prose prose-gray max-w-none">
+        <h1>Aviso Legal</h1>
+        <p>
+          En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la
+          Sociedad de la Información y Comercio Electrónico, se informa que este sitio web es
+          titularidad de {siteConfig.professionalName}.
+        </p>
+        <h2>Datos identificativos</h2>
+        <ul>
+          <li>
+            <strong>Nombre profesional:</strong>
+            {siteConfig.professionalName}
+          </li>
+          <li>
+            <strong>Actividad:</strong>
+            {siteConfig.professionalTitle}
+          </li>
+          <li>
+            <strong>Localización:</strong>
+            {siteConfig.location.city}, {siteConfig.location.province}
+          </li>
+        </ul>
+        <p>El resto de los datos identificativos se completarán próximamente.</p>
+      </div>
+    </Container>
+  </section>
+</Layout>

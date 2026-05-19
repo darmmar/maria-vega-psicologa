@@ -1,0 +1,26 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+
+export async function getStaticPaths() {
+  return [];
+}
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.params;
+---
+
+<Layout
+  title="Recurso"
+  description="Recurso psicoeducativo de María Vega Psicología."
+>
+  <section class="py-16">
+    <Container>
+      <h1 class="mb-6 text-4xl font-bold text-gray-900">Recurso: {slug}</h1>
+      <p class="text-lg text-gray-600">Contenido en construcción.</p>
+    </Container>
+  </section>
+</Layout>

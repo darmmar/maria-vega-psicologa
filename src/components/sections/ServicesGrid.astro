@@ -1,0 +1,56 @@
+---
+import Container from "@/components/ui/Container.astro";
+import Card from "@/components/ui/Card.astro";
+
+const services = [
+  {
+    title: "Terapia presencial en Málaga",
+    description: "Sesiones individuales en consulta.",
+    href: "/psicologa-malaga",
+  },
+  {
+    title: "Terapia online",
+    description: "Sesiones por videollamada desde cualquier lugar.",
+    href: "/terapia-online",
+  },
+  {
+    title: "Duelo y pérdidas",
+    description: "Acompañamiento en procesos de duelo.",
+    href: "/terapia-duelo",
+  },
+  {
+    title: "Ansiedad",
+    description: "Herramientas para gestionar la ansiedad.",
+    href: "/terapia-ansiedad",
+  },
+  {
+    title: "Adicciones",
+    description: "Apoyo en procesos de cambio y adicciones.",
+    href: "/terapia-adicciones",
+  },
+  {
+    title: "Infanto-juvenil",
+    description: "Terapia para niños, niñas y adolescentes.",
+    href: "/terapia-infantil-juvenil",
+  },
+];
+---
+
+<section class="bg-gray-50 py-16 lg:py-24">
+  <Container>
+    <h2 class="mb-10 text-center text-3xl font-bold text-gray-900">Servicios</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <Card>
+            <h3 class="mb-2 text-lg font-semibold text-gray-900">{service.title}</h3>
+            <p class="mb-4 text-sm text-gray-600">{service.description}</p>
+            <a href={service.href} class="text-sm font-medium text-primary-600 hover:underline">
+              Más información &rarr;
+            </a>
+          </Card>
+        ))
+      }
+    </div>
+  </Container>
+</section>
