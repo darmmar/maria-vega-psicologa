@@ -25,7 +25,7 @@ const eventTypes = [
       "Sesión de 50 minutos para continuar el proceso terapéutico en curso.",
     duration: "50 min",
     format: "Presencial u online",
-    slug: `${calUsername}/sesion-seguimiento`,
+    slug: `${calUsername}/seguimiento`,
     badge: null,
   },
   {
@@ -34,7 +34,7 @@ const eventTypes = [
       "Terapia por videollamada desde donde estés, con la misma calidad y privacidad que en consulta.",
     duration: "50 min",
     format: "Online",
-    slug: `${calUsername}/sesion-online`,
+    slug: `${calUsername}/online`,
     badge: null,
   },
 ];
@@ -127,6 +127,14 @@ const faqItems = [
           ))
         }
       </div>
+
+      <p class="mt-8 text-center font-body text-sm text-ink-muted/70">
+        Los tipos de sesión se activarán próximamente. Mientras tanto, puedes reservar directamente
+        desde el calendario de abajo o{" "}
+        <a href="/contacto" class="underline underline-offset-2 hover:text-sage transition-colors">
+          contactar por mensaje
+        </a>.
+      </p>
     </Container>
   </section>
 
@@ -144,7 +152,7 @@ const faqItems = [
         </div>
 
         <div class="rounded-2xl overflow-hidden border border-ink-border/30 bg-white shadow-sm">
-          <CalEmbed calLink={`${calUsername}/primera-consulta`} client:load />
+          <CalEmbed calLink={calUsername} client:load />
         </div>
       </div>
     </Container>
