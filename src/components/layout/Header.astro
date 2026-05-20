@@ -10,7 +10,7 @@ const navItems = mainNav.filter((item) => item.label !== "Reserva");
 
 <header class="sticky top-0 z-40 bg-white border-b border-ink-border/50 backdrop-blur-sm">
   <Container>
-    <div class="flex h-20 items-center justify-between gap-6">
+    <div class="flex min-h-[6rem] h-24 items-center justify-between gap-6">
       <!-- Logo -->
       <a
         href="/"
@@ -18,12 +18,14 @@ const navItems = mainNav.filter((item) => item.label !== "Reserva");
         aria-label={`${siteConfig.siteName} — Inicio`}
       >
         <img
-          src="/images/mv-monogram.png"
+          src="/images/mv-monogram.svg"
           alt=""
-          width="72"
-          height="72"
+          width="108"
+          height="108"
           class="flex-shrink-0 group-hover:opacity-80 transition-opacity"
           aria-hidden="true"
+          decoding="sync"
+          fetchpriority="high"
         />
         <div class="flex flex-col leading-none">
           <span class="font-display text-xl font-semibold text-sage group-hover:text-sage-600 transition-colors">
