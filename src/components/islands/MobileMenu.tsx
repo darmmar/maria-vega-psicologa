@@ -97,15 +97,6 @@ export default function MobileMenu({ items }: Props) {
                 </a>
               ))}
 
-              <div className="mt-8 pb-8">
-                <a
-                  href="/reserva"
-                  onClick={() => setOpen(false)}
-                  className="flex w-full justify-center bg-sage text-white font-semibold text-lg py-3.5 px-6 rounded-lg hover:bg-sage-600 transition-colors"
-                >
-                  Reservar cita
-                </a>
-              </div>
             </nav>
           </div>,
           document.body
