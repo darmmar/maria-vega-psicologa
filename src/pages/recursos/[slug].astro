@@ -22,7 +22,7 @@ const { Content } = await render(resource)
   description={resource.data.seoDescription ?? resource.data.description}
 >
   <Container>
-    <article class="max-w-2xl mx-auto py-16">
+    <article class="max-w-2xl mx-auto py-8 lg:py-12">
       {resource.data.tags.length > 0 && (
         <div class="flex gap-2 flex-wrap mb-6">
           {resource.data.tags.map((tag) => <Badge>{tag}</Badge>)}

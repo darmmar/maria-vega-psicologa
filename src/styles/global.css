@@ -29,7 +29,7 @@
 
 @layer components {
   .section-gap {
-    @apply py-24 lg:py-32;
+    @apply py-12 lg:py-16;
   }
   .label-caps {
     @apply text-xs font-semibold uppercase tracking-widest font-body;
