@@ -19,6 +19,14 @@ export type SiteConfig = {
   booking: {
     calComUrl?: string;
     calComUsername?: string;
+    eventSlugs: {
+      presencial: string;
+      online: string;
+    };
+    availability: {
+      presencial: string;
+      online: string;
+    };
   };
   payments: {
     courseDueloPaymentLink?: string;
@@ -53,6 +61,14 @@ export const siteConfig: SiteConfig = {
   booking: {
     calComUrl: "https://cal.com/maria-vega",
     calComUsername: "maria-vega",
+    eventSlugs: {
+      presencial: "terapia-presencial",
+      online: "terapia-online",
+    },
+    availability: {
+      presencial: "Lunes, 17:00–20:00 (Málaga)",
+      online: "Martes a domingo, 16:00–21:00",
+    },
   },
   payments: {
     courseDueloPaymentLink: "",
