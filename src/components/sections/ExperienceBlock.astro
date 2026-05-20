@@ -1,5 +1,6 @@
 ---
 import Container from "@/components/ui/Container.astro";
+import { Icon } from "astro-icon/components";
 
 const areas = [
   "Consulta propia · Adultos y adolescentes",
@@ -22,10 +23,7 @@ const areas = [
       {
         areas.map((area) => (
           <div class="flex items-start gap-3">
-            <span
-              class="mt-[6px] w-2 h-2 rounded-full bg-sage flex-shrink-0"
-              aria-hidden="true"
-            />
+            <Icon name="lucide:check-circle" class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" aria-hidden="true" />
             <span class="text-base text-ink-muted leading-relaxed">{area}</span>
           </div>
         ))

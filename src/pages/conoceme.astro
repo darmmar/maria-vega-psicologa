@@ -4,6 +4,7 @@ import Container from '@/components/ui/Container.astro'
 import ExperienceBlock from '@/components/sections/ExperienceBlock.astro'
 import TrainingBlock from '@/components/sections/TrainingBlock.astro'
 import CTASection from '@/components/sections/CTASection.astro'
+import { Icon } from 'astro-icon/components'
 ---
 
 <Layout
@@ -11,7 +12,7 @@ import CTASection from '@/components/sections/CTASection.astro'
   description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica."
 >
   <!-- Hero -->
-  <section class="section-gap bg-warm-100">
+  <section class="py-8 lg:py-10 bg-warm-100">
     <Container>
       <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div>
@@ -31,9 +32,10 @@ import CTASection from '@/components/sections/CTASection.astro'
 
         <!-- Photo placeholder -->
         <div
-          class="aspect-[3/4] w-full max-w-xs mx-auto lg:mx-0 rounded-2xl bg-sage-100 flex items-center justify-center border border-sage-200"
+          class="aspect-[3/4] w-full max-w-xs mx-auto lg:mx-0 rounded-2xl bg-sage-100 flex flex-col items-center justify-center border border-sage-200 gap-3"
           aria-label="Foto de María Vega"
         >
+          <Icon name="lucide:user" class="w-16 h-16 text-sage-400 opacity-60" aria-hidden="true" />
           <p class="text-sage-500 text-sm font-body text-center px-6">Foto de María Vega</p>
         </div>
       </div>

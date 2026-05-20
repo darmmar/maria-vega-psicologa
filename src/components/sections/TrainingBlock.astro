@@ -1,5 +1,6 @@
 ---
 import Container from "@/components/ui/Container.astro";
+import { Icon } from "astro-icon/components";
 
 interface TrainingItem {
   degree: string;
@@ -33,6 +34,7 @@ const complementary: TrainingItem[] = [
 
 <section class="section-gap bg-warm-100">
   <Container>
+    <Icon name="lucide:graduation-cap" class="w-10 h-10 text-sage opacity-70 mb-5" aria-hidden="true" />
     <span class="label-caps text-sage block mb-5">Cualificación</span>
     <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-12 leading-tight">
       Formación
