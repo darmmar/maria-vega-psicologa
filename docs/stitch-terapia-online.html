@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Terapia Online - Maria Vega</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-low": "#f5f3f0",
+                "outline": "#737873",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "secondary-container": "#f4dfcb",
+                "background": "#fbf9f6",
+                "on-primary-fixed-variant": "#374b3d",
+                "on-error-container": "#93000a",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed-dim": "#c9c6c0",
+                "primary-fixed": "#d1e8d5",
+                "tertiary-fixed": "#e5e2db",
+                "on-secondary-container": "#716252",
+                "primary-container": "#5f7464",
+                "inverse-on-surface": "#f3f0ed",
+                "secondary-fixed-dim": "#d7c3b0",
+                "secondary-fixed": "#f4dfcb",
+                "surface-container-highest": "#e4e2df",
+                "surface-tint": "#4f6354",
+                "surface-dim": "#dcdad7",
+                "on-tertiary-fixed": "#1c1c18",
+                "primary": "#475b4c",
+                "on-tertiary-fixed-variant": "#474742",
+                "on-surface": "#1b1c1a",
+                "on-primary-fixed": "#0c1f13",
+                "surface-container-high": "#eae8e5",
+                "error": "#ba1a1a",
+                "primary-fixed-dim": "#b5ccb9",
+                "outline-variant": "#c3c8c1",
+                "on-tertiary-container": "#f6f3ec",
+                "on-tertiary": "#ffffff",
+                "on-surface-variant": "#434843",
+                "secondary": "#6b5c4c",
+                "inverse-primary": "#b5ccb9",
+                "surface-container": "#f0edea",
+                "inverse-surface": "#30302f",
+                "on-primary": "#ffffff",
+                "surface-variant": "#e4e2df",
+                "on-background": "#1b1c1a",
+                "on-secondary-fixed-variant": "#524436",
+                "tertiary-container": "#706f6a",
+                "surface-bright": "#fbf9f6",
+                "on-secondary-fixed": "#241a0e",
+                "error-container": "#ffdad6",
+                "on-primary-container": "#e2f9e5",
+                "surface": "#fbf9f6",
+                "tertiary": "#575752"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "1120px",
+                "stack-lg": "3rem",
+                "unit": "4px",
+                "section-gap": "12rem",
+                "gutter": "2rem",
+                "stack-sm": "0.75rem",
+                "stack-md": "1.5rem"
+        },
+        "fontFamily": {
+                "body-md": [
+                        "Source Sans 3"
+                ],
+                "headline-sm": [
+                        "Playfair Display"
+                ],
+                "display-lg-mobile": [
+                        "Playfair Display"
+                ],
+                "display-lg": [
+                        "Playfair Display"
+                ],
+                "label-caps": [
+                        "Source Sans 3"
+                ],
+                "body-lg": [
+                        "Source Sans 3"
+                ],
+                "headline-md": [
+                        "Playfair Display"
+                ]
+        },
+        "fontSize": {
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-sm": [
+                        "24px",
+                        {
+                                "lineHeight": "1.4",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-lg-mobile": [
+                        "36px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "64px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "20px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "300"
+                        }
+                ],
+                "headline-md": [
+                        "40px",
+                        {
+                                "lineHeight": "1.3",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 w-full bg-background/90 backdrop-blur-md border-b border-surface-variant/50">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-container-max mx-auto">
+<a class="font-headline-sm text-headline-sm text-primary tracking-tight" href="#">Maria Vega</a>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-label-caps font-label-caps text-primary border-b border-primary pb-1" href="#">Terapia</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Especialidades</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Recursos</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Sobre mÃ­</a>
+</div>
+<button class="hidden md:block bg-transparent text-primary border border-primary px-8 py-3 rounded-none text-label-caps font-label-caps hover:bg-primary hover:text-on-primary transition-colors">
+                Reservar primera sesiÃ³n
+            </button>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="w-full max-w-container-max mx-auto px-8 py-section-gap relative">
+<div class="flex flex-col md:flex-row gap-16 md:gap-24 items-center">
+<div class="md:w-1/2 flex flex-col gap-8 z-10">
+<span class="text-label-caps font-label-caps text-primary tracking-[0.2em] uppercase">Conveniencia y Privacidad</span>
+<h1 class="font-display-lg text-display-lg text-primary md:font-display-lg md:text-display-lg font-display-lg-mobile text-display-lg-mobile">
+                    Tu terapia,<br/>desde donde estÃ©s.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md leading-relaxed">
+                    Accede a un espacio seguro y profesional sin importar tu ubicaciÃ³n. La terapia online ofrece el mismo rigor cientÃ­fico que la presencial, con la flexibilidad que tu vida exige.
+                </p>
+<div class="pt-8">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-none text-label-caps font-label-caps hover:bg-surface-tint transition-colors w-full md:w-auto tracking-widest uppercase">
+                        Comenzar
+                    </button>
+</div>
+</div>
+<div class="md:w-1/2 relative mt-12 md:mt-0">
+<div class="relative w-full aspect-[3/4] overflow-hidden bg-surface-container-high">
+<img alt="Laptop on a minimalist wooden desk with a small plant" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700" data-alt="A clean, minimalist workspace featuring a modern laptop open on a light wooden desk. A small, organic potted plant sits nearby, adding a touch of nature. Soft, natural light filters into the room, creating a calm, warm, and inviting atmosphere suitable for a healthcare or therapy website. The overall aesthetic is bright, serene, and uncluttered, with a light mode palette emphasizing soft whites, muted greens, and natural wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYTpR18Uq8FAp60YsbSCmadSjdjAfGwM42aFQIiatLdBdLpxrlyUjzm8rJYzSsUkeGwsxBQaOO_-JxTdX-sv6SlX0jq5x0qFSByVcPBxlAp6Xex_cnUgniLiPMxTVTsOgQaVhNAJXFzms6qdO1RfuWTf5L5zD6eoc3u9BIQl_aZ4WnI061bGLz_QHDD5kg2y4_KuCK8dfzkYlaX7BIKpusbkR5XyFwztc4yE-ewSl3Y2-MCYIa_ddCs8W5YRMSumCqqop3LwjgK58"/>
+</div>
+<div class="absolute -bottom-12 -left-12 w-64 h-64 bg-secondary-fixed/30 rounded-full blur-3xl -z-10"></div>
+</div>
+</div>
+</section>
+<!-- Benefits -->
+<section class="w-full bg-background py-section-gap border-t border-surface-variant/30">
+<div class="max-w-container-max mx-auto px-8">
+<div class="mb-24 text-center max-w-2xl mx-auto">
+<h2 class="font-headline-md text-headline-md text-primary mb-8 font-light italic">Ventajas del formato online</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">DiseÃ±ado para adaptarse a tu ritmo, eliminando barreras geogrÃ¡ficas y temporales sin comprometer la calidad terapÃ©utica.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-24">
+<!-- Benefit 1 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 flex items-center justify-center text-primary mb-8 border border-primary/20 rounded-full">
+<span class="material-symbols-outlined text-3xl font-light">schedule</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-normal">Flexibilidad Total</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Adapta las sesiones a tu horario. Ideal para profesionales ocupados o personas con agendas cambiantes.</p>
+</div>
+<!-- Benefit 2 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 flex items-center justify-center text-primary mb-8 border border-primary/20 rounded-full">
+<span class="material-symbols-outlined text-3xl font-light">location_off</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-normal">Sin Desplazamientos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Realiza tu sesiÃ³n desde la comodidad y seguridad de tu hogar. Ahorra tiempo en trayectos y elimina el estrÃ©s del trÃ¡fico o transporte pÃºblico.</p>
+</div>
+<!-- Benefit 3 -->
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 flex items-center justify-center text-primary mb-8 border border-primary/20 rounded-full">
+<span class="material-symbols-outlined text-3xl font-light">verified</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4 font-normal">Rigor CientÃ­fico</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Misma eficacia comprobada. Utilizamos tÃ©cnicas basadas en la evidencia, adaptadas con precisiÃ³n al entorno digital.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Image Feature Section -->
+<section class="w-full bg-surface-container-low py-section-gap">
+<div class="max-w-container-max mx-auto px-8 flex flex-col md:flex-row items-center gap-24">
+<div class="w-full md:w-1/2 order-2 md:order-1">
+<div class="aspect-[4/5] overflow-hidden">
+<img alt="Professional therapist on a video call" class="w-full h-full object-cover grayscale opacity-90" data-alt="A warm, professional therapist looking attentively at a screen during a video call. The therapist is situated in a calm, softly lit office environment with subtle, minimalist decor. The lighting is natural and flattering, emphasizing empathy and focus. The overall mood is reassuring, clinical yet approachable, utilizing a light, serene color palette with soft beiges and gentle greens to convey trust and safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1avLKc_Xm_Y5fn07gRe0B3kPXf6l1d-sgZKVRzmrS-ncQnQoKf0E1MCkFUKVM3JpqMXcIa4JlfgRNXPfm1r4lebwogthBHq6XC_2odeNOT8ghvzMR9fKz0iwQGhS0G6vzZpKT--7dZDBRMDTR0MvlPGDIie3zS3KJh0dd8t5B3djf9xteZlpa5Bu1dhgjqNrdgeWQCHUh0hSGw3atPybnJbpYzFJyEhAijS3vMwhzF3ZCWqVUrVJKG6t3-9So_ifiFI7YYhixKso"/>
+</div>
+</div>
+<div class="w-full md:w-1/2 order-1 md:order-2 flex flex-col gap-8">
+<h2 class="font-headline-md text-headline-md text-primary font-light">Un espacio seguro, <br/>dondequiera que estÃ©s.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    La evidencia cientÃ­fica demuestra que la terapia online es igual de eficaz que la presencial para la mayorÃ­a de los trastornos. Mi enfoque se centra en crear un vÃ­nculo terapÃ©utico sÃ³lido y proporcionarte herramientas efectivas para tu bienestar.
+                </p>
+<ul class="space-y-6 pt-4">
+<li class="flex items-start gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary font-light mt-1">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Mismas herramientas terapÃ©uticas y rigor clÃ­nico</span>
+</li>
+<li class="flex items-start gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary font-light mt-1">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant">EvaluaciÃ³n clÃ­nica completa y personalizada</span>
+</li>
+<li class="flex items-start gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary font-light mt-1">check</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Plataforma segura, encriptada y confidencial</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="w-full bg-background border-t border-surface-variant/30">
+<div class="w-full py-24 px-8 flex flex-col md:flex-row justify-between items-start gap-16 max-w-container-max mx-auto">
+<div class="flex flex-col gap-6">
+<span class="text-headline-sm font-headline-sm text-primary tracking-wide">Maria Vega</span>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-xs font-light">
+                    Â© 2024 Maria Vega. PsicologÃ­a y Bienestar.
+                </p>
+</div>
+<div class="flex flex-col md:flex-row gap-16 md:gap-32">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-[0.2em]">Legal</span>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors font-light" href="#">Aviso Legal</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors font-light" href="#">Privacidad</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors font-light" href="#">Cookies</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-[0.2em]">Contacto</span>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors font-light" href="#">info@mariavega.es</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

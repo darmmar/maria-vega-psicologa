@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PsicÃ³loga en MÃ¡laga - MarÃ­a Vega</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#f4dfcb",
+                        "surface-dim": "#dcdad7",
+                        "on-primary-fixed-variant": "#374b3d",
+                        "outline": "#737873",
+                        "inverse-on-surface": "#f3f0ed",
+                        "tertiary-fixed": "#e5e2db",
+                        "inverse-surface": "#30302f",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#0c1f13",
+                        "surface-container-highest": "#e4e2df",
+                        "surface-container-low": "#f5f3f0",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-secondary-container": "#716252",
+                        "outline-variant": "#c3c8c1",
+                        "primary-fixed": "#d1e8d5",
+                        "on-tertiary-fixed-variant": "#474742",
+                        "primary": "#475b4c",
+                        "secondary-container": "#f4dfcb",
+                        "on-surface": "#1b1c1a",
+                        "on-secondary-fixed-variant": "#524436",
+                        "tertiary": "#575752",
+                        "on-surface-variant": "#434843",
+                        "primary-container": "#5f7464",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1b1c1a",
+                        "secondary": "#6b5c4c",
+                        "background": "#fbf9f6",
+                        "surface-tint": "#4f6354",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#f6f3ec",
+                        "surface-container": "#f0edea",
+                        "surface-variant": "#e4e2df",
+                        "surface-container-high": "#eae8e5",
+                        "surface-bright": "#fbf9f6",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "surface": "#fbf9f6",
+                        "tertiary-container": "#706f6a",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#d7c3b0",
+                        "on-primary-container": "#e2f9e5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b5ccb9",
+                        "inverse-primary": "#b5ccb9",
+                        "on-secondary-fixed": "#241a0e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1120px",
+                        "unit": "4px",
+                        "stack-sm": "0.75rem",
+                        "stack-md": "1.5rem",
+                        "stack-lg": "3rem",
+                        "gutter": "2rem",
+                        "section-gap": "12rem"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Playfair Display"],
+                        "body-md": ["Source Sans 3"],
+                        "label-caps": ["Source Sans 3"],
+                        "headline-md": ["Playfair Display"],
+                        "display-lg": ["Playfair Display"],
+                        "body-lg": ["Source Sans 3"],
+                        "headline-sm": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-lg": ["56px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.7", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: theme('fontFamily.body-md');
+        }
+        .organic-blob {
+            position: absolute;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.3;
+            border-radius: 50%;
+        }
+        .editorial-quote {
+            font-family: theme('fontFamily.display-lg');
+            font-size: 40px;
+            line-height: 1.4;
+            color: theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+<!-- Ambient Background Blobs -->
+<div class="organic-blob bg-secondary-container w-[800px] h-[800px] top-[-300px] left-[-300px]"></div>
+<div class="organic-blob bg-surface-variant w-[800px] h-[800px] bottom-[-400px] right-[-200px]"></div>
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 bg-background/80 dark:bg-background/80 backdrop-blur-xl w-full border-b border-surface-variant/30">
+<div class="flex justify-between items-center w-full px-8 py-6 max-w-container-max mx-auto">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed tracking-tight">
+                Maria Vega
+            </div>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-primary dark:text-primary-fixed border-b border-primary dark:border-primary-fixed pb-1 hover:opacity-80 transition-opacity" href="#">
+<span class="text-label-caps font-label-caps">Terapia</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-80 transition-opacity" href="#">
+<span class="text-label-caps font-label-caps">Especialidades</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-80 transition-opacity" href="#">
+<span class="text-label-caps font-label-caps">Recursos</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:opacity-80 transition-opacity" href="#">
+<span class="text-label-caps font-label-caps">Sobre mÃ­</span>
+</a>
+</div>
+<button class="hidden md:block px-8 py-4 bg-primary text-on-primary hover:bg-primary/90 transition-colors">
+<span class="text-label-caps font-label-caps tracking-widest">Reservar primera sesiÃ³n</span>
+</button>
+<!-- Mobile Menu Icon (Placeholder for interaction) -->
+<button class="md:hidden text-primary p-2">
+<span class="material-symbols-outlined" style="font-size: 28px;">menu</span>
+</button>
+</div>
+</nav>
+<main class="flex-grow w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-24">
+<!-- Hero Section -->
+<section class="mt-24 md:mt-32 mb-section-gap flex flex-col lg:flex-row items-center gap-16 lg:gap-24 relative">
+<div class="w-full lg:w-5/12 flex flex-col gap-10 z-10 lg:pl-12">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-4">
+<div class="w-8 h-[1px] bg-secondary"></div>
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-[0.2em]">AtenciÃ³n PsicolÃ³gica</span>
+</div>
+<h1 class="font-display-lg text-display-lg md:font-display-lg md:text-display-lg text-on-surface leading-tight">Terapia presencial<br/><span class="italic text-primary/80">en MÃ¡laga</span></h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-md">
+                    Un espacio seguro, cÃ¡lido y confidencial en el corazÃ³n de MÃ¡laga. Te ofrezco un entorno diseÃ±ado para la calma, donde podemos explorar tus inquietudes sin prisas y con la mÃ¡xima cercanÃ­a humana.
+                </p>
+<div class="pt-8">
+<button class="group px-8 py-5 bg-transparent border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all duration-500 inline-flex items-center gap-4">
+<span class="text-label-caps font-label-caps tracking-widest">Solicitar cita presencial</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="w-full lg:w-7/12 relative mt-16 lg:mt-0 lg:-mr-12">
+<!-- Asymmetric Image Placement -->
+<div class="relative w-full aspect-[4/5] md:aspect-[4/3] overflow-hidden ml-auto">
+<img alt="Interior de consulta psicolÃ³gica moderna y cÃ¡lida" class="w-full h-full object-cover rounded-tr-[100px] rounded-bl-[100px]" data-alt="A warm, inviting psychology consulting room interior in a Mediterranean style. Soft, diffused natural light streams through a window, illuminating comfortable, high-quality linen armchairs in soft beige and sage green tones. The space is minimalist but cozy, featuring natural wood accents, a few healthy potted plants, and light walls, creating a serene, safe, and professional atmosphere devoid of clinical coldness. High editorial quality, realistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmN3PtQgnVQiUyRRSytVJBoeUOh9VMLMy4uwzuiq0TLsdpyQbzI44zT3s64P4rk-XPhE11e05AKnj54nJlwNTHh6Mgyom9zSjQFHUp4eo53qyyJ4CMcSTRjcAMDuNHj-jctiLPXKd4PD91OOHNeKVA2Rm4NfsRgQoBAnSyRty1kOLSwbBp2uiqS4y_h2FSTspaH0zGvPqMV7Z_mTd_YMVGD9JjwmnJLhK9hwKlbaKLU_pgy6jXAoydZC5tkd-RlVgAK7e6_ieZrmg"/>
+</div>
+<div class="absolute -bottom-12 -left-12 w-64 h-64 bg-surface-container-low rounded-full -z-10 hidden lg:block"></div>
+</div>
+</section>
+<!-- Location & Space Section -->
+<section class="mb-section-gap flex flex-col md:flex-row gap-16 lg:gap-24 items-center px-4 lg:px-12">
+<div class="w-full md:w-1/2 order-2 md:order-1 relative">
+<div class="aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden bg-surface-variant relative shadow-2xl shadow-surface-variant/20">
+<!-- Map Placeholder -->
+<div class="absolute inset-0 bg-surface-container-highest">
+<img alt="Mapa de MÃ¡laga centro" class="w-full h-full object-cover opacity-70 mix-blend-multiply filter contrast-125" data-alt="A stylized, aesthetic map view of central MÃ¡laga, Spain. The map uses a soft, warm color palette matching the brand: pale beiges for landmass, subtle sage greens for parks, and muted warm tones for streets. It avoids standard high-contrast Google Maps styling, opting instead for an elegant, minimalist editorial look that feels cohesive with a high-end wellness brand. A subtle marker pinpoints a central location." data-location="MÃ¡laga, Spain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa0ZL4eSzOJGUX7IqBuEprzM5jTUmBmKoA7GkrXJeyTqkkfsVGwRyqhoce5imFLNGEftSNJr5cKWhB4BvhZ8lCbFg8ggAWphCPRFZ5YGQscsckuBOdPxzDVK2uSRAiXk13i4MSZ_Z_K9StdDsSok82VKPPdEMv5vlfFueUoH12YdhgLS5SL9lgZDj9k1S3K63OxQMG0k6umrp63d2GPkzGYT-DAFnlrRHWKKbjG45wckYLZo2F2eAJnTjZWgatZuqsc8eUsfF7x1c"/>
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16 bg-surface/90 backdrop-blur-sm rounded-full shadow-lg">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 order-1 md:order-2 flex flex-col gap-10 lg:pr-12">
+<div class="flex flex-col gap-4">
+<h2 class="font-headline-md text-[40px] leading-tight text-on-surface font-light">En el corazÃ³n<br/><span class="italic text-primary">de MÃ¡laga</span></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed font-light mt-4">
+                    Mi consulta se encuentra situada en una zona accesible y tranquila del centro, pensada para que desde el momento en que entras, sientas que dejas el ruido exterior atrÃ¡s.
+                </p>
+</div>
+<div class="flex flex-col gap-8 mt-8 border-t border-surface-variant/50 pt-10">
+<div class="flex items-start gap-6 group">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors duration-300">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container transition-colors duration-300">signpost</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface block mb-2 tracking-widest text-primary/80">DirecciÃ³n</span>
+<span class="font-body-lg text-body-lg text-on-surface-variant font-light">Calle Principal, 42, Planta 2<br/>29015 MÃ¡laga</span>
+</div>
+</div>
+<div class="flex items-start gap-6 group">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors duration-300">
+<span class="material-symbols-outlined text-primary group-hover:text-on-primary-container transition-colors duration-300">directions_subway</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface block mb-2 tracking-widest text-primary/80">Transporte</span>
+<span class="font-body-lg text-body-lg text-on-surface-variant font-light">FÃ¡cil acceso en metro (LÃ­nea 1) y mÃºltiples lÃ­neas de autobÃºs. Parking pÃºblico a 2 minutos.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- The Safe Space Quote Component -->
+<section class="mb-section-gap py-32 relative">
+<div class="absolute inset-0 bg-surface-container-lowest/50 backdrop-blur-3xl -z-10"></div>
+<div class="flex flex-col items-center text-center max-w-4xl mx-auto px-8">
+<span class="material-symbols-outlined text-primary/20 text-6xl mb-12" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<p class="editorial-quote italic mb-16 text-on-surface font-light">
+                "La terapia presencial nos permite conectar no solo a travÃ©s de las palabras, sino en la presencia compartida, el silencio acompaÃ±ado y el espacio fÃ­sico que sostiene el proceso."
+            </p>
+<div class="flex flex-col items-center gap-6">
+<div class="w-16 h-[1px] bg-primary/40"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-[0.3em]">MarÃ­a Vega</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-auto bg-surface-container-lowest border-t border-surface-variant/30 w-full pt-20 pb-12">
+<div class="w-full px-8 lg:px-24 flex flex-col md:flex-row justify-between items-start gap-12 max-w-[1400px] mx-auto">
+<div class="flex flex-col gap-6">
+<div class="text-headline-md font-headline-md text-primary font-light">
+                    Maria Vega
+                </div>
+<div class="text-body-md font-body-md text-on-surface-variant font-light">
+                    Â© 2024 Maria Vega. PsicologÃ­a y Bienestar.
+                </div>
+</div>
+<div class="flex flex-col md:flex-row gap-8 md:gap-12 mt-4 md:mt-0">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-caps font-label-caps tracking-widest" href="#">Aviso Legal</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-caps font-label-caps tracking-widest" href="#">Privacidad</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-caps font-label-caps tracking-widest" href="#">Cookies</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-label-caps font-label-caps tracking-widest" href="#">Contacto</a>
+</div>
+</div>
+</footer>
+</body></html>

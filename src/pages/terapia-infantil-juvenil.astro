@@ -1,18 +1,40 @@
 ---
-import Layout from "@/components/layout/Layout.astro";
-import Container from "@/components/ui/Container.astro";
-import CTASection from "@/components/sections/CTASection.astro";
+import Layout from '@/components/layout/Layout.astro'
+import Container from '@/components/ui/Container.astro'
+import Button from '@/components/ui/Button.astro'
+import CTASection from '@/components/sections/CTASection.astro'
+import { render } from 'astro:content'
+import { getServiceBySlug } from '@/lib/content/collections'
+
+const service = await getServiceBySlug('terapia-infantil-juvenil')
+if (!service) return Astro.redirect('/404')
+const { Content } = await render(service)
 ---
 
 <Layout
-  title="Terapia Infantil y Juvenil"
-  description="Terapia psicológica para niños, niñas y adolescentes. Acompañamiento especializado con enfoque familiar en Málaga y online."
+  title={`${service.data.title} — María Vega Psicología`}
+  description={service.data.seoDescription ?? service.data.description}
 >
-  <section class="py-16">
+  <section class="section-gap bg-warm-100">
     <Container>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900">Terapia infantil y juvenil</h1>
-      <p class="text-lg text-gray-600">Contenido en construcción.</p>
+      <div class="max-w-3xl mx-auto">
+        <p class="label-caps text-sage mb-3">Psicología</p>
+        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
+          {service.data.title}
+        </h1>
+        <p class="text-ink-muted text-xl leading-relaxed mb-8">{service.data.description}</p>
+        <Button href="/reserva" variant="primary" size="lg">Reservar cita</Button>
+      </div>
     </Container>
   </section>
+
+  <section class="section-gap">
+    <Container>
+      <div class="max-w-2xl mx-auto prose prose-lg prose-slate">
+        <Content />
+      </div>
+    </Container>
+  </section>
+
   <CTASection />
 </Layout>

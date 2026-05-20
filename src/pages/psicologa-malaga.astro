@@ -1,50 +1,76 @@
 ---
-import Layout from "@/components/layout/Layout.astro";
-import Container from "@/components/ui/Container.astro";
-import ServicesGrid from "@/components/sections/ServicesGrid.astro";
-import CTASection from "@/components/sections/CTASection.astro";
+import Layout from '@/components/layout/Layout.astro'
+import Container from '@/components/ui/Container.astro'
+import Button from '@/components/ui/Button.astro'
+import ServicesGrid from '@/components/sections/ServicesGrid.astro'
+import CTASection from '@/components/sections/CTASection.astro'
+import { render } from 'astro:content'
+import { getServiceBySlug } from '@/lib/content/collections'
+
+const service = await getServiceBySlug('psicologa-malaga')
+if (!service) return Astro.redirect('/404')
+const { Content } = await render(service)
 
 const services = [
   {
-    title: "Terapia de duelo",
-    shortDescription: "Acompañamiento en la pérdida y el proceso de duelo.",
-    href: "/terapia-duelo",
+    title: 'Terapia de duelo',
+    shortDescription: 'Acompañamiento en la pérdida y el proceso de duelo.',
+    href: '/terapia-duelo',
   },
   {
-    title: "Ansiedad y estrés",
-    shortDescription: "Herramientas para gestionar el malestar emocional.",
-    href: "/terapia-ansiedad",
+    title: 'Ansiedad y estrés',
+    shortDescription: 'Herramientas para gestionar el malestar emocional.',
+    href: '/terapia-ansiedad',
   },
   {
-    title: "Adicciones",
-    shortDescription: "Apoyo en conductas adictivas y dependencias.",
-    href: "/terapia-adicciones",
+    title: 'Adicciones',
+    shortDescription: 'Apoyo en conductas adictivas y dependencias.',
+    href: '/terapia-adicciones',
   },
   {
-    title: "Infantil y juvenil",
-    shortDescription: "Atención a niños y adolescentes.",
-    href: "/terapia-infantil-juvenil",
+    title: 'Infantil y juvenil',
+    shortDescription: 'Atención a niños y adolescentes.',
+    href: '/terapia-infantil-juvenil',
   },
   {
-    title: "Terapia online",
-    shortDescription: "Sesiones a distancia con la misma calidad.",
-    href: "/terapia-online",
+    title: 'Terapia online',
+    shortDescription: 'Sesiones a distancia con la misma calidad.',
+    href: '/terapia-online',
   },
-];
+  {
+    title: 'Terapia contextual ACT',
+    shortDescription: 'Aceptación, valores y acción comprometida.',
+    href: '/terapia-contextual-act',
+  },
+]
 ---
 
 <Layout
-  title="Psicóloga en Málaga"
-  description="Psicóloga general sanitaria en Málaga. Terapia individual presencial basada en evidencia científica. Primeras citas disponibles."
+  title={`${service.data.title} — María Vega Psicología`}
+  description={service.data.seoDescription ?? service.data.description}
 >
-  <section class="section-gap">
+  <section class="section-gap bg-warm-100">
     <Container>
-      <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
-        Psicóloga en Málaga
-      </h1>
-      <p class="text-lg text-ink-muted leading-relaxed">Contenido en construcción.</p>
+      <div class="max-w-3xl mx-auto">
+        <p class="label-caps text-sage mb-3">Psicología</p>
+        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
+          {service.data.title}
+        </h1>
+        <p class="text-ink-muted text-xl leading-relaxed mb-8">{service.data.description}</p>
+        <Button href="/reserva" variant="primary" size="lg">Reservar cita</Button>
+      </div>
     </Container>
   </section>
+
+  <section class="section-gap">
+    <Container>
+      <div class="max-w-2xl mx-auto prose prose-lg prose-slate">
+        <Content />
+      </div>
+    </Container>
+  </section>
+
   <ServicesGrid services={services} />
+
   <CTASection />
 </Layout>

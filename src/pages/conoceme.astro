@@ -1,22 +1,89 @@
 ---
-import Layout from "@/components/layout/Layout.astro";
-import Container from "@/components/ui/Container.astro";
-import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
-import TrainingBlock from "@/components/sections/TrainingBlock.astro";
-import CTASection from "@/components/sections/CTASection.astro";
+import Layout from '@/components/layout/Layout.astro'
+import Container from '@/components/ui/Container.astro'
+import ExperienceBlock from '@/components/sections/ExperienceBlock.astro'
+import TrainingBlock from '@/components/sections/TrainingBlock.astro'
+import CTASection from '@/components/sections/CTASection.astro'
 ---
 
 <Layout
-  title="Conóceme"
-  description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Formación, experiencia y enfoque terapéutico basado en evidencia."
+  title="Conóceme — María Vega Psicología"
+  description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica."
 >
-  <section class="py-16">
+  <!-- Hero -->
+  <section class="section-gap bg-warm-100">
     <Container>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900">Conóceme</h1>
-      <p class="text-lg text-gray-600">Contenido en construcción.</p>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <p class="label-caps text-sage mb-4">Sobre mí</p>
+          <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
+            Hola, soy María Vega
+          </h1>
+          <p class="text-ink-muted text-xl leading-relaxed mb-4">
+            Psicóloga General Sanitaria en Málaga. Acompaño a adultos, adolescentes y niños en
+            procesos de cambio emocional, relacional y vital.
+          </p>
+          <p class="text-ink-muted text-lg leading-relaxed">
+            Mi trabajo se basa en la evidencia científica y en el respeto profundo por el ritmo y la
+            historia de cada persona.
+          </p>
+        </div>
+
+        <!-- Photo placeholder -->
+        <div
+          class="aspect-[3/4] w-full max-w-xs mx-auto lg:mx-0 rounded-2xl bg-sage-100 flex items-center justify-center border border-sage-200"
+          aria-label="Foto de María Vega"
+        >
+          <p class="text-sage-500 text-sm font-body text-center px-6">Foto de María Vega</p>
+        </div>
+      </div>
     </Container>
   </section>
-  <ExperienceBlock />
+
+  <!-- Enfoque -->
+  <section class="section-gap">
+    <Container>
+      <div class="max-w-2xl mx-auto">
+        <span class="label-caps text-sage block mb-5">Forma de trabajar</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-8 leading-tight">
+          Mi enfoque
+        </h2>
+
+        <div class="space-y-5 text-ink-muted text-lg leading-relaxed">
+          <p>
+            Trabajo desde las terapias contextuales, especialmente la Terapia de Aceptación y
+            Compromiso (ACT) y la terapia breve sistémica. Estos enfoques entienden el malestar como
+            algo que tiene sentido dentro del contexto de cada persona, y trabajan para que puedas
+            relacionarte de otra forma con lo que sientes, sin necesidad de controlar ni eliminar
+            cada pensamiento o emoción difícil.
+          </p>
+          <p>
+            Incorporo también una perspectiva humanista y de género. Esto significa que presto
+            atención a los contextos sociales, relacionales e históricos que influyen en el bienestar
+            de cada persona, y que acompaño sin imponer una única forma de ser o de estar en el
+            mundo.
+          </p>
+          <p>
+            La terapia es un espacio tuyo. Mi función es acompañarte en el proceso de entender qué
+            está pasando, qué quieres que cambie y cómo llegar hasta ahí de la forma más honesta y
+            sostenible posible.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Formación -->
   <TrainingBlock />
-  <CTASection />
+
+  <!-- Experiencia -->
+  <ExperienceBlock />
+
+  <!-- CTA final -->
+  <CTASection
+    title="¿Empezamos?"
+    description="Si sientes que este espacio puede ser útil para ti, puedes reservar una primera cita sin compromiso."
+    ctaLabel="Reservar cita"
+    ctaHref="/reserva"
+  />
 </Layout>
