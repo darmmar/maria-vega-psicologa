@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
 
 export default defineConfig({
   site: "https://example.com",
@@ -14,5 +15,6 @@ export default defineConfig({
     }),
     mdx(),
     sitemap(),
+    icon(),
   ],
 });

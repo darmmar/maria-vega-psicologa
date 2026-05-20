@@ -1,9 +1,9 @@
 ---
 import Layout from '@/components/layout/Layout.astro'
 import Container from '@/components/ui/Container.astro'
-import Button from '@/components/ui/Button.astro'
 import ServicesGrid from '@/components/sections/ServicesGrid.astro'
 import CTASection from '@/components/sections/CTASection.astro'
+import { Icon } from 'astro-icon/components'
 import { render } from 'astro:content'
 import { getServiceBySlug } from '@/lib/content/collections'
 
@@ -49,22 +49,26 @@ const services = [
   title={`${service.data.title} — María Vega Psicología`}
   description={service.data.seoDescription ?? service.data.description}
 >
-  <section class="section-gap bg-warm-100">
+  <section class="py-12 lg:py-16 bg-warm-100">
     <Container>
-      <div class="max-w-3xl mx-auto">
-        <p class="label-caps text-sage mb-3">Psicología</p>
-        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
-          {service.data.title}
-        </h1>
-        <p class="text-ink-muted text-xl leading-relaxed mb-8">{service.data.description}</p>
-        <Button href="/reserva" variant="primary" size="lg">Reservar cita</Button>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <p class="label-caps text-sage mb-3">Psicología</p>
+          <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-4 leading-tight">
+            {service.data.title}
+          </h1>
+          <p class="text-ink-muted text-xl leading-relaxed">{service.data.description}</p>
+        </div>
+        <div class="hidden md:flex justify-end" aria-hidden="true">
+          <Icon name="lucide:map-pin" class="w-40 h-40 text-sage opacity-15" />
+        </div>
       </div>
     </Container>
   </section>
 
-  <section class="section-gap">
+  <section class="py-12 lg:py-20">
     <Container>
-      <div class="max-w-2xl mx-auto prose prose-lg prose-slate prose-headings:font-display">
+      <div class="prose prose-lg max-w-none prose-headings:font-display">
         <Content />
       </div>
     </Container>

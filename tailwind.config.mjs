@@ -46,6 +46,67 @@ export default {
       maxWidth: {
         container: "1120px",
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": theme("colors.ink.DEFAULT"),
+            "--tw-prose-headings": theme("colors.ink.DEFAULT"),
+            "--tw-prose-lead": theme("colors.ink.muted"),
+            "--tw-prose-links": theme("colors.sage.700"),
+            "--tw-prose-bold": theme("colors.ink.DEFAULT"),
+            maxWidth: "none",
+            h2: {
+              fontFamily: theme("fontFamily.display").join(", "),
+              fontSize: theme("fontSize.2xl")[0],
+              fontWeight: "600",
+              marginTop: "2.5rem",
+              marginBottom: "1rem",
+              lineHeight: "1.3",
+            },
+            h3: {
+              fontFamily: theme("fontFamily.display").join(", "),
+              fontSize: theme("fontSize.xl")[0],
+              fontWeight: "600",
+              marginTop: "2rem",
+              marginBottom: "0.75rem",
+              lineHeight: "1.4",
+            },
+            h4: {
+              fontFamily: theme("fontFamily.display").join(", "),
+              fontSize: theme("fontSize.lg")[0],
+              fontWeight: "600",
+              marginTop: "1.5rem",
+              marginBottom: "0.5rem",
+            },
+            p: {
+              marginTop: "1rem",
+              marginBottom: "1rem",
+              lineHeight: "1.8",
+            },
+            li: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+            },
+          },
+        },
+        lg: {
+          css: {
+            h2: {
+              fontSize: theme("fontSize.3xl")[0],
+              marginTop: "3rem",
+              marginBottom: "1.25rem",
+            },
+            h3: {
+              fontSize: theme("fontSize.2xl")[0],
+              marginTop: "2.5rem",
+              marginBottom: "1rem",
+            },
+            p: {
+              lineHeight: "1.85",
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [typography],

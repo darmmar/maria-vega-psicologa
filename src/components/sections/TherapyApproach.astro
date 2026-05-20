@@ -1,21 +1,25 @@
 ---
 import Container from "@/components/ui/Container.astro";
+import { Icon } from "astro-icon/components";
 
 const pillars = [
   {
     title: "Basada en evidencia",
     description:
       "Metodologías validadas científicamente, adaptadas a cada persona y momento vital.",
+    icon: "lucide:flask-conical",
   },
   {
     title: "Perspectiva de género",
     description:
       "Un enfoque que reconoce el impacto del género en la salud mental y el bienestar.",
+    icon: "lucide:users",
   },
   {
     title: "Enfoque humanista",
     description:
       "La persona en el centro. Sin juicios, con empatía y confianza en tu capacidad de cambio.",
+    icon: "lucide:heart-handshake",
   },
 ];
 ---
@@ -37,6 +41,7 @@ const pillars = [
         {
           pillars.map((pillar) => (
             <div class="p-6 rounded-xl bg-white border border-ink-border/40">
+              <Icon name={pillar.icon} class="w-6 h-6 text-sage mb-4" />
               <h3 class="font-display text-xl font-medium text-ink mb-2">{pillar.title}</h3>
               <p class="text-sm text-ink-muted leading-relaxed">{pillar.description}</p>
             </div>

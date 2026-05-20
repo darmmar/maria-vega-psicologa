@@ -1,6 +1,7 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
+import { Icon } from "astro-icon/components";
 ---
 
 <section class="relative overflow-hidden section-gap bg-warm-100">
@@ -34,6 +35,22 @@ import Button from "@/components/ui/Button.astro";
         <div class="flex flex-col sm:flex-row gap-4 pt-1">
           <Button href="/reserva" size="lg">Reservar cita</Button>
           <Button href="/conoceme" variant="secondary" size="lg">Conóceme</Button>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="flex flex-wrap gap-5 mt-2">
+          <div class="flex items-center gap-2 text-ink-muted text-sm">
+            <Icon name="lucide:calendar" class="w-4 h-4 text-sage flex-shrink-0" aria-hidden="true" />
+            <span>Cita en 24h</span>
+          </div>
+          <div class="flex items-center gap-2 text-ink-muted text-sm">
+            <Icon name="lucide:lock" class="w-4 h-4 text-sage flex-shrink-0" aria-hidden="true" />
+            <span>Confidencialidad total</span>
+          </div>
+          <div class="flex items-center gap-2 text-ink-muted text-sm">
+            <Icon name="lucide:message-circle" class="w-4 h-4 text-sage flex-shrink-0" aria-hidden="true" />
+            <span>Sin compromiso</span>
+          </div>
         </div>
       </div>
 

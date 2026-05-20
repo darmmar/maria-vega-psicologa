@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface FAQItem {
   question: string;
@@ -24,14 +25,13 @@ export default function FAQAccordion({ items }: Props) {
             id={`faq-btn-${i}`}
           >
             <span className="text-base pr-4">{item.question}</span>
-            <span
-              className={`ml-4 text-sage transition-transform duration-200 flex-shrink-0 text-xl leading-none ${
-                open === i ? "rotate-45" : ""
+            <ChevronDown
+              className={`ml-4 w-5 h-5 text-sage flex-shrink-0 transition-transform duration-200 ${
+                open === i ? "rotate-180" : ""
               }`}
+              strokeWidth={1.5}
               aria-hidden="true"
-            >
-              +
-            </span>
+            />
           </button>
           <div
             id={`faq-panel-${i}`}
