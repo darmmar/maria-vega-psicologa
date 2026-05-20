@@ -5,6 +5,7 @@ import CTASection from '@/components/sections/CTASection.astro'
 import { Icon } from 'astro-icon/components'
 import { render } from 'astro:content'
 import { getServiceBySlug } from '@/lib/content/collections'
+import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 
 const service = await getServiceBySlug('terapia-duelo')
 if (!service) return Astro.redirect('/404')
@@ -34,7 +35,7 @@ const { Content } = await render(service)
 
   <section class="py-12 lg:py-20">
     <Container>
-      <div class="prose prose-lg max-w-none prose-headings:font-display">
+      <ProseWrapper>
         <Content />
       </div>
     </Container>
