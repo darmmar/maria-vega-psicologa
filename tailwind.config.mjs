@@ -57,19 +57,21 @@ export default {
             maxWidth: "none",
             h2: {
               fontFamily: theme("fontFamily.display").join(", "),
-              fontSize: theme("fontSize.2xl")[0],
+              fontSize: "1.875rem",
               fontWeight: "600",
               marginTop: "2.5rem",
               marginBottom: "1rem",
               lineHeight: "1.3",
+              color: theme("colors.ink.DEFAULT"),
             },
             h3: {
               fontFamily: theme("fontFamily.display").join(", "),
-              fontSize: theme("fontSize.xl")[0],
+              fontSize: "1.5rem",
               fontWeight: "600",
               marginTop: "2rem",
               marginBottom: "0.75rem",
               lineHeight: "1.4",
+              color: theme("colors.ink.DEFAULT"),
             },
             h4: {
               fontFamily: theme("fontFamily.display").join(", "),
