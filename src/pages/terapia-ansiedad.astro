@@ -13,7 +13,7 @@ const { Content } = await render(service)
 ---
 
 <Layout
-  title={`${service.data.title} — María Vega Psicología`}
+  title={service.data.title}
   description={service.data.seoDescription ?? service.data.description}
 >
   <section class="py-12 lg:py-16 bg-warm-100">
