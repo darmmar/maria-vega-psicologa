@@ -17,9 +17,12 @@ export async function getStaticPaths() {
 
 const { resource } = Astro.props
 const { Content } = await render(resource)
+
+const rawTitle = resource.data.seoTitle ?? resource.data.title
+const pageTitle = rawTitle.includes(":") ? rawTitle.split(":")[0].trim() : rawTitle
 ---
 <Layout
-  title={resource.data.seoTitle ?? resource.data.title}
+  title={pageTitle}
   description={resource.data.seoDescription ?? resource.data.description}
 >
   <Container>
