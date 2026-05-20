@@ -1,18 +1,42 @@
 ---
-import Layout from "@/components/layout/Layout.astro";
-import Container from "@/components/ui/Container.astro";
-import CourseHighlight from "@/components/sections/CourseHighlight.astro";
----
+import Layout from '../components/layout/Layout.astro'
+import Container from '../components/ui/Container.astro'
+import Button from '../components/ui/Button.astro'
+import { render } from 'astro:content'
+import { getPublishedCourses } from '../lib/content/collections'
 
+const courses = await getPublishedCourses()
+const course = courses[0]
+const rendered = course ? await render(course) : null
+---
 <Layout
-  title="Curso de Duelo"
-  description="Curso online para afrontar el duelo con herramientas psicológicas basadas en evidencia. Aprende a navegar el proceso de pérdida."
+  title="Curso de duelo — María Vega Psicología"
+  description="Proceso de acompañamiento psicoeducativo en el duelo. Herramientas y acompañamiento para transitar la pérdida."
 >
-  <section class="py-16">
-    <Container>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900">Curso: Afrontando el duelo</h1>
-      <p class="text-lg text-gray-600">Contenido en construcción.</p>
-    </Container>
-  </section>
-  <CourseHighlight />
+  <Container>
+    <div class="max-w-2xl mx-auto py-16">
+      <p class="label-caps text-sage mb-3">Formación</p>
+      <h1 class="font-display text-4xl font-semibold text-ink mb-6">
+        {course?.data.title ?? 'Curso de duelo'}
+      </h1>
+      <p class="text-ink-muted text-lg mb-10">
+        {course?.data.description ?? 'Espacio de acompañamiento para transitar el duelo.'}
+      </p>
+      {rendered ? (
+        <div class="prose prose-lg max-w-none mb-12">
+          <rendered.Content />
+        </div>
+      ) : null}
+      <div class="flex gap-4 flex-wrap">
+        {course?.data.paymentLink ? (
+          <Button href={course.data.paymentLink} variant="primary" external>
+            {course.data.ctaLabel}
+          </Button>
+        ) : (
+          <Button href="/contacto" variant="primary">Solicitar información</Button>
+        )}
+        <Button href="/reserva" variant="secondary">Reservar cita</Button>
+      </div>
+    </div>
+  </Container>
 </Layout>

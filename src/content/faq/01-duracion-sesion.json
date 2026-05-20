@@ -1,0 +1,7 @@
+{
+  "question": "¿Cuánto dura una sesión?",
+  "answer": "Las sesiones tienen una duración estándar de 50 minutos. En casos puntuales, como primeras consultas o sesiones de evaluación, puede acordarse un tiempo diferente.",
+  "order": 1,
+  "category": "general",
+  "published": true
+}

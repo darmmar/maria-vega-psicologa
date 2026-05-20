@@ -1,26 +1,42 @@
 ---
-import Layout from "@/components/layout/Layout.astro";
-import Container from "@/components/ui/Container.astro";
+import Layout from '../../components/layout/Layout.astro'
+import Container from '../../components/ui/Container.astro'
+import Badge from '../../components/ui/Badge.astro'
+import Button from '../../components/ui/Button.astro'
+import { render } from 'astro:content'
+import { getPublishedResources } from '../../lib/content/collections'
 
 export async function getStaticPaths() {
-  return [];
+  const resources = await getPublishedResources()
+  return resources.map((r) => ({
+    params: { slug: r.data.slug },
+    props: { resource: r },
+  }))
 }
 
-interface Props {
-  slug: string;
-}
-
-const { slug } = Astro.params;
+const { resource } = Astro.props
+const { Content } = await render(resource)
 ---
-
 <Layout
-  title="Recurso"
-  description="Recurso psicoeducativo de María Vega Psicología."
+  title={resource.data.seoTitle ?? resource.data.title}
+  description={resource.data.seoDescription ?? resource.data.description}
 >
-  <section class="py-16">
-    <Container>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900">Recurso: {slug}</h1>
-      <p class="text-lg text-gray-600">Contenido en construcción.</p>
-    </Container>
-  </section>
+  <Container>
+    <article class="max-w-2xl mx-auto py-16">
+      {resource.data.tags.length > 0 && (
+        <div class="flex gap-2 flex-wrap mb-6">
+          {resource.data.tags.map((tag) => <Badge>{tag}</Badge>)}
+        </div>
+      )}
+      <h1 class="font-display text-4xl font-semibold text-ink mb-6">{resource.data.title}</h1>
+      <p class="text-ink-muted text-lg mb-10">{resource.data.description}</p>
+      <div class="prose prose-lg prose-sage max-w-none">
+        <Content />
+      </div>
+      <div class="mt-16 pt-8 border-t border-ink-border">
+        <Button href="/reserva" variant="primary">Reservar cita</Button>
+        <Button href="/recursos" variant="ghost" class="ml-4">← Volver a recursos</Button>
+      </div>
+    </article>
+  </Container>
 </Layout>

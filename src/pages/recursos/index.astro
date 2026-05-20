@@ -1,16 +1,38 @@
 ---
-import Layout from "@/components/layout/Layout.astro";
-import Container from "@/components/ui/Container.astro";
----
+import Layout from '../../components/layout/Layout.astro'
+import Container from '../../components/ui/Container.astro'
+import Card from '../../components/ui/Card.astro'
+import Badge from '../../components/ui/Badge.astro'
+import { getPublishedResources } from '../../lib/content/collections'
 
-<Layout
-  title="Recursos Psicoeducativos"
-  description="Artículos y recursos psicoeducativos sobre bienestar emocional, ansiedad, duelo y más. Por María Vega, psicóloga."
->
-  <section class="py-16">
-    <Container>
-      <h1 class="mb-6 text-4xl font-bold text-gray-900">Recursos psicoeducativos</h1>
-      <p class="text-lg text-gray-600">Contenido en construcción.</p>
-    </Container>
-  </section>
+const resources = await getPublishedResources()
+---
+<Layout title="Recursos psicoeducativos — María Vega Psicología" description="Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional.">
+  <Container>
+    <header class="py-16 text-center">
+      <p class="label-caps text-sage mb-3">Recursos</p>
+      <h1 class="font-display text-4xl font-semibold text-ink mb-4">Recursos psicoeducativos</h1>
+      <p class="text-ink-muted text-lg max-w-xl mx-auto">Artículos para entender mejor el malestar emocional y el proceso terapéutico.</p>
+    </header>
+    {resources.length > 0 ? (
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-24">
+        {resources.map((r) => (
+          <Card>
+            <div class="flex flex-col h-full">
+              {r.data.tags.length > 0 && (
+                <div class="flex gap-2 flex-wrap mb-3">
+                  {r.data.tags.map((tag) => <Badge>{tag}</Badge>)}
+                </div>
+              )}
+              <h2 class="font-display text-xl font-medium text-ink mb-2">{r.data.title}</h2>
+              <p class="text-ink-muted text-sm flex-1 mb-4">{r.data.description}</p>
+              <a href={`/recursos/${r.data.slug}`} class="text-sage font-semibold text-sm hover:underline">Leer →</a>
+            </div>
+          </Card>
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-ink-muted py-24">Próximamente recursos psicoeducativos.</p>
+    )}
+  </Container>
 </Layout>
