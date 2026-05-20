@@ -34,3 +34,5 @@ maria_psicologia_stitch_cursor_mcp_plan/
 
 # Local MCP config (may contain API keys)
 .cursor/mcp.json
+
+.vercel

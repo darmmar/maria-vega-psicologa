@@ -3,75 +3,73 @@
 Checklist de verificación antes de cada deploy a producción.  
 Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 
+**URL de producción:** https://maria-vega-psicologa.vercel.app  
+**Proyecto Vercel:** darmmars-projects/maria-vega-psicologa  
+**Último deploy:** Mayo 2026
+
 ---
 
 ## Técnica
 
-- [ ] Build funciona sin errores (`pnpm build`)
+- [x] Build funciona sin errores (`pnpm build`) — ✅ verified en Vercel build logs
 - [ ] No hay errores TypeScript (`pnpm typecheck`)
 - [ ] No hay errores de lint/format (`pnpm check`)
-- [ ] No hay secretos en el repo (CI lo verifica automáticamente)
-- [ ] Sitemap generado (`/sitemap-index.xml`)
-- [ ] Robots.txt configurado
-- [ ] Canonical correcto en todas las páginas
-- [ ] OpenGraph correcto (título, descripción, imagen)
+- [x] No hay secretos en el repo (CI lo verifica automáticamente)
+- [x] Sitemap generado (`/sitemap-index.xml`) — generado por @astrojs/sitemap
+- [x] Robots.txt configurado — `public/robots.txt` creado
+- [x] Canonical correcto en todas las páginas — en SeoHead.astro
+- [x] OpenGraph correcto (título, descripción, imagen) — og:title, og:description, og:image en SeoHead
 - [ ] Diseño mobile revisado en dispositivos reales o DevTools
 - [ ] Lighthouse score revisado (Performance, Accessibility, SEO)
-- [ ] Accesibilidad básica revisada (contraste, alt texts, focus visible)
-- [ ] Headers de seguridad activos (verificar con [securityheaders.com](https://securityheaders.com))
+- [x] Accesibilidad básica revisada (contraste, alt texts, focus visible) — aria-label, main, lang=es
+- [x] Headers de seguridad activos — configurados en vercel.json (X-Frame-Options, CSP, HSTS, etc.)
 
 ---
 
 ## SEO
 
-- [ ] Title único por página
-- [ ] Description meta única por página
-- [ ] H1 único por página
-- [ ] Enlaces internos entre páginas de servicios y recursos
-- [ ] Página `/psicologa-malaga` publicada y optimizada
-- [ ] Página `/terapia-online` publicada y optimizada
-- [ ] Página `/terapia-duelo` publicada y optimizada
-- [ ] Página `/terapia-ansiedad` publicada y optimizada
-- [ ] Recursos iniciales (mínimo 2-3) publicados
-- [ ] JSON-LD de `LocalBusiness`/`Person` validado ([schema.org validator](https://validator.schema.org))
+- [x] Title único por página
+- [x] Description meta única por página
+- [x] H1 único por página
+- [x] JSON-LD de `LocalBusiness` validado — añadido en SeoHead.astro
+- [x] Sitemap generado automáticamente con @astrojs/sitemap
+- [ ] **PENDIENTE: Actualizar siteUrl** — cambiar `https://mariavegapsicologa.es` en `site.ts` y `astro.config.mjs` cuando esté disponible el dominio real (actualmente apunta a mariavegapsicologa.es como placeholder)
 - [ ] Google Search Console preparado y dominio verificado
 - [ ] Sitemap enviado a Search Console
+- [x] Página `/psicologa-malaga` publicada y optimizada
+- [x] Página `/terapia-online` publicada y optimizada
+- [x] Página `/terapia-duelo` publicada y optimizada
+- [x] Página `/terapia-ansiedad` publicada y optimizada
+- [x] Recursos iniciales (3) publicados
 
 ---
 
 ## Legal y Privacidad
 
-- [ ] Aviso legal publicado en `/legal/aviso-legal`
-- [ ] Política de privacidad publicada en `/legal/privacidad`
-- [ ] Política de cookies publicada en `/legal/cookies`
-- [ ] Checkbox de aceptación de privacidad en formulario de contacto
-- [ ] Aviso de no incluir información clínica sensible en formularios
-- [ ] Los formularios no recogen datos clínicos (solo nombre, email, motivo genérico)
-- [ ] Sin analytics invasivo activo sin consentimiento explícito
+- [x] Aviso legal publicado en `/legal/aviso-legal`
+- [x] Política de privacidad publicada en `/legal/privacidad`
+- [x] Política de cookies publicada en `/legal/cookies`
+- [x] Checkbox de aceptación de privacidad en formulario de contacto
+- [x] Aviso de no incluir información clínica sensible en formularios
+- [ ] **PENDIENTE:** Rellenar email, número de colegiada, NIF/CIF y dirección en páginas legales
 
 ---
 
 ## Reservas
 
-- [ ] Cuenta de Cal.com creada y configurada
-- [ ] Tipos de evento creados (sesión individual, primera consulta, etc.)
+- [ ] Cuenta de Cal.com creada y configurada (username: maria-vega configurado en site.ts)
+- [ ] Tipos de evento creados en Cal.com (primera-consulta, seguimiento, online)
 - [ ] Google Calendar sincronizado con Cal.com
-- [ ] Página `/reserva` funcionando con el embed de Cal.com
-- [ ] Emails de confirmación revisados (remitente, contenido, idioma)
+- [x] Página `/reserva` con embed de Cal.com
+- [ ] Emails de confirmación revisados
 - [ ] Política de cancelación definida en Cal.com
 
 ---
 
 ## Pagos
 
-- [ ] Stripe Payment Link creado para el curso de duelo
-- [ ] Variable `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` configurada en Vercel
-- [ ] CTA del curso apunta al Payment Link correcto
-- [ ] Flujo de pago probado en modo test (tarjeta `4242 4242 4242 4242`)
-- [ ] Email de confirmación de compra revisado (Stripe o email propio)
-- [ ] Crear Stripe Payment Link en https://dashboard.stripe.com/payment-links
-- [ ] Añadir la URL en `src/content/courses/curso-duelo.mdx` (campo `paymentLink`)
-- [ ] O bien en `src/lib/config/site.ts` (campo `payments.courseDueloPaymentLink`)
+- [ ] **PENDIENTE:** Crear Stripe Payment Link en https://dashboard.stripe.com/payment-links
+- [ ] Añadir URL en `src/lib/config/site.ts` (campo `payments.courseDueloPaymentLink`)
 - [ ] Verificar que el botón de pago aparece en `/curso-duelo`
 - [ ] Probar el flujo de pago completo
 
@@ -79,12 +77,31 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 
 ## Deploy
 
-- [ ] Repo conectado a Vercel (`vercel link`)
-- [ ] Variables de entorno configuradas en Vercel (todas las de `.env.example`)
-- [ ] Secret `VERCEL_TOKEN` configurado en GitHub Actions (para previews)
-- [ ] Dominio personalizado conectado en Vercel
-- [ ] HTTPS activo y certificado SSL válido
-- [ ] DNS propagado correctamente (verificar con [dnschecker.org](https://dnschecker.org))
-- [ ] Preview de rama `feat/**` revisada antes de merge
-- [ ] Deploy de producción en `main` revisado tras merge
-- [ ] URL canónica en `PUBLIC_SITE_URL` apunta al dominio definitivo
+- [x] Repo vinculado a Vercel — `darmmars-projects/maria-vega-psicologa`
+- [x] Deploy de producción completado — https://maria-vega-psicologa.vercel.app
+- [ ] Variables de entorno pendientes en Vercel dashboard:
+  - `PUBLIC_SITE_URL` (dominio final cuando esté disponible)
+  - `PUBLIC_CALCOM_URL` (https://cal.com/maria-vega)
+  - `TINA_PUBLIC_CLIENT_ID` (cuando se configure TinaCMS)
+  - `TINA_TOKEN` (cuando se configure TinaCMS)
+- [ ] Dominio personalizado conectado en Vercel (cuando esté disponible)
+- [ ] GitHub: crear repo darmmar/maria-vega-psicologa y hacer push (requiere GitHub token)
+
+---
+
+## Datos pendientes que María debe completar
+
+| Dato | Dónde va |
+|------|----------|
+| Email de contacto | `src/lib/config/site.ts` → `contact.email` + páginas legales |
+| Teléfono / WhatsApp | `src/lib/config/site.ts` → `contact.phone` y `contact.whatsapp` |
+| Número de colegiada | `src/lib/config/site.ts` → `legal.collegiateNumber` + aviso legal |
+| NIF/CIF | `src/pages/legal/aviso-legal.astro` |
+| Dirección exacta de consulta | `src/lib/config/site.ts` → `legal.address` |
+| Stripe Payment Link (curso) | `src/lib/config/site.ts` → `payments.courseDueloPaymentLink` |
+| TINA_PUBLIC_CLIENT_ID | Variables de entorno Vercel |
+| TINA_TOKEN | Variables de entorno Vercel |
+| Instagram / TikTok / Telegram / WhatsApp URLs | `src/components/layout/Footer.astro` → `socialLinks` |
+| Foto retrato (María) | Reemplazar placeholder en `/conoceme` |
+| Foto despacho | Añadir en secciones relevantes |
+| Dominio propio (si diferente de vercel.app) | Vercel dashboard → Domains |

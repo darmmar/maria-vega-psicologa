@@ -26,9 +26,9 @@ const { title, description, canonical, ogImage, noindex } = Astro.props;
       noindex={noindex}
     />
   </head>
-  <body class="min-h-screen bg-warm-100 text-ink antialiased">
+  <body class="min-h-screen flex flex-col bg-warm-100 text-ink antialiased">
     <Header />
-    <main>
+    <main class="flex-1">
       <slot />
     </main>
     <Footer />

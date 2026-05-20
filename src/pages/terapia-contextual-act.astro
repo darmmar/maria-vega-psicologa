@@ -6,7 +6,6 @@ import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 import { Icon } from 'astro-icon/components'
 import { render } from 'astro:content'
 import { getServiceBySlug } from '@/lib/content/collections'
-import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 
 const service = await getServiceBySlug('terapia-contextual-act')
 if (!service) return Astro.redirect('/404')
@@ -14,7 +13,7 @@ const { Content } = await render(service)
 ---
 
 <Layout
-  title={`${service.data.title} — María Vega Psicología`}
+  title={service.data.title}
   description={service.data.seoDescription ?? service.data.description}
 >
   <section class="py-12 lg:py-16 bg-warm-100">
