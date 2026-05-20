@@ -1,6 +1,7 @@
 ---
 import Layout from '@/components/layout/Layout.astro'
 import Container from '@/components/ui/Container.astro'
+import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 ---
 
 <Layout
@@ -15,7 +16,7 @@ import Container from '@/components/ui/Container.astro'
           Política de Cookies
         </h1>
 
-        <div class="prose prose-lg max-w-none prose-headings:font-display">
+        <ProseWrapper>
           <h2>¿Qué son las cookies?</h2>
           <p>
             Las cookies son pequeños archivos de texto que los sitios web guardan en tu navegador
@@ -105,7 +106,7 @@ import Container from '@/components/ui/Container.astro'
           </p>
 
           <p class="text-sm text-ink-muted mt-8">Última actualización: mayo de 2026</p>
-        </div>
+        </ProseWrapper>
       </div>
     </Container>
   </section>

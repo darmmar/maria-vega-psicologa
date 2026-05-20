@@ -37,7 +37,7 @@ export const siteConfig: SiteConfig = {
   professionalTitle: "Psicóloga General Sanitaria",
   description:
     "Psicóloga en Málaga y terapia online. Terapia basada en evidencia científica para problemas emocionales, relacionales, duelo, ansiedad, autocuidado y adicciones.",
-  siteUrl: "https://example.com",
+  siteUrl: "https://mariavegapsicologa.es",
   location: {
     city: "Málaga",
     province: "Málaga",

@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://mariavegapsicologa.es",
   output: "static",
   integrations: [
     react(),

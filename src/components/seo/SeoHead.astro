@@ -7,6 +7,7 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   noindex?: boolean;
+  jsonLd?: object;
 }
 
 const {
@@ -15,11 +16,31 @@ const {
   canonical,
   ogImage,
   noindex = false,
+  jsonLd,
 } = Astro.props;
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteConfig.siteUrl).href;
 const ogImageUrl = ogImage ?? new URL("/og-default.png", siteConfig.siteUrl).href;
 const fullTitle = title === siteConfig.siteName ? title : `${title} | ${siteConfig.siteName}`;
+
+const defaultJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": siteConfig.siteUrl,
+  name: siteConfig.siteName,
+  description: siteConfig.description,
+  url: siteConfig.siteUrl,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: siteConfig.location.city,
+    addressRegion: siteConfig.location.province,
+    addressCountry: "ES",
+  },
+  ...(siteConfig.contact.email && { email: siteConfig.contact.email }),
+  ...(siteConfig.contact.phone && { telephone: siteConfig.contact.phone }),
+};
+
+const structuredData = jsonLd ?? defaultJsonLd;
 ---
 
 <meta charset="UTF-8" />
@@ -30,7 +51,11 @@ const fullTitle = title === siteConfig.siteName ? title : `${title} | ${siteConf
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow" />
+)}
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -49,3 +74,6 @@ const fullTitle = title === siteConfig.siteName ? title : `${title} | ${siteConf
 
 <!-- Favicon placeholder -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
