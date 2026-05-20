@@ -4,10 +4,8 @@ import Container from '@/components/ui/Container.astro'
 import ServicesGrid from '@/components/sections/ServicesGrid.astro'
 import CTASection from '@/components/sections/CTASection.astro'
 import ProseWrapper from '@/components/ui/ProseWrapper.astro'
-import { Icon } from 'astro-icon/components'
 import { render } from 'astro:content'
 import { getServiceBySlug } from '@/lib/content/collections'
-import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 
 const service = await getServiceBySlug('psicologa-malaga')
 if (!service) return Astro.redirect('/404')
@@ -48,22 +46,17 @@ const services = [
 ---
 
 <Layout
-  title={`${service.data.title} — María Vega Psicología`}
+  title={service.data.title}
   description={service.data.seoDescription ?? service.data.description}
 >
-  <section class="py-12 lg:py-16 bg-warm-100">
+  <section class="section-gap bg-warm-100">
     <Container>
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <p class="label-caps text-sage mb-3">Psicología</p>
-          <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-4 leading-tight">
-            {service.data.title}
-          </h1>
-          <p class="text-ink-muted text-xl leading-relaxed">{service.data.description}</p>
-        </div>
-        <div class="hidden md:flex justify-end" aria-hidden="true">
-          <Icon name="lucide:map-pin" class="w-40 h-40 text-sage opacity-15" />
-        </div>
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="label-caps text-sage mb-3">Psicología</p>
+        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-4 leading-tight">
+          {service.data.title}
+        </h1>
+        <p class="text-ink-muted text-xl leading-relaxed">{service.data.description}</p>
       </div>
     </Container>
   </section>
