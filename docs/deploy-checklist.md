@@ -69,6 +69,11 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 - [ ] CTA del curso apunta al Payment Link correcto
 - [ ] Flujo de pago probado en modo test (tarjeta `4242 4242 4242 4242`)
 - [ ] Email de confirmación de compra revisado (Stripe o email propio)
+- [ ] Crear Stripe Payment Link en https://dashboard.stripe.com/payment-links
+- [ ] Añadir la URL en `src/content/courses/curso-duelo.mdx` (campo `paymentLink`)
+- [ ] O bien en `src/lib/config/site.ts` (campo `payments.courseDueloPaymentLink`)
+- [ ] Verificar que el botón de pago aparece en `/curso-duelo`
+- [ ] Probar el flujo de pago completo
 
 ---
 

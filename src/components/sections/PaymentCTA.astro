@@ -1,0 +1,48 @@
+---
+interface Props {
+  paymentLink?: string | null
+  primaryLabel?: string
+  fallbackLabel?: string
+  fallbackHref?: string
+  secondaryLabel?: string
+  secondaryHref?: string
+}
+
+const {
+  paymentLink,
+  primaryLabel = 'Acceder',
+  fallbackLabel = 'Solicitar información',
+  fallbackHref = '/contacto',
+  secondaryLabel,
+  secondaryHref,
+} = Astro.props
+---
+
+<div class="flex gap-4 flex-wrap">
+  {paymentLink ? (
+    <a
+      href={paymentLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 bg-sage text-white font-semibold px-8 py-3 rounded-lg hover:bg-sage-600 transition-colors"
+    >
+      {primaryLabel}
+      <span aria-hidden="true" class="text-sm">↗</span>
+    </a>
+  ) : (
+    <a
+      href={fallbackHref}
+      class="inline-flex items-center gap-2 bg-sage text-white font-semibold px-8 py-3 rounded-lg hover:bg-sage-600 transition-colors"
+    >
+      {fallbackLabel}
+    </a>
+  )}
+  {secondaryLabel && secondaryHref && (
+    <a
+      href={secondaryHref}
+      class="inline-flex items-center border-2 border-sage text-sage font-semibold px-8 py-3 rounded-lg hover:bg-sage-50 transition-colors"
+    >
+      {secondaryLabel}
+    </a>
+  )}
+</div>

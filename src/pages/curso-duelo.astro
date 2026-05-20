@@ -4,39 +4,75 @@ import Container from '../components/ui/Container.astro'
 import Button from '../components/ui/Button.astro'
 import { render } from 'astro:content'
 import { getPublishedCourses } from '../lib/content/collections'
+import { siteConfig } from '../lib/config/site'
 
 const courses = await getPublishedCourses()
 const course = courses[0]
 const rendered = course ? await render(course) : null
+const Content = rendered?.Content ?? null
+
+// Prioridad: frontmatter > siteConfig > null
+const paymentLink =
+  course?.data.paymentLink || siteConfig.payments.courseDueloPaymentLink || null
 ---
+
 <Layout
-  title="Curso de duelo — María Vega Psicología"
-  description="Proceso de acompañamiento psicoeducativo en el duelo. Herramientas y acompañamiento para transitar la pérdida."
+  title="Curso de acompañamiento en el duelo — María Vega Psicología"
+  description="Un espacio de acompañamiento psicoeducativo para transitar el duelo. Herramientas basadas en evidencia para gestionar la pérdida."
 >
-  <Container>
-    <div class="max-w-2xl mx-auto py-16">
-      <p class="label-caps text-sage mb-3">Formación</p>
-      <h1 class="font-display text-4xl font-semibold text-ink mb-6">
-        {course?.data.title ?? 'Curso de duelo'}
-      </h1>
-      <p class="text-ink-muted text-lg mb-10">
-        {course?.data.description ?? 'Espacio de acompañamiento para transitar el duelo.'}
-      </p>
-      {rendered ? (
-        <div class="prose prose-lg max-w-none mb-12">
-          <rendered.Content />
-        </div>
-      ) : null}
-      <div class="flex gap-4 flex-wrap">
-        {course?.data.paymentLink ? (
-          <Button href={course.data.paymentLink} variant="primary" external>
-            {course.data.ctaLabel}
+  <!-- Hero del curso -->
+  <section class="section-gap bg-warm-100">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="label-caps text-sage mb-3">Formación</p>
+        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6">
+          {course?.data.title ?? 'Curso de duelo'}
+        </h1>
+        <p class="text-ink-muted text-lg mb-8">
+          {course?.data.shortDescription ?? 'Acompañamiento psicoeducativo para transitar la pérdida.'}
+        </p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          {paymentLink ? (
+            <Button href={paymentLink} variant="primary" size="lg" external>
+              {course?.data.ctaLabel ?? 'Acceder al curso'}
+            </Button>
+          ) : (
+            <Button href="/contacto" variant="primary" size="lg">
+              Solicitar información
+            </Button>
+          )}
+          <Button href="/reserva" variant="secondary" size="lg">
+            Reservar sesión individual
           </Button>
-        ) : (
-          <Button href="/contacto" variant="primary">Solicitar información</Button>
-        )}
-        <Button href="/reserva" variant="secondary">Reservar cita</Button>
+        </div>
       </div>
-    </div>
-  </Container>
+    </Container>
+  </section>
+
+  <!-- Contenido MDX del curso -->
+  {Content && (
+    <section class="section-gap">
+      <Container>
+        <div class="max-w-2xl mx-auto prose prose-lg prose-sage">
+          <Content />
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- CTA final -->
+  <section class="section-gap bg-sage">
+    <Container>
+      <div class="text-center text-white">
+        <h2 class="font-display text-3xl font-semibold mb-4">¿Tienes preguntas?</h2>
+        <p class="mb-8 opacity-90">Puedes escribirme antes de apuntarte. Sin compromiso.</p>
+        <a
+          href="/contacto"
+          class="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-sage transition-colors"
+        >
+          Contactar
+        </a>
+      </div>
+    </Container>
+  </section>
 </Layout>
