@@ -2,6 +2,7 @@
 import Layout from '@/components/layout/Layout.astro'
 import Container from '@/components/ui/Container.astro'
 import CTASection from '@/components/sections/CTASection.astro'
+import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 import { Icon } from 'astro-icon/components'
 import { render } from 'astro:content'
 import { getServiceBySlug } from '@/lib/content/collections'
@@ -34,9 +35,9 @@ const { Content } = await render(service)
 
   <section class="py-12 lg:py-20">
     <Container>
-      <div class="prose prose-lg max-w-none prose-headings:font-display">
+      <ProseWrapper>
         <Content />
-      </div>
+      </ProseWrapper>
     </Container>
   </section>
 
