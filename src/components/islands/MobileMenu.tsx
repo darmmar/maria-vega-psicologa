@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NavItem } from "@/lib/config/navigation";
 
 interface Props {
@@ -6,62 +6,79 @@ interface Props {
 }
 
 export default function MobileMenu({ items }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const handleRouteChange = () => setOpen(false);
+    window.addEventListener("popstate", handleRouteChange);
+    return () => window.removeEventListener("popstate", handleRouteChange);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
-    <div className="md:hidden">
+    <>
+      {/* Botón hamburguesa */}
       <button
-        type="button"
-        aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-        aria-expanded={isOpen}
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-label={open ? "Cerrar menú" : "Abrir menú"}
         aria-controls="mobile-menu"
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
+        className="p-2 rounded-md text-ink hover:text-sage transition-colors md:hidden"
       >
-        {isOpen ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        )}
+        <span
+          aria-hidden="true"
+          className="block w-6 h-0.5 bg-current mb-1.5 transition-all duration-200"
+          style={open ? { transform: "translateY(8px) rotate(45deg)" } : {}}
+        />
+        <span
+          aria-hidden="true"
+          className="block w-6 h-0.5 bg-current mb-1.5 transition-all duration-200"
+          style={open ? { opacity: 0 } : {}}
+        />
+        <span
+          aria-hidden="true"
+          className="block w-6 h-0.5 bg-current transition-all duration-200"
+          style={open ? { transform: "translateY(-8px) rotate(-45deg)" } : {}}
+        />
       </button>
 
-      {isOpen && (
+      {/* Overlay full-width */}
+      {open && (
         <div
           id="mobile-menu"
-          className="absolute left-0 right-0 top-full z-50 border-t border-gray-100 bg-white shadow-lg"
+          role="dialog"
+          aria-label="Menú de navegación"
+          className="fixed inset-0 top-[64px] z-40 bg-warm-100 md:hidden"
         >
-          <nav className="flex flex-col px-4 py-3">
+          <nav className="flex flex-col p-6 gap-1">
             {items.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-primary-700"
-                onClick={() => setIsOpen(false)}
+                onClick={() => setOpen(false)}
+                className="font-display text-2xl font-medium text-ink py-3 border-b border-ink-border last:border-0 hover:text-sage transition-colors"
               >
                 {item.label}
               </a>
             ))}
+            <div className="mt-6">
+              <a
+                href="/reserva"
+                onClick={() => setOpen(false)}
+                className="inline-flex w-full justify-center bg-sage text-white font-semibold py-3 px-6 rounded-lg hover:bg-sage-600 transition-colors"
+              >
+                Reservar cita
+              </a>
+            </div>
           </nav>
         </div>
       )}
-    </div>
+    </>
   );
 }

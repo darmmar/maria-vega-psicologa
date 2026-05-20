@@ -45,7 +45,7 @@ const navItems = mainNav.filter((item) => item.label !== "Reserva");
           Reservar cita
         </Button>
         <div class="relative">
-          <MobileMenu items={mainNav} client:load />
+          <MobileMenu items={navItems} client:load />
         </div>
       </div>
     </div>
