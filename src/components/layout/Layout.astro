@@ -37,5 +37,9 @@ const { title, description, canonical, ogImage, noindex, jsonLd } =
       <slot />
     </main>
     <Footer />
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </body>
 </html>
