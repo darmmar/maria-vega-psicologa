@@ -39,13 +39,42 @@ async function removeBackground(inputPath, outputPath) {
   console.log(outputPath, "colorType", out[25], "hasAlpha", out[25] === 6);
 }
 
+async function makeFavicon(monogramPath, outputPath, canvasSize = 48) {
+  const fillRatio = 0.85;
+  const inner = Math.round(canvasSize * fillRatio);
+
+  const trimmed = await sharp(monogramPath).trim().png().toBuffer();
+
+  const monogram = await sharp(trimmed)
+    .resize(inner, inner, {
+      fit: "contain",
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
+    .png()
+    .toBuffer();
+
+  await sharp({
+    create: {
+      width: canvasSize,
+      height: canvasSize,
+      channels: 4,
+      background: { r: 255, g: 255, b: 255, alpha: 1 },
+    },
+  })
+    .composite([{ input: monogram, gravity: "center" }])
+    .png()
+    .toFile(outputPath);
+
+  console.log(
+    outputPath,
+    `${canvasSize}x${canvasSize}`,
+    `monogram ~${fillRatio * 100}% (${inner}px)`,
+  );
+}
+
 const monogramIn = join(root, "public/images/mv-monogram.png");
 const monogramOut = join(root, "public/images/mv-monogram.png");
 await removeBackground(monogramIn, monogramOut);
+await makeFavicon(monogramOut, join(root, "public/favicon.png"), 48);
 
-await sharp(monogramOut)
-  .resize(180, 180, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
-  .png()
-  .toFile(join(root, "public/favicon.png"));
-
-console.log("Done: mv-monogram.png and favicon.png");
+console.log("Done: mv-monogram.png (transparent) and favicon.png");
