@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "label": "Psicóloga General Sanitaria · Málaga",
+    "title": "Un espacio para cuidarte",
+    "description": "Terapia contextual y ACT en Málaga y online. Acompañamiento en duelo, ansiedad, adicciones y crecimiento personal desde un enfoque humano y basado en evidencia.",
+    "primaryCta": {
+      "label": "Reservar cita",
+      "href": "/reserva"
+    },
+    "secondaryCta": {
+      "label": "Conóceme",
+      "href": "/conoceme"
+    },
+    "badges": ["Cita en 24h", "Confidencialidad total", "Sin compromiso"],
+    "imagePlaceholder": "Foto profesional"
+  },
+  "therapyApproach": {
+    "label": "Enfoque terapéutico",
+    "title": "Terapia que acompaña, no que dirige",
+    "description": "Mi trabajo integra las Terapias de Tercera Generación (ACT), el enfoque sistémico y las terapias contextuales. Me adapto a tu momento vital, siempre desde la evidencia científica y el respeto absoluto a tu historia.",
+    "pillars": [
+      {
+        "title": "Basada en evidencia",
+        "description": "Metodologías validadas científicamente, adaptadas a cada persona y momento vital.",
+        "icon": "lucide:flask-conical"
+      },
+      {
+        "title": "Perspectiva de género",
+        "description": "Un enfoque que reconoce el impacto del género en la salud mental y el bienestar.",
+        "icon": "lucide:users"
+      },
+      {
+        "title": "Enfoque humanista",
+        "description": "La persona en el centro. Sin juicios, con empatía y confianza en tu capacidad de cambio.",
+        "icon": "lucide:heart-handshake"
+      }
+    ]
+  },
+  "servicesSection": {
+    "label": "Especialidades",
+    "title": "¿En qué puedo ayudarte?"
+  },
+  "experienceSection": {
+    "label": "Trayectoria",
+    "title": "Experiencia clínica"
+  },
+  "trainingSection": {
+    "label": "Cualificación",
+    "title": "Formación",
+    "clinicalTitle": "Formación clínica",
+    "complementaryTitle": "Formación complementaria"
+  },
+  "cta": {
+    "title": "¿Hablamos?",
+    "description": "El primer paso es contactar. Sin compromiso.",
+    "label": "Reservar cita",
+    "href": "/reserva"
+  },
+  "courseHighlight": {
+    "label": "Formación profesional",
+    "ctaLabel": "Solicitar información"
+  }
+}

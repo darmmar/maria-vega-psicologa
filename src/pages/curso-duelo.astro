@@ -4,38 +4,65 @@ import Container from '../components/ui/Container.astro'
 import Button from '../components/ui/Button.astro'
 import ProseWrapper from '../components/ui/ProseWrapper.astro'
 import { render } from 'astro:content'
-import { getPublishedCourses } from '../lib/content/collections'
+import { getCourseBySlug } from '../lib/content/collections'
 import { siteConfig } from '../lib/config/site'
+import {
+  buildBreadcrumbList,
+  buildCourse,
+  buildJsonLdGraph,
+  buildPerson,
+} from '@/lib/seo'
 
-const courses = await getPublishedCourses()
-const course = courses[0]
-const rendered = course ? await render(course) : null
-const Content = rendered?.Content ?? null
+const course = await getCourseBySlug('curso-duelo')
+if (!course) return Astro.redirect('/404')
 
-// Prioridad: frontmatter > siteConfig > null
+const rendered = await render(course)
+const Content = rendered.Content
+
 const paymentLink =
-  course?.data.paymentLink || siteConfig.payments.courseDueloPaymentLink || null
+  course.data.paymentLink || siteConfig.payments.courseDueloPaymentLink || null
+
+const pageTitle = course.data.seoTitle ?? course.data.title
+const pageDescription = course.data.seoDescription ?? course.data.description
+const pageUrl = '/curso-duelo'
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson(),
+  buildCourse({
+    name: course.data.title,
+    description: course.data.description,
+    url: pageUrl,
+  }),
+  buildBreadcrumbList([
+    { name: 'Inicio', url: '/' },
+    { name: course.data.title, url: pageUrl },
+  ]),
+)
 ---
 
 <Layout
-  title="Curso duelo"
-  description="Un espacio de acompañamiento psicoeducativo para transitar el duelo. Herramientas basadas en evidencia para gestionar la pérdida."
+  title={pageTitle}
+  description={pageDescription}
+  jsonLd={jsonLd}
 >
-  <!-- Hero del curso -->
   <section class="section-gap bg-warm-100">
     <Container>
       <div class="max-w-3xl mx-auto text-center">
-        <p class="label-caps text-sage mb-3">Formación</p>
+        <p class="label-caps text-sage mb-3">Formación profesional</p>
         <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6">
-          {course?.data.title ?? 'Curso de duelo'}
+          {course.data.title}
         </h1>
-        <p class="text-ink-muted text-lg mb-8">
-          {course?.data.shortDescription ?? 'Acompañamiento psicoeducativo para transitar la pérdida.'}
+        <p class="text-ink-muted text-lg mb-4">
+          {course.data.shortDescription}
+        </p>
+        <p class="text-ink-muted text-base mb-8 max-w-2xl mx-auto">
+          Dirigido a psicólogos/as y profesionales de la salud mental que quieren adquirir
+          destrezas clínicas para trabajar el duelo en consulta.
         </p>
         <div class="flex gap-4 justify-center flex-wrap">
           {paymentLink ? (
             <Button href={paymentLink} variant="primary" size="lg" external>
-              {course?.data.ctaLabel ?? 'Acceder al curso'}
+              {course.data.ctaLabel ?? 'Inscribirme en la formación'}
             </Button>
           ) : (
             <Button href="/contacto" variant="primary" size="lg">
@@ -47,28 +74,26 @@ const paymentLink =
     </Container>
   </section>
 
-  <!-- Contenido MDX del curso -->
-  {Content && (
-    <section class="section-gap">
-      <Container>
-        <ProseWrapper>
-          <Content />
-        </ProseWrapper>
-      </Container>
-    </section>
-  )}
+  <section class="section-gap">
+    <Container>
+      <ProseWrapper>
+        <Content />
+      </ProseWrapper>
+    </Container>
+  </section>
 
-  <!-- CTA final -->
   <section class="section-gap bg-sage">
     <Container>
       <div class="text-center text-white">
-        <h2 class="font-display text-3xl font-semibold mb-4">¿Tienes preguntas?</h2>
-        <p class="mb-8 opacity-90">Puedes escribirme antes de apuntarte. Sin compromiso.</p>
+        <h2 class="font-display text-3xl font-semibold mb-4">¿Tienes preguntas sobre la formación?</h2>
+        <p class="mb-8 opacity-90 max-w-xl mx-auto">
+          Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso.
+        </p>
         <a
           href="/contacto"
           class="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-sage transition-colors"
         >
-          Contactar
+          Solicitar información
         </a>
       </div>
     </Container>

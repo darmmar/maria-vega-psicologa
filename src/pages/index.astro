@@ -7,6 +7,13 @@ import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
 import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CourseHighlight from "@/components/sections/CourseHighlight.astro";
 import CTASection from "@/components/sections/CTASection.astro";
+import { buildJsonLdGraph, buildPerson, buildWebSite } from "@/lib/seo";
+import { getCourseBySlug, getSiteSettings } from "@/lib/content/collections";
+
+const [settings, course] = await Promise.all([
+  getSiteSettings(),
+  getCourseBySlug("curso-duelo"),
+]);
 
 const services = [
   {
@@ -40,17 +47,25 @@ const services = [
     href: "/psicologa-malaga",
   },
 ];
+
+const jsonLd = buildJsonLdGraph(buildWebSite(), buildPerson());
 ---
 
 <Layout
   title="María Vega"
   description="Psicóloga General Sanitaria en Málaga. Terapia contextual, ACT y terapia breve sistémica para adultos, adolescentes y niños."
+  jsonLd={jsonLd}
 >
   <Hero />
   <TherapyApproach />
   <ServicesGrid services={services} />
   <ExperienceBlock />
   <TrainingBlock />
-  <CourseHighlight />
+  <CourseHighlight
+    title={course?.data.title}
+    description={course?.data.shortDescription}
+    label={settings.courseHighlight.label}
+    ctaLabel={settings.courseHighlight.ctaLabel}
+  />
   <CTASection />
 </Layout>
