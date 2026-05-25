@@ -41,9 +41,14 @@ const faqItems = [
       "La terapia presencial en Málaga está disponible los lunes de 17:00 a 20:00. La terapia online se ofrece de martes a domingo, de 16:00 a 21:00 (hora peninsular). Los horarios exactos los verás al reservar según la disponibilidad del calendario.",
   },
   {
+    question: "¿Cómo funciona el pago de la sesión?",
+    answer:
+      "Al confirmar día y hora en el calendario, pasarás por el checkout seguro de Cal.com (Stripe) antes de que la cita quede confirmada. No hay un enlace de pago aparte: el importe se abona en el mismo flujo de reserva.",
+  },
+  {
     question: "¿Qué ocurre después de reservar?",
     answer:
-      "Recibirás un correo de confirmación con todos los detalles de la cita. Si es online, te llegará también el enlace a la videollamada. Puedes cancelar o reprogramar con al menos 24 horas de antelación.",
+      "Tras completar el pago, recibirás un correo de confirmación con todos los detalles de la cita. Si es online, te llegará también el enlace a la videollamada. Puedes cancelar o reprogramar con al menos 24 horas de antelación.",
   },
   {
     question: "¿La primera consulta me compromete a seguir?",
@@ -77,7 +82,8 @@ const faqItems = [
         </h1>
         <p class="font-body text-lg text-ink-muted leading-relaxed">
           Dar el primer paso es lo más difícil. Aquí puedes elegir el momento que mejor te venga —
-          sin llamadas, sin esperas.
+          sin llamadas, sin esperas. El pago de la sesión se realiza de forma segura al reservar,
+          dentro del calendario de Cal.com (Stripe).
         </p>
       </div>
     </Container>
@@ -130,8 +136,8 @@ const faqItems = [
       </div>
 
       <p class="mt-8 text-center font-body text-sm text-ink-muted/70">
-        Horarios en zona horaria de Madrid (CET/CEST). También puedes elegir día y hora directamente
-        en el calendario de abajo o{" "}
+        Horarios en zona horaria de Madrid (CET/CEST). Las sesiones requieren pago al reservar (checkout
+        seguro de Cal.com). También puedes elegir día y hora directamente en el calendario de abajo o{" "}
         <a href="/contacto" class="underline underline-offset-2 hover:text-sage transition-colors">
           contactar por mensaje
         </a>{" "}
