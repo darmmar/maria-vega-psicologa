@@ -12,7 +12,7 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 ## Técnica
 
 - [x] Build funciona sin errores (`pnpm build`) — ✅ verified en Vercel build logs
-- [ ] No hay errores TypeScript (`pnpm typecheck`)
+- [x] No hay errores TypeScript (`pnpm typecheck`) — ✅ Mayo 2026
 - [ ] No hay errores de lint/format (`pnpm check`)
 - [x] No hay secretos en el repo (CI lo verifica automáticamente)
 - [x] Sitemap generado (`/sitemap-index.xml`) — generado por @astrojs/sitemap
@@ -21,7 +21,8 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 - [x] OpenGraph correcto (título, descripción, imagen) — og:title, og:description, og:image en SeoHead
 - [ ] Diseño mobile revisado en dispositivos reales o DevTools
 - [ ] Lighthouse score revisado (Performance, Accessibility, SEO)
-- [x] Accesibilidad básica revisada (contraste, alt texts, focus visible) — aria-label, main, lang=es
+- [x] Página 404 accesible (`/404`)
+- [x] Curso de duelo reorientado como formación profesional para terapeutas (no psicoeducación para pacientes)
 - [x] Headers de seguridad activos — configurados en vercel.json (X-Frame-Options, CSP, HSTS, etc.)
 
 ---
@@ -33,7 +34,7 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 - [x] H1 único por página
 - [x] JSON-LD de `LocalBusiness` validado — añadido en SeoHead.astro
 - [x] Sitemap generado automáticamente con @astrojs/sitemap
-- [ ] **PENDIENTE: Actualizar siteUrl** — cambiar `https://mariavegapsicologa.es` en `site.ts` y `astro.config.mjs` cuando esté disponible el dominio real (actualmente apunta a mariavegapsicologa.es como placeholder)
+- [ ] **PENDIENTE: Actualizar siteUrl** — configurar `PUBLIC_SITE_URL` en Vercel cuando esté disponible el dominio propio (por defecto: maria-vega-psicologa.vercel.app)
 - [ ] Google Search Console preparado y dominio verificado
 - [ ] Sitemap enviado a Search Console
 - [x] Página `/psicologa-malaga` publicada y optimizada

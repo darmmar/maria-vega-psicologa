@@ -39,27 +39,35 @@ export type SiteConfig = {
   };
 };
 
+const DEFAULT_SITE_URL = "https://maria-vega-psicologa.vercel.app";
+
+function envString(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
 export const siteConfig: SiteConfig = {
   siteName: "María Vega Psicología",
   professionalName: "María Vega",
   professionalTitle: "Psicóloga General Sanitaria",
   description:
     "Psicóloga en Málaga y terapia online. Terapia basada en evidencia científica para problemas emocionales, relacionales, duelo, ansiedad, autocuidado y adicciones.",
-  siteUrl: "https://mariavegapsicologa.es",
+  siteUrl: envString(import.meta.env.PUBLIC_SITE_URL) ?? DEFAULT_SITE_URL,
   location: {
     city: "Málaga",
     province: "Málaga",
     country: "España",
   },
   contact: {
-    email: "",
+    email: envString(import.meta.env.PUBLIC_CONTACT_EMAIL) ?? "",
     phone: "",
-    whatsapp: "",
-    instagram: "",
+    whatsapp: envString(import.meta.env.PUBLIC_WHATSAPP_URL) ?? "",
+    instagram: envString(import.meta.env.PUBLIC_INSTAGRAM_URL) ?? "",
     linkedin: "",
   },
   booking: {
-    calComUrl: "https://cal.com/maria-vega",
+    calComUrl:
+      envString(import.meta.env.PUBLIC_CALCOM_URL) ?? "https://cal.com/maria-vega",
     calComUsername: "maria-vega",
     eventSlugs: {
       presencial: "terapia-presencial",
@@ -71,7 +79,8 @@ export const siteConfig: SiteConfig = {
     },
   },
   payments: {
-    courseDueloPaymentLink: "",
+    courseDueloPaymentLink:
+      envString(import.meta.env.PUBLIC_STRIPE_COURSE_PAYMENT_LINK) ?? "",
   },
   legal: {
     collegiateNumber: "",

@@ -1,0 +1,29 @@
+---
+import Layout from '@/components/layout/Layout.astro'
+import Container from '@/components/ui/Container.astro'
+import Button from '@/components/ui/Button.astro'
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe o ha sido movida."
+  noindex={true}
+>
+  <section class="section-gap bg-warm-100">
+    <Container>
+      <div class="max-w-xl mx-auto text-center py-12">
+        <p class="label-caps text-sage mb-3">Error 404</p>
+        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6">
+          Página no encontrada
+        </h1>
+        <p class="text-ink-muted text-lg mb-8 leading-relaxed">
+          La página que buscas no existe, ha sido movida o la dirección no es correcta.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/" variant="primary">Volver al inicio</Button>
+          <Button href="/contacto" variant="secondary">Contactar</Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+</Layout>

@@ -5,8 +5,12 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
+const siteUrl =
+  process.env.PUBLIC_SITE_URL?.trim() ||
+  "https://maria-vega-psicologa.vercel.app";
+
 export default defineConfig({
-  site: "https://mariavegapsicologa.es",
+  site: siteUrl,
   output: "static",
   integrations: [
     react(),

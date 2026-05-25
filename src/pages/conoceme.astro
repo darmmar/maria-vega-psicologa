@@ -5,11 +5,24 @@ import ExperienceBlock from '@/components/sections/ExperienceBlock.astro'
 import TrainingBlock from '@/components/sections/TrainingBlock.astro'
 import CTASection from '@/components/sections/CTASection.astro'
 import { Icon } from 'astro-icon/components'
+import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from '@/lib/seo'
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson({
+    description:
+      'Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica.',
+  }),
+  buildBreadcrumbList([
+    { name: 'Inicio', url: '/' },
+    { name: 'Conóceme', url: '/conoceme' },
+  ]),
+)
 ---
 
 <Layout
   title="Conóceme"
   description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica."
+  jsonLd={jsonLd}
 >
   <!-- Hero -->
   <section class="py-8 lg:py-10 bg-warm-100">

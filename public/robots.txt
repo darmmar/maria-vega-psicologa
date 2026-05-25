@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
-Sitemap: https://mariavegapsicologa.es/sitemap-index.xml
+Sitemap: https://maria-vega-psicologa.vercel.app/sitemap-index.xml
