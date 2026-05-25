@@ -46,6 +46,31 @@ function envString(value: string | undefined): string | undefined {
   return trimmed ? trimmed : undefined;
 }
 
+function parseCalComConfig(rawUrl: string | undefined): {
+  calComUrl: string;
+  calComUsername: string;
+} {
+  const trimmed = rawUrl?.trim();
+  if (!trimmed) {
+    return { calComUrl: "", calComUsername: "" };
+  }
+
+  try {
+    const normalizedUrl = trimmed.replace(/\/+$/, "");
+    const parsed = new URL(normalizedUrl);
+    const username = parsed.pathname.replace(/^\/+|\/+$/g, "").split("/")[0] ?? "";
+
+    return {
+      calComUrl: normalizedUrl,
+      calComUsername: username,
+    };
+  } catch {
+    return { calComUrl: "", calComUsername: "" };
+  }
+}
+
+const calComConfig = parseCalComConfig(import.meta.env.PUBLIC_CALCOM_URL);
+
 export const siteConfig: SiteConfig = {
   siteName: "María Vega Psicología",
   professionalName: "María Vega",
@@ -66,9 +91,8 @@ export const siteConfig: SiteConfig = {
     linkedin: "",
   },
   booking: {
-    calComUrl:
-      envString(import.meta.env.PUBLIC_CALCOM_URL) ?? "https://cal.com/maria-vega",
-    calComUsername: "maria-vega",
+    calComUrl: calComConfig.calComUrl,
+    calComUsername: calComConfig.calComUsername,
     eventSlugs: {
       presencial: "terapia-presencial",
       online: "terapia-online",

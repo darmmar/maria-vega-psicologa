@@ -8,8 +8,7 @@ import CalEmbed from "@/components/islands/CalEmbed";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "@/lib/config/site";
 
-const calUsername = siteConfig.booking.calComUsername ?? "maria-vega";
-const { eventSlugs, availability } = siteConfig.booking;
+const { calComUrl, calComUsername, eventSlugs, availability } = siteConfig.booking;
 
 const eventTypes = [
   {
@@ -19,7 +18,7 @@ const eventTypes = [
     duration: "60 min",
     format: availability.presencial,
     icon: "lucide:map-pin",
-    slug: `${calUsername}/${eventSlugs.presencial}`,
+    bookingUrl: calComUrl ? `${calComUrl}/${eventSlugs.presencial}` : "",
     badge: null,
   },
   {
@@ -29,7 +28,7 @@ const eventTypes = [
     duration: "60 min",
     format: availability.online,
     icon: "lucide:monitor",
-    slug: `${calUsername}/${eventSlugs.online}`,
+    bookingUrl: calComUrl ? `${calComUrl}/${eventSlugs.online}` : "",
     badge: "Recomendado si no estás en Málaga",
   },
 ];
@@ -123,7 +122,7 @@ const faqItems = [
                 </div>
               </div>
               <Button
-                href={`https://cal.com/${event.slug}`}
+                href={event.bookingUrl}
                 variant="secondary"
                 size="sm"
                 external
@@ -160,7 +159,7 @@ const faqItems = [
         </div>
 
         <div class="rounded-2xl overflow-hidden border border-ink-border/30 bg-white shadow-sm">
-          <CalEmbed calLink={calUsername} client:load />
+          <CalEmbed calLink={calComUsername} client:load />
         </div>
       </div>
     </Container>
