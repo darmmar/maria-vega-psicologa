@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 98" aria-hidden="true">
-  <!-- V  rear layer, extends below M baseline -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 98" fill="none" aria-hidden="true">
   <path fill="#475b4c" d="M28 4 L32 4 L50 95 L52 95 L70 4 L74 4 L71 8 L54 88 L46 88 L29 8 L28 4 Z"/>
-  <!-- M  front layer, Playfair-style bracket serifs -->
   <path fill="#475b4c" d="M1 4 H17 V8 H5 V89 H17 V93 H1 V89 H5 V8 H1 V4 Z"/>
   <path fill="#475b4c" d="M35 4 H51 V8 H39 V89 H51 V93 H35 V89 H39 V8 H35 V4 Z"/>
   <path fill="#475b4c" d="M5 8 L26 46 L30 44 L9 8 Z"/>

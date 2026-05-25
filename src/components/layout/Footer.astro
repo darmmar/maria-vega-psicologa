@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components'
 import Container from '../ui/Container.astro'
+import MvMonogram from '../ui/MvMonogram.astro'
 import { siteConfig } from '@/lib/config/site'
 
 const socialLinks = [
@@ -41,7 +42,7 @@ const legalLinks = [
     <div class="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
 
       <div class="flex items-center gap-2 text-sm text-ink-muted">
-        <img src="/images/mv-monogram.svg" alt="" width="56" height="62" class="flex-shrink-0" aria-hidden="true" />
+        <MvMonogram width={32} height={36} class="flex-shrink-0" />
         <span>© {new Date().getFullYear()} María Vega Psicología</span>
       </div>
 
