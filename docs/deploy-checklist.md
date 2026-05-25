@@ -110,7 +110,7 @@ La conexión Stripe ↔ Cal.com **no se puede hacer por API** — requiere OAuth
 - [ ] Emails de confirmación revisados
 - [ ] Política de cancelación definida en Cal.com
 
-**Vercel:** el sitio funciona sin `PUBLIC_CALCOM_URL` gracias al valor por defecto en `src/lib/config/site.ts` (`https://cal.com/maria-vega`). Recomendado definir en producción:
+**Vercel:** `PUBLIC_CALCOM_URL` es **obligatoria** para que `/reserva` muestre el calendario y los enlaces de reserva. El username de Cal.com se deriva de esta URL en `src/lib/config/site.ts`:
 
 `PUBLIC_CALCOM_URL=https://cal.com/maria-vega`
 
@@ -151,13 +151,15 @@ No incluir claves secretas de Stripe en el repo ni en variables `PUBLIC_*`.
 | Variable | Obligatoria | Valor / notas |
 |----------|-------------|---------------|
 | `PUBLIC_SITE_URL` | Recomendada | URL final del sitio (dominio propio cuando exista) |
-| `PUBLIC_CALCOM_URL` | Opcional* | `https://cal.com/maria-vega` (*ya hay default en `site.ts`) |
+| `PUBLIC_CALCOM_URL` | Sí (reservas) | `https://cal.com/maria-vega` — username derivado de la URL |
 | `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` | Sí, para pagos | URL del Payment Link cuando exista en Stripe |
 | `PUBLIC_CONTACT_EMAIL` | Recomendada | Email visible en contacto y legales |
 | `PUBLIC_WHATSAPP_URL` | Opcional | `https://wa.me/...` |
 | `PUBLIC_INSTAGRAM_URL` | Opcional | Perfil Instagram |
-| `TINA_PUBLIC_CLIENT_ID` | Solo TinaCMS | Cuando se configure edición remota |
-| `TINA_TOKEN` | Solo TinaCMS | Cuando se configure edición remota |
+| `TINA_CLIENT_ID` | Sí (build + admin) | Client ID de Tina Cloud — obligatorio en Vercel para `pnpm build` |
+| `TINA_TOKEN` | Sí (build + admin) | Read-only token de Tina Cloud |
+| `GITHUB_BRANCH` | Recomendada | `main` — rama que indexa Tina Cloud |
+| `TINA_SEARCH_TOKEN` | Opcional | Search token para búsqueda en el panel |
 
 - [ ] Dominio personalizado conectado en Vercel (cuando esté disponible)
 - [ ] GitHub: crear repo darmmar/maria-vega-psicologa y hacer push (requiere GitHub token)
@@ -178,8 +180,8 @@ No incluir claves secretas de Stripe en el repo ni en variables `PUBLIC_*`.
 | Precio sesión online (EUR) | Event type [terapia-online](https://app.cal.com/event-types/5750906) → Payment |
 | Precio sesión presencial (EUR) | Event type [terapia-presencial](https://app.cal.com/event-types/5750914) → Payment |
 | Stripe Payment Link (curso, opcional) | `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` en Vercel (lee `site.ts` → `payments.courseDueloPaymentLink`) |
-| TINA_PUBLIC_CLIENT_ID | Variables de entorno Vercel |
-| TINA_TOKEN | Variables de entorno Vercel |
+| TINA_CLIENT_ID | Variables de entorno Vercel (obligatorio para build) |
+| TINA_TOKEN | Variables de entorno Vercel (obligatorio para build) |
 | Instagram / TikTok / Telegram / WhatsApp URLs | `src/components/layout/Footer.astro` → `socialLinks` |
 | Foto retrato (María) | Reemplazar placeholder en `/conoceme` |
 | Foto despacho | Añadir en secciones relevantes |

@@ -30,12 +30,13 @@ En [vercel.com](https://vercel.com) → proyecto **maria-vega-psicologa** → **
 
 ### 3. Comando de build en Vercel
 
-En **Settings** → **General** → **Build & Development Settings**:
+Vercel usa por defecto `pnpm run build`. El script `build` del proyecto ya ejecuta `tinacms build && astro build`, así que **no hace falta** cambiar el Build Command en el dashboard (dejar `pnpm run build` o vacío).
 
-- **Build Command:** `pnpm cms:build`
 - **Output Directory:** `dist` (por defecto de Astro)
 
-Esto genera el panel de administración en `/admin` y luego construye el sitio estático.
+> `pnpm cms:build` y `pnpm build` son equivalentes. `pnpm build:astro` solo construye Astro (sin panel `/admin`).
+
+**Variables obligatorias para el build:** `TINA_CLIENT_ID` y `TINA_TOKEN` deben estar en Vercel (Production y Preview). Sin ellas, `tinacms build` puede fallar o generar un `/admin` sin conexión a Tina Cloud.
 
 ### 4. Después del primer deploy con variables
 
@@ -66,7 +67,7 @@ Esto genera el panel de administración en `/admin` y luego construye el sitio e
 ### Importante
 
 - No incluyas información clínica de pacientes en ningún campo.
-- Si `/admin` no carga o pide credenciales raras, avisa a David (suele faltar una variable en Vercel o el build no usó `pnpm cms:build`).
+- Si `/admin` no carga o pide credenciales raras, avisa a David (suele faltar `TINA_CLIENT_ID` / `TINA_TOKEN` en Vercel).
 
 ---
 
@@ -102,7 +103,7 @@ pnpm cms
 | `tina/config.ts` | Esquema de colecciones y conexión a Tina Cloud |
 | `tina/tina-lock.json` | Esquema compilado; **debe estar en Git** para que Tina indexe la rama |
 | `public/admin/` | Panel generado por `tinacms build` en cada deploy |
-| `package.json` → `cms:build` | Build de producción con Tina + Astro |
+| `package.json` → `build` | Build de producción con Tina + Astro (Vercel lo usa por defecto) |
 
 Para regenerar `tina/tina-lock.json` tras cambiar el esquema:
 
