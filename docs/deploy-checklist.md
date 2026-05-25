@@ -156,8 +156,9 @@ No incluir claves secretas de Stripe en el repo ni en variables `PUBLIC_*`.
 | `PUBLIC_CONTACT_EMAIL` | Recomendada | Email visible en contacto y legales |
 | `PUBLIC_WHATSAPP_URL` | Opcional | `https://wa.me/...` |
 | `PUBLIC_INSTAGRAM_URL` | Opcional | Perfil Instagram |
-| `TINA_CLIENT_ID` | Sí (build + admin) | Client ID de Tina Cloud — obligatorio en Vercel para `pnpm build` |
-| `TINA_TOKEN` | Sí (build + admin) | Read-only token de Tina Cloud |
+| `TINA_CLIENT_ID` | Sí (build + admin) | Client ID de Tina Cloud — alias; preferir `NEXT_PUBLIC_TINA_CLIENT_ID` |
+| `NEXT_PUBLIC_TINA_CLIENT_ID` | Sí (build + admin) | Client ID de Tina Cloud (nombre recomendado por Tina) |
+| `TINA_TOKEN` | Sí (build + admin) | Read-only / Content token de Tina Cloud |
 | `GITHUB_BRANCH` | Recomendada | `main` — rama que indexa Tina Cloud |
 | `TINA_SEARCH_TOKEN` | Opcional | Search token para búsqueda en el panel |
 
@@ -180,7 +181,7 @@ No incluir claves secretas de Stripe en el repo ni en variables `PUBLIC_*`.
 | Precio sesión online (EUR) | Event type [terapia-online](https://app.cal.com/event-types/5750906) → Payment |
 | Precio sesión presencial (EUR) | Event type [terapia-presencial](https://app.cal.com/event-types/5750914) → Payment |
 | Stripe Payment Link (curso, opcional) | `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` en Vercel (lee `site.ts` → `payments.courseDueloPaymentLink`) |
-| TINA_CLIENT_ID | Variables de entorno Vercel (obligatorio para build) |
+| NEXT_PUBLIC_TINA_CLIENT_ID / TINA_CLIENT_ID | Variables de entorno Vercel (obligatorio para build) |
 | TINA_TOKEN | Variables de entorno Vercel (obligatorio para build) |
 | Instagram / TikTok / Telegram / WhatsApp URLs | `src/components/layout/Footer.astro` → `socialLinks` |
 | Foto retrato (María) | Reemplazar placeholder en `/conoceme` |
