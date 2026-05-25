@@ -38,13 +38,5 @@
     "@types/react-dom": "^19.0.0",
     "sharp": "^0.34.5",
     "typescript": "^5.7.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "better-sqlite3",
-      "esbuild",
-      "sharp"
-    ]
   }
 }

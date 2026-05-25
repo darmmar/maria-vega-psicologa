@@ -7,7 +7,7 @@ Implementa la Fase 4: integración de TinaCMS.
 
 Tareas:
 1. Instalar e inicializar TinaCMS para Astro.
-2. Configurar `.tina/config.ts`.
+2. Configurar `tina/config.ts`.
 3. Crear colecciones editables:
    - pages
    - services

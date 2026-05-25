@@ -82,7 +82,7 @@ maria-psicologia/
   public/
     images/
 
-  .tina/
+  tina/
     config.ts
 ```
 

@@ -24,7 +24,7 @@ Thumbs.db
 .vercel
 
 # TinaCMS generated
-.tina/__generated__/
+tina/__generated__/
 
 # Editor
 .vscode/settings.json
