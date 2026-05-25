@@ -9,7 +9,11 @@
 
 ## Edición remota (Tina Cloud)
 
-Próximamente se configurará Tina Cloud para editar directamente desde el navegador sin necesidad de tener el proyecto instalado.
+1. Copia el **Search Token** desde [Tokens del proyecto en Tina](https://app.tina.io/projects/bedea9d3-b5cc-4ca8-be3b-c575755f262f/tokens).
+2. Añádelo como `TINA_SEARCH_TOKEN` en tu `.env` local y en las variables de entorno de Vercel (Production y Preview).
+3. Configura también `TINA_CLIENT_ID`, `TINA_TOKEN` y `GITHUB_BRANCH=main` en ambos entornos.
+
+Con esto podrás editar directamente desde el navegador sin necesidad de tener el proyecto instalado.
 
 ## Qué puedes editar
 
