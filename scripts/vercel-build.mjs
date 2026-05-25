@@ -5,22 +5,35 @@
  */
 import { spawnSync } from "node:child_process";
 
-const clientId =
+const clientIdRaw =
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? process.env.TINA_CLIENT_ID;
-const token = process.env.TINA_TOKEN;
+const tokenRaw = process.env.TINA_TOKEN;
+
+const clientId = clientIdRaw?.trim();
+const token = tokenRaw?.trim();
 
 const missing = [];
-if (!clientId?.trim()) {
+const empty = [];
+
+if (!clientIdRaw) {
   missing.push("NEXT_PUBLIC_TINA_CLIENT_ID (or TINA_CLIENT_ID)");
-}
-if (!token?.trim()) {
-  missing.push("TINA_TOKEN");
+} else if (!clientId) {
+  empty.push("NEXT_PUBLIC_TINA_CLIENT_ID (or TINA_CLIENT_ID)");
 }
 
-if (missing.length > 0) {
-  console.error("\n❌ TinaCMS build: faltan variables de entorno obligatorias:\n");
+if (!tokenRaw) {
+  missing.push("TINA_TOKEN");
+} else if (!token) {
+  empty.push("TINA_TOKEN");
+}
+
+if (missing.length > 0 || empty.length > 0) {
+  console.error("\n❌ TinaCMS build: variables de entorno incorrectas:\n");
   for (const name of missing) {
-    console.error(`   • ${name}`);
+    console.error(`   • Falta: ${name}`);
+  }
+  for (const name of empty) {
+    console.error(`   • Vacía (sin valor): ${name}`);
   }
   console.error(`
 Copia los valores desde app.tina.io → tu proyecto → Project setup / Tokens.
@@ -36,7 +49,7 @@ En Vercel: Settings → Environment Variables
 Errores frecuentes:
   • TINA_READ_TOKEN en lugar de TINA_TOKEN
   • Variable solo en Production, build de Preview falla
-  • Valor vacío o espacios al copiar/pegar
+  • Valor vacío (variable creada pero sin pegar el token/Client ID)
   • Client ID en TINA_TOKEN o token en TINA_CLIENT_ID
 `);
   process.exit(1);
