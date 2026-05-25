@@ -56,23 +56,42 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 
 ---
 
-## Reservas
+## Reservas (Cal.com)
 
-- [ ] Cuenta de Cal.com creada y configurada (username: maria-vega configurado en site.ts)
-- [ ] Tipos de evento creados en Cal.com (primera-consulta, seguimiento, online)
-- [ ] Google Calendar sincronizado con Cal.com
-- [x] Página `/reserva` con embed de Cal.com
+**Estado (API v2 verificada, mayo 2026):** cuenta **configurada**. Usuario `maria-vega`. Tipos de evento activos:
+
+| Slug | Título | Horario (Europe/Madrid) |
+|------|--------|-------------------------|
+| `terapia-presencial` | Terapia presencial | Lunes 17:00–20:00 |
+| `terapia-online` | Terapia online | Martes–domingo 16:00–21:00 |
+
+Horarios enlazados a schedules en Cal.com: «Consulta presencial - lunes tarde» y «Terapia online - tardes».
+
+- [x] Cuenta Cal.com creada y configurada (`maria-vega`)
+- [x] Tipos de evento creados (`terapia-online`, `terapia-presencial`)
+- [x] Horarios de disponibilidad definidos en Cal.com (coinciden con `site.ts` → `booking.availability`)
+- [ ] Google Calendar sincronizado con Cal.com (verificar en dashboard Cal.com)
+- [x] Página `/reserva` con embed de Cal.com (`CalEmbed` → `maria-vega`)
+- [x] Enlaces directos a `https://cal.com/maria-vega/terapia-online` y `.../terapia-presencial`
 - [ ] Emails de confirmación revisados
 - [ ] Política de cancelación definida en Cal.com
 
+**Vercel:** el sitio funciona sin `PUBLIC_CALCOM_URL` gracias al valor por defecto en `src/lib/config/site.ts` (`https://cal.com/maria-vega`). Recomendado definir en producción:
+
+`PUBLIC_CALCOM_URL=https://cal.com/maria-vega`
+
 ---
 
-## Pagos
+## Pagos (Stripe)
 
-- [ ] **PENDIENTE:** Crear Stripe Payment Link en https://dashboard.stripe.com/payment-links
-- [ ] Añadir URL en `src/lib/config/site.ts` (campo `payments.courseDueloPaymentLink`)
-- [ ] Verificar que el botón de pago aparece en `/curso-duelo`
+**Estado (Stripe MCP verificado, mayo 2026):** cuenta conectada al MCP; **0 Payment Links** en el dashboard. El botón de pago en `/curso-duelo` solo aparece si hay URL en `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` (o en frontmatter `paymentLink` del curso).
+
+- [ ] Crear Stripe Payment Link en https://dashboard.stripe.com/payment-links (curso de duelo)
+- [ ] Añadir URL en Vercel: `PUBLIC_STRIPE_COURSE_PAYMENT_LINK=https://buy.stripe.com/...`
+- [ ] Verificar que el botón «Inscribirme en la formación» aparece en `/curso-duelo` (ahora muestra «Solicitar información» → contacto)
 - [ ] Probar el flujo de pago completo
+
+No incluir claves secretas de Stripe en el repo ni en variables `PUBLIC_*`.
 
 ---
 
@@ -80,11 +99,19 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 
 - [x] Repo vinculado a Vercel — `darmmars-projects/maria-vega-psicologa`
 - [x] Deploy de producción completado — https://maria-vega-psicologa.vercel.app
-- [ ] Variables de entorno pendientes en Vercel dashboard:
-  - `PUBLIC_SITE_URL` (dominio final cuando esté disponible)
-  - `PUBLIC_CALCOM_URL` (https://cal.com/maria-vega)
-  - `TINA_PUBLIC_CLIENT_ID` (cuando se configure TinaCMS)
-  - `TINA_TOKEN` (cuando se configure TinaCMS)
+- [ ] Variables de entorno en Vercel dashboard:
+
+| Variable | Obligatoria | Valor / notas |
+|----------|-------------|---------------|
+| `PUBLIC_SITE_URL` | Recomendada | URL final del sitio (dominio propio cuando exista) |
+| `PUBLIC_CALCOM_URL` | Opcional* | `https://cal.com/maria-vega` (*ya hay default en `site.ts`) |
+| `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` | Sí, para pagos | URL del Payment Link cuando exista en Stripe |
+| `PUBLIC_CONTACT_EMAIL` | Recomendada | Email visible en contacto y legales |
+| `PUBLIC_WHATSAPP_URL` | Opcional | `https://wa.me/...` |
+| `PUBLIC_INSTAGRAM_URL` | Opcional | Perfil Instagram |
+| `TINA_PUBLIC_CLIENT_ID` | Solo TinaCMS | Cuando se configure edición remota |
+| `TINA_TOKEN` | Solo TinaCMS | Cuando se configure edición remota |
+
 - [ ] Dominio personalizado conectado en Vercel (cuando esté disponible)
 - [ ] GitHub: crear repo darmmar/maria-vega-psicologa y hacer push (requiere GitHub token)
 
@@ -94,12 +121,12 @@ Basado en `docs/ai-plan/14_CHECKLIST_PRE_LAUNCH.md`.
 
 | Dato | Dónde va |
 |------|----------|
-| Email de contacto | `src/lib/config/site.ts` → `contact.email` + páginas legales |
-| Teléfono / WhatsApp | `src/lib/config/site.ts` → `contact.phone` y `contact.whatsapp` |
-| Número de colegiada | `src/lib/config/site.ts` → `legal.collegiateNumber` + aviso legal |
+| Email de contacto | `PUBLIC_CONTACT_EMAIL` en Vercel o `site.ts` → `contact.email` + páginas legales |
+| Teléfono / WhatsApp | `PUBLIC_WHATSAPP_URL` + `site.ts` → `contact.phone` / `contact.whatsapp` |
+| Número de colegiada | `site.ts` → `legal.collegiateNumber` + aviso legal |
 | NIF/CIF | `src/pages/legal/aviso-legal.astro` |
-| Dirección exacta de consulta | `src/lib/config/site.ts` → `legal.address` |
-| Stripe Payment Link (curso) | `src/lib/config/site.ts` → `payments.courseDueloPaymentLink` |
+| Dirección exacta de consulta | `site.ts` → `legal.address` |
+| Stripe Payment Link (curso) | `PUBLIC_STRIPE_COURSE_PAYMENT_LINK` en Vercel (lee `site.ts` → `payments.courseDueloPaymentLink`) |
 | TINA_PUBLIC_CLIENT_ID | Variables de entorno Vercel |
 | TINA_TOKEN | Variables de entorno Vercel |
 | Instagram / TikTok / Telegram / WhatsApp URLs | `src/components/layout/Footer.astro` → `socialLinks` |
