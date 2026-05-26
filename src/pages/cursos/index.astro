@@ -1,0 +1,86 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import Card from "@/components/ui/Card.astro";
+import Button from "@/components/ui/Button.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import { Icon } from "astro-icon/components";
+import { getPublishedCourses, getSiteSettings } from "@/lib/content/collections";
+import { imageSrc } from "@/lib/images";
+import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+
+const [settings, courses] = await Promise.all([getSiteSettings(), getPublishedCourses()]);
+const { coursesPage } = settings;
+
+const pageTitle = coursesPage.seoTitle ?? coursesPage.title;
+const pageDescription = coursesPage.seoDescription;
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson({
+    description: pageDescription,
+  }),
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: coursesPage.title, url: "/cursos" },
+  ]),
+);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical="/cursos" jsonLd={jsonLd}>
+  <PageHero
+    label={coursesPage.label}
+    title={coursesPage.title}
+    description={coursesPage.intro}
+  />
+
+  <section class="section-gap-tight">
+    <Container>
+      {
+        courses.length > 0 ? (
+          <div class="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {courses.map((course) => {
+              const href = `/${course.data.slug}`;
+              const image = imageSrc(course.data.image);
+
+              return (
+                <Card class="flex flex-col h-full">
+                  {image ? (
+                    <img
+                      src={image}
+                      alt={course.data.imageAlt ?? course.data.title}
+                      class="w-full aspect-[16/9] object-cover rounded-lg mb-5"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div
+                      class="flex items-center justify-center aspect-[16/9] rounded-lg bg-sage/10 mb-5"
+                      aria-hidden="true"
+                    >
+                      <Icon name="lucide:graduation-cap" class="w-12 h-12 text-sage/40" />
+                    </div>
+                  )}
+                  <h2 class="font-display text-xl font-semibold text-ink mb-2">{course.data.title}</h2>
+                  <p class="text-ink-muted text-sm leading-relaxed flex-1 mb-6">
+                    {course.data.shortDescription}
+                  </p>
+                  <Button href={href} variant="secondary" size="sm">
+                    {course.data.ctaLabel ?? "Ver formación"}
+                  </Button>
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <p class="text-center text-ink-muted py-8">
+            Próximamente nuevas formaciones. Si te interesa, puedes{" "}
+            <a href="/contacto" class="text-sage underline underline-offset-4 hover:text-sage-600">
+              escribirme
+            </a>
+            .
+          </p>
+        )
+      }
+    </Container>
+  </section>
+</Layout>

@@ -1,0 +1,9 @@
+Lee la carpeta docs/ai-plan/ completa y úsala como fuente de verdad del proyecto.
+
+Tienes acceso al MCP de Stitch y a GitHub. Primero inspecciona el repo y consulta Stitch. Después propón un plan de implementación por fases, sin modificar archivos todavía.
+
+Stack: Astro + TypeScript + Tailwind + MDX + TinaCMS + Cal.com + Stripe Payment Links + Vercel.
+
+No trabajes en main. Crea rama feat/initial-astro-website. No subas secretos. No crees backend propio ni base de datos.
+
+Empieza siguiendo exactamente 00_START_HERE_CURSOR_PROMPT.md.

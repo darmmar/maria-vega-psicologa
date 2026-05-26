@@ -1,0 +1,42 @@
+---
+import Container from "@/components/ui/Container.astro";
+import ProseWrapper from "@/components/ui/ProseWrapper.astro";
+import { imageSrc } from "@/lib/images";
+
+interface Props {
+  image?: string;
+  imageAlt?: string;
+  fallbackAlt?: string;
+}
+
+const { image, imageAlt, fallbackAlt = "Ilustración del servicio" } = Astro.props;
+const src = imageSrc(image);
+const alt = imageAlt?.trim() || fallbackAlt;
+---
+
+<section class="section-gap-tight">
+  <Container>
+    {
+      src ? (
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <ProseWrapper>
+            <slot />
+          </ProseWrapper>
+          <figure class="lg:sticky lg:top-8">
+            <img
+              src={src}
+              alt={alt}
+              class="w-full rounded-2xl border border-sage-200/60 shadow-[0_12px_40px_rgba(71,91,76,0.12)] object-cover aspect-[4/5]"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
+      ) : (
+        <ProseWrapper>
+          <slot />
+        </ProseWrapper>
+      )
+    }
+  </Container>
+</section>

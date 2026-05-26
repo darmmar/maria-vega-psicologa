@@ -1,0 +1,81 @@
+---
+import { Icon } from 'astro-icon/components'
+import Container from '../ui/Container.astro'
+import { siteConfig } from '@/lib/config/site'
+
+const socialLinks = [
+  siteConfig.contact.instagram && {
+    name: 'Instagram',
+    icon: 'simple-icons:instagram',
+    href: siteConfig.contact.instagram,
+    label: 'Instagram de María Vega',
+  },
+  siteConfig.contact.whatsapp && {
+    name: 'WhatsApp',
+    icon: 'simple-icons:whatsapp',
+    href: siteConfig.contact.whatsapp,
+    label: 'WhatsApp de María Vega',
+  },
+  siteConfig.contact.linkedin && {
+    name: 'LinkedIn',
+    icon: 'simple-icons:linkedin',
+    href: siteConfig.contact.linkedin,
+    label: 'LinkedIn de María Vega',
+  },
+].filter(Boolean) as Array<{
+  name: string
+  icon: string
+  href: string
+  label: string
+}>
+
+const legalLinks = [
+  { label: 'Aviso legal', href: '/legal/aviso-legal' },
+  { label: 'Privacidad', href: '/legal/privacidad' },
+  { label: 'Cookies', href: '/legal/cookies' },
+]
+---
+
+<footer class="border-t border-ink-border bg-warm-100">
+  <Container>
+    <div class="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+      <div class="flex items-center gap-2 text-sm text-ink-muted">
+        <img
+          src="/images/mv-monogram.png"
+          alt=""
+          width="56"
+          height="62"
+          class="h-10 w-auto flex-shrink-0"
+          aria-hidden="true"
+        />
+        <span>© {new Date().getFullYear()} María Vega Psicología</span>
+      </div>
+
+      {
+        socialLinks.length > 0 && (
+          <div class="flex items-center gap-4">
+            {socialLinks.map(({ icon, href, label }) => (
+              <a
+                href={href}
+                aria-label={label}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-ink-faint hover:text-sage transition-colors"
+              >
+                <Icon name={icon} class="w-5 h-5" />
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      <nav aria-label="Pie de página legal" class="flex items-center gap-4 text-xs text-ink-faint">
+        {legalLinks.map(({ label, href }) => (
+          <a href={href} class="hover:text-ink transition-colors">{label}</a>
+        ))}
+      </nav>
+
+    </div>
+  </Container>
+</footer>

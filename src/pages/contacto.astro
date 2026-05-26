@@ -1,0 +1,197 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import { getContactPage } from "@/lib/content/collections";
+import { siteConfig } from "@/lib/config/site";
+import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+
+const page = await getContactPage();
+const { hero, firstConsultation, contactDetails, formSection } = page;
+const { email, whatsapp } = siteConfig.contact;
+
+const pageTitle = page.seoTitle;
+const pageDescription = page.seoDescription;
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson({ description: pageDescription }),
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: hero.title, url: "/contacto" },
+  ]),
+);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical="/contacto" jsonLd={jsonLd}>
+  <PageHero
+    label={hero.label}
+    title={hero.title}
+    description={hero.intro}
+    maxWidth="4xl"
+    descriptionClass="text-ink-muted text-xl leading-relaxed"
+  />
+
+  <section class="section-gap-tight">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-14">
+          <div class="space-y-8">
+            <div>
+              <h2 class="font-display text-2xl font-semibold text-ink mb-4">
+                {firstConsultation.title}
+              </h2>
+              {
+                firstConsultation.paragraphs.map((paragraph) => (
+                  <p class="text-ink-muted leading-relaxed">{paragraph}</p>
+                ))
+              }
+              <p class="text-ink-muted leading-relaxed mt-4">
+                {firstConsultation.calendarCta.prefix}
+                <a
+                  href={firstConsultation.calendarCta.linkHref}
+                  class="text-sage underline underline-offset-4 hover:text-sage-600"
+                >
+                  {firstConsultation.calendarCta.linkLabel}
+                </a>
+                {firstConsultation.calendarCta.suffix}
+              </p>
+            </div>
+
+            <div class="space-y-4">
+              <h3 class="font-display text-lg font-medium text-ink">{contactDetails.title}</h3>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="mt-1 text-sage text-sm" aria-hidden="true">✉</span>
+                  <div>
+                    <p class="text-sm label-caps text-ink-muted mb-1">Email</p>
+                    {
+                      email ? (
+                        <a
+                          href={`mailto:${email}`}
+                          class="text-ink-muted text-sm hover:text-sage transition-colors"
+                        >
+                          {email}
+                        </a>
+                      ) : (
+                        <p class="text-ink-muted italic text-sm">[EMAIL PENDIENTE]</p>
+                      )
+                    }
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="mt-1 text-sage text-sm" aria-hidden="true">💬</span>
+                  <div>
+                    <p class="text-sm label-caps text-ink-muted mb-1">WhatsApp</p>
+                    {
+                      whatsapp ? (
+                        <a
+                          href={whatsapp}
+                          class="text-ink-muted text-sm hover:text-sage transition-colors"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Escribir por WhatsApp
+                        </a>
+                      ) : (
+                        <p class="text-ink-muted italic text-sm">[WHATSAPP PENDIENTE]</p>
+                      )
+                    }
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="mt-1 text-sage text-sm" aria-hidden="true">📍</span>
+                  <div>
+                    <p class="text-sm label-caps text-ink-muted mb-1">Ubicación</p>
+                    <p class="text-ink-muted text-sm">{contactDetails.location}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="font-display text-2xl font-semibold text-ink mb-6">{formSection.title}</h2>
+
+            {/* TODO: conectar formulario a un servicio de email (Resend, Formspree, etc.) */}
+            <form class="space-y-5">
+              <div>
+                <label for="nombre" class="block text-sm font-semibold text-ink mb-1.5">
+                  Nombre
+                </label>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  class="w-full rounded-lg border border-ink-border bg-white px-4 py-3 text-ink placeholder-ink-muted/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 transition-colors"
+                  placeholder="Tu nombre"
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-semibold text-ink mb-1.5">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  class="w-full rounded-lg border border-ink-border bg-white px-4 py-3 text-ink placeholder-ink-muted/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 transition-colors"
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div>
+                <label for="mensaje" class="block text-sm font-semibold text-ink mb-1.5">
+                  Mensaje
+                </label>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  required
+                  rows={5}
+                  class="w-full rounded-lg border border-ink-border bg-white px-4 py-3 text-ink placeholder-ink-muted/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 transition-colors resize-none"
+                  placeholder="¿En qué puedo ayudarte?"
+                ></textarea>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <input
+                  id="privacidad"
+                  name="privacidad"
+                  type="checkbox"
+                  required
+                  class="mt-1 h-4 w-4 rounded border-ink-border text-sage focus:ring-sage"
+                />
+                <label for="privacidad" class="text-sm text-ink-muted leading-relaxed">
+                  He leído la{" "}
+                  <a
+                    href="/legal/privacidad"
+                    class="text-sage underline underline-offset-4 hover:text-sage-600"
+                  >
+                    política de privacidad
+                  </a>{" "}
+                  y consiento el tratamiento de mis datos para atender mi consulta.
+                </label>
+              </div>
+
+              <p class="text-xs text-ink-muted/70 leading-relaxed border-l-2 border-ink-border pl-3">
+                {formSection.privacyNote}
+              </p>
+
+              <button
+                type="submit"
+                class="w-full inline-flex items-center justify-center gap-2 font-body font-semibold rounded-lg bg-sage text-white px-6 py-3 text-base hover:bg-sage-600 active:bg-sage-700 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2"
+              >
+                {formSection.submitLabel}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+</Layout>

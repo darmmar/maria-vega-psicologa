@@ -1,0 +1,77 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import ServiceContentSection from "@/components/sections/ServiceContentSection.astro";
+import { render } from "astro:content";
+import { getServiceBySlug } from "@/lib/content/collections";
+
+interface Props {
+  slug: string;
+  heroIcon?: string;
+  heroLayout?: "split" | "centered";
+  standalone?: boolean;
+}
+
+const { slug, heroIcon, heroLayout = "split", standalone = true } = Astro.props;
+
+const service = await getServiceBySlug(slug);
+if (!service) return Astro.redirect("/404");
+const { Content } = await render(service);
+
+function getServiceIcon(href: string): string {
+  if (href.includes("duelo")) return "lucide:heart";
+  if (href.includes("ansiedad")) return "lucide:wind";
+  if (href.includes("adiccion")) return "lucide:link-2-off";
+  if (href.includes("infantil") || href.includes("juvenil")) return "lucide:star";
+  if (href.includes("online")) return "lucide:monitor";
+  if (href.includes("malaga") || href.includes("presencial")) return "lucide:map-pin";
+  if (href.includes("contextual") || href.includes("act")) return "lucide:leaf";
+  return "lucide:leaf";
+}
+
+const iconName = heroIcon ?? getServiceIcon(slug);
+const layoutTitle = service.data.seoTitle ?? service.data.title;
+const layoutDescription = service.data.seoDescription ?? service.data.description;
+
+const heroProps = {
+  label: "Psicología",
+  title: service.data.title,
+  description: service.data.description,
+  descriptionClass: "text-ink-muted text-xl leading-relaxed",
+  layout: heroLayout === "centered" ? ("default" as const) : ("split" as const),
+  align: heroLayout === "centered" ? ("center" as const) : ("left" as const),
+  maxWidth: "3xl" as const,
+  icon: heroLayout === "split" ? iconName : undefined,
+};
+---
+
+{
+  standalone ? (
+    <Layout title={layoutTitle} description={layoutDescription}>
+      <PageHero {...heroProps} />
+
+      <ServiceContentSection
+        image={service.data.image}
+        imageAlt={service.data.imageAlt}
+        fallbackAlt={`Ilustración del servicio ${service.data.title}`}
+      >
+        <Content />
+      </ServiceContentSection>
+
+      <CTASection ctaLabel={service.data.ctaLabel} ctaHref={service.data.ctaHref} />
+    </Layout>
+  ) : (
+    <>
+      <PageHero {...heroProps} />
+
+      <ServiceContentSection
+        image={service.data.image}
+        imageAlt={service.data.imageAlt}
+        fallbackAlt={`Ilustración del servicio ${service.data.title}`}
+      >
+        <Content />
+      </ServiceContentSection>
+    </>
+  )
+}

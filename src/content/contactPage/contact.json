@@ -1,0 +1,30 @@
+{
+  "seoTitle": "Contacto",
+  "seoDescription": "Contacta con María Vega, psicóloga general sanitaria en Málaga. Primera consulta sin compromiso, presencial u online.",
+  "hero": {
+    "label": "Contacto",
+    "title": "Contacto",
+    "intro": "Si tienes alguna pregunta o quieres saber más antes de reservar, puedes escribirme aquí. Te responderé a la mayor brevedad."
+  },
+  "firstConsultation": {
+    "title": "La primera consulta",
+    "paragraphs": [
+      "La primera cita es un espacio para conocernos y para que puedas contarme qué te trae. No hay compromiso de continuar. Podemos hablar de cómo funciona el proceso, de tus dudas y de si este espacio tiene sentido para ti."
+    ],
+    "calendarCta": {
+      "prefix": "Si ya lo tienes claro, puedes reservar directamente desde el ",
+      "linkLabel": "calendario de citas",
+      "linkHref": "/reserva",
+      "suffix": "."
+    }
+  },
+  "contactDetails": {
+    "title": "Datos de contacto",
+    "location": "Málaga, España"
+  },
+  "formSection": {
+    "title": "Envíame un mensaje",
+    "submitLabel": "Enviar mensaje",
+    "privacyNote": "Este formulario no es para compartir información clínica. Si ya eres paciente, usa el canal de comunicación habitual."
+  }
+}

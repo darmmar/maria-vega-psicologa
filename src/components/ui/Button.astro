@@ -1,0 +1,59 @@
+---
+interface Props {
+  href?: string;
+  variant?: "primary" | "secondary" | "ghost";
+  size?: "sm" | "md" | "lg";
+  external?: boolean;
+  type?: "button" | "submit" | "reset";
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  external = false,
+  type = "button",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const baseClasses =
+  "inline-flex items-center gap-2 font-body font-semibold rounded-lg transition-all duration-200 focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2";
+
+const variantClasses = {
+  primary: "bg-sage text-white hover:bg-sage-600 active:bg-sage-700",
+  secondary: "border-2 border-sage text-sage hover:bg-sage-50 active:bg-sage-100",
+  ghost: "text-sage hover:underline underline-offset-4",
+};
+
+const sizeClasses = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-lg",
+};
+
+const classes = [baseClasses, variantClasses[variant], sizeClasses[size], className]
+  .filter(Boolean)
+  .join(" ");
+
+const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+{
+  href ? (
+    <a href={href} class={classes} {...externalProps} {...rest}>
+      <slot />
+      {external && (
+        <span aria-hidden="true" class="text-sm">
+          ↗
+        </span>
+      )}
+    </a>
+  ) : (
+    <button type={type} class={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}

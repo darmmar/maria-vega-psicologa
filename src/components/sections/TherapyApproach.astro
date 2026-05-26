@@ -1,0 +1,34 @@
+---
+import Container from "@/components/ui/Container.astro";
+import { Icon } from "astro-icon/components";
+import { getSiteSettings } from "@/lib/content/collections";
+
+const settings = await getSiteSettings();
+const { therapyApproach } = settings;
+---
+
+<section class="section-gap bg-warm-200">
+  <Container>
+    <div class="max-w-3xl mx-auto">
+      <span class="label-caps text-sage block mb-5">{therapyApproach.label}</span>
+      <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-6 leading-tight">
+        {therapyApproach.title}
+      </h2>
+      <p class="text-lg text-ink-muted leading-relaxed mb-12 max-w-2xl">
+        {therapyApproach.description}
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        {
+          therapyApproach.pillars.map((pillar) => (
+            <div class="p-6 rounded-xl bg-white border border-ink-border/40">
+              <Icon name={pillar.icon} class="w-6 h-6 text-sage mb-4" />
+              <h3 class="font-display text-xl font-medium text-ink mb-2">{pillar.title}</h3>
+              <p class="text-sm text-ink-muted leading-relaxed">{pillar.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

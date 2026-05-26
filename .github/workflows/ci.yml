@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feat/**]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.3.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Biome check (lint + format)
+        run: pnpm check
+
+      - name: TypeScript check
+        run: pnpm typecheck
+
+      - name: Verify tina-lock when schema changes
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD)
+          else
+            CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || true)
+          fi
+          if echo "$CHANGED" | grep -q '^tina/config.ts$'; then
+            pnpm tina:sync
+            if ! git diff --quiet tina/tina-lock.json; then
+              echo "::error::tina/tina-lock.json desactualizado. Ejecuta pnpm tina:sync y commitea el lock."
+              git diff tina/tina-lock.json | head -50
+              exit 1
+            fi
+          fi
+
+      - name: Build
+        run: pnpm build:astro
+
+      - name: Check for secrets in diff
+        run: |
+          if git diff --name-only origin/main...HEAD | xargs grep -l -E "(sk_live|pk_live|AIza|AKIA|password\s*=\s*['\"][^'\"]{8,})" 2>/dev/null; then
+            echo "::error::Possible secrets detected in changed files"
+            exit 1
+          fi
+        continue-on-error: false

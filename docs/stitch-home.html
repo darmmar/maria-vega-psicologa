@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MarÃ­a Vega - PsicÃ³loga Sanitaria</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&amp;family=Source+Sans+3:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#f4dfcb",
+                        "surface-dim": "#dcdad7",
+                        "on-primary-fixed-variant": "#374b3d",
+                        "outline": "#737873",
+                        "inverse-on-surface": "#f3f0ed",
+                        "tertiary-fixed": "#e5e2db",
+                        "inverse-surface": "#30302f",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#0c1f13",
+                        "surface-container-highest": "#e4e2df",
+                        "surface-container-low": "#f5f3f0",
+                        "on-tertiary-fixed": "#1c1c18",
+                        "on-secondary-container": "#716252",
+                        "outline-variant": "#c3c8c1",
+                        "primary-fixed": "#d1e8d5",
+                        "on-tertiary-fixed-variant": "#474742",
+                        "primary": "#475b4c",
+                        "secondary-container": "#f4dfcb",
+                        "on-surface": "#1b1c1a",
+                        "on-secondary-fixed-variant": "#524436",
+                        "tertiary": "#575752",
+                        "on-surface-variant": "#434843",
+                        "primary-container": "#5f7464",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1b1c1a",
+                        "secondary": "#6b5c4c",
+                        "background": "#fbf9f6",
+                        "surface-tint": "#4f6354",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#f6f3ec",
+                        "surface-container": "#f0edea",
+                        "surface-variant": "#e4e2df",
+                        "surface-container-high": "#eae8e5",
+                        "surface-bright": "#fbf9f6",
+                        "tertiary-fixed-dim": "#c9c6c0",
+                        "surface": "#fbf9f6",
+                        "tertiary-container": "#706f6a",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#d7c3b0",
+                        "on-primary-container": "#e2f9e5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b5ccb9",
+                        "inverse-primary": "#b5ccb9",
+                        "on-secondary-fixed": "#241a0e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "unit": "4px",
+                        "stack-sm": "1rem",
+                        "stack-md": "2.5rem",
+                        "stack-lg": "4rem",
+                        "gutter": "3rem",
+                        "section-gap": "12rem"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Playfair Display", "serif"],
+                        "body-md": ["Source Sans 3", "sans-serif"],
+                        "label-caps": ["Source Sans 3", "sans-serif"],
+                        "headline-md": ["Playfair Display", "serif"],
+                        "display-lg": ["Playfair Display", "serif"],
+                        "body-lg": ["Source Sans 3", "sans-serif"],
+                        "headline-sm": ["Playfair Display", "serif"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["42px", { "lineHeight": "1.2", "fontWeight": "400", "letterSpacing": "-0.01em" }],
+                        "body-md": ["17px", { "lineHeight": "1.8", "fontWeight": "300" }],
+                        "label-caps": ["11px", { "lineHeight": "1.4", "letterSpacing": "0.15em", "fontWeight": "600" }],
+                        "headline-md": ["40px", { "lineHeight": "1.2", "fontWeight": "400", "letterSpacing": "-0.01em" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "1.7", "fontWeight": "300" }],
+                        "headline-sm": ["28px", { "lineHeight": "1.4", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .organic-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        .editorial-image-mask {
+            border-radius: 200px 200px 0 200px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed w-full top-0 z-50 bg-background/80 dark:bg-background/80 backdrop-blur-xl transition-all duration-500 border-b border-transparent" id="main-nav">
+<div class="flex justify-between items-center w-full px-8 py-8 max-w-container-max mx-auto">
+<a class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed tracking-tight hover:opacity-70 transition-opacity" href="#">Maria Vega</a>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest" href="#terapia">Terapia</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest" href="#especialidades">Especialidades</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest" href="#recursos">Recursos</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest" href="#sobre-mi">Sobre mÃ­</a>
+<a class="bg-primary text-on-primary text-label-caps font-label-caps px-8 py-4 rounded-full hover:bg-primary/80 transition-all duration-300 shadow-sm uppercase tracking-widest ml-4" href="#reservar">Reservar sesiÃ³n</a>
+</div>
+<button class="md:hidden text-primary p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative min-h-[100vh] flex items-center pt-32 pb-24 overflow-hidden">
+<div class="absolute right-0 top-0 w-2/3 h-full z-0">
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10"></div>
+<img alt="" class="w-full h-full object-cover object-right opacity-60 mix-blend-multiply" data-alt="A serene, minimalist interior setting bathed in soft, diffused natural light pouring through large windows. The scene features organic textures, subtle beige and soft green tones, evoking a sense of calm and therapeutic safety. Delicate shadows play across smooth surfaces, embodying a humanistic, slow-living aesthetic ideal for a high-end psychology practice." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMwdnEX8QcszPLzE1sKoJfG6LhcNuCOwNG-uZ5A3-1U9d9bN5bvuOdHyWJO2q97FhZCIDmvZkqgFF_kpXsU6dJovWQLhOrDbIC8W4jKIBTB2Y1Xrc-xRcKALf7CEDv2fDZhwfYE9OsvIJPi3FhQjx2ijhXDrScMjaRzJLys592w-OCKT8G-8gm_TSnDyRx4rUqfP-Y2DmPdevTIx8AlaLyp5wWXWMYaqKW1gMHC_ZaduLLLN2ufNPqwDTJVmEvbRq8I00oyctnT_w"/>
+</div>
+<div class="relative z-10 max-w-container-max mx-auto px-gutter w-full flex flex-col items-start mt-16 md:mt-24">
+<div class="max-w-3xl">
+<span class="font-label-caps text-label-caps text-primary tracking-[0.2em] uppercase mb-8 block opacity-80">PsicologÃ­a Sanitaria &amp; Bienestar</span>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background mb-stack-md leading-[1.05]">
+                Encuentra la calma<br/> y el <span class="italic text-primary font-light">equilibrio</span><br/> que necesitas
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mb-stack-lg leading-relaxed opacity-90">
+                PsicologÃ­a General Sanitaria en MÃ¡laga y Online. Terapias basadas en la evidencia con un enfoque humano, cercano y respetuoso con tus tiempos.
+            </p>
+<div class="flex flex-col sm:flex-row gap-6 items-start mt-12">
+<a class="bg-primary text-on-primary font-label-caps text-label-caps px-10 py-5 rounded-full hover:bg-primary/80 transition-all duration-300 shadow-[0_15px_30px_-10px_rgba(71,91,76,0.2)] uppercase tracking-widest hover:-translate-y-1" href="#reservar">
+                    Comenzar terapia
+                </a>
+</div>
+</div>
+</div>
+</header>
+<!-- Intro Section -->
+<section class="py-section-gap px-gutter relative" id="sobre-mi">
+<div class="absolute left-[-10%] top-1/2 w-[600px] h-[600px] bg-secondary-fixed/20 organic-shape -z-10 blur-3xl opacity-60"></div>
+<div class="max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-24 items-center">
+<div class="md:col-span-5 relative order-2 md:order-1 mt-16 md:mt-0">
+<div class="absolute -inset-4 bg-surface-container-low rounded-[220px_220px_0_220px] -z-10 transform -rotate-3"></div>
+<div class="aspect-[4/5] editorial-image-mask overflow-hidden">
+<img alt="" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000 ease-out" data-alt="A professional, warm portrait of a female psychologist in her mid-30s, looking directly at the camera with a gentle, empathetic smile. She is dressed in smart-casual, minimalist clothing with earthy tones. The background is softly blurred, showing a modern, bright office with hints of indoor plants and soft beige walls, perfectly matching the humanistic minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtxShDBQZ7N--3yxaR7ciRRIGvtBjlWFbuDK0EfWmwIBklHNfhj10-721MFFepOeI5pWbHqOw08QFCOvtigIPVs1h6LUGy9SVflCDBumpHVyufaKa4pv7D7z9RRmBF0grsT3OFSME1jgMrI-Nivv8K-OZ-MfnCfI2dAzMLc6narqLbKNmpDEPUpsTd9hXMogeDFtIZ7iQjfEFq9b588wMCe4arXtRUYigME8cc0njIv7-symdt-xoURVDPlnHLeBwi1ET702elTNY"/>
+</div>
+</div>
+<div class="md:col-span-1 hidden md:block order-2"></div>
+<div class="md:col-span-6 flex flex-col gap-stack-sm order-1 md:order-3">
+<span class="font-label-caps text-label-caps text-primary tracking-[0.2em] uppercase mb-4">Sobre mÃ­</span>
+<h2 class="font-headline-md text-headline-md text-on-background leading-tight mb-6">
+                    Un espacio seguro<br/> para tu <span class="italic text-secondary font-light">crecimiento</span>
+</h2>
+<div class="space-y-6 text-on-surface-variant max-w-lg">
+<p class="font-body-md text-body-md leading-relaxed">
+                        Soy MarÃ­a Vega, PsicÃ³loga General Sanitaria. Mi enfoque terapÃ©utico se basa en crear un vÃ­nculo de confianza desde la empatÃ­a y el respeto absoluto a tu historia.
+                    </p>
+<p class="font-body-md text-body-md leading-relaxed">
+                        Trabajo desde una perspectiva integradora, combinando Terapias de Tercera GeneraciÃ³n (ACT), enfoque sistÃ©mico y prÃ¡cticas basadas en la evidencia, siempre adaptÃ¡ndome a lo que tÃº necesitas en este momento vital.
+                    </p>
+</div>
+<div class="pt-12 mt-4 border-t border-surface-container-highest max-w-xs">
+<img alt="Firma de MarÃ­a Vega" class="h-10 opacity-40 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo_U0IrLxDIxCvJrqd8uBlb448W0b7K9W-rSUGcGga0llDyPPLF31lnhYcnZ-4HFIWwjELXKmH-uSdAxSEcl2gfDRiPCssu765mBAGmD6Vq4fa4Lx53LWMuzlnREbsMEa_XWP8OUWIPfgK47Y5lyaq3A5-LRlZwCtWCAt3rxDKxp2-I8K2tu_9b0ND7uU38SrF9xzxfasTUGWlleoA7aWLLFET-JyUWjONkm_fcnErrOJz8chtGw-h_TQk2p1g8g85sMYNWFeLE2c"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface w-full py-24 px-8 mt-section-gap">
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+<div class="flex flex-col gap-4">
+<span class="text-headline-sm font-headline-sm text-primary dark:text-primary-fixed">Maria Vega</span>
+<p class="text-body-md font-body-md text-on-surface-variant opacity-80">Â© 2024 Maria Vega. PsicologÃ­a y Bienestar.</p>
+</div>
+<div class="flex flex-wrap gap-10">
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest opacity-70 hover:opacity-100" href="#">Aviso Legal</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest opacity-70 hover:opacity-100" href="#">Privacidad</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest opacity-70 hover:opacity-100" href="#">Cookies</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors uppercase tracking-widest opacity-70 hover:opacity-100" href="#">Contacto</a>
+</div>
+</div>
+</footer>
+<script>
+    // Elegant scroll effect for navbar
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('bg-background/95', 'border-surface-container-highest', 'shadow-sm');
+            nav.classList.remove('bg-background/80', 'border-transparent');
+            nav.style.paddingTop = '1.5rem';
+            nav.style.paddingBottom = '1.5rem';
+        } else {
+            nav.classList.add('bg-background/80', 'border-transparent');
+            nav.classList.remove('bg-background/95', 'border-surface-container-highest', 'shadow-sm');
+            nav.style.paddingTop = '2rem';
+            nav.style.paddingBottom = '2rem';
+        }
+    });
+</script>
+</body></html>

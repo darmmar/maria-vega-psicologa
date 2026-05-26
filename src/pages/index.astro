@@ -1,0 +1,49 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import TherapyApproach from "@/components/sections/TherapyApproach.astro";
+import ServicesGrid from "@/components/sections/ServicesGrid.astro";
+import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
+import TrainingBlock from "@/components/sections/TrainingBlock.astro";
+import CourseHighlight from "@/components/sections/CourseHighlight.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import { buildJsonLdGraph, buildPerson, buildWebSite } from "@/lib/seo";
+import { getCourseBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+
+const [settings, course, services] = await Promise.all([
+  getSiteSettings(),
+  getCourseBySlug("curso-duelo"),
+  getServicesForGrid(),
+]);
+
+const jsonLd = buildJsonLdGraph(buildWebSite(), buildPerson());
+---
+
+<Layout
+  title="Psicóloga en Málaga — Terapia contextual y ACT"
+  description="Psicóloga General Sanitaria en Málaga. Terapia contextual, ACT y terapia breve sistémica para adultos, adolescentes y niños."
+  jsonLd={jsonLd}
+>
+  <Hero />
+  <TherapyApproach />
+  <ServicesGrid
+    services={services}
+    sectionLabel={settings.servicesSection.label}
+    sectionTitle={settings.servicesSection.title}
+  />
+  <ExperienceBlock />
+  <TrainingBlock />
+  <CourseHighlight
+    title={course?.data.title}
+    description={course?.data.shortDescription}
+    label={settings.courseHighlight.label}
+    ctaLabel={settings.courseHighlight.ctaLabel}
+    ctaHref={settings.courseHighlight.ctaHref}
+  />
+  <CTASection
+    title={settings.cta.title}
+    description={settings.cta.description}
+    ctaLabel={settings.cta.label}
+    ctaHref={settings.cta.href}
+  />
+</Layout>

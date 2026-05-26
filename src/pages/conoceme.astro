@@ -1,0 +1,115 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
+import TrainingBlock from "@/components/sections/TrainingBlock.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import { Icon } from "astro-icon/components";
+import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+import { getProfile } from "@/lib/content/collections";
+import { imageSrc } from "@/lib/images";
+
+const profile = await getProfile();
+const { hero, approach, cta } = profile;
+const photoSrc = imageSrc(hero.photo);
+const secondaryPhotoSrc = imageSrc(hero.secondaryPhoto);
+const secondaryPhotoAlt = hero.secondaryPhotoAlt?.trim() || hero.photoAlt;
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson({
+    description:
+      "Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica.",
+  }),
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: "Conóceme", url: "/conoceme" },
+  ]),
+);
+---
+
+<Layout
+  title="Conóceme"
+  description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica."
+  jsonLd={jsonLd}
+>
+  <section class="section-hero bg-warm-100">
+    <Container>
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <p class="label-caps text-sage mb-4">{hero.label}</p>
+          <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
+            {hero.title}
+          </h1>
+          {
+            hero.intro.map((paragraph) => (
+              <p class="text-ink-muted text-lg leading-relaxed mb-4 last:mb-0">{paragraph}</p>
+            ))
+          }
+        </div>
+
+        <div class="space-y-5 w-full max-w-xs mx-auto lg:mx-0">
+          {
+            photoSrc ? (
+              <figure>
+                <img
+                  src={photoSrc}
+                  alt={hero.photoAlt}
+                  class="aspect-[3/4] w-full rounded-2xl object-cover border border-sage-200 shadow-[0_12px_40px_rgba(71,91,76,0.12)]"
+                  loading="eager"
+                  decoding="async"
+                />
+              </figure>
+            ) : (
+              <div
+                class="aspect-[3/4] w-full rounded-2xl bg-sage-100 flex flex-col items-center justify-center border border-sage-200 gap-3"
+                aria-hidden="true"
+              >
+                <Icon name="lucide:user" class="w-16 h-16 text-sage-400 opacity-60" aria-hidden="true" />
+                <p class="text-sage-500 text-sm font-body text-center px-6">{hero.photoPlaceholder}</p>
+              </div>
+            )
+          }
+
+          {
+            secondaryPhotoSrc ? (
+              <figure>
+                <img
+                  src={secondaryPhotoSrc}
+                  alt={secondaryPhotoAlt}
+                  class="aspect-[4/3] w-full rounded-2xl object-cover border border-sage-200/80"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            ) : null
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="section-gap-tight pt-0">
+    <Container>
+      <div class="max-w-2xl mx-auto">
+        <span class="label-caps text-sage block mb-5">{approach.label}</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-8 leading-tight">
+          {approach.title}
+        </h2>
+
+        <div class="space-y-5 text-ink-muted text-lg leading-relaxed">
+          {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <TrainingBlock />
+  <ExperienceBlock />
+
+  <CTASection
+    title={cta.title}
+    description={cta.description}
+    ctaLabel={cta.label}
+    ctaHref={cta.href}
+  />
+</Layout>

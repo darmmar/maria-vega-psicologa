@@ -1,0 +1,37 @@
+---
+import Container from "@/components/ui/Container.astro";
+import { Icon } from "astro-icon/components";
+import { getSiteSettings } from "@/lib/content/collections";
+
+const settings = await getSiteSettings();
+const { experienceSection } = settings;
+
+const areas = [
+  "Consulta propia · Adultos y adolescentes",
+  "Psicología infantil y juvenil",
+  "Duelo y pérdidas",
+  "Adicciones comportamentales",
+  "Trastorno del Espectro Autista (TEA) en adultos",
+  "Ansiedad, estrés y regulación emocional",
+];
+---
+
+<section class="section-gap bg-warm-300">
+  <Container>
+    <span class="label-caps text-sage block mb-5">{experienceSection.label}</span>
+    <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-10 leading-tight">
+      {experienceSection.title}
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-4 max-w-3xl">
+      {
+        areas.map((area) => (
+          <div class="flex items-start gap-3">
+            <Icon name="lucide:check-circle" class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" aria-hidden="true" />
+            <span class="text-base text-ink-muted leading-relaxed">{area}</span>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

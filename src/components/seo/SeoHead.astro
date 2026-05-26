@@ -1,0 +1,103 @@
+---
+import { siteConfig } from "@/lib/config/site";
+import { buildFullTitle } from "@/lib/seo/titles";
+import type { JsonLdDocument, JsonLdNode } from "@/lib/seo/types";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: JsonLdNode | JsonLdNode[] | JsonLdDocument;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const canonicalUrl =
+  canonical ?? new URL(Astro.url.pathname, siteConfig.siteUrl).href;
+const ogImageUrl =
+  ogImage ?? new URL("/og-default.png", siteConfig.siteUrl).href;
+const fullTitle = buildFullTitle(title, siteConfig.siteName);
+
+function normalizeStructuredData(
+  data: JsonLdNode | JsonLdNode[] | JsonLdDocument | undefined,
+): JsonLdDocument | null {
+  if (!data) return null;
+
+  if ("@graph" in data && Array.isArray(data["@graph"])) {
+    return data as JsonLdDocument;
+  }
+
+  if (Array.isArray(data)) {
+    return {
+      "@context": "https://schema.org",
+      "@graph": data,
+    };
+  }
+
+  if ("@context" in data) {
+    return data as JsonLdDocument;
+  }
+
+  return {
+    "@context": "https://schema.org",
+    ...data,
+  };
+}
+
+const structuredData = normalizeStructuredData(jsonLd);
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap"
+  rel="stylesheet"
+/>
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta name="robots" content="index, follow" />
+  )
+}
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:site_name" content={siteConfig.siteName} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/favicon.png" />
+
+{
+  structuredData && (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+    />
+  )
+}

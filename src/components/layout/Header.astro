@@ -1,0 +1,59 @@
+---
+import { siteConfig } from "@/lib/config/site";
+import { mainNav } from "@/lib/config/navigation";
+import MobileMenu from "@/components/islands/MobileMenu";
+import Button from "@/components/ui/Button.astro";
+import Container from "@/components/ui/Container.astro";
+const navItems = mainNav.filter((item) => item.label !== "Reserva");
+---
+
+<header class="sticky top-0 z-40 bg-white border-b border-ink-border/50 backdrop-blur-sm">
+  <Container>
+    <div class="flex h-20 items-center justify-between gap-6">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="flex items-center gap-3 group shrink-0"
+        aria-label={`${siteConfig.siteName} — Inicio`}
+      >
+        <img
+          src="/images/mv-monogram.png"
+          alt=""
+          width="72"
+          height="80"
+          class="h-14 w-auto flex-shrink-0 group-hover:opacity-80 transition-opacity"
+          aria-hidden="true"
+        />
+        <div class="flex flex-col leading-none">
+          <span class="font-display text-xl font-semibold text-sage group-hover:text-sage-600 transition-colors">
+            {siteConfig.professionalName}
+          </span>
+          <span class="font-body text-xs text-ink-muted uppercase tracking-wider">
+            Psicóloga
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex md:items-center md:gap-7" aria-label="Navegación principal">
+        {
+          navItems.map((item) => (
+            <a href={item.href} class="nav-link">
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- CTA + Mobile toggle -->
+      <div class="flex items-center gap-3">
+        <Button href="/reserva" size="sm" class="hidden md:inline-flex shrink-0">
+          Reservar cita
+        </Button>
+        <div class="relative">
+          <MobileMenu items={navItems} client:load />
+        </div>
+      </div>
+    </div>
+  </Container>
+</header>

@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: "Source Sans 3", system-ui, sans-serif;
+    background-color: #fbf9f6;
+    color: #1b1c1a;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+
+  :focus-visible {
+    outline: 2px solid #475b4c;
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+}
+
+@layer components {
+  .section-hero {
+    @apply pt-8 pb-6 lg:pt-10 lg:pb-8;
+  }
+  .section-gap {
+    @apply py-10 lg:py-12;
+  }
+  .section-gap-tight {
+    @apply py-8 lg:py-10;
+  }
+  .label-caps {
+    @apply text-xs font-semibold uppercase tracking-widest font-body;
+  }
+
+  .nav-link {
+    @apply relative label-caps text-ink-muted transition-colors duration-200 hover:text-sage focus-visible:text-sage;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-sage/60 transition-transform duration-200 ease-out;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    @apply scale-x-100;
+  }
+
+  .nav-link-mobile {
+    @apply relative font-display text-2xl font-medium text-ink py-4 border-b border-ink-border/50 last:border-0 transition-colors duration-200 hover:text-sage focus-visible:text-sage;
+  }
+
+  .nav-link-mobile::after {
+    content: "";
+    @apply absolute bottom-3 left-0 h-px w-12 origin-left scale-x-0 bg-sage/60 transition-transform duration-200 ease-out;
+  }
+
+  .nav-link-mobile:hover::after,
+  .nav-link-mobile:focus-visible::after {
+    @apply scale-x-100;
+  }
+}
+
+/* Prose typography — high-specificity overrides that always win over :where() */
+.prose h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 2.5rem;
+  margin-bottom: 0.875rem;
+  color: #1b1c1a;
+}
+
+.prose h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2rem;
+  margin-bottom: 0.625rem;
+  color: #1b1c1a;
+}
+
+.prose h4 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1b1c1a;
+}
+
+.prose p {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose ul, .prose ol {
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose li {
+  margin-bottom: 0.375rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .prose h2 { font-size: 2rem; }
+  .prose h3 { font-size: 1.5rem; }
+}

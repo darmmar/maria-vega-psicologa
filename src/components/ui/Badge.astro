@@ -1,0 +1,24 @@
+---
+interface Props {
+  variant?: "default" | "sage" | "warm";
+  class?: string;
+}
+
+const { variant = "warm", class: className } = Astro.props;
+
+const variantClasses = {
+  default: "bg-warm-400 text-ink-muted",
+  sage: "bg-sage-100 text-sage-700",
+  warm: "bg-warm-600/25 text-warm-800",
+};
+---
+
+<span
+  class:list={[
+    "inline-flex items-center rounded-full px-3 py-1 label-caps",
+    variantClasses[variant],
+    className,
+  ]}
+>
+  <slot />
+</span>

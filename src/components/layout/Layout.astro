@@ -1,0 +1,45 @@
+---
+import SeoHead from "@/components/seo/SeoHead.astro";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
+import "@/styles/global.css";
+
+import type { JsonLdDocument, JsonLdNode } from "@/lib/seo/types";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: JsonLdNode | JsonLdNode[] | JsonLdDocument;
+}
+
+const { title, description, canonical, ogImage, noindex, jsonLd } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      noindex={noindex}
+      jsonLd={jsonLd}
+    />
+  </head>
+  <body class="min-h-screen flex flex-col bg-warm-100 text-ink antialiased">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <Analytics />
+    <SpeedInsights />
+  </body>
+</html>

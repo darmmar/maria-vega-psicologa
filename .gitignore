@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+.astro/
+
+# Logs
+*.log
+build-log.txt
+build-test-log.txt
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel/
+.vercel
+
+# TinaCMS generated
+tina/__generated__/
+
+# Editor
+.vscode/settings.json
+
+# Original planning folder (canonical copy lives in docs/ai-plan/)
+maria_psicologia_stitch_cursor_mcp_plan/
+
+# Local MCP config (may contain API keys)
+.cursor/
+
+.vercel
+.env*.local

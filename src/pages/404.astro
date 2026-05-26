@@ -1,0 +1,29 @@
+---
+import Layout from '@/components/layout/Layout.astro'
+import Container from '@/components/ui/Container.astro'
+import Button from '@/components/ui/Button.astro'
+import PageHero from '@/components/ui/PageHero.astro'
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe o ha sido movida."
+  noindex={true}
+>
+  <PageHero
+    label="Error 404"
+    title="Página no encontrada"
+    description="La página que buscas no existe, ha sido movida o la dirección no es correcta."
+  />
+
+  <section class="section-gap-tight">
+    <Container>
+      <div class="max-w-xl mx-auto text-center">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/" variant="primary">Volver al inicio</Button>
+          <Button href="/contacto" variant="secondary">Contactar</Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+</Layout>

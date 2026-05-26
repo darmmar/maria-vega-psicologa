@@ -1,0 +1,38 @@
+---
+import Container from "@/components/ui/Container.astro";
+import FAQAccordion from "@/components/islands/FAQAccordion";
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  title?: string;
+}
+
+const { items, title = "Preguntas frecuentes" } = Astro.props;
+---
+
+<section class="section-gap bg-warm-200">
+  <Container>
+    <div class="max-w-3xl mx-auto">
+      <span class="label-caps text-sage block mb-5">FAQ</span>
+      <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-10 leading-tight">
+        {title}
+      </h2>
+
+      {
+        items && items.length > 0 ? (
+          <FAQAccordion items={items} client:load />
+        ) : (
+          <p class="text-ink-muted text-base leading-relaxed">
+            Próximamente encontrarás respuestas a las preguntas más frecuentes sobre terapia,
+            primeras sesiones y proceso de trabajo.
+          </p>
+        )
+      }
+    </div>
+  </Container>
+</section>

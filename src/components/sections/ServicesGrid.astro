@@ -1,0 +1,83 @@
+---
+import Container from "@/components/ui/Container.astro";
+import { Icon } from "astro-icon/components";
+import { imageSrc } from "@/lib/images";
+
+interface ServiceItem {
+  title: string;
+  shortDescription: string;
+  href: string;
+  icon?: string;
+  thumbnail?: string;
+  thumbnailAlt?: string;
+}
+
+interface Props {
+  services: ServiceItem[];
+  sectionLabel?: string;
+  sectionTitle?: string;
+}
+
+const {
+  services,
+  sectionLabel = "Especialidades",
+  sectionTitle = "¿En qué puedo ayudarte?",
+} = Astro.props;
+
+function getServiceIcon(href: string): string {
+  if (href.includes("duelo")) return "lucide:heart";
+  if (href.includes("ansiedad")) return "lucide:wind";
+  if (href.includes("adiccion")) return "lucide:link-2-off";
+  if (href.includes("infantil") || href.includes("juvenil")) return "lucide:star";
+  if (href.includes("online")) return "lucide:monitor";
+  if (href.includes("malaga") || href.includes("presencial")) return "lucide:map-pin";
+  return "lucide:leaf";
+}
+---
+
+<section class="section-gap bg-warm-100">
+  <Container>
+    <span class="label-caps text-sage block mb-5">{sectionLabel}</span>
+    <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-12 leading-tight">
+      {sectionTitle}
+    </h2>
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => {
+          const thumbnailSrc = imageSrc(service.thumbnail);
+          const thumbnailAlt =
+            service.thumbnailAlt?.trim() || `Miniatura del servicio ${service.title}`;
+
+          return (
+            <a
+              href={service.href}
+              class="group block p-6 bg-white rounded-2xl border border-ink-border/50 hover:border-sage-300 hover:shadow-[0_8px_32px_rgba(71,91,76,0.08)] transition-all duration-200"
+            >
+              {thumbnailSrc ? (
+                <img
+                  src={thumbnailSrc}
+                  alt={thumbnailAlt}
+                  class="w-full h-32 object-cover rounded-xl mb-4"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <Icon name={getServiceIcon(service.href)} class="w-6 h-6 text-sage mb-4" />
+              )}
+              <h3 class="font-display text-xl font-medium text-ink mb-2 group-hover:text-sage transition-colors">
+                {service.title}
+              </h3>
+              <p class="text-sm text-ink-muted leading-relaxed mb-4">
+                {service.shortDescription}
+              </p>
+              <span class="text-sm font-semibold text-sage-600 group-hover:underline underline-offset-2">
+                Saber más →
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </Container>
+</section>

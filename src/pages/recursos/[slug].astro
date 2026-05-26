@@ -1,0 +1,53 @@
+---
+import Layout from '../../components/layout/Layout.astro'
+import Container from '../../components/ui/Container.astro'
+import Badge from '../../components/ui/Badge.astro'
+import Button from '../../components/ui/Button.astro'
+import PageHero from '../../components/ui/PageHero.astro'
+import { render } from 'astro:content'
+import ProseWrapper from '../../components/ui/ProseWrapper.astro'
+import { getPublishedResources } from '../../lib/content/collections'
+
+export async function getStaticPaths() {
+  const resources = await getPublishedResources()
+  return resources.map((r) => ({
+    params: { slug: r.data.slug },
+    props: { resource: r },
+  }))
+}
+
+const { resource } = Astro.props
+const { Content } = await render(resource)
+
+const rawTitle = resource.data.seoTitle ?? resource.data.title
+const pageTitle = rawTitle.includes(":") ? rawTitle.split(":")[0].trim() : rawTitle
+---
+<Layout
+  title={pageTitle}
+  description={resource.data.seoDescription ?? resource.data.description}
+>
+  <PageHero
+    title={resource.data.title}
+    description={resource.data.description}
+    align="left"
+    maxWidth="2xl"
+  />
+
+  <section class="section-gap-tight">
+    <Container>
+      <article class="max-w-2xl mx-auto">
+        {resource.data.tags.length > 0 && (
+          <div class="flex gap-2 flex-wrap mb-6">
+            {resource.data.tags.map((tag) => <Badge>{tag}</Badge>)}
+          </div>
+        )}
+        <ProseWrapper>
+          <Content />
+        </ProseWrapper>
+        <div class="mt-16 pt-8 border-t border-ink-border">
+          <Button href="/recursos" variant="ghost">← Volver a recursos</Button>
+        </div>
+      </article>
+    </Container>
+  </section>
+</Layout>
