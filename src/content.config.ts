@@ -168,6 +168,8 @@ const siteSettings = defineCollection({
       telegram: z.string().optional().nullable(),
       tiktok: z.string().optional().nullable(),
       linkedin: z.string().optional().nullable(),
+      googleMapsEmbedUrl: z.string().optional().nullable(),
+      googleMapsLink: z.string().optional().nullable(),
     }),
     legal: z.object({
       collegiateNumber: z.string().optional().nullable(),

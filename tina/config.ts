@@ -349,6 +349,8 @@ export default defineConfig({
               { type: "string", name: "telegram", label: "URL de Telegram (opcional)" },
               { type: "string", name: "tiktok", label: "URL de TikTok (opcional)" },
               { type: "string", name: "linkedin", label: "URL de LinkedIn (opcional)" },
+              { type: "string", name: "googleMapsEmbedUrl", label: "URL de Google Maps (Iframe Embed - src)", description: "La URL src que viene dentro de <iframe src=\"...\"> al compartir mapa en Google Maps" },
+              { type: "string", name: "googleMapsLink", label: "Enlace directo de Google Maps (Cómo llegar)" },
             ],
           },
           {

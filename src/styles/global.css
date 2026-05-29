@@ -33,10 +33,10 @@
     @apply pt-8 pb-6 lg:pt-10 lg:pb-8;
   }
   .section-gap {
-    @apply py-12 lg:py-16;
+    @apply py-8 lg:py-12;
   }
   .section-gap-tight {
-    @apply py-10 lg:py-12;
+    @apply py-6 lg:py-10;
   }
   .label-caps {
     @apply text-xs font-semibold uppercase tracking-widest font-body;

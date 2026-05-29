@@ -85,7 +85,7 @@ const jsonLd = buildJsonLdGraph(
                 
                 <div class="flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
-                    <Icon name="lucide:message-square" class="w-4 h-4" />
+                    <Icon name="simple-icons:whatsapp" class="w-4 h-4" />
                   </div>
                   <div>
                     <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">WhatsApp</p>
@@ -127,57 +127,7 @@ const jsonLd = buildJsonLdGraph(
                   )
                 }
 
-                {
-                  tiktok && (
-                    <div class="flex items-start gap-3">
-                      <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
-                        <Icon name="simple-icons:tiktok" class="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">TikTok</p>
-                        <a
-                          href={tiktok}
-                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Ver perfil de TikTok
-                        </a>
-                      </div>
-                    </div>
-                  )
-                }
 
-                {
-                  linkedin && (
-                    <div class="flex items-start gap-3">
-                      <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
-                        <Icon name="simple-icons:linkedin" class="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">LinkedIn</p>
-                        <a
-                          href={linkedin}
-                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Conectar en LinkedIn
-                        </a>
-                      </div>
-                    </div>
-                  )
-                }
-
-                <div class="flex items-start gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
-                    <Icon name="lucide:map-pin" class="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Ubicación</p>
-                    <p class="text-ink-muted text-sm font-body">{contactDetails.location || settings.legal.address}</p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -264,6 +214,62 @@ const jsonLd = buildJsonLdGraph(
             </form>
           </div>
         </div>
+
+        <!-- Google Maps & Consultation Section -->
+        <div class="mt-16 pt-12 border-t border-ink-border/10">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-5 space-y-4">
+              <h3 class="font-display text-2xl font-normal text-ink">Consulta presencial</h3>
+              <p class="text-ink-muted leading-relaxed font-body text-sm">
+                Si prefieres realizar las sesiones presencialmente, puedes acudir a mi consulta en Málaga. Un espacio cómodo, tranquilo y confidencial diseñado para tu bienestar.
+              </p>
+              <div class="space-y-1.5 pt-2">
+                <p class="font-medium text-ink font-body text-sm">Dirección de la consulta:</p>
+                <p class="text-ink-muted font-body text-sm">{settings.legal.address || 'Málaga, España'}</p>
+              </div>
+              {
+                settings.contact.googleMapsLink && (
+                  <div class="pt-2">
+                    <a
+                      href={settings.contact.googleMapsLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-2 text-sage hover:text-sage-600 font-medium text-sm underline underline-offset-4"
+                    >
+                      <Icon name="lucide:map-pin" class="w-4 h-4" />
+                      Cómo llegar en Google Maps
+                    </a>
+                  </div>
+                )
+              }
+            </div>
+            <div class="md:col-span-7">
+              {
+                settings.contact.googleMapsEmbedUrl ? (
+                  <div class="rounded-2xl overflow-hidden border border-ink-border/20 shadow-premium h-72 w-full bg-warm-50/50">
+                    <iframe
+                      src={settings.contact.googleMapsEmbedUrl}
+                      width="100%"
+                      height="100%"
+                      style="border:0;"
+                      allowfullscreen=""
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      class="w-full h-full"
+                    ></iframe>
+                  </div>
+                ) : (
+                  <div class="rounded-2xl border border-dashed border-ink-border/30 bg-warm-50/20 p-8 text-center flex flex-col items-center justify-center h-72">
+                    <Icon name="lucide:map" class="w-8 h-8 text-ink-muted/40 mb-3" />
+                    <p class="text-sm font-medium text-ink-muted font-body">Consulta presencial en Málaga</p>
+                    <p class="text-xs text-ink-faint mt-1 max-w-xs mx-auto">Puedes consultar el mapa interactivo o configurarlo en los ajustes del panel de control.</p>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+        </div>
+
       </div>
     </Container>
   </section>
