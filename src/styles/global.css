@@ -59,8 +59,13 @@
   }
 
   .nav-link:hover::after,
-  .nav-link:focus-visible::after {
+  .nav-link:focus-visible::after,
+  .nav-link.active::after {
     @apply scale-x-100;
+  }
+
+  .nav-link.active {
+    @apply text-sage font-medium;
   }
 
   .nav-link-mobile {

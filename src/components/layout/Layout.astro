@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import { ClientRouter } from "astro:transitions";
 import "@/styles/global.css";
 
 import type { JsonLdDocument, JsonLdNode } from "@/lib/seo/types";
@@ -32,6 +33,7 @@ const { title, description, canonical, ogImage, noindex, jsonLd } =
       noindex={noindex}
       jsonLd={jsonLd}
     />
+    <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col bg-warm-100 text-ink antialiased">
     <Header />

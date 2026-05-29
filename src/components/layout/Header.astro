@@ -4,6 +4,11 @@ import { mainNav } from "@/lib/config/navigation";
 import MobileMenu from "@/components/islands/MobileMenu";
 import Button from "@/components/ui/Button.astro";
 import Container from "@/components/ui/Container.astro";
+
+const { pathname } = Astro.url;
+const normalizePath = (p: string) => p.replace(/\/$/, "") || "/";
+const normalizedPath = normalizePath(pathname);
+
 const navItems = mainNav.filter((item) => item.label !== "Reserva");
 ---
 
@@ -37,11 +42,22 @@ const navItems = mainNav.filter((item) => item.label !== "Reserva");
       <!-- Desktop nav -->
       <nav class="hidden md:flex md:items-center md:gap-7" aria-label="Navegación principal">
         {
-          navItems.map((item) => (
-            <a href={item.href} class="nav-link">
-              {item.label}
-            </a>
-          ))
+          navItems.map((item) => {
+            const itemNormalized = normalizePath(item.href);
+            const isActive =
+              normalizedPath === itemNormalized ||
+              (itemNormalized !== "/" && normalizedPath.startsWith(itemNormalized + "/"));
+
+            return (
+              <a
+                href={item.href}
+                class:list={["nav-link", { active: isActive }]}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })
         }
       </nav>
 
