@@ -11,6 +11,7 @@
 
   html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
 
   h1,
@@ -24,7 +25,7 @@
     outline: 2px solid #475b4c;
     outline-offset: 3px;
     border-radius: 0.25rem;
-  }
+  }         
 }
 
 @layer components {
