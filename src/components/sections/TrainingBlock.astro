@@ -1,60 +1,40 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import { Icon } from "astro-icon/components";
-import { getSiteSettings } from "@/lib/content/collections";
+import { getSiteSettings, getPublishedTraining } from "@/lib/content/collections";
 
 const settings = await getSiteSettings();
 const { trainingSection } = settings;
 
-interface TrainingItem {
-  degree: string;
-  institution: string;
-  year?: string;
-}
-
-const clinical: TrainingItem[] = [
-  {
-    degree: "Máster en Psicología General Sanitaria",
-    institution: "Universidad de Málaga",
-    year: "2024",
-  },
-  {
-    degree: "Máster en Terapias Contextuales y de Tercera Generación",
-    institution: "UDIMA",
-  },
-];
-
-const complementary: TrainingItem[] = [
-  {
-    degree: "Máster en Dirección y Gestión de Personas",
-    institution: "VIU",
-  },
-  {
-    degree: "Orientadora Laboral",
-    institution: "AOSLA-Gizalan",
-  },
-];
+const trainingItems = await getPublishedTraining();
+const clinical = trainingItems.filter((i) => i.data.category === "clinical");
+const complementary = trainingItems.filter((i) => i.data.category === "complementary");
 ---
 
-<section class="section-gap bg-warm-100">
+<section class="section-gap bg-gradient-to-b from-warm-100 to-warm-200">
   <Container>
-    <Icon name="lucide:graduation-cap" class="w-10 h-10 text-sage opacity-70 mb-5" aria-hidden="true" />
-    <span class="label-caps text-sage block mb-5">{trainingSection.label}</span>
-    <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-12 leading-tight">
+    <div class="w-12 h-12 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage shadow-soft">
+      <Icon name="lucide:graduation-cap" class="w-6 h-6" aria-hidden="true" />
+    </div>
+    <span class="label-caps text-sage block mb-4">{trainingSection.label}</span>
+    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight">
       {trainingSection.title}
     </h2>
 
-    <div class="grid md:grid-cols-2 gap-12">
-      <div>
-        <h3 class="font-display text-xl font-medium text-ink mb-7">{trainingSection.clinicalTitle}</h3>
-        <div class="space-y-7">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 backdrop-blur-sm shadow-premium">
+        <h3 class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10">
+          {trainingSection.clinicalTitle}
+        </h3>
+        <div class="space-y-6">
           {
             clinical.map((item) => (
-              <div class="border-l-2 border-sage-200 pl-5">
-                <p class="font-semibold text-ink leading-snug">{item.degree}</p>
-                <p class="text-sm text-ink-muted mt-1">
-                  {item.institution}
-                  {item.year ? ` · ${item.year}` : ""}
+              <div class="border-l-2 border-sage pl-5 relative py-0.5">
+                <div class="absolute w-2 h-2 rounded-full bg-sage -left-[5px] top-2 border border-white" />
+                <p class="font-medium text-ink leading-snug font-body">{item.data.degree}</p>
+                <p class="text-sm text-ink-muted mt-1 font-body">
+                  {item.data.institution}
+                  {item.data.year ? ` · ${item.data.year}` : ""}
                 </p>
               </div>
             ))
@@ -62,16 +42,20 @@ const complementary: TrainingItem[] = [
         </div>
       </div>
 
-      <div>
-        <h3 class="font-display text-xl font-medium text-ink-muted mb-7">
+      <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 backdrop-blur-sm shadow-premium">
+        <h3 class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10">
           {trainingSection.complementaryTitle}
         </h3>
-        <div class="space-y-7">
+        <div class="space-y-6">
           {
             complementary.map((item) => (
-              <div class="border-l-2 border-ink-border/60 pl-5">
-                <p class="text-ink leading-snug">{item.degree}</p>
-                <p class="text-sm text-ink-faint mt-1">{item.institution}</p>
+              <div class="border-l-2 border-blush pl-5 relative py-0.5">
+                <div class="absolute w-2 h-2 rounded-full bg-blush -left-[5px] top-2 border border-white" />
+                <p class="font-medium text-ink leading-snug font-body">{item.data.degree}</p>
+                <p class="text-sm text-ink-muted mt-1 font-body">
+                  {item.data.institution}
+                  {item.data.year ? ` · ${item.data.year}` : ""}
+                </p>
               </div>
             ))
           }
@@ -80,3 +64,4 @@ const complementary: TrainingItem[] = [
     </div>
   </Container>
 </section>
+

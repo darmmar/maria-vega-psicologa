@@ -4,7 +4,14 @@ import PageHero from "@/components/ui/PageHero.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import ServiceContentSection from "@/components/sections/ServiceContentSection.astro";
 import { render } from "astro:content";
-import { getServiceBySlug } from "@/lib/content/collections";
+import { getServiceBySlug, getServiceIcon } from "@/lib/content/collections";
+import { buildServicePageJsonLd } from "@/lib/seo";
+
+// Componentes dinámicos de TinaCMS para el editor de bloques ricos
+import BotonCTA from "@/components/cms/BotonCTA.astro";
+import Testimonio from "@/components/cms/Testimonio.astro";
+import Acordeon from "@/components/cms/Acordeon.astro";
+import Alerta from "@/components/cms/Alerta.astro";
 
 interface Props {
   slug: string;
@@ -19,20 +26,15 @@ const service = await getServiceBySlug(slug);
 if (!service) return Astro.redirect("/404");
 const { Content } = await render(service);
 
-function getServiceIcon(href: string): string {
-  if (href.includes("duelo")) return "lucide:heart";
-  if (href.includes("ansiedad")) return "lucide:wind";
-  if (href.includes("adiccion")) return "lucide:link-2-off";
-  if (href.includes("infantil") || href.includes("juvenil")) return "lucide:star";
-  if (href.includes("online")) return "lucide:monitor";
-  if (href.includes("malaga") || href.includes("presencial")) return "lucide:map-pin";
-  if (href.includes("contextual") || href.includes("act")) return "lucide:leaf";
-  return "lucide:leaf";
-}
-
 const iconName = heroIcon ?? getServiceIcon(slug);
 const layoutTitle = service.data.seoTitle ?? service.data.title;
 const layoutDescription = service.data.seoDescription ?? service.data.description;
+const pageUrl = `/${service.data.slug}`;
+const jsonLd = buildServicePageJsonLd({
+  title: service.data.title,
+  description: service.data.description,
+  path: pageUrl,
+});
 
 const heroProps = {
   label: "Psicología",
@@ -48,7 +50,7 @@ const heroProps = {
 
 {
   standalone ? (
-    <Layout title={layoutTitle} description={layoutDescription}>
+    <Layout title={layoutTitle} description={layoutDescription} canonical={pageUrl} jsonLd={jsonLd}>
       <PageHero {...heroProps} />
 
       <ServiceContentSection
@@ -56,7 +58,7 @@ const heroProps = {
         imageAlt={service.data.imageAlt}
         fallbackAlt={`Ilustración del servicio ${service.data.title}`}
       >
-        <Content />
+        <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
       </ServiceContentSection>
 
       <CTASection ctaLabel={service.data.ctaLabel} ctaHref={service.data.ctaHref} />
@@ -70,7 +72,7 @@ const heroProps = {
         imageAlt={service.data.imageAlt}
         fallbackAlt={`Ilustración del servicio ${service.data.title}`}
       >
-        <Content />
+        <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
       </ServiceContentSection>
     </>
   )

@@ -1,24 +1,26 @@
 ---
 interface Props {
-  variant?: "default" | "sage" | "warm";
+  variant?: "default" | "sage" | "warm" | "blush";
   class?: string;
 }
 
 const { variant = "warm", class: className } = Astro.props;
 
 const variantClasses = {
-  default: "bg-warm-400 text-ink-muted",
-  sage: "bg-sage-100 text-sage-700",
-  warm: "bg-warm-600/25 text-warm-800",
+  default: "bg-warm-200 text-ink-muted border border-ink-border/20",
+  sage: "bg-sage/10 text-sage-700 border border-sage/15",
+  warm: "bg-warm/30 text-warm-800 border border-warm/40",
+  blush: "bg-blush/10 text-blush-700 border border-blush/15",
 };
 ---
 
 <span
   class:list={[
-    "inline-flex items-center rounded-full px-3 py-1 label-caps",
+    "inline-flex items-center rounded-full px-3 py-1 label-caps text-[10px] tracking-wider",
     variantClasses[variant],
     className,
   ]}
 >
   <slot />
 </span>
+

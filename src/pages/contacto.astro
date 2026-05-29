@@ -5,6 +5,7 @@ import PageHero from "@/components/ui/PageHero.astro";
 import { getContactPage } from "@/lib/content/collections";
 import { siteConfig } from "@/lib/config/site";
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+import { Icon } from "astro-icon/components";
 
 const page = await getContactPage();
 const { hero, firstConsultation, contactDetails, formSection } = page;
@@ -28,28 +29,27 @@ const jsonLd = buildJsonLdGraph(
     title={hero.title}
     description={hero.intro}
     maxWidth="4xl"
-    descriptionClass="text-ink-muted text-xl leading-relaxed"
   />
 
-  <section class="section-gap-tight">
+  <section class="section-gap-tight bg-gradient-to-b from-warm-50/20 to-warm-100/10">
     <Container>
-      <div class="max-w-4xl mx-auto">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-14">
-          <div class="space-y-8">
+      <div class="max-w-4xl mx-auto animate-fade-in-up">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+          <div class="space-y-8 lg:col-span-5">
             <div>
-              <h2 class="font-display text-2xl font-semibold text-ink mb-4">
+              <h2 class="font-display text-2xl font-normal text-ink mb-4 leading-snug">
                 {firstConsultation.title}
               </h2>
               {
                 firstConsultation.paragraphs.map((paragraph) => (
-                  <p class="text-ink-muted leading-relaxed">{paragraph}</p>
+                  <p class="text-ink-muted leading-relaxed mb-3 font-body">{paragraph}</p>
                 ))
               }
-              <p class="text-ink-muted leading-relaxed mt-4">
+              <p class="text-ink-muted leading-relaxed mt-4 font-body">
                 {firstConsultation.calendarCta.prefix}
                 <a
                   href={firstConsultation.calendarCta.linkHref}
-                  class="text-sage underline underline-offset-4 hover:text-sage-600"
+                  class="text-sage font-medium underline underline-offset-4 hover:text-sage-600"
                 >
                   {firstConsultation.calendarCta.linkLabel}
                 </a>
@@ -57,65 +57,73 @@ const jsonLd = buildJsonLdGraph(
               </p>
             </div>
 
-            <div class="space-y-4">
-              <h3 class="font-display text-lg font-medium text-ink">{contactDetails.title}</h3>
-              <div class="space-y-3">
+            <div class="space-y-4 pt-6 border-t border-ink-border/10">
+              <h3 class="font-display text-lg font-normal text-ink">{contactDetails.title}</h3>
+              <div class="space-y-4">
                 <div class="flex items-start gap-3">
-                  <span class="mt-1 text-sage text-sm" aria-hidden="true">✉</span>
+                  <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                    <Icon name="lucide:mail" class="w-4 h-4" />
+                  </div>
                   <div>
-                    <p class="text-sm label-caps text-ink-muted mb-1">Email</p>
+                    <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Email</p>
                     {
                       email ? (
                         <a
                           href={`mailto:${email}`}
-                          class="text-ink-muted text-sm hover:text-sage transition-colors"
+                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
                         >
                           {email}
                         </a>
                       ) : (
-                        <p class="text-ink-muted italic text-sm">[EMAIL PENDIENTE]</p>
+                        <p class="text-ink-muted italic text-sm font-body">[EMAIL PENDIENTE]</p>
                       )
                     }
                   </div>
                 </div>
+                
                 <div class="flex items-start gap-3">
-                  <span class="mt-1 text-sage text-sm" aria-hidden="true">💬</span>
+                  <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                    <Icon name="lucide:message-square" class="w-4 h-4" />
+                  </div>
                   <div>
-                    <p class="text-sm label-caps text-ink-muted mb-1">WhatsApp</p>
+                    <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">WhatsApp</p>
                     {
                       whatsapp ? (
                         <a
                           href={whatsapp}
-                          class="text-ink-muted text-sm hover:text-sage transition-colors"
+                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           Escribir por WhatsApp
                         </a>
                       ) : (
-                        <p class="text-ink-muted italic text-sm">[WHATSAPP PENDIENTE]</p>
+                        <p class="text-ink-muted italic text-sm font-body">[WHATSAPP PENDIENTE]</p>
                       )
                     }
                   </div>
                 </div>
+                
                 <div class="flex items-start gap-3">
-                  <span class="mt-1 text-sage text-sm" aria-hidden="true">📍</span>
+                  <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                    <Icon name="lucide:map-pin" class="w-4 h-4" />
+                  </div>
                   <div>
-                    <p class="text-sm label-caps text-ink-muted mb-1">Ubicación</p>
-                    <p class="text-ink-muted text-sm">{contactDetails.location}</p>
+                    <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Ubicación</p>
+                    <p class="text-ink-muted text-sm font-body">{contactDetails.location}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div>
-            <h2 class="font-display text-2xl font-semibold text-ink mb-6">{formSection.title}</h2>
+          <div class="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-white border border-ink-border/20 shadow-premium">
+            <h2 class="font-display text-2xl font-normal text-ink mb-6">{formSection.title}</h2>
 
             {/* TODO: conectar formulario a un servicio de email (Resend, Formspree, etc.) */}
             <form class="space-y-5">
               <div>
-                <label for="nombre" class="block text-sm font-semibold text-ink mb-1.5">
+                <label for="nombre" class="block text-sm font-medium text-ink mb-1.5 font-body">
                   Nombre
                 </label>
                 <input
@@ -124,13 +132,13 @@ const jsonLd = buildJsonLdGraph(
                   type="text"
                   required
                   autocomplete="name"
-                  class="w-full rounded-lg border border-ink-border bg-white px-4 py-3 text-ink placeholder-ink-muted/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 transition-colors"
+                  class="w-full rounded-xl border border-ink-border/30 bg-white px-4 py-3 text-ink placeholder-ink-muted/50 focus:border-sage focus:outline-none focus:ring-4 focus:ring-sage/10 transition-all duration-200 font-body text-sm"
                   placeholder="Tu nombre"
                 />
               </div>
 
               <div>
-                <label for="email" class="block text-sm font-semibold text-ink mb-1.5">
+                <label for="email" class="block text-sm font-medium text-ink mb-1.5 font-body">
                   Email
                 </label>
                 <input
@@ -139,13 +147,13 @@ const jsonLd = buildJsonLdGraph(
                   type="email"
                   required
                   autocomplete="email"
-                  class="w-full rounded-lg border border-ink-border bg-white px-4 py-3 text-ink placeholder-ink-muted/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 transition-colors"
+                  class="w-full rounded-xl border border-ink-border/30 bg-white px-4 py-3 text-ink placeholder-ink-muted/50 focus:border-sage focus:outline-none focus:ring-4 focus:ring-sage/10 transition-all duration-200 font-body text-sm"
                   placeholder="tu@email.com"
                 />
               </div>
 
               <div>
-                <label for="mensaje" class="block text-sm font-semibold text-ink mb-1.5">
+                <label for="mensaje" class="block text-sm font-medium text-ink mb-1.5 font-body">
                   Mensaje
                 </label>
                 <textarea
@@ -153,7 +161,7 @@ const jsonLd = buildJsonLdGraph(
                   name="mensaje"
                   required
                   rows={5}
-                  class="w-full rounded-lg border border-ink-border bg-white px-4 py-3 text-ink placeholder-ink-muted/60 focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/20 transition-colors resize-none"
+                  class="w-full rounded-xl border border-ink-border/30 bg-white px-4 py-3 text-ink placeholder-ink-muted/50 focus:border-sage focus:outline-none focus:ring-4 focus:ring-sage/10 transition-all duration-200 font-body text-sm resize-none"
                   placeholder="¿En qué puedo ayudarte?"
                 ></textarea>
               </div>
@@ -164,27 +172,27 @@ const jsonLd = buildJsonLdGraph(
                   name="privacidad"
                   type="checkbox"
                   required
-                  class="mt-1 h-4 w-4 rounded border-ink-border text-sage focus:ring-sage"
+                  class="mt-1 h-4 w-4 rounded border-ink-border/40 text-sage focus:ring-sage"
                 />
-                <label for="privacidad" class="text-sm text-ink-muted leading-relaxed">
-                  He leído la{" "}
+                <label for="privacidad" class="text-sm text-ink-muted leading-relaxed font-body">
+                  He leído la
                   <a
                     href="/legal/privacidad"
                     class="text-sage underline underline-offset-4 hover:text-sage-600"
                   >
                     política de privacidad
-                  </a>{" "}
+                  </a>
                   y consiento el tratamiento de mis datos para atender mi consulta.
                 </label>
               </div>
 
-              <p class="text-xs text-ink-muted/70 leading-relaxed border-l-2 border-ink-border pl-3">
+              <p class="text-xs text-ink-muted/70 leading-relaxed border-l-2 border-ink-border/20 pl-3 font-body">
                 {formSection.privacyNote}
               </p>
 
               <button
                 type="submit"
-                class="w-full inline-flex items-center justify-center gap-2 font-body font-semibold rounded-lg bg-sage text-white px-6 py-3 text-base hover:bg-sage-600 active:bg-sage-700 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2"
+                class="w-full inline-flex items-center justify-center gap-2 font-body font-medium rounded-lg bg-sage text-white px-6 py-3.5 text-base hover:bg-sage-600 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2"
               >
                 {formSection.submitLabel}
               </button>
@@ -195,3 +203,4 @@ const jsonLd = buildJsonLdGraph(
     </Container>
   </section>
 </Layout>
+

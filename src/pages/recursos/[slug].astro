@@ -1,12 +1,19 @@
 ---
-import Layout from '../../components/layout/Layout.astro'
-import Container from '../../components/ui/Container.astro'
-import Badge from '../../components/ui/Badge.astro'
-import Button from '../../components/ui/Button.astro'
-import PageHero from '../../components/ui/PageHero.astro'
+import Layout from '@/components/layout/Layout.astro'
+import Container from '@/components/ui/Container.astro'
+import Badge from '@/components/ui/Badge.astro'
+import Button from '@/components/ui/Button.astro'
+import PageHero from '@/components/ui/PageHero.astro'
 import { render } from 'astro:content'
-import ProseWrapper from '../../components/ui/ProseWrapper.astro'
-import { getPublishedResources } from '../../lib/content/collections'
+import ProseWrapper from '@/components/ui/ProseWrapper.astro'
+import { getPublishedResources } from '@/lib/content/collections'
+import { buildArticle, buildBreadcrumbList, buildJsonLdGraph, buildPerson } from '@/lib/seo'
+
+// Componentes dinámicos de TinaCMS para el editor de bloques ricos
+import BotonCTA from "@/components/cms/BotonCTA.astro";
+import Testimonio from "@/components/cms/Testimonio.astro";
+import Acordeon from "@/components/cms/Acordeon.astro";
+import Alerta from "@/components/cms/Alerta.astro";
 
 export async function getStaticPaths() {
   const resources = await getPublishedResources()
@@ -21,10 +28,30 @@ const { Content } = await render(resource)
 
 const rawTitle = resource.data.seoTitle ?? resource.data.title
 const pageTitle = rawTitle.includes(":") ? rawTitle.split(":")[0].trim() : rawTitle
+const pageUrl = `/recursos/${resource.data.slug}`
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson(),
+  buildArticle({
+    title: resource.data.title,
+    description: resource.data.description,
+    url: pageUrl,
+    datePublished: resource.data.publishedAt,
+    image: resource.data.image,
+    tags: resource.data.tags,
+  }),
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: "Recursos", url: "/recursos" },
+    { name: resource.data.title, url: pageUrl },
+  ])
+)
 ---
 <Layout
   title={pageTitle}
   description={resource.data.seoDescription ?? resource.data.description}
+  canonical={pageUrl}
+  jsonLd={jsonLd}
 >
   <PageHero
     title={resource.data.title}
@@ -35,19 +62,20 @@ const pageTitle = rawTitle.includes(":") ? rawTitle.split(":")[0].trim() : rawTi
 
   <section class="section-gap-tight">
     <Container>
-      <article class="max-w-2xl mx-auto">
+      <article class="max-w-2xl mx-auto animate-fade-in-up">
         {resource.data.tags.length > 0 && (
           <div class="flex gap-2 flex-wrap mb-6">
-            {resource.data.tags.map((tag) => <Badge>{tag}</Badge>)}
+            {resource.data.tags.map((tag) => <Badge variant="blush">{tag}</Badge>)}
           </div>
         )}
         <ProseWrapper>
-          <Content />
+          <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
         </ProseWrapper>
-        <div class="mt-16 pt-8 border-t border-ink-border">
+        <div class="mt-16 pt-8 border-t border-ink-border/10">
           <Button href="/recursos" variant="ghost">← Volver a recursos</Button>
         </div>
       </article>
     </Container>
   </section>
 </Layout>
+

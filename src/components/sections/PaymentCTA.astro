@@ -24,15 +24,15 @@ const {
       href={paymentLink}
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex items-center gap-2 bg-sage text-white font-semibold px-8 py-3 rounded-lg hover:bg-sage-600 transition-colors"
+      class="inline-flex items-center gap-2 bg-sage text-white font-medium px-8 py-3.5 rounded-lg hover:bg-sage-600 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 ease-out font-body"
     >
       {primaryLabel}
-      <span aria-hidden="true" class="text-sm">↗</span>
+      <span aria-hidden="true" class="text-sm transition-transform duration-200 group-hover:translate-x-0.5">↗</span>
     </a>
   ) : (
     <a
       href={fallbackHref}
-      class="inline-flex items-center gap-2 bg-sage text-white font-semibold px-8 py-3 rounded-lg hover:bg-sage-600 transition-colors"
+      class="inline-flex items-center gap-2 bg-sage text-white font-medium px-8 py-3.5 rounded-lg hover:bg-sage-600 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 ease-out font-body"
     >
       {fallbackLabel}
     </a>
@@ -40,9 +40,10 @@ const {
   {secondaryLabel && secondaryHref && (
     <a
       href={secondaryHref}
-      class="inline-flex items-center border-2 border-sage text-sage font-semibold px-8 py-3 rounded-lg hover:bg-sage-50 transition-colors"
+      class="inline-flex items-center border border-sage/30 bg-transparent text-sage font-medium px-8 py-3.5 rounded-lg hover:border-sage hover:bg-sage/5 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 ease-out font-body"
     >
       {secondaryLabel}
     </a>
   )}
 </div>
+

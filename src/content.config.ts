@@ -18,7 +18,7 @@ const sectionHeadingSchema = z.object({
 });
 
 const services = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/services" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/servicios" }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -39,7 +39,7 @@ const services = defineCollection({
 });
 
 const resources = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/resources" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/recursos" }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -57,7 +57,7 @@ const resources = defineCollection({
 });
 
 const courses = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/courses" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/cursos" }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -209,6 +209,36 @@ const training = defineCollection({
   }),
 });
 
+const bookingPage = defineCollection({
+  loader: glob({ pattern: "booking.json", base: "./src/content/bookingPage" }),
+  schema: z.object({
+    seoTitle: z.string(),
+    seoDescription: z.string(),
+    hero: z.object({
+      label: z.string(),
+      title: z.string(),
+      intro: z.string(),
+    }),
+    sessions: z.array(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        duration: z.string(),
+        format: z.string(),
+        icon: z.string(),
+        bookingUrl: z.string(),
+        badge: z.string().nullable().optional(),
+      })
+    ),
+    faqItems: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ),
+  }),
+});
+
 export const collections = {
   services,
   resources,
@@ -219,4 +249,5 @@ export const collections = {
   contactPage,
   experience,
   training,
+  bookingPage,
 };

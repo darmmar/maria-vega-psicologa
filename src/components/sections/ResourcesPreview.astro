@@ -17,50 +17,51 @@ interface Props {
 const { resources = [], showCTA = true } = Astro.props;
 ---
 
-<section class="section-gap bg-warm-100">
+<section class="section-gap bg-gradient-to-b from-warm-100 to-warm-50/10">
   <Container>
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
       <div>
-        <span class="label-caps text-sage block mb-5">Psicoeducación</span>
-        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink leading-tight">
+        <span class="label-caps text-sage block mb-4">Psicoeducación</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink leading-tight">
           Recursos psicoeducativos
         </h2>
       </div>
-      {showCTA && <Button href="/recursos" variant="ghost">Ver todos →</Button>}
+      {showCTA && <Button href="/recursos" variant="ghost">Ver todos <span class="transition-transform duration-300 group-hover:translate-x-1 ml-1">→</span></Button>}
     </div>
 
     {
       resources.length > 0 ? (
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {resources.map((resource) => (
             <a
               href={`/recursos/${resource.slug}`}
-              class="group block p-6 bg-white rounded-2xl border border-ink-border/50 hover:border-sage-300 hover:shadow-[0_8px_32px_rgba(71,91,76,0.08)] transition-all duration-200"
+              class="group block p-6 bg-white rounded-2xl border border-ink-border/30 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out"
             >
-              <h3 class="font-display text-xl font-medium text-ink mb-2 group-hover:text-sage transition-colors">
+              <h3 class="font-display text-xl font-normal text-ink mb-3 group-hover:text-sage transition-colors duration-200">
                 {resource.title}
               </h3>
-              <p class="text-sm text-ink-muted leading-relaxed mb-4">{resource.description}</p>
+              <p class="text-sm text-ink-muted leading-relaxed mb-5 font-body">{resource.description}</p>
               {resource.tags && resource.tags.length > 0 && (
-                <div class="flex flex-wrap gap-2 mb-4">
+                <div class="flex flex-wrap gap-1.5 mb-5">
                   {resource.tags.map((tag) => (
-                    <span class="px-3 py-1 rounded-full bg-warm-600/20 text-warm-800 text-xs font-semibold uppercase tracking-wide">
+                    <span class="px-2.5 py-0.5 rounded-full bg-blush/10 text-blush-700 border border-blush/15 text-[10px] uppercase font-semibold tracking-wider font-body">
                       {tag}
                     </span>
                   ))}
                 </div>
               )}
-              <span class="text-sm font-semibold text-sage-600 group-hover:underline underline-offset-2">
-                Leer →
+              <span class="text-sm font-medium text-sage group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">
+                Leer <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </span>
             </a>
           ))}
         </div>
       ) : (
-        <p class="text-ink-muted text-base leading-relaxed">
+        <p class="text-ink-muted text-base leading-relaxed font-body">
           Próximamente recursos psicoeducativos para acompañarte entre sesiones.
         </p>
       )
     }
   </Container>
 </section>
+

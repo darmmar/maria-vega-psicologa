@@ -33,5 +33,23 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    { "source": "/profile", "destination": "/conoceme", "permanent": true },
+    { "source": "/contact", "destination": "/contacto", "permanent": true },
+    { "source": "/booking", "destination": "/reserva", "permanent": true },
+    { "source": "/grief-course", "destination": "/curso-duelo", "permanent": true },
+    { "source": "/courses", "destination": "/cursos", "permanent": true },
+    { "source": "/resources", "destination": "/recursos", "permanent": true },
+    { "source": "/resources/:slug", "destination": "/recursos/:slug", "permanent": true },
+    { "source": "/therapy-malaga", "destination": "/psicologa-malaga", "permanent": true },
+    { "source": "/therapy-online", "destination": "/terapia-online", "permanent": true },
+    { "source": "/therapy-anxiety", "destination": "/terapia-ansiedad", "permanent": true },
+    { "source": "/therapy-addictions", "destination": "/terapia-adicciones", "permanent": true },
+    { "source": "/therapy-grief", "destination": "/terapia-duelo", "permanent": true },
+    { "source": "/therapy-child-youth", "destination": "/terapia-infantil-juvenil", "permanent": true },
+    { "source": "/therapy-contextual-act", "destination": "/terapia-contextual-act", "permanent": true },
+    { "source": "/legal/legal-notice", "destination": "/legal/aviso-legal", "permanent": true },
+    { "source": "/legal/privacy", "destination": "/legal/privacidad", "permanent": true }
   ]
 }

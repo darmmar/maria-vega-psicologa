@@ -1,0 +1,55 @@
+{
+  "seoTitle": "Reserva tu cita",
+  "seoDescription": "Reserva tu cita con María Vega, psicóloga en Málaga. Primera consulta y sesiones de seguimiento disponibles online y en consulta.",
+  "hero": {
+    "label": "Reservas",
+    "title": "Reservar cita",
+    "intro": "Dar el primer paso es lo más difícil. Aquí puedes elegir el momento que mejor te venga — sin llamadas, sin esperas. El pago de la sesión se realiza de forma segura al reservar, dentro del calendario de Cal.com (Stripe)."
+  },
+  "sessions": [
+    {
+      "title": "Terapia presencial",
+      "description": "Sesión de psicología en consulta, en Málaga. Un espacio tranquilo y confidencial para tu proceso terapéutico.",
+      "duration": "60 min",
+      "format": "Presencial (Málaga)",
+      "icon": "lucide:map-pin",
+      "bookingUrl": "https://cal.com/maria-vega/terapia-presencial",
+      "badge": ""
+    },
+    {
+      "title": "Terapia online",
+      "description": "Terapia por videollamada desde donde estés, con la misma calidad y privacidad que en consulta.",
+      "duration": "60 min",
+      "format": "Online por videollamada",
+      "icon": "lucide:monitor",
+      "bookingUrl": "https://cal.com/maria-vega/terapia-online",
+      "badge": "Recomendado si no estás en Málaga"
+    }
+  ],
+  "faqItems": [
+    {
+      "question": "¿Cuáles son los horarios disponibles?",
+      "answer": "La terapia presencial en Málaga está disponible los lunes de 17:00 a 20:00. La terapia online se ofrece de martes a domingo, de 16:00 a 21:00 (hora peninsular). Los horarios exactos los verás al reservar según la disponibilidad del calendario."
+    },
+    {
+      "question": "¿Cómo funciona el pago de la sesión?",
+      "answer": "Al confirmar día y hora en el calendario, pasarás por el checkout seguro de Cal.com (Stripe) antes de que la cita quede confirmada. No hay un enlace de pago aparte: el importe se abona en el mismo flujo de reserva."
+    },
+    {
+      "question": "¿Qué ocurre después de reservar?",
+      "answer": "Tras completar el pago, recibirás un correo de confirmación con todos los detalles de la cita. Si es online, te llegará también el enlace a la videollamada. Puedes cancelar o reprogramar con al menos 24 horas de antelación."
+    },
+    {
+      "question": "¿La primera consulta me compromete a seguir?",
+      "answer": "No. La primera sesión sirve para que nos conozcamos y veas si te sientes cómoda conmigo y con mi forma de trabajar. No hay ningún compromiso de continuidad."
+    },
+    {
+      "question": "¿Cómo funciona la terapia online?",
+      "answer": "Las sesiones online se realizan por videollamada segura. Funcionan igual que las presenciales en cuanto a duración y estructura. Solo necesitas un lugar tranquilo y privado."
+    },
+    {
+      "question": "¿Qué pasa si necesito cancelar?",
+      "answer": "Puedes cancelar o cambiar tu cita desde el enlace del correo de confirmación, con al menos 24 horas de antelación. Para cambios de último momento, escríbeme directamente."
+    }
+  ]
+}

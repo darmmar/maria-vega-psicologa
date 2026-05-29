@@ -18,3 +18,4 @@ export const legalNav: NavItem[] = [
   { label: "Privacidad", href: "/legal/privacidad" },
   { label: "Cookies", href: "/legal/cookies" },
 ];
+

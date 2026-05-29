@@ -1,0 +1,41 @@
+---
+interface Props {
+  title?: string;
+  text: string;
+  type?: "info" | "success" | "warning";
+}
+
+const { title, text, type = "info" } = Astro.props;
+
+const styles = {
+  info: {
+    bg: "bg-sage-50/70 border-sage/20",
+    text: "text-ink-muted",
+    titleColor: "text-sage-900 font-semibold",
+    iconColor: "text-sage",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>`,
+  },
+  success: {
+    bg: "bg-emerald-50/50 border-emerald-500/20",
+    text: "text-emerald-900",
+    titleColor: "text-emerald-950 font-semibold",
+    iconColor: "text-emerald-600",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>`,
+  },
+  warning: {
+    bg: "bg-amber-50/50 border-amber-500/20",
+    text: "text-amber-900",
+    titleColor: "text-amber-950 font-semibold",
+    iconColor: "text-amber-600",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-circle"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12" y1="16" y2="16.01"/></svg>`,
+  },
+}[type];
+---
+
+<div class={`my-6 border rounded-xl p-4 flex gap-3 ${styles.bg} not-prose max-w-2xl mx-auto shadow-soft`}>
+  <div class={`flex-shrink-0 mt-0.5 ${styles.iconColor}`} set:html={styles.icon} />
+  <div class="flex-grow">
+    {title && <h5 class={`text-sm md:text-base mb-1 ${styles.titleColor} font-body`}>{title}</h5>}
+    <p class={`text-sm md:text-base leading-relaxed ${styles.text} font-body whitespace-pre-line`}>{text}</p>
+  </div>
+</div>

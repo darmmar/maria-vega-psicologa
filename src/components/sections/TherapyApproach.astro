@@ -7,24 +7,26 @@ const settings = await getSiteSettings();
 const { therapyApproach } = settings;
 ---
 
-<section class="section-gap bg-warm-200">
+<section class="section-gap bg-gradient-to-b from-warm-200 to-warm-100/50">
   <Container>
-    <div class="max-w-3xl mx-auto">
-      <span class="label-caps text-sage block mb-5">{therapyApproach.label}</span>
-      <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-6 leading-tight">
+    <div class="max-w-4xl mx-auto">
+      <span class="label-caps text-sage block mb-4">{therapyApproach.label}</span>
+      <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-6 leading-tight">
         {therapyApproach.title}
       </h2>
-      <p class="text-lg text-ink-muted leading-relaxed mb-12 max-w-2xl">
+      <p class="text-lg text-ink-muted leading-relaxed mb-12 max-w-3xl font-body">
         {therapyApproach.description}
       </p>
 
-      <div class="grid md:grid-cols-3 gap-5">
+      <div class="grid md:grid-cols-3 gap-6">
         {
           therapyApproach.pillars.map((pillar) => (
-            <div class="p-6 rounded-xl bg-white border border-ink-border/40">
-              <Icon name={pillar.icon} class="w-6 h-6 text-sage mb-4" />
-              <h3 class="font-display text-xl font-medium text-ink mb-2">{pillar.title}</h3>
-              <p class="text-sm text-ink-muted leading-relaxed">{pillar.description}</p>
+            <div class="p-6 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1">
+              <div class="w-12 h-12 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
+                <Icon name={pillar.icon} class="w-6 h-6" />
+              </div>
+              <h3 class="font-display text-xl font-normal text-ink mb-2">{pillar.title}</h3>
+              <p class="text-sm text-ink-muted leading-relaxed font-body">{pillar.description}</p>
             </div>
           ))
         }
@@ -32,3 +34,4 @@ const { therapyApproach } = settings;
     </div>
   </Container>
 </section>
+

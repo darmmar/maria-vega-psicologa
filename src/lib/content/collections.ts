@@ -27,6 +27,15 @@ export async function getContactPage() {
   return page;
 }
 
+export async function getBookingPage() {
+  const items = await getCollection("bookingPage");
+  const page = items[0]?.data;
+  if (!page) {
+    throw new Error("Missing booking page at src/content/bookingPage/booking.json");
+  }
+  return page;
+}
+
 export async function getPublishedExperience() {
   const items = await getCollection("experience", ({ data }) => data.published);
   return items.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
@@ -98,3 +107,15 @@ export async function getResourceBySlug(slug: string) {
   const resources = await getCollection("resources");
   return resources.find((r) => r.id === slug || r.data.slug === slug);
 }
+
+export function getServiceIcon(identifier: string): string {
+  const lower = identifier.toLowerCase();
+  if (lower.includes("duelo")) return "lucide:heart";
+  if (lower.includes("ansiedad")) return "lucide:wind";
+  if (lower.includes("adiccion")) return "lucide:link-2-off";
+  if (lower.includes("infantil") || lower.includes("juvenil")) return "lucide:star";
+  if (lower.includes("online")) return "lucide:monitor";
+  if (lower.includes("malaga") || lower.includes("presencial")) return "lucide:map-pin";
+  return "lucide:leaf";
+}
+

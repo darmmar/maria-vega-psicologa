@@ -20,23 +20,25 @@ const {
 } = Astro.props;
 ---
 
-<section class="section-gap bg-warm-400 border-y border-sage-200/50">
-  <Container>
+<section class="section-gap bg-gradient-to-r from-warm-200 to-warm-100/40 border-y border-ink-border/10 relative overflow-hidden">
+  <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-blush-100/20 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+  <Container class="relative">
     <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
-      <div class="max-w-xl">
-        <span class="label-caps text-sage block mb-5">{label}</span>
-        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-5 leading-tight">
+      <div class="max-w-2xl">
+        <span class="label-caps text-sage block mb-4">{label}</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-5 leading-tight">
           {title}
         </h2>
-        <p class="text-lg text-ink-muted leading-relaxed mb-8">
+        <p class="text-lg text-ink-muted leading-relaxed mb-8 font-body">
           {description}
         </p>
-        <Button href={ctaHref} variant="primary">{ctaLabel}</Button>
+        <Button href={ctaHref} variant="primary" size="lg">{ctaLabel}</Button>
       </div>
 
-      <div class="hidden lg:block flex-shrink-0" aria-hidden="true">
-        <Icon name="lucide:graduation-cap" class="w-40 h-40 text-sage opacity-15" />
+      <div class="hidden lg:block flex-shrink-0 text-sage/10" aria-hidden="true">
+        <Icon name="lucide:graduation-cap" class="w-44 h-44" />
       </div>
     </div>
   </Container>
 </section>
+

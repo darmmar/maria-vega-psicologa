@@ -30,38 +30,41 @@ const jsonLd = buildJsonLdGraph(
 <Layout
   title="Conóceme"
   description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica."
+  canonical="/conoceme"
   jsonLd={jsonLd}
 >
-  <section class="section-hero bg-warm-100">
-    <Container>
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div>
+  <section class="section-hero bg-gradient-to-b from-warm-100 to-warm-50/20 relative overflow-hidden">
+    <div class="absolute -top-24 -right-24 w-80 h-80 bg-sage/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-blush/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <Container class="relative">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in-up">
+        <div class="lg:col-span-7">
           <p class="label-caps text-sage mb-4">{hero.label}</p>
-          <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-6 leading-tight">
+          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-6 leading-tight">
             {hero.title}
           </h1>
           {
             hero.intro.map((paragraph) => (
-              <p class="text-ink-muted text-lg leading-relaxed mb-4 last:mb-0">{paragraph}</p>
+              <p class="text-ink-muted text-lg leading-relaxed mb-4 last:mb-0 font-body">{paragraph}</p>
             ))
           }
         </div>
 
-        <div class="space-y-5 w-full max-w-xs mx-auto lg:mx-0">
+        <div class="lg:col-span-5 space-y-5 w-full max-w-xs mx-auto lg:mx-0">
           {
             photoSrc ? (
-              <figure>
+              <figure class="relative group">
                 <img
                   src={photoSrc}
                   alt={hero.photoAlt}
-                  class="aspect-[3/4] w-full rounded-2xl object-cover border border-sage-200 shadow-[0_12px_40px_rgba(71,91,76,0.12)]"
+                  class="aspect-[3/4] w-full rounded-2xl object-cover border border-ink-border/20 shadow-premium transition-transform duration-500 hover:scale-[1.01]"
                   loading="eager"
                   decoding="async"
                 />
               </figure>
             ) : (
               <div
-                class="aspect-[3/4] w-full rounded-2xl bg-sage-100 flex flex-col items-center justify-center border border-sage-200 gap-3"
+                class="aspect-[3/4] w-full rounded-2xl bg-sage-100/50 flex flex-col items-center justify-center border border-ink-border/20 gap-3 shadow-premium"
                 aria-hidden="true"
               >
                 <Icon name="lucide:user" class="w-16 h-16 text-sage-400 opacity-60" aria-hidden="true" />
@@ -72,11 +75,11 @@ const jsonLd = buildJsonLdGraph(
 
           {
             secondaryPhotoSrc ? (
-              <figure>
+              <figure class="relative group">
                 <img
                   src={secondaryPhotoSrc}
                   alt={secondaryPhotoAlt}
-                  class="aspect-[4/3] w-full rounded-2xl object-cover border border-sage-200/80"
+                  class="aspect-[4/3] w-full rounded-2xl object-cover border border-ink-border/10 shadow-premium"
                   loading="lazy"
                   decoding="async"
                 />
@@ -90,13 +93,13 @@ const jsonLd = buildJsonLdGraph(
 
   <section class="section-gap-tight pt-0">
     <Container>
-      <div class="max-w-2xl mx-auto">
-        <span class="label-caps text-sage block mb-5">{approach.label}</span>
-        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-ink mb-8 leading-tight">
+      <div class="max-w-2xl mx-auto animate-fade-in-up">
+        <span class="label-caps text-sage block mb-4">{approach.label}</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-8 leading-tight">
           {approach.title}
         </h2>
 
-        <div class="space-y-5 text-ink-muted text-lg leading-relaxed">
+        <div class="space-y-5 text-ink-muted text-lg leading-relaxed font-body">
           {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </div>
@@ -113,3 +116,4 @@ const jsonLd = buildJsonLdGraph(
     ctaHref={cta.href}
   />
 </Layout>
+

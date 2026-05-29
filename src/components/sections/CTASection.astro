@@ -16,19 +16,23 @@ const {
 } = Astro.props;
 ---
 
-<section class="section-gap bg-sage">
-  <Container>
+<section class="section-gap bg-gradient-to-br from-sage to-sage-700 relative overflow-hidden">
+  <!-- Glowing subtle accents -->
+  <div class="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-white/5 blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-blush-500/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+  
+  <Container class="relative">
     <div class="max-w-2xl mx-auto text-center space-y-6">
-      <h2 class="font-display text-3xl lg:text-4xl font-semibold text-white leading-tight">
+      <h2 class="font-display text-3xl lg:text-4xl font-normal text-white leading-tight">
         {title}
       </h2>
-      <p class="text-lg text-sage-100 leading-relaxed">
+      <p class="text-lg text-sage-50 leading-relaxed font-body">
         {description}
       </p>
       <div class="pt-2">
         <a
           href={ctaHref}
-          class="inline-flex items-center gap-2 font-body font-semibold rounded-full border-2 border-white/70 text-white px-8 py-4 text-base hover:border-white hover:bg-white/10 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
+          class="inline-flex items-center gap-2 font-body font-medium rounded-lg bg-white text-sage px-8 py-4 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
         >
           {ctaLabel}
         </a>
@@ -36,3 +40,4 @@ const {
     </div>
   </Container>
 </section>
+

@@ -1,7 +1,7 @@
 ---
 interface Props {
   href?: string;
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "blush";
   size?: "sm" | "md" | "lg";
   external?: boolean;
   type?: "button" | "submit" | "reset";
@@ -20,12 +20,13 @@ const {
 } = Astro.props;
 
 const baseClasses =
-  "inline-flex items-center gap-2 font-body font-semibold rounded-lg transition-all duration-200 focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2";
+  "inline-flex items-center justify-center gap-2 font-body font-medium rounded-lg transition-all duration-300 focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2";
 
 const variantClasses = {
-  primary: "bg-sage text-white hover:bg-sage-600 active:bg-sage-700",
-  secondary: "border-2 border-sage text-sage hover:bg-sage-50 active:bg-sage-100",
-  ghost: "text-sage hover:underline underline-offset-4",
+  primary: "bg-sage text-white hover:bg-sage-600 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none",
+  secondary: "border border-sage/30 text-sage bg-transparent hover:border-sage hover:bg-sage/5 hover:-translate-y-0.5 active:translate-y-0",
+  blush: "bg-blush text-white hover:bg-blush-600 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none",
+  ghost: "text-sage hover:bg-sage/5 active:bg-sage/10",
 };
 
 const sizeClasses = {
@@ -46,7 +47,7 @@ const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" 
     <a href={href} class={classes} {...externalProps} {...rest}>
       <slot />
       {external && (
-        <span aria-hidden="true" class="text-sm">
+        <span aria-hidden="true" class="text-sm transition-transform duration-200 group-hover:translate-x-0.5">
           ↗
         </span>
       )}
@@ -57,3 +58,4 @@ const externalProps = external ? { target: "_blank", rel: "noopener noreferrer" 
     </button>
   )
 }
+

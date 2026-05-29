@@ -59,10 +59,10 @@ export default function MobileMenu({ items }: Props) {
             open
             aria-modal="true"
             aria-label="Menú de navegación"
-            className="fixed inset-x-0 top-16 bottom-0 z-[9999] m-0 max-h-none w-auto max-w-none border-0 bg-white p-0 overflow-y-auto"
+            className="fixed inset-x-0 top-20 bottom-0 z-[9999] m-0 h-[calc(100vh-80px)] w-full max-w-none border-0 bg-white/95 backdrop-blur-md p-0 overflow-y-auto"
           >
             {/* Navigation links */}
-            <nav className="flex flex-col px-6 py-4" aria-label="Menú principal">
+            <nav className="flex flex-col px-6 py-6 animate-fade-in-up" aria-label="Menú principal">
               {items.map((item) => (
                 <a
                   key={item.href}
@@ -73,6 +73,15 @@ export default function MobileMenu({ items }: Props) {
                   {item.label}
                 </a>
               ))}
+              <div className="mt-8">
+                <a
+                  href="/reserva"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex w-full items-center justify-center gap-2 font-body font-medium rounded-lg px-6 py-3 text-base bg-sage text-white hover:bg-sage-600 shadow-premium active:bg-sage-700 transition-colors"
+                >
+                  Reservar cita
+                </a>
+              </div>
             </nav>
           </dialog>,
           document.body
@@ -80,3 +89,4 @@ export default function MobileMenu({ items }: Props) {
     </>
   );
 }
+

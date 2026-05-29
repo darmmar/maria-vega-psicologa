@@ -1,0 +1,36 @@
+---
+interface Props {
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary" | "accent";
+  align?: "left" | "center" | "right";
+  size?: "md" | "lg";
+}
+
+const { label, href, variant = "primary", align = "left", size = "md" } = Astro.props;
+
+const alignClass = {
+  left: "justify-start text-left",
+  center: "justify-center text-center",
+  right: "justify-end text-right",
+}[align];
+
+const baseClasses = "inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 transform active:scale-95 no-underline";
+
+const sizeClasses = {
+  md: "px-6 py-2.5 text-sm tracking-wide",
+  lg: "px-8 py-3.5 text-base tracking-wide shadow-md hover:shadow-lg",
+}[size];
+
+const variantClasses = {
+  primary: "bg-sage hover:bg-sage-700 text-white border border-transparent shadow-sm hover:translate-y-[-1px]",
+  secondary: "bg-transparent hover:bg-warm-200 text-sage border border-sage/30 hover:border-sage/60",
+  accent: "bg-blush hover:bg-blush-600 text-white border border-transparent hover:translate-y-[-1px]",
+}[variant];
+---
+
+<div class={`flex w-full ${alignClass} my-6 not-prose`}>
+  <a href={href} class={`${baseClasses} ${sizeClasses} ${variantClasses}`}>
+    {label}
+  </a>
+</div>

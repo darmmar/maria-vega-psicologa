@@ -35,6 +35,87 @@ const singletonUi = {
   },
 };
 
+const richTextBodyField = {
+  type: "rich-text" as const,
+  name: "body",
+  label: "Contenido",
+  isBody: true,
+  templates: [
+    {
+      name: "BotonCTA",
+      label: "Botón de llamada a la acción (CTA)",
+      fields: [
+        { type: "string" as const, name: "label", label: "Texto del botón", required: true },
+        { type: "string" as const, name: "href", label: "Enlace (Ej.: /contacto, /reserva o link externo)", required: true },
+        {
+          type: "string" as const,
+          name: "variant",
+          label: "Estilo del botón",
+          options: [
+            { value: "primary", label: "Principal (Verde)" },
+            { value: "secondary", label: "Secundario (Transparente con borde)" },
+            { value: "accent", label: "Destacado (Rosa/Blush)" },
+          ],
+        },
+        {
+          type: "string" as const,
+          name: "align",
+          label: "Alineación",
+          options: [
+            { value: "left", label: "Izquierda" },
+            { value: "center", label: "Centro" },
+            { value: "right", label: "Derecha" },
+          ],
+        },
+        {
+          type: "string" as const,
+          name: "size",
+          label: "Tamaño",
+          options: [
+            { value: "md", label: "Mediano" },
+            { value: "lg", label: "Grande" },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Testimonio",
+      label: "Testimonio de paciente",
+      fields: [
+        { type: "string" as const, name: "quote", label: "Testimonio / Cita", required: true, ui: { component: "textarea" } },
+        { type: "string" as const, name: "author", label: "Nombre / Iniciales", required: true },
+        { type: "string" as const, name: "role", label: "Descripción corta (Ej. Paciente Terapia Online)" },
+      ],
+    },
+    {
+      name: "Acordeon",
+      label: "Acordeón desplegable (FAQ / Detalles)",
+      fields: [
+        { type: "string" as const, name: "title", label: "Título / Pregunta", required: true },
+        { type: "string" as const, name: "content", label: "Contenido / Respuesta", required: true, ui: { component: "textarea" } },
+      ],
+    },
+    {
+      name: "Alerta",
+      label: "Caja de nota / Alerta destacada",
+      fields: [
+        { type: "string" as const, name: "title", label: "Título (Opcional)" },
+        { type: "string" as const, name: "text", label: "Texto descriptivo", required: true, ui: { component: "textarea" } },
+        {
+          type: "string" as const,
+          name: "type",
+          label: "Tipo de caja",
+          options: [
+            { value: "info", label: "Información (Verde suave)" },
+            { value: "success", label: "Éxito (Esmeralda suave)" },
+            { value: "warning", label: "Advertencia (Ámbar suave)" },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 export default defineConfig({
   branch,
   clientId,
@@ -447,7 +528,7 @@ export default defineConfig({
       {
         name: "services",
         label: "Servicios",
-        path: "src/content/services",
+        path: "src/content/servicios",
         format: "mdx",
         ui: {
           filename: {
@@ -511,13 +592,13 @@ export default defineConfig({
               "Describe la imagen para Google y lectores de pantalla. Ej.: «Sesión de terapia de ansiedad en consulta».",
             ui: { component: "textarea" },
           },
-          { type: "rich-text", name: "body", label: "Contenido", isBody: true },
+          richTextBodyField,
         ],
       },
       {
         name: "resources",
         label: "Recursos",
-        path: "src/content/resources",
+        path: "src/content/recursos",
         format: "mdx",
         ui: {
           filename: {
@@ -564,13 +645,13 @@ export default defineConfig({
           },
           { type: "string", name: "ctaLabel", label: "Texto del botón CTA" },
           { type: "string", name: "ctaHref", label: "Enlace del botón CTA" },
-          { type: "rich-text", name: "body", label: "Contenido", isBody: true },
+          richTextBodyField,
         ],
       },
       {
         name: "courses",
         label: "Cursos",
-        path: "src/content/courses",
+        path: "src/content/cursos",
         format: "mdx",
         ui: {
           filename: {
@@ -638,7 +719,7 @@ export default defineConfig({
             ui: { component: "textarea" },
           },
           { type: "string", name: "ctaLabel", label: "Texto del botón CTA" },
-          { type: "rich-text", name: "body", label: "Contenido", isBody: true },
+          richTextBodyField,
         ],
       },
       {
@@ -662,6 +743,110 @@ export default defineConfig({
           },
           { type: "number", name: "order", label: "Orden" },
           { type: "string", name: "category", label: "Categoría" },
+          { type: "boolean", name: "published", label: "Publicado" },
+        ],
+      },
+      {
+        name: "bookingPage",
+        label: "Reserva — página",
+        path: "src/content/bookingPage",
+        format: "json",
+        ui: singletonUi,
+        fields: [
+          { type: "string", name: "seoTitle", label: "Título SEO", required: true },
+          {
+            type: "string",
+            name: "seoDescription",
+            label: "Descripción SEO",
+            required: true,
+            ui: { component: "textarea" },
+          },
+          {
+            type: "object",
+            name: "hero",
+            label: "Cabecera",
+            fields: [
+              { type: "string", name: "label", label: "Etiqueta superior", required: true },
+              { type: "string", name: "title", label: "Título (H1)", required: true },
+              {
+                type: "string",
+                name: "intro",
+                label: "Descripción",
+                required: true,
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "sessions",
+            label: "Tipos de sesión",
+            list: true,
+            fields: [
+              { type: "string", name: "title", label: "Título", required: true },
+              {
+                type: "string",
+                name: "description",
+                label: "Descripción",
+                required: true,
+                ui: { component: "textarea" },
+              },
+              { type: "string", name: "duration", label: "Duración", required: true },
+              { type: "string", name: "format", label: "Formato", required: true },
+              { type: "string", name: "icon", label: "Icono (lucide, ej. lucide:monitor)", required: true },
+              { type: "string", name: "bookingUrl", label: "URL de reserva (Cal.com)", required: true },
+              { type: "string", name: "badge", label: "Etiqueta (opcional)" },
+            ],
+          },
+          {
+            type: "object",
+            name: "faqItems",
+            label: "Preguntas frecuentes específicas de reserva",
+            list: true,
+            fields: [
+              { type: "string", name: "question", label: "Pregunta", required: true },
+              {
+                type: "string",
+                name: "answer",
+                label: "Respuesta",
+                required: true,
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "experience",
+        label: "Experiencia profesional",
+        path: "src/content/experience",
+        format: "json",
+        fields: [
+          { type: "string", name: "area", label: "Área de experiencia", required: true },
+          { type: "number", name: "order", label: "Orden de visualización" },
+          { type: "boolean", name: "published", label: "Publicado" },
+        ],
+      },
+      {
+        name: "training",
+        label: "Formación académica",
+        path: "src/content/training",
+        format: "json",
+        fields: [
+          { type: "string", name: "degree", label: "Título / Formación", required: true },
+          { type: "string", name: "institution", label: "Institución", required: true },
+          { type: "string", name: "year", label: "Año" },
+          {
+            type: "string",
+            name: "category",
+            label: "Categoría",
+            required: true,
+            options: [
+              { value: "clinical", label: "Formación clínica" },
+              { value: "complementary", label: "Formación complementaria" },
+            ],
+          },
+          { type: "number", name: "order", label: "Orden" },
           { type: "boolean", name: "published", label: "Publicado" },
         ],
       },

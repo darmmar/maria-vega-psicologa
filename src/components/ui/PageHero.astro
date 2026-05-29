@@ -23,41 +23,44 @@ const {
   layout = "default",
   icon,
   class: className = "",
-  descriptionClass = "text-ink-muted text-lg leading-relaxed",
+  descriptionClass = "text-ink-muted text-lg leading-relaxed font-body",
 } = Astro.props;
 
 const widthClass = {
   "2xl": "max-w-2xl",
   "3xl": "max-w-3xl",
   "4xl": "max-w-4xl",
-}[maxWidth];
+  }[maxWidth];
 
 const alignClass = align === "center" ? "mx-auto text-center" : "";
 ---
 
-<section class:list={["section-hero bg-warm-100 border-b border-ink-border/20", className]}>
-  <Container>
+<section class:list={["section-hero bg-gradient-to-b from-warm-100 to-warm-50/20 border-b border-ink-border/10 overflow-hidden relative", className]}>
+  <div class="absolute -top-24 -right-24 w-96 h-96 bg-sage/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blush/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  
+  <Container class="relative">
     {
       layout === "split" ? (
-        <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="grid md:grid-cols-2 gap-8 items-center animate-fade-in-up">
           <div>
-            {label && <p class="label-caps text-sage mb-3">{label}</p>}
-            <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-4 leading-tight">
+            {label && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
+            <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight">
               {title}
             </h1>
             {description && <p class={descriptionClass}>{description}</p>}
             <slot />
           </div>
           {icon && (
-            <div class="hidden md:flex justify-end" aria-hidden="true">
-              <Icon name={icon} class="w-40 h-40 text-sage opacity-15" />
+            <div class="hidden md:flex justify-end animate-fade-in" aria-hidden="true">
+              <Icon name={icon} class="w-40 h-40 text-sage opacity-10" />
             </div>
           )}
         </div>
       ) : (
-        <div class:list={[widthClass, alignClass]}>
-          {label && <p class="label-caps text-sage mb-3">{label}</p>}
-          <h1 class="font-display text-4xl lg:text-5xl font-semibold text-ink mb-5 leading-tight">
+        <div class:list={[widthClass, alignClass, "animate-fade-in-up"]}>
+          {label && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
+          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-5 leading-tight">
             {title}
           </h1>
           {description && <p class={descriptionClass}>{description}</p>}
@@ -67,3 +70,4 @@ const alignClass = align === "center" ? "mx-auto text-center" : "";
     }
   </Container>
 </section>
+

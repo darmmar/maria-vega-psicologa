@@ -1,118 +1,66 @@
 ---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import ProseWrapper from "@/components/ui/ProseWrapper.astro";
+import { render } from "astro:content";
+import { getCourseBySlug } from "@/lib/content/collections";
+import { siteConfig } from "@/lib/config/site";
+import { buildBreadcrumbList, buildCourse, buildJsonLdGraph, buildPerson } from "@/lib/seo";
 
-import Layout from '../components/layout/Layout.astro'
+// Componentes dinámicos de TinaCMS para el editor de bloques ricos
+import BotonCTA from "@/components/cms/BotonCTA.astro";
+import Testimonio from "@/components/cms/Testimonio.astro";
+import Acordeon from "@/components/cms/Acordeon.astro";
+import Alerta from "@/components/cms/Alerta.astro";
 
-import Container from '../components/ui/Container.astro'
+const course = await getCourseBySlug("curso-duelo");
+if (!course) return Astro.redirect("/404");
 
-import Button from '../components/ui/Button.astro'
-
-import PageHero from '../components/ui/PageHero.astro'
-
-import ProseWrapper from '../components/ui/ProseWrapper.astro'
-
-import { render } from 'astro:content'
-
-import { getCourseBySlug } from '../lib/content/collections'
-
-import { siteConfig } from '../lib/config/site'
-
-import {
-
-  buildBreadcrumbList,
-
-  buildCourse,
-
-  buildJsonLdGraph,
-
-  buildPerson,
-
-} from '@/lib/seo'
-
-
-
-const course = await getCourseBySlug('curso-duelo')
-
-if (!course) return Astro.redirect('/404')
-
-
-
-const rendered = await render(course)
-
-const Content = rendered.Content
-
-
+const rendered = await render(course);
+const Content = rendered.Content;
 
 const paymentLink =
+  course.data.paymentLink || siteConfig.payments.courseDueloPaymentLink || null;
 
-  course.data.paymentLink || siteConfig.payments.courseDueloPaymentLink || null
-
-
-
-const pageTitle = course.data.seoTitle ?? course.data.title
-
-const pageDescription = course.data.seoDescription ?? course.data.description
-
-const pageUrl = '/curso-duelo'
-
-const heroLabel = course.data.heroLabel ?? 'Formación profesional'
+const pageTitle = course.data.seoTitle ?? course.data.title;
+const pageDescription = course.data.seoDescription ?? course.data.description;
+const pageUrl = "/curso-duelo";
+const heroLabel = course.data.heroLabel ?? "Formación profesional";
 
 const audienceIntro =
-
   course.data.audienceIntro ??
-
-  'Dirigido a psicólogos/as y profesionales de la salud mental que quieren adquirir destrezas clínicas para trabajar el duelo en consulta.'
-
-
+  "Dirigido a psicólogos/as y profesionales de la salud mental que quieren adquirir destrezas clínicas para trabajar el duelo en consulta.";
 
 const jsonLd = buildJsonLdGraph(
-
   buildPerson(),
-
   buildCourse({
-
     name: course.data.title,
-
     description: course.data.description,
-
     url: pageUrl,
-
   }),
-
   buildBreadcrumbList([
-
-    { name: 'Inicio', url: '/' },
-
-    { name: 'Cursos', url: '/cursos' },
-
+    { name: "Inicio", url: "/" },
+    { name: "Cursos", url: "/cursos" },
     { name: course.data.title, url: pageUrl },
-
   ]),
-
-)
-
+);
 ---
 
-
-
 <Layout
-
   title={pageTitle}
-
   description={pageDescription}
-
   canonical={pageUrl}
-
   jsonLd={jsonLd}
-
 >
-
   <PageHero label={heroLabel} title={course.data.title} maxWidth="3xl">
-    <p class="text-ink-muted text-lg mb-4">{course.data.shortDescription}</p>
-    <p class="text-ink-muted text-base mb-8 max-w-2xl mx-auto">{audienceIntro}</p>
+    <p class="text-ink-muted text-lg mb-4 font-body">{course.data.shortDescription}</p>
+    <p class="text-ink-muted text-base mb-8 max-w-2xl mx-auto font-body">{audienceIntro}</p>
     <div class="flex gap-4 justify-center flex-wrap">
       {paymentLink ? (
         <Button href={paymentLink} variant="primary" size="lg" external>
-          {course.data.ctaLabel ?? 'Inscribirme en la formación'}
+          {course.data.ctaLabel ?? "Inscribirme en la formación"}
         </Button>
       ) : (
         <Button href="/contacto" variant="primary" size="lg">
@@ -122,55 +70,35 @@ const jsonLd = buildJsonLdGraph(
     </div>
   </PageHero>
 
-
-
   <section class="section-gap-tight">
-
     <Container>
-
-      <ProseWrapper>
-
-        <Content />
-
-      </ProseWrapper>
-
-    </Container>
-
-  </section>
-
-
-
-  <section class="section-gap-tight bg-sage">
-
-    <Container>
-
-      <div class="text-center text-white">
-
-        <h2 class="font-display text-3xl font-semibold mb-4">¿Tienes preguntas sobre la formación?</h2>
-
-        <p class="mb-8 opacity-90 max-w-xl mx-auto">
-
-          Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso.
-
-        </p>
-
-        <a
-
-          href="/contacto"
-
-          class="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-sage transition-colors"
-
-        >
-
-          Solicitar información
-
-        </a>
-
+      <div class="max-w-3xl mx-auto animate-fade-in-up">
+        <ProseWrapper>
+          <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
+        </ProseWrapper>
       </div>
-
     </Container>
-
   </section>
 
+  <section class="section-gap bg-gradient-to-br from-sage to-sage-700 relative overflow-hidden text-white">
+    <div class="absolute -top-32 -left-32 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <Container class="relative">
+      <div class="max-w-2xl mx-auto text-center space-y-6">
+        <h2 class="font-display text-2xl lg:text-3xl font-normal mb-4 leading-tight">
+          ¿Tienes preguntas sobre la formación?
+        </h2>
+        <p class="font-body text-base text-white/80 mb-8 leading-relaxed">
+          Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso.
+        </p>
+        <a
+          href="/contacto"
+          class="inline-flex items-center gap-2 font-body font-medium rounded-lg bg-white text-sage px-8 py-4 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
+        >
+          Solicitar información
+        </a>
+      </div>
+    </Container>
+  </section>
 </Layout>
+
 
