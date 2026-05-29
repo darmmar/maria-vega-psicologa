@@ -160,6 +160,21 @@ const siteSettings = defineCollection({
       seoTitle: z.string(),
       seoDescription: z.string(),
     }),
+    contact: z.object({
+      email: z.string(),
+      phone: z.string().optional().nullable(),
+      whatsapp: z.string().optional().nullable(),
+      instagram: z.string().optional().nullable(),
+      telegram: z.string().optional().nullable(),
+      tiktok: z.string().optional().nullable(),
+      linkedin: z.string().optional().nullable(),
+    }),
+    legal: z.object({
+      collegiateNumber: z.string().optional().nullable(),
+      businessName: z.string().optional().nullable(),
+      taxId: z.string().optional().nullable(),
+      address: z.string().optional().nullable(),
+    }),
   }),
 });
 

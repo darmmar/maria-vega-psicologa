@@ -2,14 +2,16 @@
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import PageHero from "@/components/ui/PageHero.astro";
-import { getContactPage } from "@/lib/content/collections";
-import { siteConfig } from "@/lib/config/site";
+import { getContactPage, getSiteSettings } from "@/lib/content/collections";
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
 import { Icon } from "astro-icon/components";
 
-const page = await getContactPage();
+const [page, settings] = await Promise.all([
+  getContactPage(),
+  getSiteSettings(),
+]);
 const { hero, firstConsultation, contactDetails, formSection } = page;
-const { email, whatsapp } = siteConfig.contact;
+const { email, whatsapp, telegram, tiktok, linkedin } = settings.contact;
 
 const pageTitle = page.seoTitle;
 const pageDescription = page.seoDescription;
@@ -104,13 +106,76 @@ const jsonLd = buildJsonLdGraph(
                   </div>
                 </div>
                 
+                {
+                  telegram && (
+                    <div class="flex items-start gap-3">
+                      <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                        <Icon name="simple-icons:telegram" class="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Telegram</p>
+                        <a
+                          href={telegram}
+                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Escribir por Telegram
+                        </a>
+                      </div>
+                    </div>
+                  )
+                }
+
+                {
+                  tiktok && (
+                    <div class="flex items-start gap-3">
+                      <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                        <Icon name="simple-icons:tiktok" class="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">TikTok</p>
+                        <a
+                          href={tiktok}
+                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Ver perfil de TikTok
+                        </a>
+                      </div>
+                    </div>
+                  )
+                }
+
+                {
+                  linkedin && (
+                    <div class="flex items-start gap-3">
+                      <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                        <Icon name="simple-icons:linkedin" class="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">LinkedIn</p>
+                        <a
+                          href={linkedin}
+                          class="text-ink-muted text-sm hover:text-sage transition-colors font-body"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Conectar en LinkedIn
+                        </a>
+                      </div>
+                    </div>
+                  )
+                }
+
                 <div class="flex items-start gap-3">
                   <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
                     <Icon name="lucide:map-pin" class="w-4 h-4" />
                   </div>
                   <div>
                     <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Ubicación</p>
-                    <p class="text-ink-muted text-sm font-body">{contactDetails.location}</p>
+                    <p class="text-ink-muted text-sm font-body">{contactDetails.location || settings.legal.address}</p>
                   </div>
                 </div>
               </div>

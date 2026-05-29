@@ -4,6 +4,9 @@ import Container from '@/components/ui/Container.astro'
 import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 import PageHero from '@/components/ui/PageHero.astro'
 import { siteConfig } from '@/lib/config/site'
+import { getSiteSettings } from '@/lib/content/collections'
+
+const settings = await getSiteSettings()
 ---
 
 <Layout
@@ -27,13 +30,13 @@ import { siteConfig } from '@/lib/config/site'
           <h2>Responsable del tratamiento</h2>
           <ul>
             <li>
-              <strong>Nombre:</strong> {siteConfig.professionalName}
+              <strong>Nombre:</strong> {settings.legal.businessName || siteConfig.professionalName}
             </li>
             <li>
               <strong>Actividad:</strong> {siteConfig.professionalTitle}
             </li>
             <li>
-              <strong>Email de contacto:</strong> [EMAIL PENDIENTE]
+              <strong>Email de contacto:</strong> {settings.contact.email || '[EMAIL PENDIENTE]'}
             </li>
           </ul>
 
@@ -80,7 +83,7 @@ import { siteConfig } from '@/lib/config/site'
           <p>
             Tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos
             personales. También tienes derecho a la limitación del tratamiento y a la portabilidad
-            de tus datos. Para ejercer estos derechos, puedes escribirnos a [EMAIL PENDIENTE].
+            de tus datos. Para ejercer estos derechos, puedes escribirnos a {settings.contact.email || '[EMAIL PENDIENTE]'}.
           </p>
           <p>
             Si consideras que el tratamiento de tus datos no se ajusta a la normativa, tienes

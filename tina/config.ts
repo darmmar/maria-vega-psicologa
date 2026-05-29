@@ -337,6 +337,31 @@ export default defineConfig({
               },
             ],
           },
+          {
+            type: "object",
+            name: "contact",
+            label: "Ajustes globales — Datos de contacto",
+            fields: [
+              { type: "string", name: "email", label: "Email de contacto", required: true },
+              { type: "string", name: "phone", label: "Teléfono (opcional)" },
+              { type: "string", name: "whatsapp", label: "URL de WhatsApp (ej: https://wa.me/34600000000)" },
+              { type: "string", name: "instagram", label: "URL de Instagram" },
+              { type: "string", name: "telegram", label: "URL de Telegram (opcional)" },
+              { type: "string", name: "tiktok", label: "URL de TikTok (opcional)" },
+              { type: "string", name: "linkedin", label: "URL de LinkedIn (opcional)" },
+            ],
+          },
+          {
+            type: "object",
+            name: "legal",
+            label: "Ajustes globales — Datos legales",
+            fields: [
+              { type: "string", name: "collegiateNumber", label: "Número de Colegiada (ej: AO-12345)" },
+              { type: "string", name: "businessName", label: "Nombre Fiscal / Nombre del autónomo" },
+              { type: "string", name: "taxId", label: "NIF / CIF" },
+              { type: "string", name: "address", label: "Dirección física de la consulta" },
+            ],
+          },
         ],
       },
       {

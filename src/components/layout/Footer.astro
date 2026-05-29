@@ -1,25 +1,40 @@
 ---
 import { Icon } from 'astro-icon/components'
 import Container from '../ui/Container.astro'
-import { siteConfig } from '@/lib/config/site'
+import { getSiteSettings } from '@/lib/content/collections'
+
+const settings = await getSiteSettings()
+const { contact, legal } = settings
 
 const socialLinks = [
-  siteConfig.contact.instagram && {
+  contact.instagram && {
     name: 'Instagram',
     icon: 'simple-icons:instagram',
-    href: siteConfig.contact.instagram,
+    href: contact.instagram,
     label: 'Instagram de María Vega',
   },
-  siteConfig.contact.whatsapp && {
+  contact.whatsapp && {
     name: 'WhatsApp',
     icon: 'simple-icons:whatsapp',
-    href: siteConfig.contact.whatsapp,
+    href: contact.whatsapp,
     label: 'WhatsApp de María Vega',
   },
-  siteConfig.contact.linkedin && {
+  contact.telegram && {
+    name: 'Telegram',
+    icon: 'simple-icons:telegram',
+    href: contact.telegram,
+    label: 'Telegram de María Vega',
+  },
+  contact.tiktok && {
+    name: 'TikTok',
+    icon: 'simple-icons:tiktok',
+    href: contact.tiktok,
+    label: 'TikTok de María Vega',
+  },
+  contact.linkedin && {
     name: 'LinkedIn',
     icon: 'simple-icons:linkedin',
-    href: siteConfig.contact.linkedin,
+    href: contact.linkedin,
     label: 'LinkedIn de María Vega',
   },
 ].filter(Boolean) as Array<{
@@ -53,9 +68,9 @@ const legalLinks = [
           <span class="font-medium">© {new Date().getFullYear()} María Vega Psicología</span>
         </div>
         {
-          siteConfig.legal.collegiateNumber && (
+          legal.collegiateNumber && (
             <p class="text-xs text-ink-faint font-body md:pl-11 mt-1 text-center md:text-left">
-              Psicóloga General Sanitaria · Nº Colegiada: {siteConfig.legal.collegiateNumber}
+              Psicóloga General Sanitaria · Nº Colegiada: {legal.collegiateNumber}
             </p>
           )
         }
