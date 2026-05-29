@@ -11,7 +11,12 @@
       "label": "Conóceme",
       "href": "/conoceme"
     },
-    "badges": ["Cita en 24h", "Confidencialidad total", "Sin compromiso"],
+    "badges": [
+      "Cita en 24h",
+      "Confidencialidad total",
+      "Sin compromiso"
+    ],
+    "image": "",
     "imageAlt": "María Vega, psicóloga general sanitaria en Málaga",
     "imagePlaceholder": "Foto profesional"
   },
