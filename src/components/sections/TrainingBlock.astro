@@ -13,7 +13,7 @@ const complementary = trainingItems.filter((i) => i.data.category === "complemen
 
 <section class="section-gap bg-gradient-to-b from-warm-100 to-warm-200">
   <Container>
-    <div class="w-12 h-12 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage shadow-soft">
+    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sage/5 to-sage/15 border border-sage/10 flex items-center justify-center mb-5 text-sage shadow-soft">
       <Icon name="lucide:graduation-cap" class="w-6 h-6" aria-hidden="true" />
     </div>
     <span class="label-caps text-sage block mb-4">{trainingSection.label}</span>
@@ -22,7 +22,7 @@ const complementary = trainingItems.filter((i) => i.data.category === "complemen
     </h2>
 
     <div class="grid md:grid-cols-2 gap-8">
-      <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 backdrop-blur-sm shadow-premium">
+      <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 border-t-2 border-t-sage/25 backdrop-blur-sm shadow-premium">
         <h3 class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10">
           {trainingSection.clinicalTitle}
         </h3>
@@ -42,7 +42,7 @@ const complementary = trainingItems.filter((i) => i.data.category === "complemen
         </div>
       </div>
 
-      <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 backdrop-blur-sm shadow-premium">
+      <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 border-t-2 border-t-blush/25 backdrop-blur-sm shadow-premium">
         <h3 class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10">
           {trainingSection.complementaryTitle}
         </h3>

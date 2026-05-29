@@ -4,6 +4,7 @@ import Container from "@/components/ui/Container.astro";
 import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
 import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CTASection from "@/components/sections/CTASection.astro";
+import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { Icon } from "astro-icon/components";
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
 import { getProfile } from "@/lib/content/collections";
@@ -93,21 +94,24 @@ const jsonLd = buildJsonLdGraph(
 
   <section class="section-gap-tight pt-0">
     <Container>
-      <div class="max-w-2xl mx-auto animate-fade-in-up">
+      <div class="max-w-4xl animate-fade-in-up">
         <span class="label-caps text-sage block mb-4">{approach.label}</span>
         <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-8 leading-tight">
           {approach.title}
         </h2>
 
-        <div class="space-y-5 text-ink-muted text-lg leading-relaxed font-body">
+        <div class="space-y-5 text-ink-muted text-lg leading-relaxed font-body border-l-2 border-sage/20 pl-8">
           {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </div>
     </Container>
   </section>
 
+  <SectionDivider />
   <TrainingBlock />
+  <SectionDivider />
   <ExperienceBlock />
+  <SectionDivider />
 
   <CTASection
     title={cta.title}

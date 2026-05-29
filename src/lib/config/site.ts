@@ -106,9 +106,9 @@ export const siteConfig: SiteConfig = {
     courseDueloPaymentLink: envString(import.meta.env.PUBLIC_STRIPE_COURSE_PAYMENT_LINK) ?? "",
   },
   legal: {
-    collegiateNumber: "",
-    businessName: "",
-    taxId: "",
-    address: "",
+    collegiateNumber: envString(import.meta.env.PUBLIC_COLLEGIATE_NUMBER) ?? "",
+    businessName: envString(import.meta.env.PUBLIC_BUSINESS_NAME) ?? "",
+    taxId: envString(import.meta.env.PUBLIC_TAX_ID) ?? "",
+    address: envString(import.meta.env.PUBLIC_ADDRESS) ?? "",
   },
 };

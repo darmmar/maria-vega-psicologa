@@ -38,30 +38,39 @@ const legalLinks = [
 
 <footer class="border-t border-ink-border/30 bg-warm-100/40">
   <Container>
-    <div class="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="py-10 lg:py-12 flex flex-col md:flex-row items-center justify-between gap-8">
 
-      <div class="flex items-center gap-2 text-sm text-ink-muted">
-        <img
-          src="/images/mv-monogram.png"
-          alt=""
-          width="56"
-          height="62"
-          class="h-10 w-auto flex-shrink-0"
-          aria-hidden="true"
-        />
-        <span>© {new Date().getFullYear()} María Vega Psicología</span>
+      <div class="flex flex-col items-center md:items-start gap-1">
+        <div class="flex items-center gap-2.5 text-sm text-ink-muted">
+          <img
+            src="/images/mv-monogram.png"
+            alt=""
+            width="56"
+            height="62"
+            class="h-9 w-auto flex-shrink-0"
+            aria-hidden="true"
+          />
+          <span class="font-medium">© {new Date().getFullYear()} María Vega Psicología</span>
+        </div>
+        {
+          siteConfig.legal.collegiateNumber && (
+            <p class="text-xs text-ink-faint font-body md:pl-11 mt-1 text-center md:text-left">
+              Psicóloga General Sanitaria · Nº Colegiada: {siteConfig.legal.collegiateNumber}
+            </p>
+          )
+        }
       </div>
 
       {
         socialLinks.length > 0 && (
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-5">
             {socialLinks.map(({ icon, href, label }) => (
               <a
                 href={href}
                 aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-ink-faint hover:text-sage transition-colors"
+                class="text-ink-faint hover:text-sage transition-colors p-2 hover:bg-sage/5 rounded-full"
               >
                 <Icon name={icon} class="w-5 h-5" />
               </a>
@@ -70,9 +79,9 @@ const legalLinks = [
         )
       }
 
-      <nav aria-label="Pie de página legal" class="flex items-center gap-4 text-xs text-ink-faint">
+      <nav aria-label="Pie de página legal" class="flex items-center gap-6 text-xs text-ink-faint">
         {legalLinks.map(({ label, href }) => (
-          <a href={href} class="hover:text-ink transition-colors">{label}</a>
+          <a href={href} class="hover:text-ink transition-colors underline-offset-4 hover:underline">{label}</a>
         ))}
       </nav>
 

@@ -7,6 +7,7 @@ import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
 import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CourseHighlight from "@/components/sections/CourseHighlight.astro";
 import CTASection from "@/components/sections/CTASection.astro";
+import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { buildJsonLdGraph, buildPerson, buildWebSite } from "@/lib/seo";
 import { getCourseBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
 
@@ -25,14 +26,18 @@ const jsonLd = buildJsonLdGraph(buildWebSite(), buildPerson());
   jsonLd={jsonLd}
 >
   <Hero />
+  <SectionDivider />
   <TherapyApproach />
+  <SectionDivider />
   <ServicesGrid
     services={services}
     sectionLabel={settings.servicesSection.label}
     sectionTitle={settings.servicesSection.title}
   />
+  <SectionDivider />
   <ExperienceBlock />
   <TrainingBlock />
+  <SectionDivider />
   <CourseHighlight
     title={course?.data.title}
     description={course?.data.shortDescription}

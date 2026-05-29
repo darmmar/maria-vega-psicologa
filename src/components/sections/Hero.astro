@@ -44,13 +44,16 @@ const heroImageAlt = hero.imageAlt?.trim() || hero.imagePlaceholder;
           </Button>
         </div>
 
-        <div class="flex flex-wrap gap-5 mt-2 pt-2 border-t border-ink-border/10">
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-2 pt-2 border-t border-ink-border/10">
           {
-            hero.badges.map((badge) => (
-              <div class="flex items-center gap-2 text-ink-muted text-sm font-body">
-                <Icon name="lucide:check" class="w-4 h-4 text-sage flex-shrink-0" aria-hidden="true" />
-                <span>{badge}</span>
-              </div>
+            hero.badges.map((badge, index) => (
+              <>
+                {index > 0 && <span class="text-ink-muted/30 select-none hidden sm:inline" aria-hidden="true">·</span>}
+                <div class="flex items-center gap-2 text-ink-muted text-sm font-body">
+                  <Icon name="lucide:check" class="w-4 h-4 text-sage flex-shrink-0" aria-hidden="true" />
+                  <span>{badge}</span>
+                </div>
+              </>
             ))
           }
         </div>
@@ -71,7 +74,7 @@ const heroImageAlt = hero.imageAlt?.trim() || hero.imagePlaceholder;
             </figure>
           ) : (
             <div
-              class="w-full max-w-[360px] aspect-[4/5] overflow-hidden flex items-end justify-center bg-sage-100/50 shadow-premium"
+              class="w-full max-w-[360px] aspect-[4/5] overflow-hidden flex items-end justify-center bg-sage-100/50 shadow-premium z-10"
               style="border-radius: 160px 160px 0 160px;"
               aria-hidden="true"
             >
@@ -82,6 +85,13 @@ const heroImageAlt = hero.imageAlt?.trim() || hero.imagePlaceholder;
         <!-- Decorative subtle shape in background -->
         <div
           class="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-blush-100/60 blur-md -z-10"
+          aria-hidden="true"
+        >
+        </div>
+        <!-- Decorative ring offset behind image -->
+        <div
+          class="absolute right-4 -top-4 w-full max-w-[360px] aspect-[4/5] border border-sage/20 pointer-events-none -z-10"
+          style="border-radius: 160px 160px 0 160px;"
           aria-hidden="true"
         >
         </div>

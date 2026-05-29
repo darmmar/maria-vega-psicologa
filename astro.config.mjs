@@ -12,9 +12,6 @@ const siteUrl =
 export default defineConfig({
   site: siteUrl,
   output: "static",
-  redirects: {
-    "/admin": "/admin/index.html",
-  },
   integrations: [
     react(),
     tailwind({

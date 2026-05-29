@@ -19,9 +19,11 @@ const experienceItems = await getPublishedExperience();
     <div class="grid sm:grid-cols-2 gap-5 max-w-4xl">
       {
         experienceItems.map((item) => (
-          <div class="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-0.5">
-            <Icon name="lucide:check-circle" class="w-5 h-5 text-sage flex-shrink-0 mt-0.5" aria-hidden="true" />
-            <span class="text-base text-ink-muted leading-relaxed font-body">{item.data.area}</span>
+          <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-0.5">
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-sage/5 border border-sage/10 flex items-center justify-center text-sage">
+              <Icon name="lucide:check-circle" class="w-4 h-4" aria-hidden="true" />
+            </div>
+            <span class="text-base text-ink-muted leading-relaxed font-body mt-0.5">{item.data.area}</span>
           </div>
         ))
       }

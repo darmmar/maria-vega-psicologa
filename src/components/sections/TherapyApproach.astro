@@ -21,8 +21,8 @@ const { therapyApproach } = settings;
       <div class="grid md:grid-cols-3 gap-6">
         {
           therapyApproach.pillars.map((pillar) => (
-            <div class="p-6 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1">
-              <div class="w-12 h-12 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
+            <div class="p-6 rounded-2xl bg-gradient-to-b from-white to-warm-50/30 border border-ink-border/30 border-t-2 border-t-sage/25 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sage/5 to-sage/15 border border-sage/10 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
                 <Icon name={pillar.icon} class="w-6 h-6" />
               </div>
               <h3 class="font-display text-xl font-normal text-ink mb-2">{pillar.title}</h3>
