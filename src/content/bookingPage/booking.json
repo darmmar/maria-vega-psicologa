@@ -4,7 +4,7 @@
   "hero": {
     "label": "Reservas",
     "title": "Reservar cita",
-    "intro": "Dar el primer paso es lo más difícil. Aquí puedes elegir el momento que mejor te venga — sin llamadas, sin esperas. El pago de la sesión se realiza de forma segura al reservar, dentro del calendario de Cal.com (Stripe)."
+    "intro": "Elige el día y la hora que mejor se adapten a tu horario para reservar tu sesión. El proceso es rápido, confidencial y sin esperas."
   },
   "calComUsername": "",
   "sessions": [
