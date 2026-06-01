@@ -34,7 +34,7 @@ const jsonLd = buildJsonLdGraph(
   canonical="/conoceme"
   jsonLd={jsonLd}
 >
-  <section class="section-hero bg-[#f2ece4] border-b border-[#d3c8b9] relative overflow-hidden">
+  <section class="section-hero bg-[#f5f2ee] border-b border-[#e3ded9] relative overflow-hidden">
     <Container class="relative">
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in-up">
         <div class="lg:col-span-7">
@@ -63,11 +63,11 @@ const jsonLd = buildJsonLdGraph(
               </figure>
             ) : (
               <div
-                class="aspect-[3/4] w-full rounded-2xl bg-sage-100/50 flex flex-col items-center justify-center border border-ink-border/20 gap-3 shadow-premium"
+                class="aspect-[3/4] w-full rounded-2xl bg-warm-200/50 flex flex-col items-center justify-center border border-warm-300 gap-3 shadow-premium"
                 aria-hidden="true"
               >
-                <Icon name="lucide:user" class="w-16 h-16 text-sage-400 opacity-60" aria-hidden="true" />
-                <p class="text-sage-500 text-sm font-body text-center px-6">{hero.photoPlaceholder}</p>
+                <Icon name="lucide:user" class="w-16 h-16 text-warm-500 opacity-60" aria-hidden="true" />
+                <p class="text-ink-muted text-sm font-body text-center px-6">{hero.photoPlaceholder}</p>
               </div>
             )
           }
