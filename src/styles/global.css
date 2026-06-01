@@ -19,6 +19,7 @@
   h3,
   h4 {
     font-family: "DM Serif Display", Georgia, serif;
+    font-weight: 400; /* Prevent default browser/synthetic bolding */
   }
 
   :focus-visible {
@@ -69,7 +70,7 @@
   }
 
   .nav-link-mobile {
-    @apply relative font-display text-2xl font-medium text-ink py-4 border-b border-ink-border/50 last:border-0 transition-colors duration-200 hover:text-sage focus-visible:text-sage;
+    @apply relative font-body text-xl font-normal text-ink py-4 border-b border-ink-border/20 last:border-0 transition-colors duration-200 hover:text-sage focus-visible:text-sage;
   }
 
   .nav-link-mobile::after {
@@ -87,7 +88,7 @@
 .prose h2 {
   font-family: "DM Serif Display", Georgia, serif;
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.25;
   margin-top: 2.5rem;
   margin-bottom: 0.875rem;
@@ -97,7 +98,7 @@
 .prose h3 {
   font-family: "DM Serif Display", Georgia, serif;
   font-size: 1.375rem;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.3;
   margin-top: 2rem;
   margin-bottom: 0.625rem;
@@ -107,7 +108,7 @@
 .prose h4 {
   font-family: "DM Serif Display", Georgia, serif;
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   color: #1b1c1a;
