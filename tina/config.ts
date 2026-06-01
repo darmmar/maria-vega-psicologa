@@ -826,6 +826,12 @@ export default defineConfig({
             ],
           },
           {
+            type: "string",
+            name: "calComUsername",
+            label: "Usuario de Cal.com (opcional)",
+            description: "Pega tu usuario de Cal.com (ej: maria-vega) si deseas mostrar el calendario interactivo incrustado en la web. Déjalo en blanco para ocultar la sección del calendario.",
+          },
+          {
             type: "object",
             name: "faqItems",
             label: "Preguntas frecuentes específicas de reserva",

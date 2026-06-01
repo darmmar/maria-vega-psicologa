@@ -6,6 +6,7 @@
     "title": "Reservar cita",
     "intro": "Dar el primer paso es lo más difícil. Aquí puedes elegir el momento que mejor te venga — sin llamadas, sin esperas. El pago de la sesión se realiza de forma segura al reservar, dentro del calendario de Cal.com (Stripe)."
   },
+  "calComUsername": "",
   "sessions": [
     {
       "title": "Terapia presencial",

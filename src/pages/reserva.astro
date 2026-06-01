@@ -14,7 +14,7 @@ import { buildBreadcrumbList, buildFAQPage, buildJsonLdGraph, buildPerson } from
 
 const page = await getBookingPage();
 const { hero, sessions, faqItems } = page;
-const { calComUsername } = siteConfig.booking;
+const calComUsername = page.calComUsername || siteConfig.booking.calComUsername;
 
 const pageUrl = "/reserva";
 const jsonLd = buildJsonLdGraph(
@@ -98,24 +98,28 @@ const jsonLd = buildJsonLdGraph(
   </section>
 
   <!-- Aviso de privacidad + Embed Cal.com -->
-  <section class="section-gap-tight bg-gradient-to-b from-warm-100/50 to-warm-200/30 border-y border-ink-border/10">
-    <Container>
-      <div class="max-w-4xl mx-auto">
-        <span class="label-caps text-sage block mb-4">Calendario</span>
-        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-6 leading-tight">
-          Elige día y hora
-        </h2>
+  {
+    calComUsername && (
+      <section class="section-gap-tight bg-gradient-to-b from-warm-100/50 to-warm-200/30 border-y border-ink-border/10">
+        <Container>
+          <div class="max-w-4xl mx-auto">
+            <span class="label-caps text-sage block mb-4">Calendario</span>
+            <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-6 leading-tight">
+              Elige día y hora
+            </h2>
 
-        <div class="mb-6">
-          <BookingPrivacyNotice />
-        </div>
+            <div class="mb-6">
+              <BookingPrivacyNotice />
+            </div>
 
-        <div class="rounded-3xl overflow-hidden border border-ink-border/20 bg-white shadow-premium p-1">
-          {calComUsername && <CalEmbed calLink={calComUsername} client:visible />}
-        </div>
-      </div>
-    </Container>
-  </section>
+            <div class="rounded-3xl overflow-hidden border border-ink-border/20 bg-white shadow-premium p-1">
+              <CalEmbed calLink={calComUsername} client:visible />
+            </div>
+          </div>
+        </Container>
+      </section>
+    )
+  }
 
   <!-- FAQ reservas -->
   <section class="section-gap-tight bg-gradient-to-b from-warm-50/10 to-warm-100/20">

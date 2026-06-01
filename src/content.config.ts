@@ -247,6 +247,7 @@ const bookingPage = defineCollection({
         badge: z.string().nullable().optional(),
       })
     ),
+    calComUsername: z.string().optional().nullable(),
     faqItems: z.array(
       z.object({
         question: z.string(),
