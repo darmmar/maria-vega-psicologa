@@ -22,19 +22,26 @@ const resources = await getPublishedResources()
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up">
           {resources.map((r) => (
             <Card class="flex flex-col h-full transition-all duration-300">
-              <div class="flex flex-col h-full">
-                <h2 class="font-display text-xl font-normal text-ink mb-2">{r.data.title}</h2>
-                <p class="text-ink-muted text-sm flex-1 mb-4 font-body">{r.data.description}</p>
+              <div class="flex flex-col h-full justify-between">
+                <div>
+                  {r.data.tags.length > 0 && (
+                    <div class="mb-3">
+                      <Badge variant="blush">{r.data.tags[0]}</Badge>
+                    </div>
+                  )}
+                  <h2 class="font-display text-xl font-normal text-ink mb-2 line-clamp-2 h-14 leading-snug">
+                    {r.data.title}
+                  </h2>
+                  <p class="text-ink-muted text-sm mb-4 font-body line-clamp-3">
+                    {r.data.description}
+                  </p>
+                </div>
                 
-                {r.data.tags.length > 0 && (
-                  <div class="flex gap-2 flex-wrap mb-4">
-                    {r.data.tags.map((tag) => <Badge variant="blush">{tag}</Badge>)}
-                  </div>
-                )}
-                
-                <a href={`/recursos/${r.data.slug}`} class="text-sage font-medium text-sm hover:underline font-body inline-flex items-center gap-1">
-                  Leer <span class="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-                </a>
+                <div class="pt-2">
+                  <a href={`/recursos/${r.data.slug}`} class="text-sage font-medium text-sm hover:underline font-body inline-flex items-center gap-1">
+                    Leer <span class="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+                  </a>
+                </div>
               </div>
             </Card>
           ))}

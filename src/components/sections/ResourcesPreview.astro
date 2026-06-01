@@ -35,21 +35,22 @@ const { resources = [], showCTA = true } = Astro.props;
           {resources.map((resource) => (
             <a
               href={`/recursos/${resource.slug}`}
-              class="group block p-6 bg-white rounded-2xl border border-ink-border/30 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out"
+              class="group flex flex-col justify-between p-6 bg-white rounded-2xl border border-ink-border/30 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out h-full"
             >
-              <h3 class="font-display text-xl font-normal text-ink mb-3 group-hover:text-sage transition-colors duration-200">
-                {resource.title}
-              </h3>
-              <p class="text-sm text-ink-muted leading-relaxed mb-5 font-body">{resource.description}</p>
-              {resource.tags && resource.tags.length > 0 && (
-                <div class="flex flex-wrap gap-1.5 mb-5">
-                  {resource.tags.map((tag) => (
-                    <span class="px-2.5 py-0.5 rounded-full bg-blush/10 text-blush-700 border border-blush/15 text-[10px] uppercase font-semibold tracking-wider font-body">
-                      {tag}
+              <div>
+                {resource.tags && resource.tags.length > 0 && (
+                  <div class="mb-3">
+                    <span class="px-2.5 py-0.5 rounded-full bg-blush/10 text-blush-700 border border-blush/15 text-[10px] uppercase font-semibold tracking-wider font-body inline-block">
+                      {resource.tags[0]}
                     </span>
-                  ))}
-                </div>
-              )}
+                  </div>
+                )}
+                <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200 line-clamp-2 h-14 leading-snug">
+                  {resource.title}
+                </h3>
+                <p class="text-sm text-ink-muted leading-relaxed mb-5 font-body line-clamp-3">{resource.description}</p>
+              </div>
+              
               <span class="text-sm font-medium text-sage group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">
                 Leer <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </span>
