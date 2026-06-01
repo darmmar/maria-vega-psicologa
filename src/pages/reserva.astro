@@ -37,17 +37,20 @@ const jsonLd = buildJsonLdGraph(
     label={hero.label}
     title={hero.title}
     description={hero.intro}
-    align="left"
+    align="center"
   />
 
   <!-- Tipos de sesión -->
   <section class="section-gap-tight bg-gradient-to-b from-warm-50/20 to-warm-100/10">
     <Container>
-      <span class="label-caps text-sage block mb-4">Tipos de sesión</span>
-      <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-10 leading-tight">
-        ¿Qué tipo de cita necesitas?
-      </h2>
-      <div class="grid gap-6 sm:grid-cols-2 max-w-4xl animate-fade-in-up">
+      <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-in">
+        <span class="label-caps text-sage block mb-3">Tipos de sesión</span>
+        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight">
+          ¿Qué tipo de cita necesitas?
+        </h2>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto animate-fade-in-up">
         {
           sessions.map((event) => (
             <Card class="flex flex-col gap-4 p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300">
@@ -80,6 +83,7 @@ const jsonLd = buildJsonLdGraph(
                 variant="secondary"
                 size="sm"
                 external
+                class="w-full"
               >
                 Reservar esta sesión
               </Button>
@@ -87,28 +91,6 @@ const jsonLd = buildJsonLdGraph(
           ))
         }
       </div>
-
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-ink-muted/80 font-body border-t border-ink-border/10 pt-6">
-        <span class="flex items-center gap-1.5">
-          <Icon name="lucide:lock" class="w-4 h-4 text-sage" aria-hidden="true" />
-          Pago seguro cifrado
-        </span>
-        <span class="flex items-center gap-1.5">
-          <Icon name="lucide:calendar" class="w-4 h-4 text-sage" aria-hidden="true" />
-          Confirmación inmediata
-        </span>
-        <span class="flex items-center gap-1.5">
-          <Icon name="lucide:refresh-cw" class="w-4 h-4 text-sage" aria-hidden="true" />
-          Cancelación flexible (hasta 24h antes)
-        </span>
-      </div>
-
-      <p class="mt-8 text-center font-body text-sm text-ink-muted/70 max-w-2xl mx-auto">
-        Si tienes alguna duda sobre las sesiones o prefieres consultar antes de reservar, puedes 
-        <a href="/contacto" class="underline underline-offset-4 text-sage font-medium hover:text-sage-600 transition-colors">
-          escribirme un mensaje
-        </a>.
-      </p>
     </Container>
   </section>
 
