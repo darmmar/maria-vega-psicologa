@@ -53,7 +53,7 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"DM Serif Display"', "Georgia", "serif"],
+        display: ['"Lora"', "Georgia", "serif"],
         body: ['"DM Sans"', "system-ui", "sans-serif"],
       },
       maxWidth: {
