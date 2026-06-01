@@ -45,7 +45,7 @@ const jsonLd = buildJsonLdGraph(
     <Container>
       <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-in">
         <span class="label-caps text-sage block mb-3">Tipos de sesión</span>
-        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight">
+        <h2 class="font-display text-2xl lg:text-3xl font-medium text-ink leading-tight">
           ¿Qué tipo de cita necesitas?
         </h2>
       </div>
@@ -63,7 +63,7 @@ const jsonLd = buildJsonLdGraph(
                     {event.badge}
                   </span>
                 )}
-                <h3 class="font-display text-xl font-normal text-ink mb-3">{event.title}</h3>
+                <h3 class="font-display text-xl font-medium text-ink mb-3">{event.title}</h3>
                 <p class="font-body text-sm text-ink-muted leading-relaxed mb-5">
                   {event.description}
                 </p>
@@ -101,7 +101,7 @@ const jsonLd = buildJsonLdGraph(
         <Container>
           <div class="max-w-4xl mx-auto">
             <span class="label-caps text-sage block mb-4">Calendario</span>
-            <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-6 leading-tight">
+            <h2 class="font-display text-2xl lg:text-3xl font-medium text-ink mb-6 leading-tight">
               Elige día y hora
             </h2>
 
@@ -123,7 +123,7 @@ const jsonLd = buildJsonLdGraph(
     <Container>
       <div class="max-w-3xl mx-auto animate-fade-in-up">
         <span class="label-caps text-sage block mb-4">FAQ</span>
-        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-10 leading-tight">
+        <h2 class="font-display text-2xl lg:text-3xl font-medium text-ink mb-10 leading-tight">
           Preguntas sobre las citas
         </h2>
         <FAQAccordion items={faqItems} client:visible />
@@ -136,7 +136,7 @@ const jsonLd = buildJsonLdGraph(
     <div class="absolute -top-32 -left-32 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
     <Container class="relative">
       <div class="max-w-2xl mx-auto text-center space-y-6">
-        <h2 class="font-display text-3xl lg:text-4xl font-normal mb-4 leading-tight">
+        <h2 class="font-display text-3xl lg:text-4xl font-medium mb-4 leading-tight">
           ¿Prefieres contactar primero?
         </h2>
         <p class="font-body text-base text-white/80 mb-8 leading-relaxed">

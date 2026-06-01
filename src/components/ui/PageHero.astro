@@ -35,7 +35,7 @@ const widthClass = {
 const alignClass = align === "center" ? "mx-auto text-center" : "";
 ---
 
-<section class:list={["section-hero bg-[#f6f3ef] border-b border-[#e9e4de] overflow-hidden relative", className]}>
+<section class:list={["section-hero bg-warm-200 border-b border-warm-300 overflow-hidden relative", className]}>
   
   <Container class="relative">
     {
@@ -43,7 +43,7 @@ const alignClass = align === "center" ? "mx-auto text-center" : "";
         <div class="grid md:grid-cols-2 gap-8 items-center animate-fade-in-up">
           <div>
             {label && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
-            <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight">
+            <h1 class="font-display text-4xl lg:text-5xl font-medium text-ink mb-4 leading-tight">
               {title}
             </h1>
             {description && <p class={descriptionClass}>{description}</p>}
@@ -58,7 +58,7 @@ const alignClass = align === "center" ? "mx-auto text-center" : "";
       ) : (
         <div class:list={[widthClass, alignClass, "animate-fade-in-up"]}>
           {label && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
-          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-5 leading-tight">
+          <h1 class="font-display text-4xl lg:text-5xl font-medium text-ink mb-5 leading-tight">
             {title}
           </h1>
           {description && <p class={descriptionClass}>{description}</p>}

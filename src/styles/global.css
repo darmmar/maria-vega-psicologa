@@ -19,7 +19,6 @@
   h3,
   h4 {
     font-family: "Lora", Georgia, serif;
-    font-weight: 500; /* Lora's medium weight is extremely warm and balanced */
   }
 
   :focus-visible {
