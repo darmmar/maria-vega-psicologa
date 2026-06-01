@@ -29,6 +29,10 @@
 }
 
 @layer components {
+  .font-display.font-normal {
+    font-weight: 500;
+  }
+
   .section-hero {
     @apply pt-8 pb-6 lg:pt-10 lg:pb-8;
   }
