@@ -22,7 +22,7 @@
   "therapyApproach": {
     "label": "Enfoque terapéutico",
     "title": "Terapia que acompaña, no que dirige",
-    "description": "Mi trabajo integra las Terapias de Tercera Generación (ACT), el enfoque sistémico y las terapias contextuales. Me adapto a tu momento vital, siempre desde la evidencia científica y el respeto absoluto a tu historia.",
+    "description": "Me adapto a tu momento vital, siempre desde la evidencia científica y el respeto absoluto a tu historia.",
     "pillars": [
       {
         "title": "Basada en evidencia",
@@ -35,7 +35,7 @@
         "icon": "lucide:users"
       },
       {
-        "title": "Enfoque humanista",
+        "title": "Enfoque humano y contextual",
         "description": "La persona en el centro. Sin juicios, con empatía y confianza en tu capacidad de cambio.",
         "icon": "lucide:heart-handshake"
       }
