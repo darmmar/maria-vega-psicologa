@@ -1,5 +1,43 @@
 ---
+import Layout from "@/components/layout/Layout.astro";
+import ServicesGrid from "@/components/sections/ServicesGrid.astro";
+import CTASection from "@/components/sections/CTASection.astro";
 import ServicePage from "@/components/pages/ServicePage.astro";
+import { getServiceBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import { buildServicePageJsonLd } from "@/lib/seo";
+
+const [settings, services, service] = await Promise.all([
+  getSiteSettings(),
+  getServicesForGrid(),
+  getServiceBySlug("terapia-online"),
+]);
+
+if (!service) return Astro.redirect("/404");
+
+const pageUrl = "/terapia-online";
+const jsonLd = buildServicePageJsonLd({
+  title: service.data.title,
+  description: service.data.description,
+  path: pageUrl,
+});
 ---
 
-<ServicePage slug="terapia-online" />
+<Layout
+  title={service.data.seoTitle ?? service.data.title}
+  description={service.data.seoDescription ?? service.data.description}
+  canonical={pageUrl}
+  jsonLd={jsonLd}
+>
+  <ServicePage slug="terapia-online" heroLayout="centered" standalone={false} />
+  <ServicesGrid
+    services={services.filter((s) => s.href !== "/terapia-online")}
+    sectionLabel={settings.servicesSection.label}
+    sectionTitle={settings.servicesSection.title}
+  />
+  <CTASection
+    title={settings.cta.title}
+    description={settings.cta.description}
+    ctaLabel={settings.cta.label}
+    ctaHref={settings.cta.href}
+  />
+</Layout>

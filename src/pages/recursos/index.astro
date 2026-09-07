@@ -5,10 +5,26 @@ import Card from '@/components/ui/Card.astro'
 import Badge from '@/components/ui/Badge.astro'
 import PageHero from '@/components/ui/PageHero.astro'
 import { getPublishedResources } from '@/lib/content/collections'
+import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from '@/lib/seo'
 
 const resources = await getPublishedResources()
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson(),
+  {
+    "@type": "CollectionPage",
+    name: "Recursos psicoeducativos",
+    description: "Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional.",
+    url: "/recursos",
+    inLanguage: "es-ES",
+  },
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: "Recursos", url: "/recursos" },
+  ])
+)
 ---
-<Layout title="Recursos" description="Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional." canonical="/recursos">
+<Layout title="Recursos psicoeducativos" description="Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional." canonical="/recursos" jsonLd={jsonLd}>
   <PageHero
     label="Recursos"
     title="Recursos psicoeducativos"

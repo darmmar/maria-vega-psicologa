@@ -2,7 +2,7 @@
   "seoTitle": "Contacto",
   "seoDescription": "Contacta con María Vega, psicóloga general sanitaria en Málaga. Primera consulta sin compromiso, presencial u online.",
   "hero": {
-    "label": "Contacto",
+    "label": "Atención personalizada",
     "title": "Contacto",
     "intro": "Si tienes alguna pregunta o quieres saber más antes de reservar, puedes escribirme aquí. Te responderé a la mayor brevedad."
   },
@@ -20,7 +20,8 @@
   },
   "contactDetails": {
     "title": "Datos de contacto",
-    "location": "Málaga, España"
+    "mapCardTitle": "Consulta presencial",
+    "mapNote": "Atención exclusivamente con cita previa."
   },
   "formSection": {
     "title": "Envíame un mensaje",

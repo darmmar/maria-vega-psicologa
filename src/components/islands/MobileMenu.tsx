@@ -59,7 +59,7 @@ export default function MobileMenu({ items }: Props) {
             open
             aria-modal="true"
             aria-label="Menú de navegación"
-            className="fixed inset-x-0 top-20 bottom-0 z-[9999] m-0 h-[calc(100vh-80px)] w-full max-w-none border-0 bg-white/95 backdrop-blur-md p-0 overflow-y-auto"
+            className="fixed inset-x-0 top-20 bottom-0 z-[9999] m-0 h-[calc(100vh-80px)] w-full max-w-none border-0 bg-warm-100/95 backdrop-blur-md p-0 overflow-y-auto"
           >
             {/* Navigation links */}
             <nav className="flex flex-col px-6 py-6 animate-fade-in-up" aria-label="Menú principal">

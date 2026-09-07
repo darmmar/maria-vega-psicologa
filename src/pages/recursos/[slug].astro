@@ -37,6 +37,7 @@ const jsonLd = buildJsonLdGraph(
     description: resource.data.description,
     url: pageUrl,
     datePublished: resource.data.publishedAt,
+    dateModified: resource.data.dateModified,
     image: resource.data.image,
     tags: resource.data.tags,
   }),
@@ -52,6 +53,8 @@ const jsonLd = buildJsonLdGraph(
   description={resource.data.seoDescription ?? resource.data.description}
   canonical={pageUrl}
   jsonLd={jsonLd}
+  ogType="article"
+  publishedTime={resource.data.publishedAt}
 >
   <PageHero
     title={resource.data.title}

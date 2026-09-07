@@ -8,7 +8,7 @@ import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CourseHighlight from "@/components/sections/CourseHighlight.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
-import { buildJsonLdGraph, buildPerson, buildWebSite } from "@/lib/seo";
+import { buildJsonLdGraph, buildMedicalBusiness, buildPerson, buildWebSite } from "@/lib/seo";
 import { getCourseBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
 
 const [settings, course, services] = await Promise.all([
@@ -17,7 +17,22 @@ const [settings, course, services] = await Promise.all([
   getServicesForGrid(),
 ]);
 
-const jsonLd = buildJsonLdGraph(buildWebSite(), buildPerson());
+const businessOverrides = {
+  address: settings.legal.address,
+  phone: settings.contact.phone,
+  email: settings.contact.email,
+  googleMapsLink: settings.contact.googleMapsLink,
+  collegiateNumber: settings.legal.collegiateNumber,
+  businessName: settings.legal.businessName,
+  instagram: settings.contact.instagram,
+  linkedin: settings.contact.linkedin,
+};
+
+const jsonLd = buildJsonLdGraph(
+  buildWebSite(),
+  buildMedicalBusiness(businessOverrides),
+  buildPerson({ overrides: businessOverrides })
+);
 ---
 
 <Layout

@@ -5,10 +5,12 @@ export {
   buildCourse,
   buildFAQPage,
   buildJsonLdGraph,
+  buildMedicalBusiness,
   buildPerson,
   buildProfessionalService,
   buildServicePageJsonLd,
   buildWebSite,
+  BUSINESS_ID,
   PERSON_ID,
   WEBSITE_ID,
 } from "./jsonLd";

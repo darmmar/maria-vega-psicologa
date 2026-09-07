@@ -4,6 +4,7 @@ import ServicesGrid from "@/components/sections/ServicesGrid.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import ServicePage from "@/components/pages/ServicePage.astro";
 import { getServiceBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import { buildServicePageJsonLd } from "@/lib/seo";
 
 const [settings, services, service] = await Promise.all([
   getSiteSettings(),
@@ -12,11 +13,20 @@ const [settings, services, service] = await Promise.all([
 ]);
 
 if (!service) return Astro.redirect("/404");
+
+const pageUrl = "/psicologa-malaga";
+const jsonLd = buildServicePageJsonLd({
+  title: service.data.title,
+  description: service.data.description,
+  path: pageUrl,
+});
 ---
 
 <Layout
   title={service.data.seoTitle ?? service.data.title}
   description={service.data.seoDescription ?? service.data.description}
+  canonical={pageUrl}
+  jsonLd={jsonLd}
 >
   <ServicePage slug="psicologa-malaga" heroLayout="centered" standalone={false} />
   <ServicesGrid

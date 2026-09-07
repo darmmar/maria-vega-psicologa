@@ -4,7 +4,7 @@ import Container from '../ui/Container.astro'
 import { getSiteSettings } from '@/lib/content/collections'
 
 const settings = await getSiteSettings()
-const { contact, legal } = settings
+const { contact } = settings
 
 const socialLinks = [
   contact.instagram && {
@@ -65,7 +65,12 @@ const legalLinks = [
             class="h-9 w-[54px] flex-shrink-0"
             aria-hidden="true"
           />
-          <span class="font-medium">© {new Date().getFullYear()} María Vega Psicología</span>
+          <div class="flex flex-col">
+            <span class="font-medium">© {new Date().getFullYear()} María Vega Psicología</span>
+            {settings.legal.collegiateNumber && (
+              <span class="text-xs text-ink-faint">Nº Colegiada: {settings.legal.collegiateNumber}</span>
+            )}
+          </div>
         </div>
       </div>
 

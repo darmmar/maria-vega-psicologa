@@ -49,6 +49,7 @@ const resources = defineCollection({
     published: z.boolean().default(false),
     featured: z.boolean().default(false),
     publishedAt: z.coerce.date().optional(),
+    dateModified: z.coerce.date().optional(),
     image: z.string().optional(),
     ctaLabel: z.string().optional(),
     ctaHref: z.string().optional(),
@@ -97,7 +98,8 @@ const contactPage = defineCollection({
     }),
     contactDetails: z.object({
       title: z.string(),
-      location: z.string(),
+      mapCardTitle: z.string().optional().nullable(),
+      mapNote: z.string().optional().nullable(),
     }),
     formSection: z.object({
       title: z.string(),

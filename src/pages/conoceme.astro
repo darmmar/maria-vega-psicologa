@@ -7,19 +7,35 @@ import CTASection from "@/components/sections/CTASection.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { Icon } from "astro-icon/components";
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
-import { getProfile } from "@/lib/content/collections";
+import { getProfile, getSiteSettings } from "@/lib/content/collections";
 import { imageSrc } from "@/lib/images";
 
-const profile = await getProfile();
+const [profile, settings] = await Promise.all([
+  getProfile(),
+  getSiteSettings(),
+]);
+
 const { hero, approach, cta } = profile;
 const photoSrc = imageSrc(hero.photo);
 const secondaryPhotoSrc = imageSrc(hero.secondaryPhoto);
 const secondaryPhotoAlt = hero.secondaryPhotoAlt?.trim() || hero.photoAlt;
 
+const businessOverrides = {
+  address: settings.legal.address,
+  phone: settings.contact.phone,
+  email: settings.contact.email,
+  googleMapsLink: settings.contact.googleMapsLink,
+  collegiateNumber: settings.legal.collegiateNumber,
+  businessName: settings.legal.businessName,
+  instagram: settings.contact.instagram,
+  linkedin: settings.contact.linkedin,
+};
+
 const jsonLd = buildJsonLdGraph(
   buildPerson({
     description:
       "Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica.",
+    overrides: businessOverrides,
   }),
   buildBreadcrumbList([
     { name: "Inicio", url: "/" },
@@ -34,7 +50,7 @@ const jsonLd = buildJsonLdGraph(
   canonical="/conoceme"
   jsonLd={jsonLd}
 >
-  <section class="section-hero bg-warm-200 border-b border-warm-300 relative overflow-hidden">
+  <section class="section-hero bg-warm-200 border-b border-ink-border/40 relative overflow-hidden">
     <Container class="relative">
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in-up">
         <div class="lg:col-span-7">
@@ -49,7 +65,7 @@ const jsonLd = buildJsonLdGraph(
           }
         </div>
 
-        <div class="lg:col-span-5 space-y-5 w-full max-w-xs mx-auto lg:mx-0">
+        <div class="lg:col-span-5 w-full max-w-xs mx-auto lg:mx-0">
           {
             photoSrc ? (
               <figure class="relative group">
@@ -63,7 +79,7 @@ const jsonLd = buildJsonLdGraph(
               </figure>
             ) : (
               <div
-                class="aspect-[3/4] w-full rounded-2xl bg-warm-200/50 flex flex-col items-center justify-center border border-warm-300 gap-3 shadow-premium"
+                class="aspect-[3/4] w-full rounded-2xl bg-warm-200/50 flex flex-col items-center justify-center border border-ink-border/30 gap-3 shadow-premium"
                 aria-hidden="true"
               >
                 <Icon name="lucide:user" class="w-16 h-16 text-warm-500 opacity-60" aria-hidden="true" />
@@ -71,35 +87,72 @@ const jsonLd = buildJsonLdGraph(
               </div>
             )
           }
+        </div>
+      </div>
+    </Container>
+  </section>
 
+  <section class="section-gap bg-gradient-to-b from-warm-50/40 to-warm-100/20">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start animate-fade-in-up">
+        <div class="lg:col-span-7">
+          <span class="label-caps text-sage block mb-3">{approach.label}</span>
+          <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-6 leading-tight">
+            {approach.title}
+          </h2>
+
+          <div class="space-y-4 text-ink-muted text-lg leading-relaxed font-body">
+            {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 w-full">
           {
             secondaryPhotoSrc ? (
               <figure class="relative group">
                 <img
                   src={secondaryPhotoSrc}
                   alt={secondaryPhotoAlt}
-                  class="aspect-[4/3] w-full rounded-2xl object-cover border border-ink-border/10 shadow-premium"
+                  class="aspect-[4/3] w-full rounded-2xl object-cover border border-ink-border/20 shadow-premium"
                   loading="lazy"
                   decoding="async"
                 />
               </figure>
-            ) : null
+            ) : (
+              <div class="p-6 sm:p-7 rounded-2xl bg-white/70 border border-ink-border/20 shadow-premium backdrop-blur-sm space-y-5">
+                <p class="label-caps text-sage">Principios del proceso</p>
+                <div class="space-y-4">
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-sage/10 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                      <Icon name="lucide:heart-handshake" class="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-ink font-body text-sm">Espacio seguro y sin juicios</h4>
+                      <p class="text-xs text-ink-muted mt-0.5 leading-relaxed font-body">Un entorno de respeto y confidencialidad para expresarte a tu ritmo.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-sage/10 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                      <Icon name="lucide:shield-check" class="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-ink font-body text-sm">Basado en evidencia científica</h4>
+                      <p class="text-xs text-ink-muted mt-0.5 leading-relaxed font-body">Terapias contextuales (ACT) y técnicas avaladas clínicamente.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-sage/10 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                      <Icon name="lucide:compass" class="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-ink font-body text-sm">Enfoque humano y contextual</h4>
+                      <p class="text-xs text-ink-muted mt-0.5 leading-relaxed font-body">Atención sensible a tu historia, relaciones y momento vital.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
           }
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <section class="section-gap-tight">
-    <Container>
-      <div class="max-w-4xl animate-fade-in-up">
-        <span class="label-caps text-sage block mb-4">{approach.label}</span>
-        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-8 leading-tight">
-          {approach.title}
-        </h2>
-
-        <div class="space-y-5 text-ink-muted text-lg leading-relaxed font-body border-l-2 border-sage/20 pl-8">
-          {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </div>
     </Container>

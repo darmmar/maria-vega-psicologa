@@ -30,19 +30,24 @@ const widthClass = {
   "2xl": "max-w-2xl",
   "3xl": "max-w-3xl",
   "4xl": "max-w-4xl",
-  }[maxWidth];
+}[maxWidth];
 
 const alignClass = align === "center" ? "mx-auto text-center" : "";
+
+const isDuplicateLabel = Boolean(
+  label && title && label.trim().toLowerCase() === title.trim().toLowerCase()
+);
+const showLabel = Boolean(label && !isDuplicateLabel);
 ---
 
-<section class:list={["section-hero bg-warm-200 border-b border-warm-300 overflow-hidden relative", className]}>
+<section class:list={["section-hero bg-warm-200 border-b border-ink-border/40 overflow-hidden relative", className]}>
   
   <Container class="relative">
     {
       layout === "split" ? (
         <div class="grid md:grid-cols-2 gap-8 items-center animate-fade-in-up">
           <div>
-            {label && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
+            {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
             <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight">
               {title}
             </h1>
@@ -57,7 +62,7 @@ const alignClass = align === "center" ? "mx-auto text-center" : "";
         </div>
       ) : (
         <div class:list={[widthClass, alignClass, "animate-fade-in-up"]}>
-          {label && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
+          {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
           <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-5 leading-tight">
             {title}
           </h1>

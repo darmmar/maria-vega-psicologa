@@ -16,9 +16,11 @@ interface Props {
   ogImage?: string;
   noindex?: boolean;
   jsonLd?: JsonLdNode | JsonLdNode[] | JsonLdDocument;
+  ogType?: "website" | "article";
+  publishedTime?: Date;
 }
 
-const { title, description, canonical, ogImage, noindex, jsonLd } =
+const { title, description, canonical, ogImage, noindex, jsonLd, ogType, publishedTime } =
   Astro.props;
 ---
 
@@ -32,6 +34,8 @@ const { title, description, canonical, ogImage, noindex, jsonLd } =
       ogImage={ogImage}
       noindex={noindex}
       jsonLd={jsonLd}
+      ogType={ogType}
+      publishedTime={publishedTime}
     />
     <ClientRouter />
   </head>
