@@ -3,10 +3,10 @@
     "label": "Sobre mí",
     "title": "Hola, soy María Vega",
     "intro": [
-      "Psicóloga General Sanitaria en Málaga. Acompaño a adultos, adolescentes y niños en procesos de cambio emocional, relacional y vital.",
-      "Mi trabajo se basa en la evidencia científica y en el respeto profundo por el ritmo y la historia de cada persona."
+      "Psicóloga General Sanitaria en Málaga. Acompaño a adultos, adolescentes y niños en procesos de cambio emocional, relacional y vital. Mi trabajo se basa en la evidencia científica y en el respeto profundo por el ritmo y la historia de cada persona."
     ],
-    "photoAlt": "Foto de María Vega",
+    "photo": "/images/ChatGPT%20Image%2010%20jun%202026,%2020_50_14.png",
+    "photoAlt": "Psicóloga en Málaga",
     "photoPlaceholder": "Foto de María Vega"
   },
   "approach": {
