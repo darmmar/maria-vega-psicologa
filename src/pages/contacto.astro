@@ -21,7 +21,7 @@ const googleMapsEmbedUrl =
 
 const googleMapsLink =
   settings.contact.googleMapsLink ||
-  `https://maps.google.com/?q=${encodeURIComponent(displayAddress)}`;
+  `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(displayAddress)}`;
 
 const mapCardTitle = contactDetails.mapCardTitle || "Consulta presencial";
 const mapNote = contactDetails.mapNote || "Atención exclusivamente con cita previa.";
