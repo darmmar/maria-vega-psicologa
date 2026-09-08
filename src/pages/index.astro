@@ -7,8 +7,9 @@ import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
 import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CourseHighlight from "@/components/sections/CourseHighlight.astro";
 import CTASection from "@/components/sections/CTASection.astro";
+import HomeFaq, { homeFaqs } from "@/components/sections/HomeFaq.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
-import { buildJsonLdGraph, buildMedicalBusiness, buildPerson, buildWebSite } from "@/lib/seo";
+import { buildFAQPage, buildJsonLdGraph, buildMedicalBusiness, buildPerson, buildWebSite } from "@/lib/seo";
 import { getCourseBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
 
 const [settings, course, services] = await Promise.all([
@@ -31,7 +32,8 @@ const businessOverrides = {
 const jsonLd = buildJsonLdGraph(
   buildWebSite(),
   buildMedicalBusiness(businessOverrides),
-  buildPerson({ overrides: businessOverrides })
+  buildPerson({ overrides: businessOverrides }),
+  buildFAQPage(homeFaqs)
 );
 ---
 
@@ -60,6 +62,7 @@ const jsonLd = buildJsonLdGraph(
     ctaLabel={settings.courseHighlight.ctaLabel}
     ctaHref={settings.courseHighlight.ctaHref}
   />
+  <HomeFaq />
   <CTASection
     title={settings.cta.title}
     description={settings.cta.description}

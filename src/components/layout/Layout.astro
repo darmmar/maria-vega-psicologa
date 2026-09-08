@@ -2,8 +2,6 @@
 import SeoHead from "@/components/seo/SeoHead.astro";
 import Header from "@/components/layout/Header.astro";
 import Footer from "@/components/layout/Footer.astro";
-import Analytics from "@vercel/analytics/astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 import { ClientRouter } from "astro:transitions";
 import "@/styles/global.css";
 
@@ -45,7 +43,7 @@ const { title, description, canonical, ogImage, noindex, jsonLd, ogType, publish
       <slot />
     </main>
     <Footer />
-    <Analytics />
-    <SpeedInsights />
+    <!-- Cloudflare Web Analytics (Privacy-first, 0-cookie, RGPD compliant) -->
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "1d02960f26d54b1d917b3bcfe9901b9f"}'></script>
   </body>
 </html>

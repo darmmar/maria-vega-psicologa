@@ -7,7 +7,7 @@ import icon from "astro-icon";
 
 const siteUrl =
   process.env.PUBLIC_SITE_URL?.trim() ||
-  "https://mariavegapsicologa.vercel.app";
+  "https://maria-vega-psicologa.pages.dev";
 
 export default defineConfig({
   site: siteUrl,

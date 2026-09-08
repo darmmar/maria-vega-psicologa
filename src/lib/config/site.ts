@@ -39,7 +39,7 @@ export type SiteConfig = {
   };
 };
 
-const DEFAULT_SITE_URL = "https://mariavegapsicologa.vercel.app";
+const DEFAULT_SITE_URL = "https://maria-vega-psicologa.pages.dev";
 
 function envString(value: string | undefined): string | undefined {
   const trimmed = value?.trim();

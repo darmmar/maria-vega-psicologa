@@ -25,10 +25,19 @@ const {
   publishedTime,
 } = Astro.props;
 
-const canonicalUrl =
-  canonical ?? new URL(Astro.url.pathname, siteConfig.siteUrl).href;
-const ogImageUrl =
-  ogImage ?? new URL("/og-default.jpg", siteConfig.siteUrl).href;
+function resolveAbsoluteUrl(pathOrUrl: string | undefined, defaultPath: string): string {
+  if (!pathOrUrl || pathOrUrl.trim() === "") {
+    return new URL(defaultPath, siteConfig.siteUrl).href;
+  }
+  const trimmed = pathOrUrl.trim();
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+  return new URL(trimmed.startsWith("/") ? trimmed : `/${trimmed}`, siteConfig.siteUrl).href;
+}
+
+const canonicalUrl = resolveAbsoluteUrl(canonical, Astro.url.pathname);
+const ogImageUrl = resolveAbsoluteUrl(ogImage, "/og-default.jpg");
 const fullTitle = buildFullTitle(title, siteConfig.siteName);
 
 function normalizeStructuredData(
@@ -95,6 +104,7 @@ const structuredData = normalizeStructuredData(jsonLd);
 <link rel="apple-touch-icon" href="/favicon.png" />
 
 <!-- Hreflang -->
+<link rel="alternate" hreflang="es" href={canonicalUrl} />
 <link rel="alternate" hreflang="es-ES" href={canonicalUrl} />
 <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
