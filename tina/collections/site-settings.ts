@@ -258,7 +258,12 @@ export const siteSettingsCollection: Collection = {
       label: "9. Ajustes Globales — Datos de Contacto (Visibles en toda la web)",
       fields: [
         { type: "string", name: "email", label: "Email de contacto público", required: true },
-        { type: "string", name: "phone", label: "Teléfono de contacto (opcional)" },
+        {
+          type: "string",
+          name: "phone",
+          label: "Teléfono de contacto (opcional)",
+          description: "Formato internacional estándar recomendado: +34 600 000 000",
+        },
         {
           type: "string",
           name: "whatsapp",
