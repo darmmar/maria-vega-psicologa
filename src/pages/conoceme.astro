@@ -31,10 +31,14 @@ const businessOverrides = {
   linkedin: settings.contact.linkedin,
 };
 
+const pageTitle = profile.seoTitle || "Conóceme — María Vega";
+const pageDescription =
+  profile.seoDescription ||
+  "Conoce a María Vega, Psicóloga General Sanitaria. Terapia contextual, ACT y perspectiva de género basada en evidencia científica y cercanía humana.";
+
 const jsonLd = buildJsonLdGraph(
   buildPerson({
-    description:
-      "Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica.",
+    description: pageDescription,
     overrides: businessOverrides,
   }),
   buildBreadcrumbList([
@@ -45,8 +49,8 @@ const jsonLd = buildJsonLdGraph(
 ---
 
 <Layout
-  title="Conóceme"
-  description="Conoce a María Vega, psicóloga general sanitaria en Málaga. Terapia contextual, ACT y perspectiva de género basada en evidencia científica."
+  title={pageTitle}
+  description={pageDescription}
   canonical="/conoceme"
   jsonLd={jsonLd}
 >

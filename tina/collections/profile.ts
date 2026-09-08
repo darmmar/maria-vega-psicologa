@@ -121,5 +121,18 @@ export const profileCollection: Collection = {
         ...ctaLinkFields,
       ],
     },
+    {
+      type: "string",
+      name: "seoTitle",
+      label: "Título SEO para Google (opcional)",
+      description: "Título para la pestaña del navegador y Google. Si se deja vacío, se usará «Conóceme».",
+    },
+    {
+      type: "string",
+      name: "seoDescription",
+      label: "Descripción SEO para Google (opcional)",
+      description: "Descripción breve para los resultados de búsqueda de Google.",
+      ui: { component: "textarea" },
+    },
   ],
 };

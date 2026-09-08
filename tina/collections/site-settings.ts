@@ -287,5 +287,27 @@ export const siteSettingsCollection: Collection = {
         },
       ],
     },
+    {
+      type: "object",
+      name: "seo",
+      label: "11. Portada — Metadatos SEO (Google y Redes Sociales)",
+      fields: [
+        {
+          type: "string",
+          name: "homeTitle",
+          label: "Título de la Portada para Google (Title tag)",
+          description: "Título principal para los resultados de Google (ej: «Psicóloga en Málaga y Terapia Online»).",
+          required: true,
+        },
+        {
+          type: "string",
+          name: "homeDescription",
+          label: "Descripción de la Portada para Google (Meta description)",
+          description: "Descripción breve y atractiva que resume la consulta y servicios en Google.",
+          required: true,
+          ui: { component: "textarea" },
+        },
+      ],
+    },
   ],
 };

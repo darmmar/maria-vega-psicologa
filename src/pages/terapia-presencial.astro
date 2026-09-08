@@ -9,12 +9,12 @@ import { buildServicePageJsonLd } from "@/lib/seo";
 const [settings, services, service] = await Promise.all([
   getSiteSettings(),
   getServicesForGrid(),
-  getServiceBySlug("psicologa-malaga"),
+  getServiceBySlug("terapia-presencial"),
 ]);
 
 if (!service) return Astro.redirect("/404");
 
-const pageUrl = "/psicologa-malaga";
+const pageUrl = "/terapia-presencial";
 const jsonLd = buildServicePageJsonLd({
   title: service.data.title,
   description: service.data.description,
@@ -28,9 +28,9 @@ const jsonLd = buildServicePageJsonLd({
   canonical={pageUrl}
   jsonLd={jsonLd}
 >
-  <ServicePage slug="psicologa-malaga" heroLayout="centered" standalone={false} />
+  <ServicePage slug="terapia-presencial" heroLayout="centered" standalone={false} />
   <ServicesGrid
-    services={services.filter((s) => s.href !== "/psicologa-malaga")}
+    services={services.filter((s) => s.href !== "/terapia-presencial")}
     sectionLabel={settings.servicesSection.label}
     sectionTitle={settings.servicesSection.title}
   />
@@ -41,4 +41,3 @@ const jsonLd = buildServicePageJsonLd({
     ctaHref={settings.cta.href}
   />
 </Layout>
-

@@ -6,7 +6,7 @@ export type NavItem = {
 export const mainNav: NavItem[] = [
   { label: "Inicio", href: "/" },
   { label: "Conóceme", href: "/conoceme" },
-  { label: "Servicios", href: "/psicologa-malaga" },
+  { label: "Servicios", href: "/servicios" },
   { label: "Recursos", href: "/recursos" },
   { label: "Cursos", href: "/cursos" },
   { label: "Reserva", href: "/reserva" },

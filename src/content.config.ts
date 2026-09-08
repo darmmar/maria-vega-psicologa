@@ -179,12 +179,18 @@ const siteSettings = defineCollection({
       taxId: z.string().optional().nullable(),
       address: z.string().optional().nullable(),
     }),
+    seo: z.object({
+      homeTitle: z.string().optional(),
+      homeDescription: z.string().optional(),
+    }).optional(),
   }),
 });
 
 const profile = defineCollection({
   loader: glob({ pattern: "profile.json", base: "./src/content/profile" }),
   schema: z.object({
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
     hero: z.object({
       label: z.string(),
       title: z.string(),

@@ -1,16 +1,2 @@
-/profile /conoceme 301
-/contact /contacto 301
-/booking /reserva 301
-/grief-course /curso-duelo 301
-/courses /cursos 301
-/resources /recursos 301
-/therapy-malaga /psicologa-malaga 301
-/therapy-online /terapia-online 301
-/therapy-anxiety /terapia-ansiedad 301
-/therapy-addictions /terapia-adicciones 301
-/therapy-grief /terapia-duelo 301
-/therapy-child-youth /terapia-infantil-juvenil 301
-/therapy-contextual-act /terapia-contextual-act 301
-/legal/legal-notice /legal/aviso-legal 301
-/legal/privacy /legal/privacidad 301
-/resources/:slug /recursos/:slug 301
+# Cloudflare Pages Redirects
+# Sin redirecciones heredadas. Rutas directas canónicas.

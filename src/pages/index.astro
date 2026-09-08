@@ -41,11 +41,19 @@ const jsonLd = buildJsonLdGraph(
   buildPerson({ overrides: businessOverrides }),
   buildFAQPage(faqItems)
 );
+
+const modalityHrefs = ["/terapia-presencial", "/terapia-online"];
+const clinicalServices = services.filter((s) => !modalityHrefs.includes(s.href));
+
+const pageTitle = settings.seo?.homeTitle || "Psicóloga en Málaga y Terapia Online";
+const pageDescription =
+  settings.seo?.homeDescription ||
+  "Consulta de psicología en Málaga y atención online. Terapia contextual y basada en evidencia con María Vega.";
 ---
 
 <Layout
-  title="Psicóloga en Málaga — Terapia contextual y ACT"
-  description="Psicóloga General Sanitaria en Málaga. Terapia contextual, ACT y terapia breve sistémica para adultos, adolescentes y niños."
+  title={pageTitle}
+  description={pageDescription}
   jsonLd={jsonLd}
 >
   <Hero />
@@ -53,7 +61,7 @@ const jsonLd = buildJsonLdGraph(
   <TherapyApproach />
   <SectionDivider />
   <ServicesGrid
-    services={services}
+    services={clinicalServices}
     sectionLabel={settings.servicesSection.label}
     sectionTitle={settings.servicesSection.title}
   />

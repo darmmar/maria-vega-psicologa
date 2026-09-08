@@ -1,0 +1,206 @@
+---
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import Button from "@/components/ui/Button.astro";
+import { Icon } from "astro-icon/components";
+import { getPublishedServices, getSiteSettings } from "@/lib/content/collections";
+import { imageSrc } from "@/lib/images";
+import { getServiceIcon } from "@/lib/content/collections";
+import { buildBreadcrumbList, buildJsonLdGraph, buildMedicalBusiness, buildPerson } from "@/lib/seo";
+
+const [settings, allServices] = await Promise.all([
+  getSiteSettings(),
+  getPublishedServices(),
+]);
+
+// Separar modalidades (formato) de especialidades clínicas (motivos de consulta)
+const modalitySlugs = ["terapia-presencial", "terapia-online"];
+const clinicalSpecialties = allServices.filter((s) => !modalitySlugs.includes(s.data.slug));
+
+const pageTitle = "Servicios y Especialidades de Psicología";
+const pageDescription = "Consulta las especialidades y modalidades de terapia psicológica con María Vega: consulta presencial en Málaga y sesiones online.";
+
+const businessOverrides = {
+  address: settings.legal.address,
+  phone: settings.contact.phone,
+  email: settings.contact.email,
+  googleMapsLink: settings.contact.googleMapsLink,
+  collegiateNumber: settings.legal.collegiateNumber,
+  businessName: settings.legal.businessName,
+  instagram: settings.contact.instagram,
+  linkedin: settings.contact.linkedin,
+};
+
+const jsonLd = buildJsonLdGraph(
+  buildMedicalBusiness(businessOverrides),
+  buildPerson({ overrides: businessOverrides }),
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: "Servicios", url: "/servicios" },
+  ])
+);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonical="/servicios" jsonLd={jsonLd}>
+  <PageHero
+    label="Servicios y Especialidades"
+    title="Acompañamiento psicológico para tu momento vital"
+    description="Terapia basada en la evidencia científica, el enfoque contextual y el respeto a tu historia. Puedes elegir atención presencial en Málaga o terapia online."
+    maxWidth="3xl"
+  />
+
+  <!-- 1. BLOQUE DESTACADO: MODALIDADES DE ATENCIÓN (Presencial vs Online) -->
+  <section class="section-gap-tight bg-gradient-to-b from-warm-100/60 to-warm-200/30 border-b border-ink-border/30">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="label-caps text-sage block mb-2">Modalidades de atención</span>
+        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink">
+          ¿Cómo prefieres realizar tus sesiones?
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Tarjeta 1: Presencial en Málaga (Destacada) -->
+        <div class="relative p-7 sm:p-8 bg-white rounded-3xl border border-sage/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between group">
+          <div class="absolute top-4 right-4 bg-sage/10 text-sage text-xs font-semibold px-3 py-1 rounded-full">
+            Recomendada
+          </div>
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-sage/10 text-sage flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+              <Icon name="lucide:map-pin" class="w-6 h-6" />
+            </div>
+            <h3 class="font-display text-2xl font-normal text-ink mb-3">
+              Consulta presencial en Málaga
+            </h3>
+            <p class="text-ink-muted text-sm sm:text-base leading-relaxed mb-6 font-body">
+              Un espacio tranquilo, cuidado y confidencial en <strong>Calle Zamarrilla 15</strong>. Ideal si valoras el contacto directo, la cercanía humana y un entorno dedicado exclusivamente a tu proceso terapéutico.
+            </p>
+            <div class="space-y-2 mb-8 text-xs sm:text-sm text-ink-muted font-body">
+              <div class="flex items-center gap-2">
+                <Icon name="lucide:clock" class="w-4 h-4 text-sage flex-shrink-0" />
+                <span>Lunes de 17:00 a 20:00 (con cita previa)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <Icon name="lucide:shield-check" class="w-4 h-4 text-sage flex-shrink-0" />
+                <span>Privacidad y confidencialidad absoluta</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <Button href="/reserva" size="md" class="w-full sm:w-auto text-center justify-center">
+              Reservar presencial
+            </Button>
+            <Button href="/terapia-presencial" variant="secondary" size="md" class="w-full sm:w-auto text-center justify-center">
+              Más información
+            </Button>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Terapia Online -->
+        <div class="p-7 sm:p-8 bg-white/80 rounded-3xl border border-ink-border/30 shadow-soft hover:shadow-premium transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-warm-200 text-ink-muted flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+              <Icon name="lucide:monitor" class="w-6 h-6 text-sage" />
+            </div>
+            <h3 class="font-display text-2xl font-normal text-ink mb-3">
+              Terapia online por videollamada
+            </h3>
+            <p class="text-ink-muted text-sm sm:text-base leading-relaxed mb-6 font-body">
+              Sesiones a distancia con la misma calidad, estructura e intimidad que en consulta física. Pensada para personas con horarios ajustados, dificultad de desplazamiento o que viven fuera de Málaga.
+            </p>
+            <div class="space-y-2 mb-8 text-xs sm:text-sm text-ink-muted font-body">
+              <div class="flex items-center gap-2">
+                <Icon name="lucide:clock" class="w-4 h-4 text-sage flex-shrink-0" />
+                <span>Martes a domingo de 16:00 a 21:00</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <Icon name="lucide:video" class="w-4 h-4 text-sage flex-shrink-0" />
+                <span>Conexión segura desde donde estés</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 pt-2">
+            <Button href="/reserva" size="md" variant="secondary" class="w-full sm:w-auto text-center justify-center">
+              Reservar online
+            </Button>
+            <Button href="/terapia-online" variant="ghost" size="md" class="w-full sm:w-auto text-center justify-center">
+              Más información
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- 2. BLOQUE: ESPECIALIDADES CLÍNICAS (¿En qué puedo ayudarte?) -->
+  <section class="section-gap">
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="label-caps text-sage block mb-3">Especialidades clínicas</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink">
+          ¿En qué situaciones puedo acompañarte?
+        </h2>
+        <p class="text-ink-muted mt-3 font-body">
+          Cada proceso es único. Trabajamos sobre tus dificultades desde una mirada científica y libre de juicios.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          clinicalSpecialties.map((service) => {
+            const thumbnailSrc = imageSrc(service.data.thumbnail);
+            const thumbnailAlt =
+              service.data.thumbnailAlt?.trim() || `Miniatura del servicio ${service.data.title}`;
+
+            return (
+              <a
+                href={`/${service.data.slug}`}
+                aria-label={`Saber más sobre ${service.data.title}`}
+                class="group block p-6 bg-gradient-to-b from-white to-warm-50/30 rounded-2xl border border-ink-border/30 border-t-2 border-t-sage/25 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between"
+              >
+                <div>
+                  {thumbnailSrc ? (
+                    <div class="w-full h-32 overflow-hidden rounded-xl mb-5">
+                      <img
+                        src={thumbnailSrc}
+                        alt={thumbnailAlt}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  ) : (
+                    <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
+                      <Icon name={getServiceIcon(service.data.slug)} class="w-5 h-5" />
+                    </div>
+                  )}
+                  <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200">
+                    {service.data.title}
+                  </h3>
+                  <p class="text-sm text-ink-muted leading-relaxed mb-4 font-body">
+                    {service.data.shortDescription}
+                  </p>
+                </div>
+                <div class="pt-2 border-t border-ink-border/10 flex items-center justify-between">
+                  <span class="text-xs text-ink-faint font-body">Presencial u Online</span>
+                  <span class="text-sm font-medium text-sage group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">
+                    Ver servicio <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+    </Container>
+  </section>
+
+  <CTASection
+    title={settings.cta.title}
+    description={settings.cta.description}
+    ctaLabel={settings.cta.label}
+    ctaHref={settings.cta.href}
+  />
+</Layout>

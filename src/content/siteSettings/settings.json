@@ -1,8 +1,8 @@
 {
   "hero": {
-    "label": "Psicóloga General Sanitaria · Málaga",
+    "label": "Psicóloga General Sanitaria",
     "title": "Un espacio para cuidarte",
-    "description": "Un espacio para cuidarte. Terapia contextual en Málaga y online. Acompañamiento en duelo, ansiedad, problemas emocionales y de pareja desde un enfoque humano y basado en la evidencia.",
+    "description": "Terapia psicológica presencial en consulta (Málaga) y online por videollamada. Acompañamiento en duelo, ansiedad, regulación emocional y momentos de cambio desde un enfoque humano y basado en la evidencia.",
     "primaryCta": {
       "label": "Reservar cita",
       "href": "/reserva"
@@ -16,7 +16,7 @@
       "Confidencialidad total"
     ],
     "image": "/images/ChatGPT Image 10 jun 2026, 20_50_14.png",
-    "imageAlt": "María Vega, psicóloga general sanitaria en Málaga",
+    "imageAlt": "María Vega, psicóloga general sanitaria",
     "imagePlaceholder": "Foto profesional"
   },
   "therapyApproach": {
@@ -89,5 +89,9 @@
     "businessName": "María Vega",
     "taxId": "12345678A",
     "address": "Calle Zamarrilla 15, Málaga"
+  },
+  "seo": {
+    "homeTitle": "Psicóloga en Málaga y Terapia Online",
+    "homeDescription": "Consulta de psicología en Málaga y atención online. Terapia contextual y basada en evidencia para procesos de duelo, ansiedad y bienestar emocional con María Vega."
   }
 }
