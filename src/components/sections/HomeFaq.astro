@@ -1,34 +1,19 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import FAQAccordion from "@/components/islands/FAQAccordion";
+import type { FaqItem } from "@/lib/seo";
 
-export const homeFaqs = [
-  {
-    question: "¿Qué es la Terapia de Aceptación y Compromiso (ACT) y el enfoque contextual?",
-    answer:
-      "La Terapia de Aceptación y Compromiso (ACT) es una terapia de tercera generación respaldada por sólida evidencia científica. En lugar de desgastarte luchando contra pensamientos intrusivos o emociones difíciles, aprendemos a relacionarnos con ellos desde la flexibilidad y el autoconocimiento. El propósito central no es suprimir el dolor, sino dotarte de herramientas para orientar tu conducta hacia lo que de verdad te importa y construir una vida valiosa.",
-  },
-  {
-    question: "¿Cómo es la primera sesión de psicología?",
-    answer:
-      "La primera sesión es una toma de contacto cercana, confidencial y sin juicios. Es un espacio para escucharte con calma, comprender qué te preocupa en tu momento vital actual y qué esperas de la terapia. Evaluaremos tu situación de forma contextual y, de manera conjunta, plantearemos los primeros objetivos de trabajo terapéutico, aclarando cualquier duda que tengas sobre el método de intervención.",
-  },
-  {
-    question: "¿Es igual de eficaz la terapia psicológica online que la presencial en Málaga?",
-    answer:
-      "Sí. Numerosos estudios clínicos avalan que la terapia psicológica online ofrece la misma efectividad y calidez terapéutica que la modalidad presencial. Atiendo presencialmente en consulta en Málaga centro (Calle Zamarrilla 15) los lunes por la tarde, y en modalidad online mediante videollamada segura de martes a domingo, facilitando el acceso a la terapia con total flexibilidad horaria y geográfica.",
-  },
-  {
-    question: "¿Cuándo es aconsejable pedir ayuda psicológica?",
-    answer:
-      "No necesitas encontrarte en una crisis extrema para acudir al psicólogo. Es recomendable consultar si experimentas ansiedad continuada, tristeza, bloqueo emocional, dificultades en tus relaciones de pareja o familiares, un proceso de duelo o pérdida, o sencillamente si buscas comprender mejor lo que sientes y desarrollar estrategias de afrontamiento adaptativas.",
-  },
-  {
-    question: "¿Cuánto dura una sesión y con qué frecuencia se realizan?",
-    answer:
-      "Cada sesión individual tiene una duración de 50 a 60 minutos. Al principio del proceso psicoterapéutico, lo habitual es establecer una periodicidad semanal o quincenal para crear vínculo y asentar recursos clínicos. A medida que experimentas avances y mayor autonomía emocional, las sesiones se van espaciando progresivamente hasta alcanzar el alta clínica.",
-  },
-];
+interface Props {
+  items: FaqItem[];
+  title?: string;
+  description?: string;
+}
+
+const {
+  items,
+  title = "Respuestas sobre el proceso de terapia",
+  description = "Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza.",
+} = Astro.props;
 ---
 
 <section class="section-gap bg-gradient-to-b from-warm-100/40 to-warm-200/50 border-t border-ink-border/10">
@@ -37,14 +22,14 @@ export const homeFaqs = [
       <div class="text-center mb-10 md:mb-12">
         <span class="label-caps text-sage block mb-3">Preguntas frecuentes</span>
         <h2 class="font-display text-3xl md:text-4xl font-normal text-ink leading-tight mb-4">
-          Respuestas sobre el proceso de terapia
+          {title}
         </h2>
         <p class="text-ink-muted text-base md:text-lg max-w-xl mx-auto font-body">
-          Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza.
+          {description}
         </p>
       </div>
 
-      <FAQAccordion items={homeFaqs} client:visible />
+      <FAQAccordion items={items} client:visible />
     </div>
   </Container>
 </section>

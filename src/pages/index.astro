@@ -7,16 +7,22 @@ import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
 import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CourseHighlight from "@/components/sections/CourseHighlight.astro";
 import CTASection from "@/components/sections/CTASection.astro";
-import HomeFaq, { homeFaqs } from "@/components/sections/HomeFaq.astro";
+import HomeFaq from "@/components/sections/HomeFaq.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { buildFAQPage, buildJsonLdGraph, buildMedicalBusiness, buildPerson, buildWebSite } from "@/lib/seo";
-import { getCourseBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import { getCourseBySlug, getFaq, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
 
-const [settings, course, services] = await Promise.all([
+const [settings, course, services, rawFaqs] = await Promise.all([
   getSiteSettings(),
   getCourseBySlug("curso-duelo"),
   getServicesForGrid(),
+  getFaq(),
 ]);
+
+const faqItems = rawFaqs.map((f) => ({
+  question: f.data.question,
+  answer: f.data.answer,
+}));
 
 const businessOverrides = {
   address: settings.legal.address,
@@ -33,7 +39,7 @@ const jsonLd = buildJsonLdGraph(
   buildWebSite(),
   buildMedicalBusiness(businessOverrides),
   buildPerson({ overrides: businessOverrides }),
-  buildFAQPage(homeFaqs)
+  buildFAQPage(faqItems)
 );
 ---
 
@@ -62,7 +68,7 @@ const jsonLd = buildJsonLdGraph(
     ctaLabel={settings.courseHighlight.ctaLabel}
     ctaHref={settings.courseHighlight.ctaHref}
   />
-  <HomeFaq />
+  <HomeFaq items={faqItems} />
   <CTASection
     title={settings.cta.title}
     description={settings.cta.description}

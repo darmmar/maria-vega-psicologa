@@ -3,7 +3,7 @@ import { ctaLinkFields, imageFieldUi, singletonUi } from "../shared/helpers";
 
 export const profileCollection: Collection = {
   name: "profile",
-  label: "Página Conóceme (/conoceme)",
+  label: "👤 Página Conóceme",
   path: "src/content/profile",
   format: "json",
   ui: singletonUi,

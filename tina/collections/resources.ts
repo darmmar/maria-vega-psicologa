@@ -4,7 +4,7 @@ import { richTextBodyField } from "../shared/rich-text";
 
 export const resourcesCollection: Collection = {
   name: "resources",
-  label: "Recursos y Artículos del Blog (/recursos)",
+  label: "✍️ Artículos y Recursos",
   path: "src/content/recursos",
   format: "mdx",
   ui: {

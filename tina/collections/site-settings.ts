@@ -3,7 +3,7 @@ import { ctaLinkFields, imageFieldUi, singletonUi } from "../shared/helpers";
 
 export const siteSettingsCollection: Collection = {
   name: "siteSettings",
-  label: "Ajustes Globales y Portada",
+  label: "🏠 Portada y Ajustes Globales",
   path: "src/content/siteSettings",
   format: "json",
   ui: singletonUi,
