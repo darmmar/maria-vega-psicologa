@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
     "dev:astro": "astro dev",
-    "build": "node scripts/vercel-build.mjs",
+    "build": "node scripts/build.mjs",
     "build:astro": "astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
