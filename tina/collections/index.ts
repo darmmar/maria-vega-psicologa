@@ -1,6 +1,7 @@
 import type { Collection } from "tinacms";
 import { siteSettingsCollection } from "./site-settings";
 import { profileCollection } from "./profile";
+import { servicesPageCollection } from "./services-page";
 import { servicesCollection } from "./services";
 import { resourcesCollection } from "./resources";
 import { coursesCollection } from "./courses";
@@ -26,7 +27,8 @@ export const collections: Collection[] = [
   // ──────────────────────────────────────────
   // PÁGINA: SERVICIOS  (/servicios)
   // ──────────────────────────────────────────
-  servicesCollection,   // 🩺 Servicios — Fichas de cada área
+  servicesPageCollection, // 🩺 Servicios — Cabecera y modalidades
+  servicesCollection,     // 🩺 Servicios — Fichas de cada área
 
   // ──────────────────────────────────────────
   // PÁGINA: RECURSOS  (/recursos)
@@ -53,6 +55,7 @@ export const collections: Collection[] = [
 export {
   siteSettingsCollection,
   profileCollection,
+  servicesPageCollection,
   servicesCollection,
   resourcesCollection,
   coursesCollection,

@@ -1,5 +1,5 @@
 /** Normaliza rutas de imágenes del CMS (`images/foo.jpg` → `/images/foo.jpg`). */
-export function imageSrc(path?: string): string | undefined {
+export function imageSrc(path?: string | null): string | undefined {
   if (!path) return undefined;
   if (path.startsWith("/")) return path;
   if (path.startsWith("images/")) return `/${path}`;

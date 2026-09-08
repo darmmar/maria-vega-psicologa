@@ -36,6 +36,15 @@ export async function getBookingPage() {
   return page;
 }
 
+export async function getServicesPage() {
+  const items = await getCollection("servicesPage");
+  const page = items[0]?.data;
+  if (!page) {
+    throw new Error("Missing services page at src/content/servicesPage/services.json");
+  }
+  return page;
+}
+
 export async function getPublishedExperience() {
   const items = await getCollection("experience", ({ data }) => data.published);
   return items.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));

@@ -1,0 +1,46 @@
+{
+  "seoTitle": "Servicios y Especialidades de Psicología | María Vega",
+  "seoDescription": "Consulta las especialidades y modalidades de terapia psicológica con María Vega: consulta presencial en Málaga y sesiones online.",
+  "hero": {
+    "label": "Servicios y Especialidades",
+    "title": "Acompañamiento psicológico para tu momento vital",
+    "description": "Terapia basada en la evidencia científica, el enfoque contextual y el respeto a tu historia. Puedes elegir atención presencial en Málaga o terapia online."
+  },
+  "modalitiesSection": {
+    "label": "Modalidades de atención",
+    "title": "¿Cómo prefieres realizar tus sesiones?",
+    "items": [
+      {
+        "title": "Consulta presencial en Málaga",
+        "badge": "Recomendada",
+        "icon": "lucide:map-pin",
+        "description": "Un espacio tranquilo, cuidado y confidencial en Calle Zamarrilla 15. Ideal si valoras el contacto directo, la cercanía humana y un entorno dedicado exclusivamente a tu proceso terapéutico.",
+        "schedule": "Lunes de 17:00 a 20:00 (con cita previa)",
+        "feature": "Privacidad y confidencialidad absoluta",
+        "featureIcon": "lucide:shield-check",
+        "primaryButtonText": "Reservar presencial",
+        "primaryButtonHref": "/reserva",
+        "secondaryButtonText": "Más información",
+        "secondaryButtonHref": "/terapia-presencial"
+      },
+      {
+        "title": "Terapia online por videollamada",
+        "badge": "",
+        "icon": "lucide:monitor",
+        "description": "Sesiones a distancia con la misma calidad, estructura e intimidad que en consulta física. Pensada para personas con horarios ajustados, dificultad de desplazamiento o que viven fuera de Málaga.",
+        "schedule": "Martes a domingo de 16:00 a 21:00",
+        "feature": "Conexión segura desde donde estés",
+        "featureIcon": "lucide:video",
+        "primaryButtonText": "Reservar online",
+        "primaryButtonHref": "/reserva",
+        "secondaryButtonText": "Más información",
+        "secondaryButtonHref": "/terapia-online"
+      }
+    ]
+  },
+  "specialtiesSection": {
+    "label": "Áreas de acompañamiento",
+    "title": "¿En qué situaciones puedo acompañarte?",
+    "description": "Cada proceso es único. Trabajamos sobre tus dificultades desde una mirada científica y libre de juicios."
+  }
+}

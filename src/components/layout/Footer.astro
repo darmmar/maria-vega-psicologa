@@ -2,8 +2,10 @@
 import { Icon } from 'astro-icon/components'
 import Container from '../ui/Container.astro'
 import { getSiteSettings } from '@/lib/content/collections'
+import { imageSrc } from '@/lib/images'
 
 const settings = await getSiteSettings()
+const logoSrc = imageSrc(settings.brand?.logo) ?? "/images/mv-monogram.png"
 const { contact } = settings
 
 const socialLinks = [
@@ -58,12 +60,12 @@ const legalLinks = [
       <div class="flex flex-col items-center md:items-start gap-1">
         <div class="flex items-center gap-2.5 text-sm text-ink-muted">
           <img
-            src="/images/mv-monogram.png"
+            src={logoSrc}
             alt=""
             aria-hidden="true"
             width="1536"
             height="1024"
-            class="h-9 w-[54px] flex-shrink-0"
+            class="h-9 w-[54px] flex-shrink-0 object-contain"
           />
           <div class="flex flex-col">
             <span class="font-medium">© {new Date().getFullYear()} María Vega Psicología</span>

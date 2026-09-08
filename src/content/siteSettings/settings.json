@@ -1,4 +1,9 @@
 {
+  "brand": {
+    "logo": "/images/mv-monogram.png",
+    "logoAlt": "María Vega Psicología — Logotipo",
+    "favicon": "/favicon.png"
+  },
   "hero": {
     "label": "Psicóloga General Sanitaria",
     "title": "Un espacio para cuidarte",
@@ -15,7 +20,7 @@
       "Cita en 24h",
       "Confidencialidad total"
     ],
-    "image": "/images/ChatGPT Image 10 jun 2026, 20_50_14.png",
+    "image": "/images/maria-vega-portada.png",
     "imageAlt": "María Vega, psicóloga general sanitaria",
     "imagePlaceholder": "Foto profesional"
   },

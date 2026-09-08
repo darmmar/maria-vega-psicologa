@@ -4,6 +4,12 @@ import { mainNav } from "@/lib/config/navigation";
 import MobileMenu from "@/components/islands/MobileMenu";
 import Button from "@/components/ui/Button.astro";
 import Container from "@/components/ui/Container.astro";
+import { getSiteSettings } from "@/lib/content/collections";
+import { imageSrc } from "@/lib/images";
+
+const settings = await getSiteSettings();
+const logoSrc = imageSrc(settings.brand?.logo) ?? "/images/mv-monogram.png";
+const logoAlt = settings.brand?.logoAlt || `${siteConfig.siteName} — Logotipo`;
 
 const { pathname } = Astro.url;
 const normalizePath = (p: string) => p.replace(/\/$/, "") || "/";
@@ -22,11 +28,11 @@ const navItems = mainNav.filter((item) => item.label !== "Reserva");
         aria-label={`${siteConfig.siteName} — Inicio`}
       >
         <img
-          src="/images/mv-monogram.png"
-          alt="María Vega Psicología — Logotipo"
+          src={logoSrc}
+          alt={logoAlt}
           width="1536"
           height="1024"
-          class="h-14 w-[84px] flex-shrink-0 group-hover:opacity-80 transition-opacity"
+          class="h-14 w-[84px] flex-shrink-0 group-hover:opacity-80 transition-opacity object-contain"
         />
         <div class="flex flex-col leading-none">
           <span class="font-display text-xl font-normal text-sage group-hover:text-sage-600 transition-colors">

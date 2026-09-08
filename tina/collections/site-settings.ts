@@ -10,6 +10,33 @@ export const siteSettingsCollection: Collection = {
   fields: [
     {
       type: "object",
+      name: "brand",
+      label: "🎨 Identidad visual (Logotipo y Favicon)",
+      fields: [
+        {
+          type: "image",
+          name: "logo",
+          label: "Logotipo de la marca (Monograma)",
+          description: "Imagen del logotipo (monograma MV). Se utiliza en la cabecera superior y en el pie de página.",
+          ui: imageFieldUi,
+        },
+        {
+          type: "string",
+          name: "logoAlt",
+          label: "Texto alternativo del logotipo",
+          description: "Descripción para accesibilidad y buscadores (ej: «María Vega Psicología — Logotipo»).",
+        },
+        {
+          type: "image",
+          name: "favicon",
+          label: "Icono de la pestaña del navegador (Favicon)",
+          description: "Icono que aparece en la pestaña del navegador junto al título.",
+          ui: imageFieldUi,
+        },
+      ],
+    },
+    {
+      type: "object",
       name: "hero",
       label: "1. Portada — Cabecera principal (Hero)",
       fields: [

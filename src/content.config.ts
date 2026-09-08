@@ -179,6 +179,14 @@ const siteSettings = defineCollection({
       taxId: z.string().optional().nullable(),
       address: z.string().optional().nullable(),
     }),
+    brand: z
+      .object({
+        logo: z.string().optional().nullable(),
+        logoAlt: z.string().optional().nullable(),
+        favicon: z.string().optional().nullable(),
+      })
+      .optional()
+      .nullable(),
     seo: z.object({
       homeTitle: z.string().optional(),
       homeDescription: z.string().optional(),
@@ -265,8 +273,46 @@ const bookingPage = defineCollection({
   }),
 });
 
+const servicesPage = defineCollection({
+  loader: glob({ pattern: "services.json", base: "./src/content/servicesPage" }),
+  schema: z.object({
+    seoTitle: z.string(),
+    seoDescription: z.string(),
+    hero: z.object({
+      label: z.string(),
+      title: z.string(),
+      description: z.string(),
+    }),
+    modalitiesSection: z.object({
+      label: z.string(),
+      title: z.string(),
+      items: z.array(
+        z.object({
+          title: z.string(),
+          badge: z.string().optional().nullable(),
+          icon: z.string(),
+          description: z.string(),
+          schedule: z.string(),
+          feature: z.string(),
+          featureIcon: z.string(),
+          primaryButtonText: z.string(),
+          primaryButtonHref: z.string(),
+          secondaryButtonText: z.string(),
+          secondaryButtonHref: z.string(),
+        })
+      ),
+    }),
+    specialtiesSection: z.object({
+      label: z.string(),
+      title: z.string(),
+      description: z.string(),
+    }),
+  }),
+});
+
 export const collections = {
   services,
+  servicesPage,
   resources,
   courses,
   faq,

@@ -91,10 +91,14 @@ if (!process.env.TINA_CLIENT_ID && process.env.NEXT_PUBLIC_TINA_CLIENT_ID) {
   process.env.TINA_CLIENT_ID = process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
 }
 
-function run(command, args) {
-  const result = spawnSync(command, args, {
+function run(command, args = []) {
+  const isWindows = process.platform === "win32";
+  const cmd = isWindows && !command.endsWith(".cmd") && !command.endsWith(".exe")
+    ? `${command}.cmd`
+    : command;
+  const result = spawnSync(cmd, args, {
     stdio: "inherit",
-    shell: true,
+    shell: false,
     env: process.env,
   });
   if (result.status !== 0) {
