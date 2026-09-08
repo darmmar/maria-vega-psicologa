@@ -11,21 +11,43 @@ import { experienceCollection } from "./experience";
 import { trainingCollection } from "./training";
 
 export const collections: Collection[] = [
-  // 1. Páginas fijas del sitio web
-  siteSettingsCollection, // 🏠 Portada y Ajustes Globales
-  profileCollection, // 👤 Página Conóceme
-  bookingPageCollection, // 📅 Página de Reservas
-  contactPageCollection, // ✉️ Página de Contacto
+  // ──────────────────────────────────────────
+  // PÁGINA: INICIO  (/)
+  // ──────────────────────────────────────────
+  siteSettingsCollection, // 🏠 Portada e Inicio
 
-  // 2. Catálogo y publicaciones dinámicas
-  servicesCollection, // 🩺 Servicios de Terapia
-  resourcesCollection, // ✍️ Artículos y Recursos
-  coursesCollection, // 🎓 Cursos y Formación
-  faqCollection, // ❓ Preguntas Frecuentes (FAQ)
+  // ──────────────────────────────────────────
+  // PÁGINA: CONÓCEME  (/conoceme)
+  // ──────────────────────────────────────────
+  profileCollection,    // 👤 Conóceme — Cabecera y presentación
+  experienceCollection, // 💼 Conóceme — Trayectoria y experiencia
+  trainingCollection,   // 📜 Conóceme — Formación académica
 
-  // 3. Bloques de trayectoria y cualificación
-  experienceCollection, // 💼 Trayectoria y Experiencia
-  trainingCollection, // 📜 Formación Académica
+  // ──────────────────────────────────────────
+  // PÁGINA: SERVICIOS  (/servicios)
+  // ──────────────────────────────────────────
+  servicesCollection,   // 🩺 Servicios — Fichas de cada área
+
+  // ──────────────────────────────────────────
+  // PÁGINA: RECURSOS  (/recursos)
+  // ──────────────────────────────────────────
+  resourcesCollection,  // ✍️ Recursos — Artículos psicoeducativos
+
+  // ──────────────────────────────────────────
+  // PÁGINA: CURSOS  (/cursos)
+  // ──────────────────────────────────────────
+  coursesCollection,    // 🎓 Cursos — Formaciones para profesionales
+
+  // ──────────────────────────────────────────
+  // PÁGINA: RESERVAR CITA  (/reserva)
+  // ──────────────────────────────────────────
+  bookingPageCollection, // 📅 Reservas — Página de citas
+  faqCollection,         // ❓ Reservas — Preguntas frecuentes
+
+  // ──────────────────────────────────────────
+  // PÁGINA: CONTACTO  (/contacto)
+  // ──────────────────────────────────────────
+  contactPageCollection, // ✉️ Contacto — Página de contacto
 ];
 
 export {

@@ -4,7 +4,7 @@ import { richTextBodyField } from "../shared/rich-text";
 
 export const coursesCollection: Collection = {
   name: "courses",
-  label: "🎓 Cursos y Formación",
+  label: "🎓 Cursos · Formaciones para profesionales",
   path: "src/content/cursos",
   format: "mdx",
   ui: {

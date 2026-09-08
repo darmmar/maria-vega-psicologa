@@ -3,7 +3,7 @@ import { singletonUi } from "../shared/helpers";
 
 export const bookingPageCollection: Collection = {
   name: "bookingPage",
-  label: "📅 Página de Reservas",
+  label: "📅 Reservas · Página principal",
   path: "src/content/bookingPage",
   format: "json",
   ui: singletonUi,
