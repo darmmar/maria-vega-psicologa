@@ -1,8 +1,7 @@
 ---
 import Container from "@/components/ui/Container.astro";
-import { Icon } from "astro-icon/components";
+import DynamicIcon from "@/components/ui/DynamicIcon.astro";
 import { imageSrc } from "@/lib/images";
-import { getServiceIcon } from "@/lib/content/collections";
 
 interface ServiceItem {
   title: string;
@@ -58,7 +57,7 @@ const {
                 </div>
               ) : (
                 <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
-                  <Icon name={getServiceIcon(service.href)} class="w-5 h-5" />
+                  <DynamicIcon name={service.icon} class="w-5 h-5" />
                 </div>
               )}
               <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200">

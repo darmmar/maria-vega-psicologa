@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  name?: string | null;
+  class?: string;
+  fallback?: string;
+}
+
+const { name, class: className = "w-5 h-5", fallback = "lucide:leaf" } = Astro.props;
+
+const raw = name?.trim();
+const isSvg = raw?.startsWith("<svg");
+
+// Normalize icon name: if it doesn't have a prefix, default to lucide:
+let resolvedName = fallback;
+if (raw && !isSvg) {
+  if (raw.startsWith("lucide:") || raw.startsWith("simple-icons:")) {
+    resolvedName = raw;
+  } else {
+    resolvedName = `lucide:${raw}`;
+  }
+}
+---
+
+{
+  isSvg ? (
+    <span
+      class={`inline-flex items-center justify-center shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current ${className}`}
+      set:html={raw}
+    />
+  ) : (
+    <Icon name={resolvedName} class={className} />
+  )
+}

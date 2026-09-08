@@ -4,10 +4,10 @@ import Container from "@/components/ui/Container.astro";
 import PageHero from "@/components/ui/PageHero.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import Button from "@/components/ui/Button.astro";
+import DynamicIcon from "@/components/ui/DynamicIcon.astro";
 import { Icon } from "astro-icon/components";
 import { getPublishedServices, getSiteSettings } from "@/lib/content/collections";
 import { imageSrc } from "@/lib/images";
-import { getServiceIcon } from "@/lib/content/collections";
 import { buildBreadcrumbList, buildJsonLdGraph, buildMedicalBusiness, buildPerson } from "@/lib/seo";
 
 const [settings, allServices] = await Promise.all([
@@ -88,21 +88,21 @@ const jsonLd = buildJsonLdGraph(
               </div>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row gap-3 pt-2">
-            <Button href="/reserva" size="md" class="w-full sm:w-auto text-center justify-center">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <Button href="/reserva" size="md" class="w-full text-center justify-center">
               Reservar presencial
             </Button>
-            <Button href="/terapia-presencial" variant="secondary" size="md" class="w-full sm:w-auto text-center justify-center">
+            <Button href="/terapia-presencial" variant="secondary" size="md" class="w-full text-center justify-center">
               Más información
             </Button>
           </div>
         </div>
 
         <!-- Tarjeta 2: Terapia Online -->
-        <div class="p-7 sm:p-8 bg-white/80 rounded-3xl border border-ink-border/30 shadow-soft hover:shadow-premium transition-all duration-300 flex flex-col justify-between group">
+        <div class="relative p-7 sm:p-8 bg-white rounded-3xl border border-sage/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between group">
           <div>
-            <div class="w-12 h-12 rounded-2xl bg-warm-200 text-ink-muted flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
-              <Icon name="lucide:monitor" class="w-6 h-6 text-sage" />
+            <div class="w-12 h-12 rounded-2xl bg-sage/10 text-sage flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+              <Icon name="lucide:monitor" class="w-6 h-6" />
             </div>
             <h3 class="font-display text-2xl font-normal text-ink mb-3">
               Terapia online por videollamada
@@ -121,11 +121,11 @@ const jsonLd = buildJsonLdGraph(
               </div>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row gap-3 pt-2">
-            <Button href="/reserva" size="md" variant="secondary" class="w-full sm:w-auto text-center justify-center">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <Button href="/reserva" size="md" class="w-full text-center justify-center">
               Reservar online
             </Button>
-            <Button href="/terapia-online" variant="ghost" size="md" class="w-full sm:w-auto text-center justify-center">
+            <Button href="/terapia-online" variant="secondary" size="md" class="w-full text-center justify-center">
               Más información
             </Button>
           </div>
@@ -134,11 +134,11 @@ const jsonLd = buildJsonLdGraph(
     </Container>
   </section>
 
-  <!-- 2. BLOQUE: ESPECIALIDADES CLÍNICAS (¿En qué puedo ayudarte?) -->
+  <!-- 2. BLOQUE: ÁREAS DE ACOMPAÑAMIENTO (¿En qué puedo ayudarte?) -->
   <section class="section-gap">
     <Container>
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="label-caps text-sage block mb-3">Especialidades clínicas</span>
+        <span class="label-caps text-sage block mb-3">Áreas de acompañamiento</span>
         <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink">
           ¿En qué situaciones puedo acompañarte?
         </h2>
@@ -173,7 +173,7 @@ const jsonLd = buildJsonLdGraph(
                     </div>
                   ) : (
                     <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
-                      <Icon name={getServiceIcon(service.data.slug)} class="w-5 h-5" />
+                      <DynamicIcon name={service.data.icon} class="w-5 h-5" />
                     </div>
                   )}
                   <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200">
@@ -183,10 +183,9 @@ const jsonLd = buildJsonLdGraph(
                     {service.data.shortDescription}
                   </p>
                 </div>
-                <div class="pt-2 border-t border-ink-border/10 flex items-center justify-between">
-                  <span class="text-xs text-ink-faint font-body">Presencial u Online</span>
+                <div class="pt-3 border-t border-ink-border/10">
                   <span class="text-sm font-medium text-sage group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">
-                    Ver servicio <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    Saber más <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </span>
                 </div>
               </a>

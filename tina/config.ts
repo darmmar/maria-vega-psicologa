@@ -2,10 +2,12 @@ import { defineConfig } from "tinacms";
 import { branch, clientId, token, searchIndexerToken } from "./shared/env";
 import { collections } from "./collections";
 
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
+
 export default defineConfig({
   branch,
-  clientId,
-  token,
+  clientId: isLocal ? null : clientId,
+  token: isLocal ? null : token,
 
   search: {
     tina: {

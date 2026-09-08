@@ -62,9 +62,9 @@ export const servicesCollection: Collection = {
     {
       type: "string",
       name: "icon",
-      label: "Icono representativo",
+      label: "Icono representativo (Lucide o SVG)",
       description:
-        "Puedes poner un emoji (ej: 🛋️, 🌱, 🧠, 💬) o el identificador de un icono Lucide (ej: lucide:heart, lucide:wind, lucide:monitor).",
+        "Nombre de cualquier icono Lucide (ej: heart-handshake, sun-medium, compass, life-buoy, sparkles, map-pin, monitor) o código SVG personalizado (<svg...).",
     },
     {
       type: "string",

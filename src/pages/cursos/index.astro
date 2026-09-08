@@ -62,13 +62,19 @@ const jsonLd = buildJsonLdGraph(
                       <Icon name="lucide:graduation-cap" class="w-12 h-12 text-sage/30" />
                     </div>
                   )}
-                  <h2 class="font-display text-xl font-normal text-ink mb-2">{course.data.title}</h2>
+                  <h2 class="font-display text-xl font-normal text-ink mb-2">
+                    <a href={href} class="hover:text-sage transition-colors duration-200">
+                      {course.data.title}
+                    </a>
+                  </h2>
                   <p class="text-ink-muted text-sm leading-relaxed flex-1 mb-6 font-body">
                     {course.data.shortDescription}
                   </p>
-                  <Button href={href} variant="secondary" size="sm">
-                    {course.data.ctaLabel ?? "Ver formación"}
-                  </Button>
+                  <div>
+                    <Button href={href} variant="secondary" size="sm">
+                      Más información
+                    </Button>
+                  </div>
                 </Card>
               );
             })}
