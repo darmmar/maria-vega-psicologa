@@ -39,3 +39,7 @@ maria_psicologia_stitch_cursor_mcp_plan/
 
 .vercel
 .env*.local
+
+# Local private docs & notes
+.local-docs/
+docs/
