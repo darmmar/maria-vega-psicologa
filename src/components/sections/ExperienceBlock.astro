@@ -11,12 +11,15 @@ const experienceItems = await getPublishedExperience();
 
 <section class="section-gap bg-gradient-to-b from-warm-200 to-warm-300/30">
   <Container>
+    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sage/5 to-sage/15 border border-sage/10 flex items-center justify-center mb-5 text-sage shadow-soft">
+      <Icon name="lucide:briefcase" class="w-6 h-6" aria-hidden="true" />
+    </div>
     <span class="label-caps text-sage block mb-4">{experienceSection.label}</span>
-    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-10 leading-tight">
+    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight">
       {experienceSection.title}
     </h2>
 
-    <div class="grid sm:grid-cols-2 gap-5 max-w-4xl">
+    <div class="grid sm:grid-cols-2 gap-6">
       {
         experienceItems.map((item) => (
           <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-0.5">

@@ -12,6 +12,28 @@ import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
+function loadEnvFile(filename) {
+  try {
+    const p = join(process.cwd(), filename);
+    if (!existsSync(p)) return;
+    const content = readFileSync(p, "utf-8");
+    for (const line of content.split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eqIdx = trimmed.indexOf("=");
+      if (eqIdx === -1) continue;
+      const key = trimmed.slice(0, eqIdx).trim();
+      const val = trimmed.slice(eqIdx + 1).trim().replace(/^["']|["']$/g, "");
+      if (process.env[key] === undefined) {
+        process.env[key] = val;
+      }
+    }
+  } catch {}
+}
+
+loadEnvFile(".env.local");
+loadEnvFile(".env");
+
 const clientIdRaw =
   process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? process.env.TINA_CLIENT_ID;
 const tokenRaw = process.env.TINA_TOKEN;
@@ -153,9 +175,9 @@ console.log("✓ Tina env vars present — preparing admin build");
 removeStaleAdminArtifacts();
 
 console.log("↳ Running tinacms build");
-run("tinacms", tinaArgs);
+run("pnpm", ["exec", "tinacms", ...tinaArgs]);
 
 assertProductionAdminHtml();
 
 console.log("✓ Tina build OK — running astro build");
-run("astro", ["build"]);
+run("pnpm", ["exec", "astro", "build"]);
