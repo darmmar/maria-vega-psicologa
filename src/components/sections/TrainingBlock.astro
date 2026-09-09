@@ -2,17 +2,28 @@
 import Container from "@/components/ui/Container.astro";
 import { Icon } from "astro-icon/components";
 import { getSiteSettings, getPublishedTraining } from "@/lib/content/collections";
-import { tinaField } from "@tinacms/astro";
 
 interface Props {
   trainingSection?: any;
   items?: any[];
+  tinaLabelField?: string;
+  tinaTitleField?: string;
+  tinaClinicalTitleField?: string;
+  tinaComplementaryTitleField?: string;
 }
 
-const propsSection = Astro.props.trainingSection;
+const {
+  trainingSection: propsSection,
+  items,
+  tinaLabelField,
+  tinaTitleField,
+  tinaClinicalTitleField,
+  tinaComplementaryTitleField,
+} = Astro.props;
+
 const trainingSection = propsSection ?? (await getSiteSettings()).trainingSection;
 
-const trainingItems = Astro.props.items ?? (await getPublishedTraining());
+const trainingItems = items ?? (await getPublishedTraining());
 const clinical = trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "clinical");
 const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "complementary");
 ---
@@ -22,10 +33,10 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sage/5 to-sage/15 border border-sage/10 flex items-center justify-center mb-5 text-sage shadow-soft">
       <Icon name="lucide:graduation-cap" class="w-6 h-6" aria-hidden="true" />
     </div>
-    <span class="label-caps text-sage block mb-4" data-tina-field={tinaField(trainingSection, "label")}>
+    <span class="label-caps text-sage block mb-4" data-tina-field={tinaLabelField}>
       {trainingSection.label}
     </span>
-    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight" data-tina-field={tinaField(trainingSection, "title")}>
+    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight" data-tina-field={tinaTitleField}>
       {trainingSection.title}
     </h2>
 
@@ -33,14 +44,13 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
       <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 border-t-2 border-t-sage/25 backdrop-blur-sm shadow-premium">
         <h3
           class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10"
-          data-tina-field={tinaField(trainingSection, "clinicalTitle")}
+          data-tina-field={tinaClinicalTitleField}
         >
           {trainingSection.clinicalTitle}
         </h3>
         <div class="space-y-6">
           {
             clinical.map((item: any) => {
-              const tinaNode = item.tinaNode ?? item.data;
               const degree = item.data?.degree ?? item.degree;
               const institution = item.data?.institution ?? item.institution;
               const year = item.data?.year ?? item.year;
@@ -48,10 +58,10 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
               return (
                 <div class="border-l-2 border-sage pl-5 relative py-0.5">
                   <div class="absolute w-2 h-2 rounded-full bg-sage -left-[5px] top-2 border border-white" />
-                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "degree") : undefined}>
+                  <p class="font-medium text-ink leading-snug font-body">
                     {degree}
                   </p>
-                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "institution") : undefined}>
+                  <p class="text-sm text-ink-muted mt-1 font-body">
                     {institution}
                     {year ? ` · ${year}` : ""}
                   </p>
@@ -65,14 +75,13 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
       <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 border-t-2 border-t-blush/25 backdrop-blur-sm shadow-premium">
         <h3
           class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10"
-          data-tina-field={tinaField(trainingSection, "complementaryTitle")}
+          data-tina-field={tinaComplementaryTitleField}
         >
           {trainingSection.complementaryTitle}
         </h3>
         <div class="space-y-6">
           {
             complementary.map((item: any) => {
-              const tinaNode = item.tinaNode ?? item.data;
               const degree = item.data?.degree ?? item.degree;
               const institution = item.data?.institution ?? item.institution;
               const year = item.data?.year ?? item.year;
@@ -80,10 +89,10 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
               return (
                 <div class="border-l-2 border-blush pl-5 relative py-0.5">
                   <div class="absolute w-2 h-2 rounded-full bg-blush -left-[5px] top-2 border border-white" />
-                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "degree") : undefined}>
+                  <p class="font-medium text-ink leading-snug font-body">
                     {degree}
                   </p>
-                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "institution") : undefined}>
+                  <p class="text-sm text-ink-muted mt-1 font-body">
                     {institution}
                     {year ? ` · ${year}` : ""}
                   </p>
@@ -96,4 +105,3 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
     </div>
   </Container>
 </section>
-

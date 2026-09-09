@@ -131,12 +131,11 @@ const jsonLd = buildJsonLdGraph(
                         <a
                           href={`mailto:${email}`}
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium"
-                          data-tina-field={tinaField(settings.contact, "email")}
                         >
                           {email}
                         </a>
                       ) : (
-                        <p class="text-ink-muted italic text-sm font-body" data-tina-field={tinaField(settings.contact, "email")}>[EMAIL PENDIENTE]</p>
+                        <p class="text-ink-muted italic text-sm font-body">[EMAIL PENDIENTE]</p>
                       )
                     }
                   </div>
@@ -156,13 +155,12 @@ const jsonLd = buildJsonLdGraph(
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium inline-flex items-center gap-1"
                           target="_blank"
                           rel="noopener noreferrer"
-                          data-tina-field={tinaField(settings.contact, "whatsapp")}
                         >
                           Escribir por WhatsApp
                           <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 text-ink-muted" />
                         </a>
                       ) : (
-                        <p class="text-ink-muted italic text-sm font-body" data-tina-field={tinaField(settings.contact, "whatsapp")}>[WHATSAPP PENDIENTE]</p>
+                        <p class="text-ink-muted italic text-sm font-body">[WHATSAPP PENDIENTE]</p>
                       )
                     }
                   </div>
@@ -180,7 +178,6 @@ const jsonLd = buildJsonLdGraph(
                         <a
                           href={`tel:${phone.replace(/\s+/g, '')}`}
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium"
-                          data-tina-field={tinaField(settings.contact, "phone")}
                         >
                           {phone}
                         </a>
@@ -198,7 +195,7 @@ const jsonLd = buildJsonLdGraph(
                       </div>
                       <div>
                         <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Ubicación</p>
-                        <p class="text-ink text-sm font-body font-medium" data-tina-field={tinaField(settings.legal, "address")}>
+                        <p class="text-ink text-sm font-body font-medium">
                           {displayAddress}
                         </p>
                       </div>
@@ -220,7 +217,6 @@ const jsonLd = buildJsonLdGraph(
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium"
                           target="_blank"
                           rel="noopener noreferrer"
-                          data-tina-field={tinaField(settings.contact, "telegram")}
                         >
                           Escribir por Telegram
                         </a>
@@ -249,7 +245,6 @@ const jsonLd = buildJsonLdGraph(
                           target="_blank"
                           rel="noopener noreferrer"
                           class="inline-flex items-center gap-1 text-xs text-sage font-medium hover:text-sage-700 underline underline-offset-2 transition-colors"
-                          data-tina-field={tinaField(settings.contact, "googleMapsLink")}
                         >
                           <span>Cómo llegar</span>
                           <Icon name="lucide:external-link" class="w-3 h-3" />
@@ -290,7 +285,6 @@ const jsonLd = buildJsonLdGraph(
                               target="_blank"
                               rel="noopener noreferrer"
                               class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-ink-border/30 text-ink text-xs font-medium font-body hover:bg-warm-50 transition-colors"
-                              data-tina-field={tinaField(settings.contact, "googleMapsLink")}
                             >
                               <span>Abrir fuera</span>
                               <Icon name="lucide:external-link" class="w-3 h-3 text-ink-muted" />

@@ -19,9 +19,6 @@ let [profile, settings, rawExp, rawTraining] = await Promise.all([
   getPublishedTraining(),
 ]);
 
-let tinaExperienceMap = new Map();
-let tinaTrainingMap = new Map();
-
 try {
   const { requestWithMetadata } = await import("@tinacms/astro");
   const client = (await import("../../tina/__generated__/client")).default;
@@ -32,40 +29,12 @@ try {
   if (tinaRes?.data?.profile) {
     profile = tinaRes.data.profile as any;
   }
-
-  const [expRes, trainRes] = await Promise.all([
-    requestWithMetadata(client.queries.experienceConnection()).catch(() => null),
-    requestWithMetadata(client.queries.trainingConnection()).catch(() => null),
-  ]);
-
-  if (expRes?.data?.experienceConnection?.edges) {
-    for (const edge of expRes.data.experienceConnection.edges) {
-      if (edge?.node) {
-        tinaExperienceMap.set(edge.node.area, edge.node);
-      }
-    }
-  }
-
-  if (trainRes?.data?.trainingConnection?.edges) {
-    for (const edge of trainRes.data.trainingConnection.edges) {
-      if (edge?.node) {
-        tinaTrainingMap.set(edge.node.degree, edge.node);
-      }
-    }
-  }
 } catch (e) {
   // Mantener fallback de getProfile()
 }
 
-const experienceItems = rawExp.map((item) => ({
-  ...item,
-  tinaNode: tinaExperienceMap.get(item.data.area) ?? item.data,
-}));
-
-const trainingItems = rawTraining.map((item) => ({
-  ...item,
-  tinaNode: tinaTrainingMap.get(item.data.degree) ?? item.data,
-}));
+const experienceItems = rawExp;
+const trainingItems = rawTraining;
 
 const { hero, approach, cta } = profile;
 const photoSrc = imageSrc(hero.photo);

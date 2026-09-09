@@ -2,17 +2,23 @@
 import Container from "@/components/ui/Container.astro";
 import { Icon } from "astro-icon/components";
 import { getSiteSettings, getPublishedExperience } from "@/lib/content/collections";
-import { tinaField } from "@tinacms/astro";
 
 interface Props {
   experienceSection?: any;
   items?: any[];
+  tinaLabelField?: string;
+  tinaTitleField?: string;
 }
 
-const propsSection = Astro.props.experienceSection;
-const experienceSection = propsSection ?? (await getSiteSettings()).experienceSection;
+const {
+  experienceSection: propsSection,
+  items,
+  tinaLabelField,
+  tinaTitleField,
+} = Astro.props;
 
-const rawItems = Astro.props.items ?? (await getPublishedExperience());
+const experienceSection = propsSection ?? (await getSiteSettings()).experienceSection;
+const rawItems = items ?? (await getPublishedExperience());
 ---
 
 <section class="section-gap bg-gradient-to-b from-warm-200 to-warm-300/30">
@@ -20,29 +26,26 @@ const rawItems = Astro.props.items ?? (await getPublishedExperience());
     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sage/5 to-sage/15 border border-sage/10 flex items-center justify-center mb-5 text-sage shadow-soft">
       <Icon name="lucide:briefcase" class="w-6 h-6" aria-hidden="true" />
     </div>
-    <span class="label-caps text-sage block mb-4" data-tina-field={tinaField(experienceSection, "label")}>
+    <span class="label-caps text-sage block mb-4" data-tina-field={tinaLabelField}>
       {experienceSection.label}
     </span>
-    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight" data-tina-field={tinaField(experienceSection, "title")}>
+    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight" data-tina-field={tinaTitleField}>
       {experienceSection.title}
     </h2>
 
     <div class="grid sm:grid-cols-2 gap-6">
       {
         rawItems.map((item: any) => {
-          const tinaNode = item.tinaNode ?? item.data;
           const area = item.data?.area ?? item.area;
           return (
             <div
               class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-0.5"
-              data-tina-field={tinaNode ? tinaField(tinaNode, "area") : undefined}
             >
               <div class="flex-shrink-0 w-8 h-8 rounded-full bg-sage/5 border border-sage/10 flex items-center justify-center text-sage">
                 <Icon name="lucide:check-circle" class="w-4 h-4" aria-hidden="true" />
               </div>
               <span
                 class="text-base text-ink-muted leading-relaxed font-body mt-0.5"
-                data-tina-field={tinaNode ? tinaField(tinaNode, "area") : undefined}
               >
                 {area}
               </span>
@@ -53,4 +56,3 @@ const rawItems = Astro.props.items ?? (await getPublishedExperience());
     </div>
   </Container>
 </section>
-

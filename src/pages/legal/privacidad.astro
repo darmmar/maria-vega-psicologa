@@ -6,7 +6,6 @@ import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 import PageHero from '@/components/ui/PageHero.astro'
 import { siteConfig } from '@/lib/config/site'
 import { getSiteSettings } from '@/lib/content/collections'
-import { tinaField } from "@tinacms/astro";
 
 let settings = await getSiteSettings();
 try {
@@ -43,13 +42,13 @@ try {
           <h2>Responsable del tratamiento</h2>
           <ul>
             <li>
-              <strong>Nombre:</strong> <span data-tina-field={tinaField(settings.legal, "businessName")}>{settings.legal.businessName || siteConfig.professionalName}</span>
+              <strong>Nombre:</strong> <span>{settings.legal.businessName || siteConfig.professionalName}</span>
             </li>
             <li>
               <strong>Actividad:</strong> {siteConfig.professionalTitle}
             </li>
             <li>
-              <strong>Email de contacto:</strong> <span data-tina-field={tinaField(settings.contact, "email")}>{settings.contact.email || '[EMAIL PENDIENTE]'}</span>
+              <strong>Email de contacto:</strong> <span>{settings.contact.email || '[EMAIL PENDIENTE]'}</span>
             </li>
           </ul>
 
