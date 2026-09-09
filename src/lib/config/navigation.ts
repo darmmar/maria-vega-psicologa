@@ -9,7 +9,6 @@ export const mainNav: NavItem[] = [
   { label: "Servicios", href: "/servicios" },
   { label: "Recursos", href: "/recursos" },
   { label: "Cursos", href: "/cursos" },
-  { label: "Reserva", href: "/reserva" },
   { label: "Contacto", href: "/contacto" },
 ];
 

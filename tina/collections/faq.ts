@@ -2,7 +2,7 @@ import type { Collection } from "tinacms";
 
 export const faqCollection: Collection = {
   name: "faq",
-  label: "Reservas · Preguntas frecuentes",
+  label: "Inicio · Preguntas frecuentes",
   path: "src/content/faq",
   format: "json",
   fields: [

@@ -384,5 +384,30 @@ export const siteSettingsCollection: Collection = {
         },
       ],
     },
+    {
+      type: "object",
+      name: "booking",
+      label: "12. Reservas y Citas — Enlaces a Cal.com",
+      fields: [
+        {
+          type: "string",
+          name: "calComUrl",
+          label: "Enlace a Agenda General de Cal.com",
+          description: "URL para agendar cita general (ej: https://cal.com/maria-vega). Usado en la cabecera, pie y contacto.",
+        },
+        {
+          type: "string",
+          name: "presencialUrl",
+          label: "Enlace directo Cal.com — Sesión Presencial",
+          description: "URL directa para reservar terapia presencial (ej: https://cal.com/maria-vega/presencial).",
+        },
+        {
+          type: "string",
+          name: "onlineUrl",
+          label: "Enlace directo Cal.com — Sesión Online",
+          description: "URL directa para reservar terapia online (ej: https://cal.com/maria-vega/online).",
+        },
+      ],
+    },
   ],
 };

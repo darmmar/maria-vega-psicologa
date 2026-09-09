@@ -19,7 +19,7 @@
         "feature": "Privacidad y confidencialidad absoluta",
         "featureIcon": "lucide:shield-check",
         "primaryButtonText": "Reservar presencial",
-        "primaryButtonHref": "/reserva?tipo=presencial#calendario",
+        "primaryButtonHref": "https://cal.com/maria-vega/terapia-presencial",
         "secondaryButtonText": "Más información",
         "secondaryButtonHref": "/terapia-presencial"
       },
@@ -32,7 +32,7 @@
         "feature": "Conexión segura desde donde estés",
         "featureIcon": "lucide:video",
         "primaryButtonText": "Reservar online",
-        "primaryButtonHref": "/reserva?tipo=online#calendario",
+        "primaryButtonHref": "https://cal.com/maria-vega/terapia-online",
         "secondaryButtonText": "Más información",
         "secondaryButtonHref": "/terapia-online"
       }

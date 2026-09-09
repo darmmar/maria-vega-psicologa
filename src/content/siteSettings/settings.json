@@ -10,7 +10,7 @@
     "description": "Terapia psicológica presencial en consulta (Málaga) y online por videollamada. Acompañamiento en duelo, ansiedad, regulación emocional y momentos de cambio desde un enfoque humano y basado en la evidencia.",
     "primaryCta": {
       "label": "Reservar cita",
-      "href": "/reserva"
+      "href": "https://cal.com/maria-vega"
     },
     "secondaryCta": {
       "label": "Conóceme",
@@ -64,7 +64,12 @@
     "title": "¿Hablamos?",
     "description": "El primer paso es contactar. Sin compromiso.",
     "label": "Reservar cita",
-    "href": "/reserva"
+    "href": "https://cal.com/maria-vega"
+  },
+  "booking": {
+    "calComUrl": "https://cal.com/maria-vega",
+    "presencialUrl": "https://cal.com/maria-vega/terapia-presencial",
+    "onlineUrl": "https://cal.com/maria-vega/terapia-online"
   },
   "courseHighlight": {
     "label": "Formación profesional",

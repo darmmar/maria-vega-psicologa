@@ -15,6 +15,9 @@ export default defineConfig({
   adapter: cloudflare({
     imageService: "compile",
   }),
+  redirects: {
+    "/reserva": "https://cal.com/maria-vega",
+  },
   integrations: [
     tina(),
     react(),

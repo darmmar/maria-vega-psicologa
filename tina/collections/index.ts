@@ -5,7 +5,6 @@ import { servicesPageCollection } from "./services-page";
 import { servicesCollection } from "./services";
 import { resourcesCollection } from "./resources";
 import { coursesCollection } from "./courses";
-import { bookingPageCollection } from "./booking-page";
 import { contactPageCollection } from "./contact-page";
 import { faqCollection } from "./faq";
 import { experienceCollection } from "./experience";
@@ -16,6 +15,7 @@ export const collections: Collection[] = [
   // PÁGINA: INICIO  (/)
   // ──────────────────────────────────────────
   siteSettingsCollection, // Portada e Inicio
+  faqCollection,          // Inicio — Preguntas frecuentes
 
   // ──────────────────────────────────────────
   // PÁGINA: CONÓCEME  (/conoceme)
@@ -41,12 +41,6 @@ export const collections: Collection[] = [
   coursesCollection,    // Cursos — Formaciones profesionales
 
   // ──────────────────────────────────────────
-  // PÁGINA: RESERVAR CITA  (/reserva)
-  // ──────────────────────────────────────────
-  bookingPageCollection, // Reservas — Página de citas
-  faqCollection,         // Reservas — Preguntas frecuentes
-
-  // ──────────────────────────────────────────
   // PÁGINA: CONTACTO  (/contacto)
   // ──────────────────────────────────────────
   contactPageCollection, // Contacto — Página de contacto
@@ -59,7 +53,6 @@ export {
   servicesCollection,
   resourcesCollection,
   coursesCollection,
-  bookingPageCollection,
   contactPageCollection,
   faqCollection,
   experienceCollection,

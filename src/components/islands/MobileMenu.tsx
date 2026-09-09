@@ -5,9 +5,15 @@ import { createPortal } from "react-dom";
 
 interface Props {
   items: NavItem[];
+  bookingUrl?: string;
+  bookingLabel?: string;
 }
 
-export default function MobileMenu({ items }: Props) {
+export default function MobileMenu({
+  items,
+  bookingUrl = "https://cal.com/maria-vega",
+  bookingLabel = "Reservar cita",
+}: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -75,11 +81,14 @@ export default function MobileMenu({ items }: Props) {
               ))}
               <div className="mt-8">
                 <a
-                  href="/reserva"
+                  href={bookingUrl}
+                  target={bookingUrl.startsWith("http") ? "_blank" : undefined}
+                  rel={bookingUrl.startsWith("http") ? "noopener noreferrer" : undefined}
                   onClick={() => setOpen(false)}
                   className="inline-flex w-full items-center justify-center gap-2 font-body font-medium rounded-lg px-6 py-3 text-base bg-sage text-white hover:bg-sage-600 shadow-premium active:bg-sage-700 transition-colors"
                 >
-                  Reservar cita
+                  <span>{bookingLabel}</span>
+                  {bookingUrl.startsWith("http") && <span aria-hidden="true">↗</span>}
                 </a>
               </div>
             </nav>

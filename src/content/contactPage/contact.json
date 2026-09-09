@@ -12,9 +12,9 @@
       "La primera cita es un espacio para conocernos y para que puedas contarme qué te trae. No hay compromiso de continuar. Podemos hablar de cómo funciona el proceso, de tus dudas y de si este espacio tiene sentido para ti."
     ],
     "calendarCta": {
-      "prefix": "Si ya lo tienes claro, puedes reservar directamente desde el ",
-      "linkLabel": "calendario de citas",
-      "linkHref": "/reserva",
+      "prefix": "Si deseas agendar tu sesión directamente sin esperar respuesta, puedes acceder a mi ",
+      "linkLabel": "agenda online en Cal.com",
+      "linkHref": "https://cal.com/maria-vega",
       "suffix": "."
     }
   },

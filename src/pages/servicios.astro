@@ -139,6 +139,7 @@ const jsonLd = buildJsonLdGraph(
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 <Button
                   href={item.primaryButtonHref}
+                  external={Boolean(item.primaryButtonHref?.startsWith("http"))}
                   size="md"
                   class="w-full text-center justify-center whitespace-nowrap px-4 text-sm sm:text-base font-medium"
                   data-tina-field={tinaField(item, "primaryButtonText")}

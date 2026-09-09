@@ -224,6 +224,14 @@ const siteSettings = defineCollection({
       homeTitle: z.string().optional(),
       homeDescription: z.string().optional(),
     }).optional(),
+    booking: z
+      .object({
+        calComUrl: z.string().optional().nullable(),
+        presencialUrl: z.string().optional().nullable(),
+        onlineUrl: z.string().optional().nullable(),
+      })
+      .optional()
+      .nullable(),
   }),
 });
 
@@ -275,65 +283,6 @@ const training = defineCollection({
   }),
 });
 
-const bookingPage = defineCollection({
-  loader: glob({ pattern: "booking.json", base: "./src/content/bookingPage" }),
-  schema: z.object({
-    seoTitle: z.string(),
-    seoDescription: z.string(),
-    hero: z.object({
-      label: z.string(),
-      title: z.string(),
-      intro: z.string(),
-    }),
-    sessionsSection: z
-      .object({
-        label: z.string().optional(),
-        title: z.string().optional(),
-      })
-      .optional(),
-    sessions: z.array(
-      z.object({
-        title: z.string(),
-        description: z.string(),
-        duration: z.string(),
-        format: z.string(),
-        icon: z.string(),
-        bookingUrl: z.string(),
-        badge: z.string().nullable().optional(),
-      })
-    ),
-    calendarSection: z
-      .object({
-        label: z.string().optional(),
-        title: z.string().optional(),
-      })
-      .optional(),
-    calComUsername: z.string().optional().nullable(),
-    combinedEventSlug: z.string().optional().nullable(),
-    faqSection: z
-      .object({
-        label: z.string().optional(),
-        title: z.string().optional(),
-        description: z.string().optional(),
-      })
-      .optional(),
-    faqItems: z.array(
-      z.object({
-        question: z.string(),
-        answer: z.string(),
-      })
-    ),
-    cta: z
-      .object({
-        title: z.string().optional(),
-        description: z.string().optional(),
-        label: z.string().optional(),
-        href: z.string().optional(),
-      })
-      .optional(),
-  }),
-});
-
 const servicesPage = defineCollection({
   loader: glob({ pattern: "services.json", base: "./src/content/servicesPage" }),
   schema: z.object({
@@ -382,5 +331,4 @@ export const collections = {
   contactPage,
   experience,
   training,
-  bookingPage,
 };

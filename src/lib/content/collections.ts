@@ -27,14 +27,6 @@ export async function getContactPage() {
   return page;
 }
 
-export async function getBookingPage() {
-  const items = await getCollection("bookingPage");
-  const page = items[0]?.data;
-  if (!page) {
-    throw new Error("Missing booking page at src/content/bookingPage/booking.json");
-  }
-  return page;
-}
 
 export async function getServicesPage() {
   const items = await getCollection("servicesPage");

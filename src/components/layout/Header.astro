@@ -15,7 +15,9 @@ const { pathname } = Astro.url;
 const normalizePath = (p: string) => p.replace(/\/$/, "") || "/";
 const normalizedPath = normalizePath(pathname);
 
-const navItems = mainNav.filter((item) => item.label !== "Reserva");
+const navItems = mainNav;
+const bookingUrl = settings.booking?.calComUrl || settings.hero?.primaryCta?.href || "https://cal.com/maria-vega";
+const bookingLabel = "Reservar cita";
 ---
 
 <header class="sticky top-0 z-40 bg-warm-100/90 border-b border-sage-100/30 backdrop-blur-md transition-all duration-300">
@@ -68,11 +70,21 @@ const navItems = mainNav.filter((item) => item.label !== "Reserva");
 
       <!-- CTA + Mobile toggle -->
       <div class="flex items-center gap-3">
-        <Button href="/reserva" size="sm" class="hidden md:inline-flex shrink-0">
-          Reservar cita
+        <Button
+          href={bookingUrl}
+          external={bookingUrl.startsWith("http")}
+          size="sm"
+          class="hidden md:inline-flex shrink-0"
+        >
+          {bookingLabel}
         </Button>
         <div class="relative">
-          <MobileMenu items={navItems} client:load />
+          <MobileMenu
+            items={navItems}
+            bookingUrl={bookingUrl}
+            bookingLabel={bookingLabel}
+            client:load
+          />
         </div>
       </div>
     </div>

@@ -1,17 +1,15 @@
 ---
 export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
-import ServicesGrid from "@/components/sections/ServicesGrid.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import ServicePage from "@/components/pages/ServicePage.astro";
-import { getServiceBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import { getServiceBySlug, getSiteSettings } from "@/lib/content/collections";
 import { buildServicePageJsonLd } from "@/lib/seo";
 
 import { tinaField } from "@tinacms/astro";
 
-let [settings, services, service] = await Promise.all([
+let [settings, service] = await Promise.all([
   getSiteSettings(),
-  getServicesForGrid(),
   getServiceBySlug("terapia-presencial"),
 ]);
 
@@ -43,20 +41,13 @@ const jsonLd = buildServicePageJsonLd({
   jsonLd={jsonLd}
 >
   <ServicePage slug="terapia-presencial" heroLayout="centered" standalone={false} />
-  <ServicesGrid
-    services={services.filter((s) => s.href !== "/terapia-presencial")}
-    sectionLabel={settings.servicesSection.label}
-    sectionTitle={settings.servicesSection.title}
-    tinaSectionLabelField={tinaField(settings.servicesSection, "label")}
-    tinaSectionTitleField={tinaField(settings.servicesSection, "title")}
-  />
   <CTASection
-    title={settings.cta.title}
-    description={settings.cta.description}
-    ctaLabel={settings.cta.label}
-    ctaHref={settings.cta.href}
+    title={service.data.ctaTitle || settings.cta.title}
+    description={service.data.ctaDescription || settings.cta.description}
+    ctaLabel={service.data.ctaLabel || "Reservar cita presencial"}
+    ctaHref={service.data.ctaHref || "https://cal.com/maria-vega/terapia-presencial"}
     tinaTitleField={tinaField(settings.cta, "title")}
     tinaDescriptionField={tinaField(settings.cta, "description")}
-    tinaCtaLabelField={tinaField(settings.cta, "label")}
+    tinaCtaLabelField={tinaField(service.data, "ctaLabel")}
   />
 </Layout>

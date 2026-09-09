@@ -95,13 +95,16 @@ const jsonLd = buildJsonLdGraph(
                     {firstConsultation?.title || "¿Prefieres agendar directamente?"}
                   </p>
                   <p class="text-ink-muted text-xs sm:text-sm leading-relaxed">
-                    {firstConsultation?.calendarCta?.prefix || "Si deseas reservar tu sesión ahora mismo sin esperar respuesta, puedes consultar mi disponibilidad en el "}
+                    {firstConsultation?.calendarCta?.prefix || "Si deseas agendar tu sesión directamente sin esperar respuesta, puedes acceder a mi "}
                     <a
-                      href={firstConsultation?.calendarCta?.linkHref || "/reserva"}
-                      class="text-sage font-semibold underline underline-offset-4 hover:text-sage-700"
+                      href={firstConsultation?.calendarCta?.linkHref || "https://cal.com/maria-vega"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-sage font-semibold underline underline-offset-4 hover:text-sage-700 inline-flex items-center gap-0.5"
                       data-tina-field={tinaField(page.firstConsultation.calendarCta, "linkLabel")}
                     >
-                      {firstConsultation?.calendarCta?.linkLabel || "calendario de citas"}
+                      <span>{firstConsultation?.calendarCta?.linkLabel || "agenda online en Cal.com"}</span>
+                      <span aria-hidden="true" class="text-xs">↗</span>
                     </a>
                     {firstConsultation?.calendarCta?.suffix || "."}
                   </p>
