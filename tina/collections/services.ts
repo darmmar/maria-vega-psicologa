@@ -4,7 +4,7 @@ import { richTextBodyField } from "../shared/rich-text";
 
 export const servicesCollection: Collection = {
   name: "services",
-  label: "🩺 Servicios · Fichas de especialidades",
+  label: "Servicios · Fichas de especialidades",
   path: "src/content/servicios",
   format: "mdx",
   ui: {

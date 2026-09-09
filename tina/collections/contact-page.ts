@@ -3,7 +3,7 @@ import { singletonUi } from "../shared/helpers";
 
 export const contactPageCollection: Collection = {
   name: "contactPage",
-  label: "✉️ Contacto · Página de contacto",
+  label: "Contacto · Página de contacto",
   path: "src/content/contactPage",
   format: "json",
   ui: {

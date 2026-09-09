@@ -2,7 +2,7 @@ import type { Collection } from "tinacms";
 
 export const experienceCollection: Collection = {
   name: "experience",
-  label: "💼 Conóceme · Trayectoria y experiencia",
+  label: "Conóceme · Trayectoria y experiencia",
   path: "src/content/experience",
   format: "json",
   fields: [

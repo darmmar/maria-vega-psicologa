@@ -5,7 +5,11 @@ export function registerPublishPlugin(cms: TinaCMS) {
   cms.plugins.add({
     __type: "screen",
     name: "Publicar a Producción",
-    Icon: () => React.createElement("span", { style: { fontSize: "1.1rem" } }, "🚀"),
+    Icon: () => (
+      <svg style={{ width: "1.1rem", height: "1.1rem" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+      </svg>
+    ),
     layout: "popup",
     Component() {
       const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -59,7 +63,7 @@ export function registerPublishPlugin(cms: TinaCMS) {
       return (
         <div style={{ padding: "2rem", maxWidth: "620px", fontFamily: "system-ui, sans-serif" }}>
           <h2 style={{ fontSize: "1.4rem", fontWeight: 600, marginBottom: "0.5rem", color: "#1e2921" }}>
-            🚀 Publicar cambios de Desarrollo a Producción
+            Publicar cambios de Desarrollo a Producción
           </h2>
           <p style={{ color: "#4b5563", fontSize: "0.95rem", lineHeight: 1.5, marginBottom: "1.5rem" }}>
             Este botón activa el flujo automatizado en GitHub Actions para fusionar todos los cambios

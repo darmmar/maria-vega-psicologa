@@ -9,6 +9,9 @@ declare global {
 interface Props {
   calLink?: string;
   defaultUsername?: string;
+  combinedEventSlug?: string;
+  presencialEventSlug?: string;
+  onlineEventSlug?: string;
   className?: string;
 }
 
@@ -60,6 +63,9 @@ function initCalScript() {
 export default function CalEmbed({
   calLink: initialCalLink = "maria-vega",
   defaultUsername = "maria-vega",
+  combinedEventSlug,
+  presencialEventSlug,
+  onlineEventSlug,
   className = "",
 }: Props) {
   const [selectedType, setSelectedType] = useState<"presencial" | "online" | "all">("all");
@@ -97,12 +103,18 @@ export default function CalEmbed({
     };
   }, []);
 
-  // Calcular el enlace exacto según la modalidad
+  // Calcular el enlace exacto según la modalidad seleccionada
+  const presencialSlug = presencialEventSlug?.trim() || "terapia-presencial";
+  const onlineSlug = onlineEventSlug?.trim() || "terapia-online";
+  const combinedSlug = combinedEventSlug?.trim();
+
   const activeLink =
     selectedType === "presencial"
-      ? `${defaultUsername}/terapia-presencial`
+      ? `${defaultUsername}/${presencialSlug}`
       : selectedType === "online"
-      ? `${defaultUsername}/terapia-online`
+      ? `${defaultUsername}/${onlineSlug}`
+      : combinedSlug
+      ? `${defaultUsername}/${combinedSlug}`
       : initialCalLink || defaultUsername;
 
   // Montar el calendario con la API inline de Cal
@@ -139,42 +151,52 @@ export default function CalEmbed({
 
   return (
     <div className={`cal-booking-wrapper ${className}`}>
-      {/* Selector de pestañas / modalidades */}
+      {/* Selector de pestañas / modalidades sin emojis, con iconos SVG profesionales */}
       <div className="flex flex-wrap items-center justify-center gap-2 mb-6 p-1.5 bg-warm-100/70 rounded-2xl border border-ink-border/20 max-w-xl mx-auto">
         <button
           type="button"
           onClick={() => handleTabClick("all")}
-          className={`flex-1 min-w-[120px] py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all duration-200 ${
+          className={`flex-1 min-w-[130px] inline-flex items-center justify-center gap-2 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all duration-200 ${
             selectedType === "all"
-              ? "bg-white text-ink shadow-sm font-semibold border border-ink-border/20"
-              : "text-ink-muted hover:text-ink hover:bg-white/50"
+              ? "bg-sage text-white shadow-soft font-semibold"
+              : "text-ink-muted hover:text-ink hover:bg-white/60"
           }`}
         >
-          ✨ Ambas opciones
+          <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.253 3.75m-18 0h19.5m-19.5 0v12.75c0 1.036.84 1.875 1.875 1.875h15.75c1.035 0 1.875-.84 1.875-1.875V7.5M4.5 19.5h15" />
+          </svg>
+          <span>Agenda completa</span>
         </button>
 
         <button
           type="button"
           onClick={() => handleTabClick("presencial")}
-          className={`flex-1 min-w-[140px] py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all duration-200 ${
+          className={`flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all duration-200 ${
             selectedType === "presencial"
-              ? "bg-sage text-white shadow-sm font-semibold"
-              : "text-ink-muted hover:text-ink hover:bg-white/50"
+              ? "bg-sage text-white shadow-soft font-semibold"
+              : "text-ink-muted hover:text-ink hover:bg-white/60"
           }`}
         >
-          📍 Presencial (Málaga)
+          <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+          </svg>
+          <span>Presencial (Málaga)</span>
         </button>
 
         <button
           type="button"
           onClick={() => handleTabClick("online")}
-          className={`flex-1 min-w-[140px] py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all duration-200 ${
+          className={`flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 py-2.5 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all duration-200 ${
             selectedType === "online"
-              ? "bg-sage text-white shadow-sm font-semibold"
-              : "text-ink-muted hover:text-ink hover:bg-white/50"
+              ? "bg-sage text-white shadow-soft font-semibold"
+              : "text-ink-muted hover:text-ink hover:bg-white/60"
           }`}
         >
-          💻 Online (Videollamada)
+          <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75} aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9A2.25 2.25 0 0 0 13.5 5.25h-9A2.25 2.25 0 0 0 2.25 7.5v9A2.25 2.25 0 0 0 4.5 18.75Z" />
+          </svg>
+          <span>Online (Videollamada)</span>
         </button>
       </div>
 
@@ -194,7 +216,15 @@ export default function CalEmbed({
         )}
         {selectedType === "all" && (
           <p>
-            Elige en el calendario entre consulta presencial u online para ver los días y horas disponibles.
+            {combinedSlug ? (
+              <>
+                Mostrando <strong>calendario conjunto</strong> con disponibilidad para ambas modalidades (presencial en Málaga y online por videollamada).
+              </>
+            ) : (
+              <>
+                Elige en el calendario la modalidad que prefieras o pulsa directamente en <strong>Presencial</strong> u <strong>Online</strong> para abrir los días y horas de cada una.
+              </>
+            )}
           </p>
         )}
       </div>

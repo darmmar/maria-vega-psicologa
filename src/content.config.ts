@@ -309,6 +309,7 @@ const bookingPage = defineCollection({
       })
       .optional(),
     calComUsername: z.string().optional().nullable(),
+    combinedEventSlug: z.string().optional().nullable(),
     faqSection: z
       .object({
         label: z.string().optional(),

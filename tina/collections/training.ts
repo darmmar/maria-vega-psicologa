@@ -2,7 +2,7 @@ import type { Collection } from "tinacms";
 
 export const trainingCollection: Collection = {
   name: "training",
-  label: "📜 Conóceme · Formación académica",
+  label: "Conóceme · Formación académica",
   path: "src/content/training",
   format: "json",
   fields: [

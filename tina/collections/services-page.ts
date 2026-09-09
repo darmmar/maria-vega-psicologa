@@ -3,7 +3,7 @@ import { singletonUi } from "../shared/helpers";
 
 export const servicesPageCollection: Collection = {
   name: "servicesPage",
-  label: "🩺 Servicios · Cabecera y modalidades",
+  label: "Servicios · Cabecera y modalidades",
   path: "src/content/servicesPage",
   format: "json",
   ui: {

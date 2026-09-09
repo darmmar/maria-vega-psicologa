@@ -3,7 +3,7 @@ import { singletonUi } from "../shared/helpers";
 
 export const bookingPageCollection: Collection = {
   name: "bookingPage",
-  label: "📅 Reservas · Página principal",
+  label: "Reservas · Página principal",
   path: "src/content/bookingPage",
   format: "json",
   ui: {
@@ -129,6 +129,13 @@ export const bookingPageCollection: Collection = {
       label: "5. Calendario interactivo incrustado de Cal.com (opcional)",
       description:
         "Escribe aquí tu nombre de usuario de Cal.com (ej: maria-vega) si quieres mostrar el calendario interactivo directamente integrado dentro de la página. Si lo dejas vacío, los pacientes reservarán pulsando los botones de las tarjetas de arriba.",
+    },
+    {
+      type: "string",
+      name: "combinedEventSlug",
+      label: "Slug del evento de agenda conjunta en Cal.com (opcional)",
+      description:
+        "Si creas un evento unificado en Cal.com con ambas ubicaciones (ej: sesion-terapia o primera-consulta), indícalo aquí para que la pestaña 'Agenda completa' cargue directamente el calendario mensual único.",
     },
     {
       type: "object",
