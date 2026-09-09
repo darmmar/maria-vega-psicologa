@@ -3,7 +3,6 @@ export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import Card from "@/components/ui/Card.astro";
-import Button from "@/components/ui/Button.astro";
 import PageHero from "@/components/ui/PageHero.astro";
 import BookingPrivacyNotice from "@/components/sections/BookingPrivacyNotice.astro";
 import CalEmbed from "@/components/islands/CalEmbed";
@@ -72,50 +71,64 @@ const jsonLd = buildJsonLdGraph(
 
       <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto animate-fade-in-up">
         {
-          sessions.map((event, index) => (
-            <Card
-              class="flex flex-col gap-4 p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300"
-              data-tina-field={tinaField(page, "sessions", index)}
-            >
-              <div class="flex-1">
-                <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center text-sage mb-5" aria-hidden="true">
-                  <Icon name={event.icon} class="w-5 h-5" />
-                </div>
-                {event.badge && (
-                  <span
-                    class="inline-block mb-4 rounded-full bg-blush/10 border border-blush/20 px-3 py-1 text-[10px] font-semibold text-blush-700 label-caps tracking-wide"
-                    data-tina-field={tinaField(event, "badge")}
-                  >
-                    {event.badge}
-                  </span>
-                )}
-                <h3 class="font-display text-xl font-normal text-ink mb-3" data-tina-field={tinaField(event, "title")}>{event.title}</h3>
-                <p class="font-body text-sm text-ink-muted leading-relaxed mb-5" data-tina-field={tinaField(event, "description")}>
-                  {event.description}
-                </p>
-                <div class="flex flex-wrap gap-4 text-xs text-ink-muted border-t border-ink-border/10 pt-4 font-body">
-                  <span class="flex items-center gap-1.5" data-tina-field={tinaField(event, "duration")}>
-                    <Icon name="lucide:clock" class="w-4 h-4 text-sage" aria-hidden="true" />
-                    {event.duration}
-                  </span>
-                  <span class="flex items-center gap-1.5" data-tina-field={tinaField(event, "format")}>
-                    <Icon name={event.icon} class="w-4 h-4 text-sage" aria-hidden="true" />
-                    {event.format}
-                  </span>
-                </div>
-              </div>
-              <Button
-                href={event.bookingUrl}
-                variant="secondary"
-                size="sm"
-                external
-                class="w-full"
-                data-tina-field={tinaField(event, "bookingUrl")}
+          sessions.map((event, index) => {
+            const isPresencial = event.title.toLowerCase().includes("presencial");
+            const tipo = isPresencial ? "presencial" : "online";
+            const infoHref = isPresencial ? "/terapia-presencial" : "/terapia-online";
+            const infoText = isPresencial
+              ? "Conoce los detalles de la consulta presencial →"
+              : "Conoce los detalles de la terapia online →";
+
+            return (
+              <Card
+                class="flex flex-col gap-4 p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300"
+                data-tina-field={tinaField(page, "sessions", index)}
               >
-                Reservar esta sesión
-              </Button>
-            </Card>
-          ))
+                <div class="flex-1">
+                  <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center text-sage mb-5" aria-hidden="true">
+                    <Icon name={event.icon} class="w-5 h-5" />
+                  </div>
+                  {event.badge && (
+                    <span
+                      class="inline-block mb-4 rounded-full bg-blush/10 border border-blush/20 px-3 py-1 text-[10px] font-semibold text-blush-700 label-caps tracking-wide"
+                      data-tina-field={tinaField(event, "badge")}
+                    >
+                      {event.badge}
+                    </span>
+                  )}
+                  <h3 class="font-display text-xl font-normal text-ink mb-3" data-tina-field={tinaField(event, "title")}>{event.title}</h3>
+                  <p class="font-body text-sm text-ink-muted leading-relaxed mb-5" data-tina-field={tinaField(event, "description")}>
+                    {event.description}
+                  </p>
+                  <div class="flex flex-wrap gap-4 text-xs text-ink-muted border-t border-ink-border/10 pt-4 font-body">
+                    <span class="flex items-center gap-1.5" data-tina-field={tinaField(event, "duration")}>
+                      <Icon name="lucide:clock" class="w-4 h-4 text-sage" aria-hidden="true" />
+                      {event.duration}
+                    </span>
+                    <span class="flex items-center gap-1.5" data-tina-field={tinaField(event, "format")}>
+                      <Icon name={event.icon} class="w-4 h-4 text-sage" aria-hidden="true" />
+                      {event.format}
+                    </span>
+                  </div>
+                </div>
+                <div class="pt-2">
+                  <a
+                    href="#calendario"
+                    data-select-cal-type={tipo}
+                    class="w-full text-center justify-center inline-flex items-center gap-1.5 text-sm font-medium py-3 px-4 rounded-xl bg-sage text-white hover:bg-sage-600 shadow-sm transition-all duration-200"
+                  >
+                    Ver citas disponibles en calendario ↓
+                  </a>
+                  <a
+                    href={infoHref}
+                    class="text-xs text-sage font-medium hover:underline text-center block pt-3 font-body"
+                  >
+                    {infoText}
+                  </a>
+                </div>
+              </Card>
+            );
+          })
         }
       </div>
     </Container>
@@ -124,26 +137,39 @@ const jsonLd = buildJsonLdGraph(
   <!-- Aviso de privacidad + Embed Cal.com -->
   {
     calComUsername && (
-      <section class="section-gap-tight bg-gradient-to-b from-warm-100/50 to-warm-200/30 border-y border-ink-border/10">
+      <section id="calendario" class="section-gap-tight bg-gradient-to-b from-warm-100/50 to-warm-200/30 border-y border-ink-border/10 scroll-mt-24">
         <Container>
           <div class="max-w-4xl mx-auto">
-            <span class="label-caps text-sage block mb-4">Calendario</span>
-            <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-6 leading-tight">
-              Elige día y hora
-            </h2>
+            <div class="text-center mb-8">
+              <span class="label-caps text-sage block mb-2">Calendario en vivo</span>
+              <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight">
+                Elige tu cita online o presencial
+              </h2>
+            </div>
 
             <div class="mb-6">
               <BookingPrivacyNotice />
             </div>
 
-            <div class="rounded-3xl overflow-hidden border border-ink-border/20 bg-white shadow-premium p-1">
-              <CalEmbed calLink={calComUsername} client:visible />
+            <div class="rounded-3xl overflow-hidden border border-ink-border/20 bg-white shadow-premium p-4 sm:p-6">
+              <CalEmbed client:load calLink={calComUsername} defaultUsername={calComUsername} />
             </div>
           </div>
         </Container>
       </section>
     )
   }
+
+  <script>
+    document.querySelectorAll("[data-select-cal-type]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const type = btn.getAttribute("data-select-cal-type");
+        if (type) {
+          window.dispatchEvent(new CustomEvent("cal-select-type", { detail: type }));
+        }
+      });
+    });
+  </script>
 
   <!-- FAQ reservas -->
   <section class="section-gap-tight bg-gradient-to-b from-warm-50/10 to-warm-100/20">
