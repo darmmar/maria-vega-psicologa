@@ -42,8 +42,17 @@ export const bookingPageCollection: Collection = {
     },
     {
       type: "object",
+      name: "sessionsSection",
+      label: "2. Cabecera del bloque «Tipos de sesión»",
+      fields: [
+        { type: "string", name: "label", label: "Etiqueta superior (ej: «Tipos de sesión»)" },
+        { type: "string", name: "title", label: "Título (ej: «¿Qué tipo de cita necesitas?»)" },
+      ],
+    },
+    {
+      type: "object",
       name: "sessions",
-      label: "2. Tarjetas de tipos de sesión (Presencial, Online, etc.)",
+      label: "3. Tarjetas de tipos de sesión (Presencial, Online, etc.)",
       list: true,
       ui: {
         itemProps: (item) => ({
@@ -106,16 +115,34 @@ export const bookingPageCollection: Collection = {
       ],
     },
     {
+      type: "object",
+      name: "calendarSection",
+      label: "4. Cabecera del calendario interactivo",
+      fields: [
+        { type: "string", name: "label", label: "Etiqueta superior (ej: «Calendario en vivo»)" },
+        { type: "string", name: "title", label: "Título (ej: «Elige tu cita online o presencial»)" },
+      ],
+    },
+    {
       type: "string",
       name: "calComUsername",
-      label: "3. Calendario interactivo incrustado de Cal.com (opcional)",
+      label: "5. Calendario interactivo incrustado de Cal.com (opcional)",
       description:
         "Escribe aquí tu nombre de usuario de Cal.com (ej: maria-vega) si quieres mostrar el calendario interactivo directamente integrado dentro de la página. Si lo dejas vacío, los pacientes reservarán pulsando los botones de las tarjetas de arriba.",
     },
     {
       type: "object",
+      name: "faqSection",
+      label: "6. Cabecera de Preguntas Frecuentes",
+      fields: [
+        { type: "string", name: "label", label: "Etiqueta superior (ej: «FAQ»)" },
+        { type: "string", name: "title", label: "Título (ej: «Preguntas sobre las citas»)" },
+      ],
+    },
+    {
+      type: "object",
       name: "faqItems",
-      label: "4. Preguntas frecuentes sobre citas y reservas",
+      label: "7. Preguntas frecuentes sobre citas y reservas",
       list: true,
       ui: {
         itemProps: (item) => ({
@@ -136,6 +163,17 @@ export const bookingPageCollection: Collection = {
           required: true,
           ui: { component: "textarea" },
         },
+      ],
+    },
+    {
+      type: "object",
+      name: "cta",
+      label: "8. Bloque final de contacto alternativo",
+      fields: [
+        { type: "string", name: "title", label: "Título (ej: «¿Prefieres contactar primero?»)" },
+        { type: "string", name: "description", label: "Descripción", ui: { component: "textarea" } },
+        { type: "string", name: "label", label: "Texto del botón (ej: «Ir a contacto»)" },
+        { type: "string", name: "href", label: "Enlace del botón (ej: /contacto)" },
       ],
     },
     {

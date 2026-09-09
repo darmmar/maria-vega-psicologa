@@ -25,6 +25,12 @@ export const resourcesCollection: Collection = {
     },
     {
       type: "string",
+      name: "heroLabel",
+      label: "Sobre-título de la cabecera (Badge / Categoría)",
+      description: "Texto pequeño sobre el título (por defecto: «Recurso»).",
+    },
+    {
+      type: "string",
       name: "slug",
       label: "Identificador en la URL (Slug)",
       description: "Texto para la dirección web (ej: duelo-y-culpa generará /recursos/duelo-y-culpa).",

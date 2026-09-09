@@ -4,6 +4,10 @@
     "title": "Reservar cita",
     "intro": "Elige el día y la hora que mejor se adapten a tu horario para reservar tu sesión. El proceso es rápido, confidencial y sin esperas."
   },
+  "sessionsSection": {
+    "label": "Tipos de sesión",
+    "title": "¿Qué tipo de cita necesitas?"
+  },
   "sessions": [
     {
       "title": "Terapia presencial",
@@ -24,7 +28,15 @@
       "badge": ""
     }
   ],
+  "calendarSection": {
+    "label": "Calendario en vivo",
+    "title": "Elige tu cita online o presencial"
+  },
   "calComUsername": "maria-vega",
+  "faqSection": {
+    "label": "FAQ",
+    "title": "Preguntas sobre las citas"
+  },
   "faqItems": [
     {
       "question": "¿Cuáles son los horarios disponibles?",
@@ -51,6 +63,12 @@
       "answer": "Puedes cancelar o cambiar tu cita desde el enlace del correo de confirmación, con al menos 24 horas de antelación. Para cambios de último momento, escríbeme directamente."
     }
   ],
+  "cta": {
+    "title": "¿Prefieres contactar primero?",
+    "description": "Si tienes dudas antes de reservar, escríbeme. Estaré encantada de resolverlas.",
+    "label": "Ir a contacto",
+    "href": "/contacto"
+  },
   "seoTitle": "Reserva tu cita",
   "seoDescription": "Reserva tu cita con María Vega, psicóloga en Málaga. Primera consulta y sesiones de seguimiento disponibles online y en consulta."
 }

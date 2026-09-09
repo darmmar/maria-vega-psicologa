@@ -71,12 +71,24 @@
     "ctaLabel": "Ver cursos",
     "ctaHref": "/cursos"
   },
+  "faqSection": {
+    "label": "Preguntas frecuentes",
+    "title": "Respuestas sobre el proceso de terapia",
+    "description": "Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza."
+  },
   "coursesPage": {
     "label": "Formación profesional",
     "title": "Cursos para profesionales",
     "intro": "Formaciones para psicólogos/as y profesionales de la salud mental. Aprende destrezas clínicas con rigor y sensibilidad.",
     "seoTitle": "Cursos para profesionales de la salud mental",
     "seoDescription": "Cursos y formaciones para psicólogos y profesionales de la salud mental. Formación clínica en duelo y otras especialidades."
+  },
+  "resourcesPage": {
+    "label": "Recursos",
+    "title": "Recursos psicoeducativos",
+    "intro": "Artículos para entender mejor el malestar emocional y el proceso terapéutico.",
+    "seoTitle": "Recursos psicoeducativos",
+    "seoDescription": "Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional."
   },
   "contact": {
     "email": "mariavega.psy@gmail.com",

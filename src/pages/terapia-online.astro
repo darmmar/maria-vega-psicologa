@@ -7,11 +7,24 @@ import ServicePage from "@/components/pages/ServicePage.astro";
 import { getServiceBySlug, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
 import { buildServicePageJsonLd } from "@/lib/seo";
 
-const [settings, services, service] = await Promise.all([
+import { tinaField } from "@tinacms/astro";
+
+let [settings, services, service] = await Promise.all([
   getSiteSettings(),
   getServicesForGrid(),
   getServiceBySlug("terapia-online"),
 ]);
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaSettingsRes = await requestWithMetadata(
+    client.queries.siteSettings({ relativePath: "settings.json" })
+  );
+  if (tinaSettingsRes?.data?.siteSettings) {
+    settings = { ...settings, ...(tinaSettingsRes.data.siteSettings as any) };
+  }
+} catch (e) {}
 
 if (!service) return Astro.redirect("/404");
 
@@ -34,11 +47,16 @@ const jsonLd = buildServicePageJsonLd({
     services={services.filter((s) => s.href !== "/terapia-online")}
     sectionLabel={settings.servicesSection.label}
     sectionTitle={settings.servicesSection.title}
+    tinaSectionLabelField={tinaField(settings.servicesSection, "label")}
+    tinaSectionTitleField={tinaField(settings.servicesSection, "title")}
   />
   <CTASection
     title={settings.cta.title}
     description={settings.cta.description}
     ctaLabel={settings.cta.label}
     ctaHref={settings.cta.href}
+    tinaTitleField={tinaField(settings.cta, "title")}
+    tinaDescriptionField={tinaField(settings.cta, "description")}
+    tinaCtaLabelField={tinaField(settings.cta, "label")}
   />
 </Layout>

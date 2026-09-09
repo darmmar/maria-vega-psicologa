@@ -2,13 +2,19 @@
 import Container from "@/components/ui/Container.astro";
 import { Icon } from "astro-icon/components";
 import { getSiteSettings, getPublishedTraining } from "@/lib/content/collections";
+import { tinaField } from "@tinacms/astro";
 
-const settings = await getSiteSettings();
-const { trainingSection } = settings;
+interface Props {
+  trainingSection?: any;
+  items?: any[];
+}
 
-const trainingItems = await getPublishedTraining();
-const clinical = trainingItems.filter((i) => i.data.category === "clinical");
-const complementary = trainingItems.filter((i) => i.data.category === "complementary");
+const propsSection = Astro.props.trainingSection;
+const trainingSection = propsSection ?? (await getSiteSettings()).trainingSection;
+
+const trainingItems = Astro.props.items ?? (await getPublishedTraining());
+const clinical = trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "clinical");
+const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "complementary");
 ---
 
 <section class="section-gap bg-gradient-to-b from-warm-100 to-warm-200">
@@ -16,48 +22,74 @@ const complementary = trainingItems.filter((i) => i.data.category === "complemen
     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sage/5 to-sage/15 border border-sage/10 flex items-center justify-center mb-5 text-sage shadow-soft">
       <Icon name="lucide:graduation-cap" class="w-6 h-6" aria-hidden="true" />
     </div>
-    <span class="label-caps text-sage block mb-4">{trainingSection.label}</span>
-    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight">
+    <span class="label-caps text-sage block mb-4" data-tina-field={tinaField(trainingSection, "label")}>
+      {trainingSection.label}
+    </span>
+    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight" data-tina-field={tinaField(trainingSection, "title")}>
       {trainingSection.title}
     </h2>
 
     <div class="grid md:grid-cols-2 gap-8">
       <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 border-t-2 border-t-sage/25 backdrop-blur-sm shadow-premium">
-        <h3 class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10">
+        <h3
+          class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10"
+          data-tina-field={tinaField(trainingSection, "clinicalTitle")}
+        >
           {trainingSection.clinicalTitle}
         </h3>
         <div class="space-y-6">
           {
-            clinical.map((item) => (
-              <div class="border-l-2 border-sage pl-5 relative py-0.5">
-                <div class="absolute w-2 h-2 rounded-full bg-sage -left-[5px] top-2 border border-white" />
-                <p class="font-medium text-ink leading-snug font-body">{item.data.degree}</p>
-                <p class="text-sm text-ink-muted mt-1 font-body">
-                  {item.data.institution}
-                  {item.data.year ? ` · ${item.data.year}` : ""}
-                </p>
-              </div>
-            ))
+            clinical.map((item: any) => {
+              const tinaNode = item.tinaNode ?? item.data;
+              const degree = item.data?.degree ?? item.degree;
+              const institution = item.data?.institution ?? item.institution;
+              const year = item.data?.year ?? item.year;
+
+              return (
+                <div class="border-l-2 border-sage pl-5 relative py-0.5">
+                  <div class="absolute w-2 h-2 rounded-full bg-sage -left-[5px] top-2 border border-white" />
+                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "degree") : undefined}>
+                    {degree}
+                  </p>
+                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "institution") : undefined}>
+                    {institution}
+                    {year ? ` · ${year}` : ""}
+                  </p>
+                </div>
+              );
+            })
           }
         </div>
       </div>
 
       <div class="p-6 rounded-2xl bg-white/40 border border-ink-border/20 border-t-2 border-t-blush/25 backdrop-blur-sm shadow-premium">
-        <h3 class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10">
+        <h3
+          class="font-display text-xl font-normal text-ink mb-7 pb-2 border-b border-ink-border/10"
+          data-tina-field={tinaField(trainingSection, "complementaryTitle")}
+        >
           {trainingSection.complementaryTitle}
         </h3>
         <div class="space-y-6">
           {
-            complementary.map((item) => (
-              <div class="border-l-2 border-blush pl-5 relative py-0.5">
-                <div class="absolute w-2 h-2 rounded-full bg-blush -left-[5px] top-2 border border-white" />
-                <p class="font-medium text-ink leading-snug font-body">{item.data.degree}</p>
-                <p class="text-sm text-ink-muted mt-1 font-body">
-                  {item.data.institution}
-                  {item.data.year ? ` · ${item.data.year}` : ""}
-                </p>
-              </div>
-            ))
+            complementary.map((item: any) => {
+              const tinaNode = item.tinaNode ?? item.data;
+              const degree = item.data?.degree ?? item.degree;
+              const institution = item.data?.institution ?? item.institution;
+              const year = item.data?.year ?? item.year;
+
+              return (
+                <div class="border-l-2 border-blush pl-5 relative py-0.5">
+                  <div class="absolute w-2 h-2 rounded-full bg-blush -left-[5px] top-2 border border-white" />
+                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "degree") : undefined}>
+                    {degree}
+                  </p>
+                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaNode ? tinaField(tinaNode, "institution") : undefined}>
+                    {institution}
+                    {year ? ` · ${year}` : ""}
+                  </p>
+                </div>
+              );
+            })
           }
         </div>
       </div>

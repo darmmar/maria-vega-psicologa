@@ -1,18 +1,25 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import FAQAccordion from "@/components/islands/FAQAccordion";
-import type { FaqItem } from "@/lib/seo";
 
 interface Props {
-  items: FaqItem[];
+  items: any[];
+  label?: string;
   title?: string;
   description?: string;
+  tinaLabelField?: string;
+  tinaTitleField?: string;
+  tinaDescriptionField?: string;
 }
 
 const {
   items,
+  label = "Preguntas frecuentes",
   title = "Respuestas sobre el proceso de terapia",
   description = "Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza.",
+  tinaLabelField,
+  tinaTitleField,
+  tinaDescriptionField,
 } = Astro.props;
 ---
 
@@ -20,11 +27,11 @@ const {
   <Container>
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-10 md:mb-12">
-        <span class="label-caps text-sage block mb-3">Preguntas frecuentes</span>
-        <h2 class="font-display text-3xl md:text-4xl font-normal text-ink leading-tight mb-4">
+        <span class="label-caps text-sage block mb-3" data-tina-field={tinaLabelField}>{label}</span>
+        <h2 class="font-display text-3xl md:text-4xl font-normal text-ink leading-tight mb-4" data-tina-field={tinaTitleField}>
           {title}
         </h2>
-        <p class="text-ink-muted text-base md:text-lg max-w-xl mx-auto font-body">
+        <p class="text-ink-muted text-base md:text-lg max-w-xl mx-auto font-body" data-tina-field={tinaDescriptionField}>
           {description}
         </p>
       </div>

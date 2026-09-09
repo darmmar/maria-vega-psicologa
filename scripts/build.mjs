@@ -35,7 +35,9 @@ loadEnvFile(".env.local");
 loadEnvFile(".env");
 
 const clientIdRaw =
-  process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? process.env.TINA_CLIENT_ID;
+  process.env.PUBLIC_TINA_CLIENT_ID ??
+  process.env.NEXT_PUBLIC_TINA_CLIENT_ID ??
+  process.env.TINA_CLIENT_ID;
 const tokenRaw = process.env.TINA_TOKEN;
 
 const clientId = clientIdRaw?.trim();
@@ -45,9 +47,9 @@ const missing = [];
 const empty = [];
 
 if (!clientIdRaw) {
-  missing.push("NEXT_PUBLIC_TINA_CLIENT_ID (or TINA_CLIENT_ID)");
+  missing.push("PUBLIC_TINA_CLIENT_ID (or NEXT_PUBLIC_TINA_CLIENT_ID / TINA_CLIENT_ID)");
 } else if (!clientId) {
-  empty.push("NEXT_PUBLIC_TINA_CLIENT_ID (or TINA_CLIENT_ID)");
+  empty.push("PUBLIC_TINA_CLIENT_ID (or NEXT_PUBLIC_TINA_CLIENT_ID / TINA_CLIENT_ID)");
 }
 
 if (!tokenRaw) {
@@ -67,11 +69,12 @@ if (missing.length > 0 || empty.length > 0) {
   console.error(`
 Copia los valores desde app.tina.io → tu proyecto → Project setup / Tokens.
 
-En Cloudflare Pages: Settings → Environment variables
-  • Añade en Production (y Preview si deseas):
-      NEXT_PUBLIC_TINA_CLIENT_ID  ← Client ID (recomendado por Tina)
-      TINA_CLIENT_ID              ← alias aceptado por este repo
+En Cloudflare (Workers / Pages): Settings → Environment variables
+  • Añade en Production y Preview:
+      PUBLIC_TINA_CLIENT_ID       ← Client ID estándar en Astro
+      NEXT_PUBLIC_TINA_CLIENT_ID  ← alias retrocompatible
       TINA_TOKEN                  ← Content / Read-only token (NO "Search token")
+      PUBLIC_TINA_BRANCH          ← Rama de Tina (ej: main en prod, dev en preview)
       TINA_SEARCH_TOKEN           ← Search token opcional
 
 Errores frecuentes:
@@ -83,12 +86,11 @@ Errores frecuentes:
   process.exit(1);
 }
 
-// Tina docs use NEXT_PUBLIC_TINA_CLIENT_ID; config reads both names.
-if (!process.env.NEXT_PUBLIC_TINA_CLIENT_ID && process.env.TINA_CLIENT_ID) {
-  process.env.NEXT_PUBLIC_TINA_CLIENT_ID = process.env.TINA_CLIENT_ID;
-}
-if (!process.env.TINA_CLIENT_ID && process.env.NEXT_PUBLIC_TINA_CLIENT_ID) {
-  process.env.TINA_CLIENT_ID = process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
+// Sincronizar variantes de Client ID para Astro, Tina CLI y Vite
+if (clientId) {
+  process.env.PUBLIC_TINA_CLIENT_ID = clientId;
+  process.env.NEXT_PUBLIC_TINA_CLIENT_ID = clientId;
+  process.env.TINA_CLIENT_ID = clientId;
 }
 
 function run(command, args = []) {

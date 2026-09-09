@@ -71,10 +71,12 @@ const jsonLd = buildJsonLdGraph(
   publishedTime={resource.data.publishedAt}
 >
   <PageHero
+    label={(resource.data as any).heroLabel || "Recurso"}
     title={resource.data.title}
     description={resource.data.description}
     align="left"
     maxWidth="2xl"
+    tinaLabelField={tinaData ? tinaField(tinaData, "heroLabel") : undefined}
     tinaTitleField={tinaData ? tinaField(tinaData, "title") : undefined}
     tinaDescriptionField={tinaData ? tinaField(tinaData, "description") : undefined}
   />

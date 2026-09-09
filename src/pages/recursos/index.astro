@@ -1,67 +1,125 @@
 ---
+export const prerender = false;
 import Layout from '@/components/layout/Layout.astro'
 import Container from '@/components/ui/Container.astro'
 import Badge from '@/components/ui/Badge.astro'
 import PageHero from '@/components/ui/PageHero.astro'
-import { getPublishedResources } from '@/lib/content/collections'
+import { getPublishedResources, getSiteSettings } from '@/lib/content/collections'
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from '@/lib/seo'
+import { tinaField } from '@tinacms/astro'
 
-const resources = await getPublishedResources()
+let [settings, resources] = await Promise.all([
+  getSiteSettings(),
+  getPublishedResources(),
+]);
+
+let tinaResourcesMap = new Map();
+try {
+  const { requestWithMetadata } = await import('@tinacms/astro');
+  const client = (await import('../../../tina/__generated__/client')).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.siteSettings({ relativePath: 'settings.json' }),
+    { priority: 'primary' }
+  );
+  if (tinaRes?.data?.siteSettings) {
+    settings = tinaRes.data.siteSettings as any;
+  }
+
+  const resConn = await requestWithMetadata(
+    client.queries.resourcesConnection()
+  ).catch(() => null);
+
+  if (resConn?.data?.resourcesConnection?.edges) {
+    for (const edge of resConn.data.resourcesConnection.edges) {
+      if (edge?.node) {
+        tinaResourcesMap.set(edge.node.slug || edge.node._sys?.filename, edge.node);
+      }
+    }
+  }
+} catch (e) {
+  // Fallback
+}
+
+const resourcesPage = {
+  label: settings.resourcesPage?.label || 'Recursos',
+  title: settings.resourcesPage?.title || 'Recursos psicoeducativos',
+  intro: settings.resourcesPage?.intro || 'Artículos para entender mejor el malestar emocional y el proceso terapéutico.',
+  seoTitle: settings.resourcesPage?.seoTitle || 'Recursos psicoeducativos',
+  seoDescription: settings.resourcesPage?.seoDescription || 'Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional.',
+};
 
 const jsonLd = buildJsonLdGraph(
   buildPerson(),
   {
     "@type": "CollectionPage",
-    name: "Recursos psicoeducativos",
-    description: "Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional.",
+    name: resourcesPage.title,
+    description: resourcesPage.seoDescription,
     url: "/recursos",
     inLanguage: "es-ES",
   },
   buildBreadcrumbList([
     { name: "Inicio", url: "/" },
-    { name: "Recursos", url: "/recursos" },
+    { name: resourcesPage.title, url: "/recursos" },
   ])
 )
 ---
-<Layout title="Recursos psicoeducativos" description="Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional." canonical="/recursos" jsonLd={jsonLd}>
+<Layout
+  title={resourcesPage.seoTitle ?? resourcesPage.title}
+  description={resourcesPage.seoDescription}
+  canonical="/recursos"
+  jsonLd={jsonLd}
+>
   <PageHero
-    label="Recursos"
-    title="Recursos psicoeducativos"
-    description="Artículos para entender mejor el malestar emocional y el proceso terapéutico."
+    label={resourcesPage.label}
+    title={resourcesPage.title}
+    description={resourcesPage.intro}
     maxWidth="3xl"
+    tinaLabelField={tinaField(settings.resourcesPage, 'label')}
+    tinaTitleField={tinaField(settings.resourcesPage, 'title')}
+    tinaDescriptionField={tinaField(settings.resourcesPage, 'intro')}
   />
 
   <section class="section-gap-tight">
     <Container>
       {resources.length > 0 ? (
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in-up">
-          {resources.map((r) => (
-            <a
-              href={`/recursos/${r.data.slug}`}
-              aria-label={`Leer artículo: ${r.data.title}`}
-              class="group block p-6 bg-white rounded-2xl border border-ink-border/30 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between"
-            >
-              <div>
-                {r.data.tags.length > 0 && (
-                  <div class="mb-3">
-                    <Badge variant="blush">{r.data.tags[0]}</Badge>
-                  </div>
-                )}
-                <h2 class="font-display text-xl font-normal text-ink mb-2 line-clamp-2 h-14 leading-snug group-hover:text-sage transition-colors duration-200">
-                  {r.data.title}
-                </h2>
-                <p class="text-ink-muted text-sm mb-4 font-body line-clamp-3">
-                  {r.data.description}
-                </p>
-              </div>
-              
-              <div class="pt-3 border-t border-ink-border/10">
-                <span class="text-sage font-medium text-sm group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">
-                  Leer artículo <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
-                </span>
-              </div>
-            </a>
-          ))}
+          {resources.map((r) => {
+            const tinaNode = tinaResourcesMap.get(r.data.slug);
+            return (
+              <a
+                href={`/recursos/${r.data.slug}`}
+                aria-label={`Leer artículo: ${r.data.title}`}
+                class="group block p-6 bg-white rounded-2xl border border-ink-border/30 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between"
+                data-tina-field={tinaNode ? tinaField(tinaNode, 'title') : undefined}
+              >
+                <div>
+                  {r.data.tags.length > 0 && (
+                    <div class="mb-3" data-tina-field={tinaNode ? tinaField(tinaNode, 'tags') : undefined}>
+                      <Badge variant="blush">{r.data.tags[0]}</Badge>
+                    </div>
+                  )}
+                  <h2
+                    class="font-display text-xl font-normal text-ink mb-2 line-clamp-2 h-14 leading-snug group-hover:text-sage transition-colors duration-200"
+                    data-tina-field={tinaNode ? tinaField(tinaNode, 'title') : undefined}
+                  >
+                    {r.data.title}
+                  </h2>
+                  <p
+                    class="text-ink-muted text-sm mb-4 font-body line-clamp-3"
+                    data-tina-field={tinaNode ? tinaField(tinaNode, 'description') : undefined}
+                  >
+                    {r.data.description}
+                  </p>
+                </div>
+                
+                <div class="pt-3 border-t border-ink-border/10">
+                  <span class="text-sage font-medium text-sm group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">
+                    Leer artículo <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </a>
+            );
+          })}
         </div>
       ) : (
         <p class="text-center text-ink-muted py-12 font-body">Próximamente recursos psicoeducativos.</p>

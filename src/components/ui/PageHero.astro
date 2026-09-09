@@ -43,7 +43,7 @@ const alignClass = align === "center" ? "mx-auto text-center" : "";
 const isDuplicateLabel = Boolean(
   label && title && label.trim().toLowerCase() === title.trim().toLowerCase()
 );
-const showLabel = Boolean(label && !isDuplicateLabel);
+const showLabel = Boolean((label && !isDuplicateLabel) || tinaLabelField);
 ---
 
 <section class:list={["section-hero bg-warm-200 border-b border-ink-border/40 overflow-hidden relative", className]}>
@@ -57,7 +57,7 @@ const showLabel = Boolean(label && !isDuplicateLabel);
             <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight" data-tina-field={tinaTitleField}>
               {title}
             </h1>
-            {description && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
+            {(description || tinaDescriptionField) && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
             <slot />
           </div>
           {icon && (
@@ -72,7 +72,7 @@ const showLabel = Boolean(label && !isDuplicateLabel);
           <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-5 leading-tight" data-tina-field={tinaTitleField}>
             {title}
           </h1>
-          {description && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
+          {(description || tinaDescriptionField) && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
           <slot />
         </div>
       )

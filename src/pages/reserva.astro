@@ -32,6 +32,14 @@ try {
 const { hero, sessions, faqItems } = page;
 const calComUsername = page.calComUsername || siteConfig.booking.calComUsername;
 
+const tinaFaqItems = (faqItems ?? []).map((item: any, index: number) => ({
+  question: item.question,
+  answer: item.answer,
+  tinaFieldItem: tinaField(page, "faqItems", index),
+  tinaFieldQuestion: tinaField(item, "question"),
+  tinaFieldAnswer: tinaField(item, "answer"),
+}));
+
 const pageUrl = "/reserva";
 const jsonLd = buildJsonLdGraph(
   buildPerson(),
@@ -44,8 +52,8 @@ const jsonLd = buildJsonLdGraph(
 ---
 
 <Layout
-  title={page.seoTitle}
-  description={page.seoDescription}
+  title={page.seoTitle ?? hero.title}
+  description={page.seoDescription ?? hero.intro}
   canonical={pageUrl}
   jsonLd={jsonLd}
 >
@@ -63,15 +71,17 @@ const jsonLd = buildJsonLdGraph(
   <section class="section-gap-tight bg-gradient-to-b from-warm-50/20 to-warm-100/10">
     <Container>
       <div class="text-center max-w-3xl mx-auto mb-10 animate-fade-in">
-        <span class="label-caps text-sage block mb-3">Tipos de sesión</span>
-        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight">
-          ¿Qué tipo de cita necesitas?
+        <span class="label-caps text-sage block mb-3" data-tina-field={tinaField(page.sessionsSection, "label")}>
+          {page.sessionsSection?.label ?? "Tipos de sesión"}
+        </span>
+        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight" data-tina-field={tinaField(page.sessionsSection, "title")}>
+          {page.sessionsSection?.title ?? "¿Qué tipo de cita necesitas?"}
         </h2>
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto animate-fade-in-up">
         {
-          sessions.map((event, index) => {
+          sessions.map((event: any, index: number) => {
             const isPresencial = event.title.toLowerCase().includes("presencial");
             const tipo = isPresencial ? "presencial" : "online";
             const infoHref = isPresencial ? "/terapia-presencial" : "/terapia-online";
@@ -141,9 +151,11 @@ const jsonLd = buildJsonLdGraph(
         <Container>
           <div class="max-w-4xl mx-auto">
             <div class="text-center mb-8">
-              <span class="label-caps text-sage block mb-2">Calendario en vivo</span>
-              <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight">
-                Elige tu cita online o presencial
+              <span class="label-caps text-sage block mb-2" data-tina-field={tinaField(page.calendarSection, "label")}>
+                {page.calendarSection?.label ?? "Calendario en vivo"}
+              </span>
+              <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink leading-tight" data-tina-field={tinaField(page.calendarSection, "title")}>
+                {page.calendarSection?.title ?? "Elige tu cita online o presencial"}
               </h2>
             </div>
 
@@ -175,11 +187,13 @@ const jsonLd = buildJsonLdGraph(
   <section class="section-gap-tight bg-gradient-to-b from-warm-50/10 to-warm-100/20">
     <Container>
       <div class="max-w-3xl mx-auto animate-fade-in-up">
-        <span class="label-caps text-sage block mb-4">FAQ</span>
-        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-10 leading-tight">
-          Preguntas sobre las citas
+        <span class="label-caps text-sage block mb-4" data-tina-field={tinaField(page.faqSection, "label")}>
+          {page.faqSection?.label ?? "FAQ"}
+        </span>
+        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink mb-10 leading-tight" data-tina-field={tinaField(page.faqSection, "title")}>
+          {page.faqSection?.title ?? "Preguntas sobre las citas"}
         </h2>
-        <FAQAccordion items={faqItems} client:visible />
+        <FAQAccordion items={tinaFaqItems} client:visible />
       </div>
     </Container>
   </section>
@@ -189,17 +203,18 @@ const jsonLd = buildJsonLdGraph(
     <div class="absolute -top-32 -left-32 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
     <Container class="relative">
       <div class="max-w-2xl mx-auto text-center space-y-6">
-        <h2 class="font-display text-3xl lg:text-4xl font-normal mb-4 leading-tight">
-          ¿Prefieres contactar primero?
+        <h2 class="font-display text-3xl lg:text-4xl font-normal mb-4 leading-tight" data-tina-field={tinaField(page.cta, "title")}>
+          {page.cta?.title ?? "¿Prefieres contactar primero?"}
         </h2>
-        <p class="font-body text-base text-white/80 mb-8 leading-relaxed">
-          Si tienes dudas antes de reservar, escríbeme. Estaré encantada de resolverlas.
+        <p class="font-body text-base text-white/80 mb-8 leading-relaxed" data-tina-field={tinaField(page.cta, "description")}>
+          {page.cta?.description ?? "Si tienes dudas antes de reservar, escríbeme. Estaré encantada de resolverlas."}
         </p>
         <a
-          href="/contacto"
+          href={page.cta?.href ?? "/contacto"}
           class="inline-flex items-center gap-2 font-body font-medium rounded-lg bg-white text-sage px-8 py-4 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
+          data-tina-field={tinaField(page.cta, "label")}
         >
-          Ir a contacto
+          {page.cta?.label ?? "Ir a contacto"}
         </a>
       </div>
     </Container>

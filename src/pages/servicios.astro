@@ -18,6 +18,7 @@ let [settings, servicesPage, allServices] = await Promise.all([
   getPublishedServices(),
 ]);
 
+let tinaServicesMap = new Map();
 try {
   const { requestWithMetadata } = await import("@tinacms/astro");
   const client = (await import("../../tina/__generated__/client")).default;
@@ -27,6 +28,18 @@ try {
   );
   if (tinaRes?.data?.servicesPage) {
     servicesPage = tinaRes.data.servicesPage as any;
+  }
+
+  const servicesConn = await requestWithMetadata(
+    client.queries.servicesConnection()
+  ).catch(() => null);
+
+  if (servicesConn?.data?.servicesConnection?.edges) {
+    for (const edge of servicesConn.data.servicesConnection.edges) {
+      if (edge?.node) {
+        tinaServicesMap.set(edge.node.slug || edge.node._sys?.filename, edge.node);
+      }
+    }
   }
 } catch (e) {
   // Mantener fallback
@@ -168,16 +181,18 @@ const jsonLd = buildJsonLdGraph(
             const thumbnailSrc = imageSrc(service.data.thumbnail);
             const thumbnailAlt =
               service.data.thumbnailAlt?.trim() || `Miniatura del servicio ${service.data.title}`;
+            const tinaNode = tinaServicesMap.get(service.data.slug);
 
             return (
               <a
                 href={`/${service.data.slug}`}
                 aria-label={`Saber más sobre ${service.data.title}`}
                 class="group block p-6 bg-gradient-to-b from-white to-warm-50/30 rounded-2xl border border-ink-border/30 border-t-2 border-t-sage/25 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between"
+                data-tina-field={tinaNode ? tinaField(tinaNode, "title") : undefined}
               >
                 <div>
                   {thumbnailSrc ? (
-                    <div class="w-full h-32 overflow-hidden rounded-xl mb-5">
+                    <div class="w-full h-32 overflow-hidden rounded-xl mb-5" data-tina-field={tinaNode ? tinaField(tinaNode, "thumbnail") : undefined}>
                       <img
                         src={thumbnailSrc}
                         alt={thumbnailAlt}
@@ -191,10 +206,16 @@ const jsonLd = buildJsonLdGraph(
                       <DynamicIcon name={service.data.icon} class="w-5 h-5" />
                     </div>
                   )}
-                  <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200">
+                  <h3
+                    class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200"
+                    data-tina-field={tinaNode ? tinaField(tinaNode, "title") : undefined}
+                  >
                     {service.data.title}
                   </h3>
-                  <p class="text-sm text-ink-muted leading-relaxed mb-4 font-body">
+                  <p
+                    class="text-sm text-ink-muted leading-relaxed mb-4 font-body"
+                    data-tina-field={tinaNode ? tinaField(tinaNode, "shortDescription") : undefined}
+                  >
                     {service.data.shortDescription}
                   </p>
                 </div>
@@ -216,5 +237,8 @@ const jsonLd = buildJsonLdGraph(
     description={settings.cta.description}
     ctaLabel={settings.cta.label}
     ctaHref={settings.cta.href}
+    tinaTitleField={tinaField(settings.cta, "title")}
+    tinaDescriptionField={tinaField(settings.cta, "description")}
+    tinaCtaLabelField={tinaField(settings.cta, "label")}
   />
 </Layout>

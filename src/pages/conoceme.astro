@@ -9,13 +9,18 @@ import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { Icon } from "astro-icon/components";
 import { tinaField } from "@tinacms/astro";
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
-import { getProfile, getSiteSettings } from "@/lib/content/collections";
+import { getProfile, getPublishedExperience, getPublishedTraining, getSiteSettings } from "@/lib/content/collections";
 import { imageSrc } from "@/lib/images";
 
-let [profile, settings] = await Promise.all([
+let [profile, settings, rawExp, rawTraining] = await Promise.all([
   getProfile(),
   getSiteSettings(),
+  getPublishedExperience(),
+  getPublishedTraining(),
 ]);
+
+let tinaExperienceMap = new Map();
+let tinaTrainingMap = new Map();
 
 try {
   const { requestWithMetadata } = await import("@tinacms/astro");
@@ -27,9 +32,40 @@ try {
   if (tinaRes?.data?.profile) {
     profile = tinaRes.data.profile as any;
   }
+
+  const [expRes, trainRes] = await Promise.all([
+    requestWithMetadata(client.queries.experienceConnection()).catch(() => null),
+    requestWithMetadata(client.queries.trainingConnection()).catch(() => null),
+  ]);
+
+  if (expRes?.data?.experienceConnection?.edges) {
+    for (const edge of expRes.data.experienceConnection.edges) {
+      if (edge?.node) {
+        tinaExperienceMap.set(edge.node.area, edge.node);
+      }
+    }
+  }
+
+  if (trainRes?.data?.trainingConnection?.edges) {
+    for (const edge of trainRes.data.trainingConnection.edges) {
+      if (edge?.node) {
+        tinaTrainingMap.set(edge.node.degree, edge.node);
+      }
+    }
+  }
 } catch (e) {
   // Mantener fallback de getProfile()
 }
+
+const experienceItems = rawExp.map((item) => ({
+  ...item,
+  tinaNode: tinaExperienceMap.get(item.data.area) ?? item.data,
+}));
+
+const trainingItems = rawTraining.map((item) => ({
+  ...item,
+  tinaNode: tinaTrainingMap.get(item.data.degree) ?? item.data,
+}));
 
 const { hero, approach, cta } = profile;
 const photoSrc = imageSrc(hero.photo);
@@ -130,7 +166,7 @@ const jsonLd = buildJsonLdGraph(
         <div class="lg:col-span-5 w-full">
           {
             secondaryPhotoSrc ? (
-              <figure class="relative group">
+              <figure class="relative group" data-tina-field={tinaField(profile.hero, "secondaryPhoto")}>
                 <img
                   src={secondaryPhotoSrc}
                   alt={secondaryPhotoAlt}
@@ -140,7 +176,10 @@ const jsonLd = buildJsonLdGraph(
                 />
               </figure>
             ) : (
-              <div class="p-6 sm:p-7 rounded-2xl bg-white/70 border border-ink-border/20 shadow-premium backdrop-blur-sm space-y-5">
+              <div
+                class="p-6 sm:p-7 rounded-2xl bg-white/70 border border-ink-border/20 shadow-premium backdrop-blur-sm space-y-5"
+                data-tina-field={tinaField(profile.hero, "secondaryPhoto")}
+              >
                 <p class="label-caps text-sage">Principios del proceso</p>
                 <div class="space-y-4">
                   <div class="flex items-start gap-3.5">
@@ -180,9 +219,9 @@ const jsonLd = buildJsonLdGraph(
   </section>
 
   <SectionDivider />
-  <TrainingBlock />
+  <TrainingBlock trainingSection={settings.trainingSection} items={trainingItems} />
   <SectionDivider />
-  <ExperienceBlock />
+  <ExperienceBlock experienceSection={settings.experienceSection} items={experienceItems} />
   <SectionDivider />
 
   <CTASection
@@ -190,6 +229,9 @@ const jsonLd = buildJsonLdGraph(
     description={cta.description}
     ctaLabel={cta.label}
     ctaHref={cta.href}
+    tinaTitleField={tinaField(profile.cta, "title")}
+    tinaDescriptionField={tinaField(profile.cta, "description")}
+    tinaCtaLabelField={tinaField(profile.cta, "label")}
   />
 </Layout>
 

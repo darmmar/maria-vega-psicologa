@@ -25,6 +25,13 @@
   },
   "formSection": {
     "title": "Envíame un mensaje",
+    "nameLabel": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "emailLabel": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "¿En qué puedo ayudarte?",
+    "privacyConsentText": "He leído la política de privacidad y consiento el tratamiento de mis datos para atender mi consulta.",
     "submitLabel": "Enviar mensaje",
     "privacyNote": "Este formulario no es para compartir información clínica. Si ya eres paciente, usa el canal de comunicación habitual."
   }

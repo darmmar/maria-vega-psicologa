@@ -11,15 +11,23 @@ import CTASection from "@/components/sections/CTASection.astro";
 import HomeFaq from "@/components/sections/HomeFaq.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { buildFAQPage, buildJsonLdGraph, buildMedicalBusiness, buildPerson, buildWebSite } from "@/lib/seo";
-import { getCourseBySlug, getFaq, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import { getCourseBySlug, getFaq, getPublishedExperience, getPublishedTraining, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import { tinaField } from "@tinacms/astro";
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
 
-let [settings, course, services, rawFaqs] = await Promise.all([
+let [settings, course, services, rawFaqs, rawExp, rawTraining] = await Promise.all([
   getSiteSettings(),
   getCourseBySlug("curso-duelo"),
   getServicesForGrid(),
   getFaq(),
+  getPublishedExperience(),
+  getPublishedTraining(),
 ]);
+
+let tinaServicesMap = new Map();
+let tinaFaqItems: any[] = [];
+let tinaExperienceMap = new Map();
+let tinaTrainingMap = new Map();
 
 try {
   const { requestWithMetadata } = await import("@tinacms/astro");
@@ -31,12 +39,55 @@ try {
   if (tinaRes?.data?.siteSettings) {
     settings = tinaRes.data.siteSettings as any;
   }
+
+  const [faqRes, servicesRes, expRes, trainRes] = await Promise.all([
+    requestWithMetadata(client.queries.faqConnection()).catch(() => null),
+    requestWithMetadata(client.queries.servicesConnection()).catch(() => null),
+    requestWithMetadata(client.queries.experienceConnection()).catch(() => null),
+    requestWithMetadata(client.queries.trainingConnection()).catch(() => null),
+  ]);
+
+  if (faqRes?.data?.faqConnection?.edges) {
+    tinaFaqItems = faqRes.data.faqConnection.edges.map((edge: any) => ({
+      question: edge.node.question,
+      answer: edge.node.answer,
+      tinaFieldQuestion: tinaField(edge.node, "question"),
+      tinaFieldAnswer: tinaField(edge.node, "answer"),
+      tinaFieldItem: tinaField(edge.node, "question"),
+    }));
+  }
+
+  if (servicesRes?.data?.servicesConnection?.edges) {
+    for (const edge of servicesRes.data.servicesConnection.edges) {
+      if (edge?.node) {
+        tinaServicesMap.set(edge.node.slug || edge.node._sys?.filename, edge.node);
+      }
+    }
+  }
+
+  if (expRes?.data?.experienceConnection?.edges) {
+    for (const edge of expRes.data.experienceConnection.edges) {
+      if (edge?.node) {
+        tinaExperienceMap.set(edge.node.area, edge.node);
+      }
+    }
+  }
+
+  if (trainRes?.data?.trainingConnection?.edges) {
+    for (const edge of trainRes.data.trainingConnection.edges) {
+      if (edge?.node) {
+        tinaTrainingMap.set(edge.node.degree, edge.node);
+      }
+    }
+  }
 } catch {}
 
-const faqItems = rawFaqs.map((f) => ({
+const defaultFaqItems = rawFaqs.map((f) => ({
   question: f.data.question,
   answer: f.data.answer,
 }));
+
+const finalFaqItems = tinaFaqItems.length > 0 ? tinaFaqItems : defaultFaqItems;
 
 const businessOverrides = {
   address: settings.legal.address,
@@ -53,11 +104,33 @@ const jsonLd = buildJsonLdGraph(
   buildWebSite(),
   buildMedicalBusiness(businessOverrides),
   buildPerson({ overrides: businessOverrides }),
-  buildFAQPage(faqItems)
+  buildFAQPage(defaultFaqItems)
 );
 
 const modalityHrefs = ["/terapia-presencial", "/terapia-online"];
-const clinicalServices = services.filter((s) => !modalityHrefs.includes(s.href));
+const clinicalServices = services
+  .filter((s) => !modalityHrefs.includes(s.href))
+  .map((s) => {
+    const slug = s.href.replace(/^\//, "");
+    const tinaNode = tinaServicesMap.get(slug);
+    return {
+      ...s,
+      tinaFieldTitle: tinaNode ? tinaField(tinaNode, "title") : undefined,
+      tinaFieldDescription: tinaNode ? tinaField(tinaNode, "shortDescription") : undefined,
+      tinaFieldThumbnail: tinaNode ? tinaField(tinaNode, "thumbnail") : undefined,
+      tinaFieldCard: tinaNode ? tinaField(tinaNode, "title") : undefined,
+    };
+  });
+
+const experienceItems = rawExp.map((item) => ({
+  ...item,
+  tinaNode: tinaExperienceMap.get(item.data.area) ?? item.data,
+}));
+
+const trainingItems = rawTraining.map((item) => ({
+  ...item,
+  tinaNode: tinaTrainingMap.get(item.data.degree) ?? item.data,
+}));
 
 const pageTitle = settings.seo?.homeTitle ?? settings.hero.title;
 const pageDescription = settings.seo?.homeDescription ?? settings.hero.description;
@@ -72,16 +145,18 @@ const pageDescription = settings.seo?.homeDescription ?? settings.hero.descripti
     <Hero siteSettings={settings} />
   </TinaIsland>
   <SectionDivider />
-  <TherapyApproach />
+  <TherapyApproach therapyApproach={settings.therapyApproach} />
   <SectionDivider />
   <ServicesGrid
     services={clinicalServices}
     sectionLabel={settings.servicesSection.label}
     sectionTitle={settings.servicesSection.title}
+    tinaSectionLabel={tinaField(settings.servicesSection, "label")}
+    tinaSectionTitle={tinaField(settings.servicesSection, "title")}
   />
   <SectionDivider />
-  <ExperienceBlock />
-  <TrainingBlock />
+  <ExperienceBlock experienceSection={settings.experienceSection} items={experienceItems} />
+  <TrainingBlock trainingSection={settings.trainingSection} items={trainingItems} />
   <SectionDivider />
   <CourseHighlight
     title={course?.data.title}
@@ -89,12 +164,27 @@ const pageDescription = settings.seo?.homeDescription ?? settings.hero.descripti
     label={settings.courseHighlight.label}
     ctaLabel={settings.courseHighlight.ctaLabel}
     ctaHref={settings.courseHighlight.ctaHref}
+    tinaLabelField={tinaField(settings.courseHighlight, "label")}
+    tinaTitleField={course ? tinaField(course.data, "title") : undefined}
+    tinaDescriptionField={course ? tinaField(course.data, "shortDescription") : undefined}
+    tinaCtaLabelField={tinaField(settings.courseHighlight, "ctaLabel")}
   />
-  <HomeFaq items={faqItems} />
+  <HomeFaq
+    items={finalFaqItems}
+    label={settings.faqSection?.label ?? "Preguntas frecuentes"}
+    title={settings.faqSection?.title ?? "Respuestas sobre el proceso de terapia"}
+    description={settings.faqSection?.description ?? "Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza."}
+    tinaLabelField={tinaField(settings.faqSection, "label")}
+    tinaTitleField={tinaField(settings.faqSection, "title")}
+    tinaDescriptionField={tinaField(settings.faqSection, "description")}
+  />
   <CTASection
     title={settings.cta.title}
     description={settings.cta.description}
     ctaLabel={settings.cta.label}
     ctaHref={settings.cta.href}
+    tinaTitleField={tinaField(settings.cta, "title")}
+    tinaDescriptionField={tinaField(settings.cta, "description")}
+    tinaCtaLabelField={tinaField(settings.cta, "label")}
   />
 </Layout>

@@ -10,25 +10,35 @@ interface ServiceItem {
   icon?: string;
   thumbnail?: string;
   thumbnailAlt?: string;
+  tinaFieldTitle?: string;
+  tinaFieldDescription?: string;
+  tinaFieldThumbnail?: string;
+  tinaFieldCard?: string;
 }
 
 interface Props {
   services: ServiceItem[];
   sectionLabel?: string;
   sectionTitle?: string;
+  tinaSectionLabel?: string;
+  tinaSectionTitle?: string;
+  tinaSectionLabelField?: string;
+  tinaSectionTitleField?: string;
 }
 
 const {
   services,
   sectionLabel = "Especialidades",
   sectionTitle = "¿En qué puedo ayudarte?",
+  tinaSectionLabel = Astro.props.tinaSectionLabelField,
+  tinaSectionTitle = Astro.props.tinaSectionTitleField,
 } = Astro.props;
 ---
 
 <section class="section-gap bg-gradient-to-b from-warm-100 to-warm-50/10">
   <Container>
-    <span class="label-caps text-sage block mb-4">{sectionLabel}</span>
-    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight">
+    <span class="label-caps text-sage block mb-4" data-tina-field={tinaSectionLabel}>{sectionLabel}</span>
+    <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-12 leading-tight" data-tina-field={tinaSectionTitle}>
       {sectionTitle}
     </h2>
 
@@ -44,9 +54,10 @@ const {
               href={service.href}
               aria-label={`Saber más sobre ${service.title}`}
               class="group block p-6 bg-gradient-to-b from-white to-warm-50/30 rounded-2xl border border-ink-border/30 border-t-2 border-t-sage/25 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out"
+              data-tina-field={service.tinaFieldCard}
             >
               {thumbnailSrc ? (
-                <div class="w-full h-32 overflow-hidden rounded-xl mb-5">
+                <div class="w-full h-32 overflow-hidden rounded-xl mb-5" data-tina-field={service.tinaFieldThumbnail}>
                   <img
                     src={thumbnailSrc}
                     alt={thumbnailAlt}
@@ -60,10 +71,16 @@ const {
                   <DynamicIcon name={service.icon} class="w-5 h-5" />
                 </div>
               )}
-              <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200">
+              <h3
+                class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200"
+                data-tina-field={service.tinaFieldTitle}
+              >
                 {service.title}
               </h3>
-              <p class="text-sm text-ink-muted leading-relaxed mb-4 font-body">
+              <p
+                class="text-sm text-ink-muted leading-relaxed mb-4 font-body"
+                data-tina-field={service.tinaFieldDescription}
+              >
                 {service.shortDescription}
               </p>
               <span class="text-sm font-medium text-sage group-hover:underline underline-offset-4 font-body inline-flex items-center gap-1">

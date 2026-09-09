@@ -233,11 +233,51 @@ export const siteSettingsCollection: Collection = {
     },
     {
       type: "object",
+      name: "faqSection",
+      label: "8. Portada — Cabecera de Preguntas Frecuentes",
+      fields: [
+        { type: "string", name: "label", label: "Etiqueta superior (ej: «Preguntas frecuentes»)", required: true },
+        { type: "string", name: "title", label: "Título principal (ej: «Respuestas sobre el proceso de terapia»)", required: true },
+        {
+          type: "string",
+          name: "description",
+          label: "Descripción breve",
+          required: true,
+          ui: { component: "textarea" },
+        },
+      ],
+    },
+    {
+      type: "object",
       name: "coursesPage",
-      label: "8. Catálogo de Cursos — Cabecera de la página (/cursos)",
+      label: "9. Catálogo de Cursos — Cabecera de la página (/cursos)",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: «Formaciones»)", required: true },
         { type: "string", name: "title", label: "Título principal (H1, ej: «Cursos y talleres»)", required: true },
+        {
+          type: "string",
+          name: "intro",
+          label: "Texto de introducción al catálogo",
+          required: true,
+          ui: { component: "textarea" },
+        },
+        { type: "string", name: "seoTitle", label: "Título SEO para Google", required: true },
+        {
+          type: "string",
+          name: "seoDescription",
+          label: "Descripción SEO para Google",
+          required: true,
+          ui: { component: "textarea" },
+        },
+      ],
+    },
+    {
+      type: "object",
+      name: "resourcesPage",
+      label: "10. Catálogo de Recursos — Cabecera de la página (/recursos)",
+      fields: [
+        { type: "string", name: "label", label: "Etiqueta superior (ej: «Recursos»)", required: true },
+        { type: "string", name: "title", label: "Título principal (H1, ej: «Recursos psicoeducativos»)", required: true },
         {
           type: "string",
           name: "intro",

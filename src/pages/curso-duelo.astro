@@ -4,6 +4,7 @@ import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
 import PageHero from "@/components/ui/PageHero.astro";
+import CTASection from "@/components/sections/CTASection.astro";
 import ProseWrapper from "@/components/ui/ProseWrapper.astro";
 import { render } from "astro:content";
 import { getCourseBySlug } from "@/lib/content/collections";
@@ -101,25 +102,15 @@ const jsonLd = buildJsonLdGraph(
     </Container>
   </section>
 
-  <section class="section-gap bg-gradient-to-br from-sage to-sage-700 relative overflow-hidden text-white">
-    <div class="absolute -top-32 -left-32 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-    <Container class="relative">
-      <div class="max-w-2xl mx-auto text-center space-y-6">
-        <h2 class="font-display text-2xl lg:text-3xl font-normal mb-4 leading-tight">
-          ¿Tienes preguntas sobre la formación?
-        </h2>
-        <p class="font-body text-base text-white/80 mb-8 leading-relaxed">
-          Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso.
-        </p>
-        <a
-          href="/contacto"
-          class="inline-flex items-center gap-2 font-body font-medium rounded-lg bg-white text-sage px-8 py-4 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
-        >
-          Solicitar información
-        </a>
-      </div>
-    </Container>
-  </section>
+  <CTASection
+    title={(course.data as any).bottomCta?.title || "¿Tienes preguntas sobre la formación?"}
+    description={(course.data as any).bottomCta?.description || "Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso."}
+    ctaLabel={(course.data as any).bottomCta?.ctaLabel || course.data.ctaLabel?.trim() || "Solicitar información"}
+    ctaHref={(course.data as any).bottomCta?.ctaHref || "/contacto"}
+    tinaTitleField={tinaField((course.data as any).bottomCta, "title")}
+    tinaDescriptionField={tinaField((course.data as any).bottomCta, "description")}
+    tinaCtaLabelField={tinaField((course.data as any).bottomCta, "ctaLabel") || tinaField(course.data, "ctaLabel")}
+  />
 </Layout>
 
 

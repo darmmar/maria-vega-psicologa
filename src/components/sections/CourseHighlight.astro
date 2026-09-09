@@ -9,6 +9,10 @@ interface Props {
   ctaHref?: string;
   ctaLabel?: string;
   label?: string;
+  tinaLabelField?: string;
+  tinaTitleField?: string;
+  tinaDescriptionField?: string;
+  tinaCtaLabelField?: string;
 }
 
 const {
@@ -17,6 +21,10 @@ const {
   ctaHref = "/cursos",
   ctaLabel = "Solicitar información",
   label = "Formación profesional",
+  tinaLabelField,
+  tinaTitleField,
+  tinaDescriptionField,
+  tinaCtaLabelField,
 } = Astro.props;
 ---
 
@@ -25,14 +33,16 @@ const {
   <Container class="relative">
     <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
       <div class="max-w-2xl">
-        <span class="label-caps text-sage block mb-4">{label}</span>
-        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-5 leading-tight">
+        <span class="label-caps text-sage block mb-4" data-tina-field={tinaLabelField}>{label}</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-5 leading-tight" data-tina-field={tinaTitleField}>
           {title}
         </h2>
-        <p class="text-lg text-ink-muted leading-relaxed mb-8 font-body">
+        <p class="text-lg text-ink-muted leading-relaxed mb-8 font-body" data-tina-field={tinaDescriptionField}>
           {description}
         </p>
-        <Button href={ctaHref} variant="primary" size="lg">{ctaLabel}</Button>
+        <div data-tina-field={tinaCtaLabelField}>
+          <Button href={ctaHref} variant="primary" size="lg">{ctaLabel}</Button>
+        </div>
       </div>
 
       <div class="hidden lg:block flex-shrink-0 text-sage/10" aria-hidden="true">

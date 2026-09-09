@@ -1,9 +1,12 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-interface FAQItem {
+export interface FAQItem {
   question: string;
   answer: string;
+  tinaFieldItem?: string;
+  tinaFieldQuestion?: string;
+  tinaFieldAnswer?: string;
 }
 
 interface Props {
@@ -19,6 +22,7 @@ export default function FAQAccordion({ items }: Props) {
         <div 
           key={item.question} 
           className="bg-white rounded-2xl border border-ink-border/20 shadow-premium overflow-hidden transition-all duration-300 hover:border-sage/10"
+          data-tina-field={item.tinaFieldItem}
         >
           <button
             type="button"
@@ -28,7 +32,12 @@ export default function FAQAccordion({ items }: Props) {
             aria-controls={`faq-panel-${i}`}
             id={`faq-btn-${i}`}
           >
-            <span className="text-base pr-4 leading-snug">{item.question}</span>
+            <span
+              className="text-base pr-4 leading-snug"
+              data-tina-field={item.tinaFieldQuestion}
+            >
+              {item.question}
+            </span>
             <div className={`w-8 h-8 rounded-full bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 transition-all duration-300 ${open === i ? "rotate-180 bg-sage/10" : ""}`}>
               <ChevronDown
                 className="w-4 h-4"
@@ -44,7 +53,10 @@ export default function FAQAccordion({ items }: Props) {
               open === i ? "max-h-[500px]" : "max-h-0"
             }`}
           >
-            <div className="px-6 pb-6 text-ink-muted text-base leading-relaxed font-body">
+            <div
+              className="px-6 pb-6 text-ink-muted text-base leading-relaxed font-body"
+              data-tina-field={item.tinaFieldAnswer}
+            >
               {item.answer}
             </div>
           </div>

@@ -53,7 +53,7 @@ const jsonLd = buildServicePageJsonLd({
 });
 
 const heroProps = {
-  label: "Psicología",
+  label: service.data.heroLabel?.trim() || "Psicología",
   title: service.data.title,
   description: service.data.description,
   descriptionClass: "text-ink-muted text-xl leading-relaxed",
@@ -61,6 +61,7 @@ const heroProps = {
   align: heroLayout === "centered" ? ("center" as const) : ("left" as const),
   maxWidth: "3xl" as const,
   icon: heroLayout === "split" ? iconName : undefined,
+  tinaLabelField: tinaField(service.data, "heroLabel"),
   tinaTitleField: tinaField(service.data, "title"),
   tinaDescriptionField: tinaField(service.data, "description"),
 };
@@ -82,8 +83,12 @@ const heroProps = {
       </ServiceContentSection>
 
       <CTASection
+        title={service.data.ctaTitle || undefined}
+        description={service.data.ctaDescription || undefined}
         ctaLabel={service.data.ctaLabel}
         ctaHref={service.data.ctaHref}
+        tinaTitleField={tinaField(service.data, "ctaTitle")}
+        tinaDescriptionField={tinaField(service.data, "ctaDescription")}
         tinaCtaLabelField={tinaField(service.data, "ctaLabel")}
       />
     </Layout>

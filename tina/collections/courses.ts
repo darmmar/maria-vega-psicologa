@@ -114,6 +114,38 @@ export const coursesCollection: Collection = {
       description: "Descripción breve para resultados de búsqueda.",
       ui: { component: "textarea" },
     },
+    {
+      type: "object",
+      name: "bottomCta",
+      label: "Llamada a la acción final (CTA inferior)",
+      fields: [
+        {
+          type: "string",
+          name: "title",
+          label: "Título de la llamada a la acción",
+          description: "Ej: «¿Tienes preguntas sobre la formación?».",
+        },
+        {
+          type: "string",
+          name: "description",
+          label: "Texto explicativo",
+          description: "Ej: «Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso.».",
+          ui: { component: "textarea" },
+        },
+        {
+          type: "string",
+          name: "ctaLabel",
+          label: "Texto del botón",
+          description: "Por defecto: «Solicitar información».",
+        },
+        {
+          type: "string",
+          name: "ctaHref",
+          label: "Enlace del botón",
+          description: "Por defecto: /contacto.",
+        },
+      ],
+    },
     richTextBodyField,
   ],
 };

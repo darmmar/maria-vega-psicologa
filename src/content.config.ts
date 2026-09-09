@@ -29,6 +29,9 @@ const services = defineCollection({
     order: z.number().optional(),
     icon: z.string().optional(),
     shortDescription: z.string(),
+    heroLabel: z.string().optional(),
+    ctaTitle: z.string().optional(),
+    ctaDescription: z.string().optional(),
     ctaLabel: z.string().optional(),
     ctaHref: z.string().optional(),
     thumbnail: z.string().optional(),
@@ -51,6 +54,7 @@ const resources = defineCollection({
     publishedAt: z.coerce.date().optional(),
     dateModified: z.coerce.date().optional(),
     image: z.string().optional(),
+    heroLabel: z.string().optional(),
     ctaLabel: z.string().optional(),
     ctaHref: z.string().optional(),
     tags: z.array(z.string()).default([]),
@@ -73,6 +77,14 @@ const courses = defineCollection({
     image: z.string().optional(),
     imageAlt: z.string().optional(),
     ctaLabel: z.string().default("Saber más"),
+    bottomCta: z
+      .object({
+        title: z.string().optional(),
+        description: z.string().optional(),
+        ctaLabel: z.string().optional(),
+        ctaHref: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 
@@ -103,6 +115,13 @@ const contactPage = defineCollection({
     }),
     formSection: z.object({
       title: z.string(),
+      nameLabel: z.string().optional(),
+      namePlaceholder: z.string().optional(),
+      emailLabel: z.string().optional(),
+      emailPlaceholder: z.string().optional(),
+      messageLabel: z.string().optional(),
+      messagePlaceholder: z.string().optional(),
+      privacyConsentText: z.string().optional(),
       submitLabel: z.string(),
       privacyNote: z.string(),
     }),
@@ -146,6 +165,11 @@ const siteSettings = defineCollection({
       clinicalTitle: z.string(),
       complementaryTitle: z.string(),
     }),
+    faqSection: sectionHeadingSchema
+      .extend({
+        description: z.string().optional(),
+      })
+      .optional(),
     cta: ctaLinkSchema.extend({
       title: z.string(),
       description: z.string(),
@@ -162,6 +186,15 @@ const siteSettings = defineCollection({
       seoTitle: z.string(),
       seoDescription: z.string(),
     }),
+    resourcesPage: z
+      .object({
+        label: z.string().optional(),
+        title: z.string().optional(),
+        intro: z.string().optional(),
+        seoTitle: z.string().optional(),
+        seoDescription: z.string().optional(),
+      })
+      .optional(),
     contact: z.object({
       email: z.string(),
       phone: z.string().optional().nullable(),
@@ -252,6 +285,12 @@ const bookingPage = defineCollection({
       title: z.string(),
       intro: z.string(),
     }),
+    sessionsSection: z
+      .object({
+        label: z.string().optional(),
+        title: z.string().optional(),
+      })
+      .optional(),
     sessions: z.array(
       z.object({
         title: z.string(),
@@ -263,13 +302,34 @@ const bookingPage = defineCollection({
         badge: z.string().nullable().optional(),
       })
     ),
+    calendarSection: z
+      .object({
+        label: z.string().optional(),
+        title: z.string().optional(),
+      })
+      .optional(),
     calComUsername: z.string().optional().nullable(),
+    faqSection: z
+      .object({
+        label: z.string().optional(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+      })
+      .optional(),
     faqItems: z.array(
       z.object({
         question: z.string(),
         answer: z.string(),
       })
     ),
+    cta: z
+      .object({
+        title: z.string().optional(),
+        description: z.string().optional(),
+        label: z.string().optional(),
+        href: z.string().optional(),
+      })
+      .optional(),
   }),
 });
 

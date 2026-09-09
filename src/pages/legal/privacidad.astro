@@ -1,12 +1,25 @@
 ---
+export const prerender = false;
 import Layout from '@/components/layout/Layout.astro'
 import Container from '@/components/ui/Container.astro'
 import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 import PageHero from '@/components/ui/PageHero.astro'
 import { siteConfig } from '@/lib/config/site'
 import { getSiteSettings } from '@/lib/content/collections'
+import { tinaField } from "@tinacms/astro";
 
-const settings = await getSiteSettings()
+let settings = await getSiteSettings();
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.siteSettings({ relativePath: "settings.json" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.siteSettings) {
+    settings = { ...settings, ...(tinaRes.data.siteSettings as any) };
+  }
+} catch (e) {}
 ---
 
 <Layout
@@ -30,13 +43,13 @@ const settings = await getSiteSettings()
           <h2>Responsable del tratamiento</h2>
           <ul>
             <li>
-              <strong>Nombre:</strong> {settings.legal.businessName || siteConfig.professionalName}
+              <strong>Nombre:</strong> <span data-tina-field={tinaField(settings.legal, "businessName")}>{settings.legal.businessName || siteConfig.professionalName}</span>
             </li>
             <li>
               <strong>Actividad:</strong> {siteConfig.professionalTitle}
             </li>
             <li>
-              <strong>Email de contacto:</strong> {settings.contact.email || '[EMAIL PENDIENTE]'}
+              <strong>Email de contacto:</strong> <span data-tina-field={tinaField(settings.contact, "email")}>{settings.contact.email || '[EMAIL PENDIENTE]'}</span>
             </li>
           </ul>
 

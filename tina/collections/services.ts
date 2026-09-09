@@ -33,6 +33,12 @@ export const servicesCollection: Collection = {
     },
     {
       type: "string",
+      name: "heroLabel",
+      label: "Sobre-título de la cabecera (Badge / Categoría)",
+      description: "Texto pequeño sobre el título (por defecto: «Psicología»).",
+    },
+    {
+      type: "string",
       name: "shortDescription",
       label: "Descripción breve (para las tarjetas del catálogo)",
       description:
@@ -67,6 +73,19 @@ export const servicesCollection: Collection = {
       label: "Icono representativo (Lucide o SVG)",
       description:
         "Nombre de cualquier icono Lucide (ej: heart-handshake, sun-medium, compass, life-buoy, sparkles, map-pin, monitor) o código SVG personalizado (<svg...).",
+    },
+    {
+      type: "string",
+      name: "ctaTitle",
+      label: "Título de la llamada a la acción inferior (opcional)",
+      description: "Por defecto: «¿Hablamos?».",
+    },
+    {
+      type: "string",
+      name: "ctaDescription",
+      label: "Descripción de la llamada a la acción inferior (opcional)",
+      description: "Por defecto: «El primer paso es contactar. Sin compromiso.».",
+      ui: { component: "textarea" },
     },
     {
       type: "string",
