@@ -63,8 +63,8 @@
   "cta": {
     "title": "¿Hablamos?",
     "description": "El primer paso es contactar. Sin compromiso.",
-    "label": "Reservar cita",
-    "href": "https://cal.com/maria-vega"
+    "label": "Contactar",
+    "href": "/contacto"
   },
   "booking": {
     "calComUrl": "https://cal.com/maria-vega",
