@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
@@ -8,6 +9,7 @@ import { render } from "astro:content";
 import { getCourseBySlug } from "@/lib/content/collections";
 import { siteConfig } from "@/lib/config/site";
 import { buildBreadcrumbList, buildCourse, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+import { tinaField } from "@tinacms/astro";
 
 // Componentes dinámicos de TinaCMS para el editor de bloques ricos
 import BotonCTA from "@/components/cms/BotonCTA.astro";
@@ -15,8 +17,22 @@ import Testimonio from "@/components/cms/Testimonio.astro";
 import Acordeon from "@/components/cms/Acordeon.astro";
 import Alerta from "@/components/cms/Alerta.astro";
 
-const course = await getCourseBySlug("curso-duelo");
+let course = await getCourseBySlug("curso-duelo");
 if (!course) return Astro.redirect("/404");
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.courses({ relativePath: "curso-duelo.mdx" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.courses) {
+    course.data = { ...course.data, ...(tinaRes.data.courses as any) };
+  }
+} catch (e) {
+  // Mantener fallback
+}
 
 const rendered = await render(course);
 const Content = rendered.Content;
@@ -51,7 +67,13 @@ const jsonLd = buildJsonLdGraph(
   canonical={pageUrl}
   jsonLd={jsonLd}
 >
-  <PageHero label={heroLabel} title={course.data.title} maxWidth="3xl">
+  <PageHero
+    label={heroLabel}
+    title={course.data.title}
+    maxWidth="3xl"
+    tinaLabelField={tinaField(course.data, "heroLabel")}
+    tinaTitleField={tinaField(course.data, "title")}
+  >
     <p class="text-ink-muted text-lg mb-4 font-body">{course.data.shortDescription}</p>
     {audienceIntro && (
       <p class="text-ink-muted text-base mb-8 max-w-2xl mx-auto font-body">{audienceIntro}</p>

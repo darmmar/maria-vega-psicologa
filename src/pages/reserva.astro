@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import Card from "@/components/ui/Card.astro";
@@ -11,8 +12,24 @@ import { Icon } from "astro-icon/components";
 import { siteConfig } from "@/lib/config/site";
 import { getBookingPage } from "@/lib/content/collections";
 import { buildBreadcrumbList, buildFAQPage, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+import { tinaField } from "@tinacms/astro";
 
-const page = await getBookingPage();
+let page = await getBookingPage();
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.bookingPage({ relativePath: "booking.json" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.bookingPage) {
+    page = tinaRes.data.bookingPage as any;
+  }
+} catch (e) {
+  // Mantener fallback
+}
+
 const { hero, sessions, faqItems } = page;
 const calComUsername = page.calComUsername || siteConfig.booking.calComUsername;
 
@@ -38,6 +55,9 @@ const jsonLd = buildJsonLdGraph(
     title={hero.title}
     description={hero.intro}
     align="center"
+    tinaLabelField={tinaField(page.hero, "label")}
+    tinaTitleField={tinaField(page.hero, "title")}
+    tinaDescriptionField={tinaField(page.hero, "intro")}
   />
 
   <!-- Tipos de sesión -->

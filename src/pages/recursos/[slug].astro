@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from '@/components/layout/Layout.astro'
 import Container from '@/components/ui/Container.astro'
 import Badge from '@/components/ui/Badge.astro'
@@ -8,6 +9,7 @@ import { render } from 'astro:content'
 import ProseWrapper from '@/components/ui/ProseWrapper.astro'
 import { getPublishedResources } from '@/lib/content/collections'
 import { buildArticle, buildBreadcrumbList, buildJsonLdGraph, buildPerson } from '@/lib/seo'
+import { tinaField } from "@tinacms/astro";
 
 // Componentes dinámicos de TinaCMS para el editor de bloques ricos
 import BotonCTA from "@/components/cms/BotonCTA.astro";
@@ -15,15 +17,27 @@ import Testimonio from "@/components/cms/Testimonio.astro";
 import Acordeon from "@/components/cms/Acordeon.astro";
 import Alerta from "@/components/cms/Alerta.astro";
 
-export async function getStaticPaths() {
-  const resources = await getPublishedResources()
-  return resources.map((r) => ({
-    params: { slug: r.data.slug },
-    props: { resource: r },
-  }))
+const slug = Astro.params.slug;
+const allResources = await getPublishedResources();
+let resource = allResources.find((r) => r.data.slug === slug);
+if (!resource) return Astro.redirect("/404");
+
+let tinaData: any = null;
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.resources({ relativePath: `${slug}.mdx` }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.resources) {
+    tinaData = tinaRes.data.resources;
+    resource.data = { ...resource.data, ...tinaData };
+  }
+} catch (e) {
+  console.error("[Tina recurso error]", e);
 }
 
-const { resource } = Astro.props
 const { Content } = await render(resource)
 
 const rawTitle = resource.data.seoTitle ?? resource.data.title
@@ -61,6 +75,8 @@ const jsonLd = buildJsonLdGraph(
     description={resource.data.description}
     align="left"
     maxWidth="2xl"
+    tinaTitleField={tinaData ? tinaField(tinaData, "title") : undefined}
+    tinaDescriptionField={tinaData ? tinaField(tinaData, "description") : undefined}
   />
 
   <section class="section-gap-tight">

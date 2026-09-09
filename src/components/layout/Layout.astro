@@ -15,7 +15,7 @@ interface Props {
   noindex?: boolean;
   jsonLd?: JsonLdNode | JsonLdNode[] | JsonLdDocument;
   ogType?: "website" | "article";
-  publishedTime?: Date;
+  publishedTime?: Date | string;
 }
 
 const { title, description, canonical, ogImage, noindex, jsonLd, ogType, publishedTime } =

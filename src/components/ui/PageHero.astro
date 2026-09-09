@@ -12,6 +12,9 @@ interface Props {
   icon?: string;
   class?: string;
   descriptionClass?: string;
+  tinaLabelField?: string;
+  tinaTitleField?: string;
+  tinaDescriptionField?: string;
 }
 
 const {
@@ -24,6 +27,9 @@ const {
   icon,
   class: className = "",
   descriptionClass = "text-ink-muted text-lg leading-relaxed font-body",
+  tinaLabelField,
+  tinaTitleField,
+  tinaDescriptionField,
 } = Astro.props;
 
 const widthClass = {
@@ -47,11 +53,11 @@ const showLabel = Boolean(label && !isDuplicateLabel);
       layout === "split" ? (
         <div class="grid md:grid-cols-2 gap-8 items-center animate-fade-in-up">
           <div>
-            {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
-            <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight">
+            {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in" data-tina-field={tinaLabelField}>{label}</p>}
+            <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight" data-tina-field={tinaTitleField}>
               {title}
             </h1>
-            {description && <p class={descriptionClass}>{description}</p>}
+            {description && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
             <slot />
           </div>
           {icon && (
@@ -62,11 +68,11 @@ const showLabel = Boolean(label && !isDuplicateLabel);
         </div>
       ) : (
         <div class:list={[widthClass, alignClass, "animate-fade-in-up"]}>
-          {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in">{label}</p>}
-          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-5 leading-tight">
+          {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in" data-tina-field={tinaLabelField}>{label}</p>}
+          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-5 leading-tight" data-tina-field={tinaTitleField}>
             {title}
           </h1>
-          {description && <p class={descriptionClass}>{description}</p>}
+          {description && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
           <slot />
         </div>
       )

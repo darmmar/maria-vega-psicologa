@@ -196,10 +196,16 @@ export function buildArticle(options: {
     publisher: { "@id": PERSON_ID },
     mainEntityOfPage: options.url,
     ...(options.datePublished && {
-      datePublished: options.datePublished.toISOString(),
+      datePublished:
+        options.datePublished instanceof Date
+          ? options.datePublished.toISOString()
+          : new Date(options.datePublished).toISOString(),
     }),
     ...(options.dateModified && {
-      dateModified: options.dateModified.toISOString(),
+      dateModified:
+        options.dateModified instanceof Date
+          ? options.dateModified.toISOString()
+          : new Date(options.dateModified).toISOString(),
     }),
     ...(options.image && { image: options.image }),
     ...(options.tags && options.tags.length > 0 && { keywords: options.tags.join(", ") }),

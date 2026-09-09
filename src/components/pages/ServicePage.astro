@@ -6,6 +6,7 @@ import ServiceContentSection from "@/components/sections/ServiceContentSection.a
 import { render } from "astro:content";
 import { getServiceBySlug } from "@/lib/content/collections";
 import { buildServicePageJsonLd } from "@/lib/seo";
+import { tinaField } from "@tinacms/astro";
 
 // Componentes dinámicos de TinaCMS para el editor de bloques ricos
 import BotonCTA from "@/components/cms/BotonCTA.astro";
@@ -22,8 +23,23 @@ interface Props {
 
 const { slug, heroIcon, heroLayout = "split", standalone = true } = Astro.props;
 
-const service = await getServiceBySlug(slug);
+let service = await getServiceBySlug(slug);
 if (!service) return Astro.redirect("/404");
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.services({ relativePath: `${slug}.mdx` }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.services) {
+    service.data = { ...service.data, ...(tinaRes.data.services as any) };
+  }
+} catch (e) {
+  // Mantener fallback
+}
+
 const { Content } = await render(service);
 
 const iconName = heroIcon ?? service.data.icon ?? "lucide:leaf";
@@ -45,6 +61,8 @@ const heroProps = {
   align: heroLayout === "centered" ? ("center" as const) : ("left" as const),
   maxWidth: "3xl" as const,
   icon: heroLayout === "split" ? iconName : undefined,
+  tinaTitleField: tinaField(service.data, "title"),
+  tinaDescriptionField: tinaField(service.data, "description"),
 };
 ---
 

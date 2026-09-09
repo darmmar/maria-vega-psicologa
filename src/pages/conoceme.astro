@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
@@ -6,14 +7,29 @@ import TrainingBlock from "@/components/sections/TrainingBlock.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { Icon } from "astro-icon/components";
+import { tinaField } from "@tinacms/astro";
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
 import { getProfile, getSiteSettings } from "@/lib/content/collections";
 import { imageSrc } from "@/lib/images";
 
-const [profile, settings] = await Promise.all([
+let [profile, settings] = await Promise.all([
   getProfile(),
   getSiteSettings(),
 ]);
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.profile({ relativePath: "profile.json" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.profile) {
+    profile = tinaRes.data.profile as any;
+  }
+} catch (e) {
+  // Mantener fallback de getProfile()
+}
 
 const { hero, approach, cta } = profile;
 const photoSrc = imageSrc(hero.photo);
@@ -56,21 +72,23 @@ const jsonLd = buildJsonLdGraph(
     <Container class="relative">
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in-up">
         <div class="lg:col-span-7">
-          <p class="label-caps text-sage mb-4">{hero.label}</p>
-          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-6 leading-tight">
+          <p class="label-caps text-sage mb-4" data-tina-field={tinaField(profile.hero, "label")}>{hero.label}</p>
+          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-6 leading-tight" data-tina-field={tinaField(profile.hero, "title")}>
             {hero.title}
           </h1>
-          {
-            hero.intro.map((paragraph) => (
-              <p class="text-ink-muted text-lg leading-relaxed mb-4 last:mb-0 font-body">{paragraph}</p>
-            ))
-          }
+          <div data-tina-field={tinaField(profile.hero, "intro")}>
+            {
+              hero.intro.map((paragraph) => (
+                <p class="text-ink-muted text-lg leading-relaxed mb-4 last:mb-0 font-body">{paragraph}</p>
+              ))
+            }
+          </div>
         </div>
 
         <div class="lg:col-span-5 w-full max-w-xs mx-auto lg:mx-0">
           {
             photoSrc ? (
-              <figure class="relative group">
+              <figure class="relative group" data-tina-field={tinaField(profile.hero, "photo")}>
                 <img
                   src={photoSrc}
                   alt={hero.photoAlt}
@@ -83,6 +101,7 @@ const jsonLd = buildJsonLdGraph(
               <div
                 class="aspect-[3/4] w-full rounded-2xl bg-warm-200/50 flex flex-col items-center justify-center border border-ink-border/30 gap-3 shadow-premium"
                 aria-hidden="true"
+                data-tina-field={tinaField(profile.hero, "photo")}
               >
                 <Icon name="lucide:user" class="w-16 h-16 text-warm-500 opacity-60" aria-hidden="true" />
                 <p class="text-ink-muted text-sm font-body text-center px-6">{hero.photoPlaceholder}</p>
@@ -98,12 +117,12 @@ const jsonLd = buildJsonLdGraph(
     <Container>
       <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start animate-fade-in-up">
         <div class="lg:col-span-7">
-          <span class="label-caps text-sage block mb-3">{approach.label}</span>
-          <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-6 leading-tight">
+          <span class="label-caps text-sage block mb-3" data-tina-field={tinaField(profile.approach, "label")}>{approach.label}</span>
+          <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-6 leading-tight" data-tina-field={tinaField(profile.approach, "title")}>
             {approach.title}
           </h2>
 
-          <div class="space-y-4 text-ink-muted text-lg leading-relaxed font-body">
+          <div class="space-y-4 text-ink-muted text-lg leading-relaxed font-body" data-tina-field={tinaField(profile.approach, "paragraphs")}>
             {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
           </div>
         </div>

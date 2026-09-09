@@ -9,7 +9,11 @@ export const coursesCollection: Collection = {
   format: "mdx",
   ui: {
     router: ({ document }) =>
-      document._sys?.filename ? `/cursos/${document._sys.filename}` : "/cursos",
+      document._sys?.filename === "curso-duelo"
+        ? "/curso-duelo"
+        : document._sys?.filename
+        ? `/cursos/${document._sys.filename}`
+        : "/cursos",
     filename: {
       readonly: true,
       slugify: (values) => values?.slug ?? "",

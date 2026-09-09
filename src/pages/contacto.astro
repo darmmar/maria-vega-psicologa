@@ -1,15 +1,32 @@
 ---
+export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import PageHero from "@/components/ui/PageHero.astro";
 import { getContactPage, getSiteSettings } from "@/lib/content/collections";
 import { buildBreadcrumbList, buildJsonLdGraph, buildMedicalBusiness, buildPerson } from "@/lib/seo";
 import { Icon } from "astro-icon/components";
+import { tinaField } from "@tinacms/astro";
 
-const [page, settings] = await Promise.all([
+let [page, settings] = await Promise.all([
   getContactPage(),
   getSiteSettings(),
 ]);
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.contactPage({ relativePath: "contact.json" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.contactPage) {
+    page = tinaRes.data.contactPage as any;
+  }
+} catch (e) {
+  // Mantener fallback
+}
+
 const { hero, firstConsultation, contactDetails, formSection } = page;
 const { email, whatsapp, telegram, phone } = settings.contact;
 
@@ -54,6 +71,9 @@ const jsonLd = buildJsonLdGraph(
     title={hero.title}
     description={hero.intro}
     maxWidth="4xl"
+    tinaLabelField={tinaField(page.hero, "label")}
+    tinaTitleField={tinaField(page.hero, "title")}
+    tinaDescriptionField={tinaField(page.hero, "intro")}
   />
 
   <section class="section-gap-tight bg-gradient-to-b from-warm-50/20 to-warm-100/10">

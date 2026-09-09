@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import Container from "@/components/ui/Container.astro";
 import PageHero from "@/components/ui/PageHero.astro";
@@ -6,15 +7,30 @@ import CTASection from "@/components/sections/CTASection.astro";
 import Button from "@/components/ui/Button.astro";
 import DynamicIcon from "@/components/ui/DynamicIcon.astro";
 import { Icon } from "astro-icon/components";
+import { tinaField } from "@tinacms/astro";
 import { getPublishedServices, getServicesPage, getSiteSettings } from "@/lib/content/collections";
 import { imageSrc } from "@/lib/images";
 import { buildBreadcrumbList, buildJsonLdGraph, buildMedicalBusiness, buildPerson } from "@/lib/seo";
 
-const [settings, servicesPage, allServices] = await Promise.all([
+let [settings, servicesPage, allServices] = await Promise.all([
   getSiteSettings(),
   getServicesPage(),
   getPublishedServices(),
 ]);
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.servicesPage({ relativePath: "services.json" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.servicesPage) {
+    servicesPage = tinaRes.data.servicesPage as any;
+  }
+} catch (e) {
+  // Mantener fallback
+}
 
 // Separar modalidades (formato) de especialidades clínicas (motivos de consulta)
 const modalitySlugs = ["terapia-presencial", "terapia-online"];
@@ -50,6 +66,9 @@ const jsonLd = buildJsonLdGraph(
     title={servicesPage.hero.title}
     description={servicesPage.hero.description}
     maxWidth="3xl"
+    tinaLabelField={tinaField(servicesPage.hero, "label")}
+    tinaTitleField={tinaField(servicesPage.hero, "title")}
+    tinaDescriptionField={tinaField(servicesPage.hero, "description")}
   />
 
   <!-- 1. BLOQUE DESTACADO: MODALIDADES DE ATENCIÓN (Presencial vs Online) -->
