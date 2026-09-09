@@ -42,12 +42,14 @@ const jsonLd = buildServicePageJsonLd({
 >
   <ServicePage slug="terapia-online" heroLayout="centered" standalone={false} />
   <CTASection
-    title={service.data.ctaTitle || settings.cta.title}
-    description={service.data.ctaDescription || settings.cta.description}
+    title={service.data.ctaTitle || "¿Quieres empezar tu proceso?"}
+    description={service.data.ctaDescription || "Elige el día y la hora que mejor se adapten a tu horario para tu sesión online por videollamada."}
     ctaLabel={service.data.ctaLabel || "Reservar cita online"}
     ctaHref={service.data.ctaHref || "https://cal.com/maria-vega/terapia-online"}
-    tinaTitleField={tinaField(settings.cta, "title")}
-    tinaDescriptionField={tinaField(settings.cta, "description")}
+    secondaryCtaLabel="Escribir un mensaje"
+    secondaryCtaHref="/contacto"
+    tinaTitleField={tinaField(service.data, "ctaTitle")}
+    tinaDescriptionField={tinaField(service.data, "ctaDescription")}
     tinaCtaLabelField={tinaField(service.data, "ctaLabel")}
   />
 </Layout>

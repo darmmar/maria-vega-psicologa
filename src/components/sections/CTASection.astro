@@ -6,6 +6,8 @@ interface Props {
   description?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
   tinaTitleField?: string;
   tinaDescriptionField?: string;
   tinaCtaLabelField?: string;
@@ -16,6 +18,8 @@ const {
   description = "El primer paso es contactar. Sin compromiso.",
   ctaLabel = "Reservar cita",
   ctaHref = "https://cal.com/maria-vega",
+  secondaryCtaLabel,
+  secondaryCtaHref,
   tinaTitleField,
   tinaDescriptionField,
   tinaCtaLabelField,
@@ -37,17 +41,28 @@ const isExternal = ctaHref.startsWith("http");
       <p class="text-lg text-sage-50 leading-relaxed font-body" data-tina-field={tinaDescriptionField}>
         {description}
       </p>
-      <div class="pt-2">
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
           href={ctaHref}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
-          class="inline-flex items-center gap-2 font-body font-medium rounded-full bg-white border border-sage-100/50 text-sage px-8 py-4 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-body font-medium rounded-full bg-white border border-sage-100/50 text-sage px-8 py-3.5 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
           data-tina-field={tinaCtaLabelField}
         >
           <span>{ctaLabel}</span>
           {isExternal && <span aria-hidden="true">↗</span>}
         </a>
+        {
+          secondaryCtaHref && secondaryCtaLabel && (
+            <a
+              href={secondaryCtaHref}
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-body font-medium rounded-full bg-transparent border border-white/30 text-white px-7 py-3.5 text-base hover:bg-white/10 hover:border-white/60 transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white"
+            >
+              <span>{secondaryCtaLabel}</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          )
+        }
       </div>
     </div>
   </Container>
