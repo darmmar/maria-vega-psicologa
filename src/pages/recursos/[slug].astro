@@ -83,13 +83,26 @@ const jsonLd = buildJsonLdGraph(
     <Container>
       <article class="max-w-2xl mx-auto animate-fade-in-up">
         {resource.data.tags.length > 0 && (
-          <div class="flex gap-2 flex-wrap mb-6">
+          <div class="flex gap-2 flex-wrap mb-6" data-tina-field={tinaData ? tinaField(tinaData, "tags") : undefined}>
             {resource.data.tags.map((tag) => <Badge variant="blush">{tag}</Badge>)}
           </div>
         )}
-        <ProseWrapper>
-          <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
-        </ProseWrapper>
+        <div data-tina-field={tinaData ? tinaField(tinaData, "body") : undefined}>
+          <ProseWrapper>
+            <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
+          </ProseWrapper>
+        </div>
+        {resource.data.ctaLabel && resource.data.ctaHref && (
+          <div class="mt-8">
+            <Button
+              href={resource.data.ctaHref}
+              variant="primary"
+              data-tina-field={tinaData ? tinaField(tinaData, "ctaLabel") : undefined}
+            >
+              {resource.data.ctaLabel}
+            </Button>
+          </div>
+        )}
         <div class="mt-16 pt-8 border-t border-ink-border/10">
           <Button href="/recursos" variant="ghost">← Volver a recursos</Button>
         </div>

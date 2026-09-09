@@ -72,27 +72,33 @@ const jsonLd = buildJsonLdGraph(
 
       <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto animate-fade-in-up">
         {
-          sessions.map((event) => (
-            <Card class="flex flex-col gap-4 p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300">
+          sessions.map((event, index) => (
+            <Card
+              class="flex flex-col gap-4 p-6 sm:p-8 hover:-translate-y-1 transition-all duration-300"
+              data-tina-field={tinaField(page, "sessions", index)}
+            >
               <div class="flex-1">
                 <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center text-sage mb-5" aria-hidden="true">
                   <Icon name={event.icon} class="w-5 h-5" />
                 </div>
                 {event.badge && (
-                  <span class="inline-block mb-4 rounded-full bg-blush/10 border border-blush/20 px-3 py-1 text-[10px] font-semibold text-blush-700 label-caps tracking-wide">
+                  <span
+                    class="inline-block mb-4 rounded-full bg-blush/10 border border-blush/20 px-3 py-1 text-[10px] font-semibold text-blush-700 label-caps tracking-wide"
+                    data-tina-field={tinaField(event, "badge")}
+                  >
                     {event.badge}
                   </span>
                 )}
-                <h3 class="font-display text-xl font-normal text-ink mb-3">{event.title}</h3>
-                <p class="font-body text-sm text-ink-muted leading-relaxed mb-5">
+                <h3 class="font-display text-xl font-normal text-ink mb-3" data-tina-field={tinaField(event, "title")}>{event.title}</h3>
+                <p class="font-body text-sm text-ink-muted leading-relaxed mb-5" data-tina-field={tinaField(event, "description")}>
                   {event.description}
                 </p>
                 <div class="flex flex-wrap gap-4 text-xs text-ink-muted border-t border-ink-border/10 pt-4 font-body">
-                  <span class="flex items-center gap-1.5">
+                  <span class="flex items-center gap-1.5" data-tina-field={tinaField(event, "duration")}>
                     <Icon name="lucide:clock" class="w-4 h-4 text-sage" aria-hidden="true" />
                     {event.duration}
                   </span>
-                  <span class="flex items-center gap-1.5">
+                  <span class="flex items-center gap-1.5" data-tina-field={tinaField(event, "format")}>
                     <Icon name={event.icon} class="w-4 h-4 text-sage" aria-hidden="true" />
                     {event.format}
                   </span>
@@ -104,6 +110,7 @@ const jsonLd = buildJsonLdGraph(
                 size="sm"
                 external
                 class="w-full"
+                data-tina-field={tinaField(event, "bookingUrl")}
               >
                 Reservar esta sesión
               </Button>

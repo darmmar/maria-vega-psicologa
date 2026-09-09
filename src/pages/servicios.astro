@@ -75,18 +75,24 @@ const jsonLd = buildJsonLdGraph(
   <section class="section-gap-tight bg-gradient-to-b from-warm-100/60 to-warm-200/30 border-b border-ink-border/30">
     <Container>
       <div class="text-center max-w-2xl mx-auto mb-10">
-        <span class="label-caps text-sage block mb-2">{servicesPage.modalitiesSection.label}</span>
-        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink">
+        <span class="label-caps text-sage block mb-2" data-tina-field={tinaField(servicesPage.modalitiesSection, "label")}>{servicesPage.modalitiesSection.label}</span>
+        <h2 class="font-display text-2xl lg:text-3xl font-normal text-ink" data-tina-field={tinaField(servicesPage.modalitiesSection, "title")}>
           {servicesPage.modalitiesSection.title}
         </h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8 max-w-5xl lg:max-w-[1080px] mx-auto">
         {
-          servicesPage.modalitiesSection.items.map((item) => (
-            <div class="relative p-7 sm:p-8 bg-white rounded-3xl border border-sage/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between group">
+          servicesPage.modalitiesSection.items.map((item, index) => (
+            <div
+              class="relative p-7 sm:p-8 bg-white rounded-3xl border border-sage/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between group"
+              data-tina-field={tinaField(servicesPage.modalitiesSection, "items", index)}
+            >
               {item.badge && (
-                <div class="absolute top-4 right-4 bg-sage/10 text-sage text-xs font-semibold px-3 py-1 rounded-full">
+                <div
+                  class="absolute top-4 right-4 bg-sage/10 text-sage text-xs font-semibold px-3 py-1 rounded-full"
+                  data-tina-field={tinaField(item, "badge")}
+                >
                   {item.badge}
                 </div>
               )}
@@ -94,18 +100,24 @@ const jsonLd = buildJsonLdGraph(
                 <div class="w-12 h-12 rounded-2xl bg-sage/10 text-sage flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                   <DynamicIcon name={item.icon} class="w-6 h-6" />
                 </div>
-                <h3 class="font-display text-2xl font-normal text-ink mb-3">
+                <h3
+                  class="font-display text-2xl font-normal text-ink mb-3"
+                  data-tina-field={tinaField(item, "title")}
+                >
                   {item.title}
                 </h3>
-                <p class="text-ink-muted text-sm sm:text-base leading-relaxed mb-6 font-body">
+                <p
+                  class="text-ink-muted text-sm sm:text-base leading-relaxed mb-6 font-body"
+                  data-tina-field={tinaField(item, "description")}
+                >
                   {item.description}
                 </p>
                 <div class="space-y-2 mb-8 text-xs sm:text-sm text-ink-muted font-body">
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-2" data-tina-field={tinaField(item, "schedule")}>
                     <Icon name="lucide:clock" class="w-4 h-4 text-sage flex-shrink-0" />
                     <span>{item.schedule}</span>
                   </div>
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-2" data-tina-field={tinaField(item, "feature")}>
                     <DynamicIcon name={item.featureIcon} class="w-4 h-4 text-sage flex-shrink-0" />
                     <span>{item.feature}</span>
                   </div>
@@ -116,6 +128,7 @@ const jsonLd = buildJsonLdGraph(
                   href={item.primaryButtonHref}
                   size="md"
                   class="w-full text-center justify-center whitespace-nowrap px-4 text-sm sm:text-base font-medium"
+                  data-tina-field={tinaField(item, "primaryButtonText")}
                 >
                   {item.primaryButtonText}
                 </Button>
@@ -124,6 +137,7 @@ const jsonLd = buildJsonLdGraph(
                   variant="secondary"
                   size="md"
                   class="w-full text-center justify-center whitespace-nowrap px-4 text-sm sm:text-base font-medium"
+                  data-tina-field={tinaField(item, "secondaryButtonText")}
                 >
                   {item.secondaryButtonText}
                 </Button>
@@ -139,11 +153,11 @@ const jsonLd = buildJsonLdGraph(
   <section class="section-gap">
     <Container>
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="label-caps text-sage block mb-3">{servicesPage.specialtiesSection.label}</span>
-        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink">
+        <span class="label-caps text-sage block mb-3" data-tina-field={tinaField(servicesPage.specialtiesSection, "label")}>{servicesPage.specialtiesSection.label}</span>
+        <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink" data-tina-field={tinaField(servicesPage.specialtiesSection, "title")}>
           {servicesPage.specialtiesSection.title}
         </h2>
-        <p class="text-ink-muted mt-3 font-body">
+        <p class="text-ink-muted mt-3 font-body" data-tina-field={tinaField(servicesPage.specialtiesSection, "description")}>
           {servicesPage.specialtiesSection.description}
         </p>
       </div>

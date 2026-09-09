@@ -7,9 +7,17 @@ interface Props {
   image?: string;
   imageAlt?: string;
   fallbackAlt?: string;
+  tinaImageField?: string;
+  tinaBodyField?: string;
 }
 
-const { image, imageAlt, fallbackAlt = "Ilustración del servicio" } = Astro.props;
+const {
+  image,
+  imageAlt,
+  fallbackAlt = "Ilustración del servicio",
+  tinaImageField,
+  tinaBodyField,
+} = Astro.props;
 const src = imageSrc(image);
 const alt = imageAlt?.trim() || fallbackAlt;
 ---
@@ -19,13 +27,13 @@ const alt = imageAlt?.trim() || fallbackAlt;
     {
       src ? (
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          <div class="lg:col-span-7">
+          <div class="lg:col-span-7" data-tina-field={tinaBodyField}>
             <ProseWrapper>
               <slot />
             </ProseWrapper>
           </div>
           <div class="lg:col-span-5 lg:sticky lg:top-24">
-            <figure class="relative group">
+            <figure class="relative group" data-tina-field={tinaImageField}>
               <img
                 src={src}
                 alt={alt}
@@ -38,7 +46,7 @@ const alt = imageAlt?.trim() || fallbackAlt;
           </div>
         </div>
       ) : (
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-4xl mx-auto" data-tina-field={tinaBodyField}>
           <ProseWrapper>
             <slot />
           </ProseWrapper>

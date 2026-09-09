@@ -74,17 +74,17 @@ const jsonLd = buildJsonLdGraph(
     tinaLabelField={tinaField(course.data, "heroLabel")}
     tinaTitleField={tinaField(course.data, "title")}
   >
-    <p class="text-ink-muted text-lg mb-4 font-body">{course.data.shortDescription}</p>
+    <p class="text-ink-muted text-lg mb-4 font-body" data-tina-field={tinaField(course.data, "shortDescription")}>{course.data.shortDescription}</p>
     {audienceIntro && (
-      <p class="text-ink-muted text-base mb-8 max-w-2xl mx-auto font-body">{audienceIntro}</p>
+      <p class="text-ink-muted text-base mb-8 max-w-2xl mx-auto font-body" data-tina-field={tinaField(course.data, "audienceIntro")}>{audienceIntro}</p>
     )}
     <div class="flex gap-4 justify-center flex-wrap">
       {paymentLink ? (
-        <Button href={paymentLink} variant="primary" size="lg" external>
+        <Button href={paymentLink} variant="primary" size="lg" external data-tina-field={tinaField(course.data, "ctaLabel")}>
           {course.data.ctaLabel?.trim() || "Inscribirme en la formación"}
         </Button>
       ) : (
-        <Button href="/contacto" variant="primary" size="lg">
+        <Button href="/contacto" variant="primary" size="lg" data-tina-field={tinaField(course.data, "ctaLabel")}>
           {course.data.ctaLabel?.trim() || "Solicitar información"}
         </Button>
       )}
@@ -93,7 +93,7 @@ const jsonLd = buildJsonLdGraph(
 
   <section class="section-gap-tight">
     <Container>
-      <div class="max-w-3xl mx-auto animate-fade-in-up">
+      <div class="max-w-3xl mx-auto animate-fade-in-up" data-tina-field={tinaField(course.data as any, "body")}>
         <ProseWrapper>
           <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
         </ProseWrapper>

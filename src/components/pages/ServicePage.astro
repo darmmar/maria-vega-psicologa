@@ -75,11 +75,17 @@ const heroProps = {
         image={service.data.image}
         imageAlt={service.data.imageAlt}
         fallbackAlt={`Ilustración del servicio ${service.data.title}`}
+        tinaImageField={tinaField(service.data, "image")}
+        tinaBodyField={tinaField(service.data as any, "body")}
       >
         <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
       </ServiceContentSection>
 
-      <CTASection ctaLabel={service.data.ctaLabel} ctaHref={service.data.ctaHref} />
+      <CTASection
+        ctaLabel={service.data.ctaLabel}
+        ctaHref={service.data.ctaHref}
+        tinaCtaLabelField={tinaField(service.data, "ctaLabel")}
+      />
     </Layout>
   ) : (
     <>
@@ -89,6 +95,8 @@ const heroProps = {
         image={service.data.image}
         imageAlt={service.data.imageAlt}
         fallbackAlt={`Ilustración del servicio ${service.data.title}`}
+        tinaImageField={tinaField(service.data, "image")}
+        tinaBodyField={tinaField(service.data as any, "body")}
       >
         <Content components={{ BotonCTA, Testimonio, Acordeon, Alerta }} />
       </ServiceContentSection>

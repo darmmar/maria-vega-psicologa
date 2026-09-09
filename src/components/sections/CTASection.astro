@@ -6,6 +6,9 @@ interface Props {
   description?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  tinaTitleField?: string;
+  tinaDescriptionField?: string;
+  tinaCtaLabelField?: string;
 }
 
 const {
@@ -13,6 +16,9 @@ const {
   description = "El primer paso es contactar. Sin compromiso.",
   ctaLabel = "Reservar cita",
   ctaHref = "/reserva",
+  tinaTitleField,
+  tinaDescriptionField,
+  tinaCtaLabelField,
 } = Astro.props;
 ---
 
@@ -23,16 +29,17 @@ const {
   
   <Container class="relative">
     <div class="max-w-2xl mx-auto text-center space-y-6">
-      <h2 class="font-display text-3xl lg:text-4xl font-normal text-white leading-tight">
+      <h2 class="font-display text-3xl lg:text-4xl font-normal text-white leading-tight" data-tina-field={tinaTitleField}>
         {title}
       </h2>
-      <p class="text-lg text-sage-50 leading-relaxed font-body">
+      <p class="text-lg text-sage-50 leading-relaxed font-body" data-tina-field={tinaDescriptionField}>
         {description}
       </p>
       <div class="pt-2">
         <a
           href={ctaHref}
           class="inline-flex items-center gap-2 font-body font-medium rounded-full bg-white border border-sage-100/50 text-sage px-8 py-4 text-base hover:bg-warm-50 hover:shadow-premium hover:-translate-y-0.5 active:translate-y-0 active:shadow-none transition-all duration-300 ease-out focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-sage"
+          data-tina-field={tinaCtaLabelField}
         >
           {ctaLabel}
         </a>
