@@ -39,8 +39,6 @@ export type SiteConfig = {
   };
 };
 
-const DEFAULT_SITE_URL = "https://mariavegagarcia.es";
-
 function envString(value: string | undefined): string | undefined {
   const trimmed = value?.trim();
   return trimmed ? trimmed : undefined;
@@ -77,7 +75,9 @@ export const siteConfig: SiteConfig = {
   professionalTitle: "Psicóloga General Sanitaria",
   description:
     "Psicóloga en Málaga y terapia online. Terapia basada en evidencia científica para problemas emocionales, relacionales, duelo, ansiedad, autocuidado y adicciones.",
-  siteUrl: envString(import.meta.env.PUBLIC_SITE_URL) ?? DEFAULT_SITE_URL,
+  siteUrl:
+    envString(import.meta.env.PUBLIC_SITE_URL) ??
+    (import.meta.env.DEV ? "http://localhost:4321" : ""),
   location: {
     city: "Málaga",
     province: "Málaga",

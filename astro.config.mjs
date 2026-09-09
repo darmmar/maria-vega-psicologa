@@ -7,9 +7,7 @@ import icon from "astro-icon";
 import cloudflare from "@astrojs/cloudflare";
 import tina from "@tinacms/astro/integration";
 
-const siteUrl =
-  process.env.PUBLIC_SITE_URL?.trim() ||
-  "https://mariavegagarcia.es";
+const siteUrl = process.env.PUBLIC_SITE_URL?.trim() || "http://localhost:4321";
 
 export default defineConfig({
   site: siteUrl,

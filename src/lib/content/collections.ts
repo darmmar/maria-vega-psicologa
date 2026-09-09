@@ -47,17 +47,17 @@ export async function getServicesPage() {
 
 export async function getPublishedExperience() {
   const items = await getCollection("experience", ({ data }) => data.published);
-  return items.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+  return items.sort((a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY));
 }
 
 export async function getPublishedTraining() {
   const items = await getCollection("training", ({ data }) => data.published);
-  return items.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+  return items.sort((a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY));
 }
 
 export async function getPublishedServices() {
   const services = await getCollection("services", ({ data }) => data.published);
-  return services.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+  return services.sort((a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY));
 }
 
 export async function getPublishedResources() {
@@ -92,7 +92,7 @@ export async function getCourseBySlug(slug: string) {
 export async function getFaq(category?: string) {
   const items = await getCollection("faq", ({ data }) => data.published);
   const filtered = category ? items.filter((i) => i.data.category === category) : items;
-  return filtered.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+  return filtered.sort((a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY));
 }
 
 export async function getServiceBySlug(slug: string) {

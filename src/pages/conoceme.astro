@@ -31,10 +31,8 @@ const businessOverrides = {
   linkedin: settings.contact.linkedin,
 };
 
-const pageTitle = profile.seoTitle || "Conóceme — María Vega";
-const pageDescription =
-  profile.seoDescription ||
-  "Conoce a María Vega, Psicóloga General Sanitaria. Terapia contextual, ACT y perspectiva de género basada en evidencia científica y cercanía humana.";
+const pageTitle = profile.seoTitle ?? profile.hero.title;
+const pageDescription = profile.seoDescription ?? profile.hero.intro.join(" ");
 
 const jsonLd = buildJsonLdGraph(
   buildPerson({

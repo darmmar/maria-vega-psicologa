@@ -58,10 +58,8 @@ const jsonLd = buildJsonLdGraph(
 const modalityHrefs = ["/terapia-presencial", "/terapia-online"];
 const clinicalServices = services.filter((s) => !modalityHrefs.includes(s.href));
 
-const pageTitle = settings.seo?.homeTitle || "Psicóloga en Málaga y Terapia Online";
-const pageDescription =
-  settings.seo?.homeDescription ||
-  "Consulta de psicología en Málaga y atención online. Terapia contextual y basada en evidencia con María Vega.";
+const pageTitle = settings.seo?.homeTitle ?? settings.hero.title;
+const pageDescription = settings.seo?.homeDescription ?? settings.hero.description;
 ---
 
 <Layout
