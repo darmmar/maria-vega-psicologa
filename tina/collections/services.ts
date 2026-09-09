@@ -8,6 +8,12 @@ export const servicesCollection: Collection = {
   path: "src/content/servicios",
   format: "mdx",
   ui: {
+    router: ({ document }) => {
+      const fn = document._sys?.filename;
+      if (fn === "terapia-presencial") return "/terapia-presencial";
+      if (fn === "terapia-online") return "/terapia-online";
+      return "/servicios";
+    },
     filename: {
       readonly: true,
       slugify: (values) => values?.slug ?? "",

@@ -6,7 +6,10 @@ export const profileCollection: Collection = {
   label: "👤 Conóceme · Presentación personal",
   path: "src/content/profile",
   format: "json",
-  ui: singletonUi,
+  ui: {
+    ...singletonUi,
+    router: () => "/conoceme",
+  },
   fields: [
     {
       type: "object",

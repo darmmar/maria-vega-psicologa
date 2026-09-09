@@ -6,7 +6,10 @@ export const servicesPageCollection: Collection = {
   label: "🩺 Servicios · Cabecera y modalidades",
   path: "src/content/servicesPage",
   format: "json",
-  ui: singletonUi,
+  ui: {
+    ...singletonUi,
+    router: () => "/servicios",
+  },
   fields: [
     {
       type: "object",

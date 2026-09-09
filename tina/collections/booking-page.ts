@@ -6,7 +6,10 @@ export const bookingPageCollection: Collection = {
   label: "📅 Reservas · Página principal",
   path: "src/content/bookingPage",
   format: "json",
-  ui: singletonUi,
+  ui: {
+    ...singletonUi,
+    router: () => "/reserva",
+  },
   fields: [
     {
       type: "object",

@@ -11,13 +11,26 @@ import HomeFaq from "@/components/sections/HomeFaq.astro";
 import SectionDivider from "@/components/ui/SectionDivider.astro";
 import { buildFAQPage, buildJsonLdGraph, buildMedicalBusiness, buildPerson, buildWebSite } from "@/lib/seo";
 import { getCourseBySlug, getFaq, getServicesForGrid, getSiteSettings } from "@/lib/content/collections";
+import TinaIsland from "@tinacms/astro/TinaIsland.astro";
 
-const [settings, course, services, rawFaqs] = await Promise.all([
+let [settings, course, services, rawFaqs] = await Promise.all([
   getSiteSettings(),
   getCourseBySlug("curso-duelo"),
   getServicesForGrid(),
   getFaq(),
 ]);
+
+try {
+  const { requestWithMetadata } = await import("@tinacms/astro");
+  const client = (await import("../../tina/__generated__/client")).default;
+  const tinaRes = await requestWithMetadata(
+    client.queries.siteSettings({ relativePath: "settings.json" }),
+    { priority: "primary" }
+  );
+  if (tinaRes?.data?.siteSettings) {
+    settings = tinaRes.data.siteSettings as any;
+  }
+} catch {}
 
 const faqItems = rawFaqs.map((f) => ({
   question: f.data.question,
@@ -56,7 +69,9 @@ const pageDescription =
   description={pageDescription}
   jsonLd={jsonLd}
 >
-  <Hero />
+  <TinaIsland name="hero" wrapper={{ tag: "div" }} primary>
+    <Hero siteSettings={settings} />
+  </TinaIsland>
   <SectionDivider />
   <TherapyApproach />
   <SectionDivider />

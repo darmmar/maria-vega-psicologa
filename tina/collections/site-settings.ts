@@ -6,7 +6,10 @@ export const siteSettingsCollection: Collection = {
   label: "🏠 Inicio · Portada y ajustes globales",
   path: "src/content/siteSettings",
   format: "json",
-  ui: singletonUi,
+  ui: {
+    ...singletonUi,
+    router: () => "/",
+  },
   fields: [
     {
       type: "object",

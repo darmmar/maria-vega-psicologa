@@ -6,7 +6,10 @@ export const contactPageCollection: Collection = {
   label: "✉️ Contacto · Página de contacto",
   path: "src/content/contactPage",
   format: "json",
-  ui: singletonUi,
+  ui: {
+    ...singletonUi,
+    router: () => "/contacto",
+  },
   fields: [
     {
       type: "string",

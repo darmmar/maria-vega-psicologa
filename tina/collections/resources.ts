@@ -8,6 +8,8 @@ export const resourcesCollection: Collection = {
   path: "src/content/recursos",
   format: "mdx",
   ui: {
+    router: ({ document }) =>
+      document._sys?.filename ? `/recursos/${document._sys.filename}` : "/recursos",
     filename: {
       readonly: true,
       slugify: (values) => values?.slug ?? "",
