@@ -188,9 +188,21 @@ const jsonLd = buildJsonLdGraph(
   </section>
 
   <SectionDivider />
-  <TrainingBlock trainingSection={settings.trainingSection} items={trainingItems} />
+  <TrainingBlock
+    trainingSection={profile.trainingSection ?? settings.trainingSection}
+    items={trainingItems}
+    tinaLabelField={profile.trainingSection ? tinaField(profile.trainingSection, "label") : undefined}
+    tinaTitleField={profile.trainingSection ? tinaField(profile.trainingSection, "title") : undefined}
+    tinaClinicalTitleField={profile.trainingSection ? tinaField(profile.trainingSection, "clinicalTitle") : undefined}
+    tinaComplementaryTitleField={profile.trainingSection ? tinaField(profile.trainingSection, "complementaryTitle") : undefined}
+  />
   <SectionDivider />
-  <ExperienceBlock experienceSection={settings.experienceSection} items={experienceItems} />
+  <ExperienceBlock
+    experienceSection={profile.experienceSection ?? settings.experienceSection}
+    items={experienceItems}
+    tinaLabelField={profile.experienceSection ? tinaField(profile.experienceSection, "label") : undefined}
+    tinaTitleField={profile.experienceSection ? tinaField(profile.experienceSection, "title") : undefined}
+  />
   <SectionDivider />
 
   <CTASection

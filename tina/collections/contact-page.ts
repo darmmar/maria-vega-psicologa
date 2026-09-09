@@ -129,6 +129,30 @@ export const contactPageCollection: Collection = {
         },
         {
           type: "string",
+          name: "email",
+          label: "Email de contacto (opcional)",
+          description: "Si se deja vacío, se usará el email general de Ajustes Globales.",
+        },
+        {
+          type: "string",
+          name: "phone",
+          label: "Teléfono de contacto (opcional)",
+          description: "Si se deja vacío, se usará el teléfono de Ajustes Globales.",
+        },
+        {
+          type: "string",
+          name: "whatsapp",
+          label: "Enlace o número de WhatsApp (opcional)",
+          description: "Si se deja vacío, se usará el WhatsApp de Ajustes Globales.",
+        },
+        {
+          type: "string",
+          name: "address",
+          label: "Dirección de la consulta (opcional)",
+          description: "Si se deja vacío, se usará la dirección de Ajustes Globales.",
+        },
+        {
+          type: "string",
           name: "mapCardTitle",
           label: "Título de la tarjeta del mapa (opcional)",
           description: "Ej: «Consulta presencial» o «Ubicación». Por defecto: «Consulta presencial».",

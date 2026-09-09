@@ -112,6 +112,10 @@ const contactPage = defineCollection({
       title: z.string(),
       mapCardTitle: z.string().optional().nullable(),
       mapNote: z.string().optional().nullable(),
+      email: z.string().optional().nullable(),
+      phone: z.string().optional().nullable(),
+      whatsapp: z.string().optional().nullable(),
+      address: z.string().optional().nullable(),
     }),
     formSection: z.object({
       title: z.string(),
@@ -159,15 +163,62 @@ const siteSettings = defineCollection({
       description: z.string(),
       pillars: z.array(pillarSchema),
     }),
-    servicesSection: sectionHeadingSchema,
-    experienceSection: sectionHeadingSchema,
+    servicesSection: sectionHeadingSchema.extend({
+      items: z
+        .array(
+          z.object({
+            title: z.string(),
+            shortDescription: z.string(),
+            href: z.string(),
+            icon: z.string().optional().nullable(),
+            thumbnail: z.string().optional().nullable(),
+            thumbnailAlt: z.string().optional().nullable(),
+          })
+        )
+        .optional(),
+    }),
+    experienceSection: sectionHeadingSchema.extend({
+      items: z
+        .array(
+          z.object({
+            area: z.string(),
+          })
+        )
+        .optional(),
+    }),
     trainingSection: sectionHeadingSchema.extend({
       clinicalTitle: z.string(),
+      clinicalItems: z
+        .array(
+          z.object({
+            degree: z.string(),
+            institution: z.string(),
+            year: z.string().optional().nullable(),
+          })
+        )
+        .optional(),
       complementaryTitle: z.string(),
+      complementaryItems: z
+        .array(
+          z.object({
+            degree: z.string(),
+            institution: z.string(),
+            year: z.string().optional().nullable(),
+          })
+        )
+        .optional(),
     }),
     faqSection: sectionHeadingSchema
       .extend({
         description: z.string().optional(),
+        items: z
+          .array(
+            z.object({
+              question: z.string(),
+              answer: z.string(),
+            })
+          )
+          .optional(),
       })
       .optional(),
     cta: ctaLinkSchema.extend({
@@ -255,6 +306,35 @@ const profile = defineCollection({
       title: z.string(),
       paragraphs: z.array(z.string()),
     }),
+    trainingSection: sectionHeadingSchema
+      .extend({
+        clinicalTitle: z.string(),
+        clinicalItems: z.array(
+          z.object({
+            degree: z.string(),
+            institution: z.string(),
+            year: z.string().optional().nullable(),
+          })
+        ),
+        complementaryTitle: z.string(),
+        complementaryItems: z.array(
+          z.object({
+            degree: z.string(),
+            institution: z.string(),
+            year: z.string().optional().nullable(),
+          })
+        ),
+      })
+      .optional(),
+    experienceSection: sectionHeadingSchema
+      .extend({
+        items: z.array(
+          z.object({
+            area: z.string(),
+          })
+        ),
+      })
+      .optional(),
     cta: ctaLinkSchema.extend({
       title: z.string(),
       description: z.string(),
@@ -316,7 +396,25 @@ const servicesPage = defineCollection({
       label: z.string(),
       title: z.string(),
       description: z.string(),
+      items: z
+        .array(
+          z.object({
+            title: z.string(),
+            shortDescription: z.string(),
+            icon: z.string().optional().nullable(),
+            thumbnail: z.string().optional().nullable(),
+            thumbnailAlt: z.string().optional().nullable(),
+            slug: z.string().optional().nullable(),
+          })
+        )
+        .optional(),
     }),
+    cta: ctaLinkSchema
+      .extend({
+        title: z.string(),
+        description: z.string(),
+      })
+      .optional(),
   }),
 });
 

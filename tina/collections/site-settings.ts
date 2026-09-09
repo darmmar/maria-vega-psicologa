@@ -157,25 +157,58 @@ export const siteSettingsCollection: Collection = {
     {
       type: "object",
       name: "servicesSection",
-      label: "3. Portada — Título de la sección de servicios",
+      label: "3. Portada — Sección de servicios y especialidades",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: «Especialidades»)", required: true },
         { type: "string", name: "title", label: "Título principal (ej: «¿En qué puedo ayudarte?»)", required: true },
+        {
+          type: "object",
+          name: "items",
+          label: "Tarjetas de especialidades clínicas",
+          list: true,
+          ui: {
+            itemProps: (item) => ({
+              label: item?.title || "Especialidad",
+            }),
+          },
+          fields: [
+            { type: "string", name: "title", label: "Título", required: true },
+            { type: "string", name: "shortDescription", label: "Descripción breve", required: true, ui: { component: "textarea" } },
+            { type: "string", name: "href", label: "Enlace (ej: /duelo)", required: true },
+            { type: "string", name: "icon", label: "Icono vectorial (ej: lucide:sparkles)" },
+            { type: "image", name: "thumbnail", label: "Miniatura (opcional)", ui: imageFieldUi },
+            { type: "string", name: "thumbnailAlt", label: "Texto alternativo de la miniatura" },
+          ],
+        },
       ],
     },
     {
       type: "object",
       name: "experienceSection",
-      label: "4. Portada — Título de la sección de experiencia",
+      label: "4. Portada — Sección de experiencia y trayectoria",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: «Trayectoria»)", required: true },
         { type: "string", name: "title", label: "Título principal (ej: «Experiencia profesional»)", required: true },
+        {
+          type: "object",
+          name: "items",
+          label: "Áreas de experiencia",
+          list: true,
+          ui: {
+            itemProps: (item) => ({
+              label: item?.area || "Área",
+            }),
+          },
+          fields: [
+            { type: "string", name: "area", label: "Puesto o área de experiencia", required: true },
+          ],
+        },
       ],
     },
     {
       type: "object",
       name: "trainingSection",
-      label: "5. Portada — Títulos de la sección de formación",
+      label: "5. Portada — Sección de formación y cualificación",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: «Cualificación»)", required: true },
         { type: "string", name: "title", label: "Título principal (ej: «Formación académica y clínica»)", required: true },
@@ -187,11 +220,39 @@ export const siteSettingsCollection: Collection = {
           required: true,
         },
         {
+          type: "object",
+          name: "clinicalItems",
+          label: "Titulaciones sanitarias y clínicas",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.degree || "Titulación clínica" }),
+          },
+          fields: [
+            { type: "string", name: "degree", label: "Título / Grado / Máster", required: true },
+            { type: "string", name: "institution", label: "Institución / Universidad", required: true },
+            { type: "string", name: "year", label: "Año (opcional)" },
+          ],
+        },
+        {
           type: "string",
           name: "complementaryTitle",
           label: "Subtítulo para el bloque complementario",
           description: "Ej: «Formación complementaria y continua».",
           required: true,
+        },
+        {
+          type: "object",
+          name: "complementaryItems",
+          label: "Titulaciones complementarias",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.degree || "Titulación complementaria" }),
+          },
+          fields: [
+            { type: "string", name: "degree", label: "Título / Grado / Máster", required: true },
+            { type: "string", name: "institution", label: "Institución / Universidad", required: true },
+            { type: "string", name: "year", label: "Año (opcional)" },
+          ],
         },
       ],
     },
@@ -234,7 +295,7 @@ export const siteSettingsCollection: Collection = {
     {
       type: "object",
       name: "faqSection",
-      label: "8. Portada — Cabecera de Preguntas Frecuentes",
+      label: "8. Portada — Preguntas Frecuentes",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: «Preguntas frecuentes»)", required: true },
         { type: "string", name: "title", label: "Título principal (ej: «Respuestas sobre el proceso de terapia»)", required: true },
@@ -244,6 +305,19 @@ export const siteSettingsCollection: Collection = {
           label: "Descripción breve",
           required: true,
           ui: { component: "textarea" },
+        },
+        {
+          type: "object",
+          name: "items",
+          label: "Preguntas y respuestas",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.question || "Nueva pregunta" }),
+          },
+          fields: [
+            { type: "string", name: "question", label: "Pregunta", required: true },
+            { type: "string", name: "answer", label: "Respuesta", required: true, ui: { component: "textarea" } },
+          ],
         },
       ],
     },

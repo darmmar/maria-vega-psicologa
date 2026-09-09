@@ -165,20 +165,31 @@ const jsonLd = buildJsonLdGraph(
 
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {
-          clinicalSpecialties.map((service) => {
-            const thumbnailSrc = imageSrc(service.data.thumbnail);
-            const thumbnailAlt =
-              service.data.thumbnailAlt?.trim() || `Miniatura del servicio ${service.data.title}`;
+          (servicesPage.specialtiesSection.items ?? clinicalSpecialties).map((rawService: any, index: number) => {
+            const isPageItem = !rawService.data;
+            const title = isPageItem ? rawService.title : rawService.data.title;
+            const shortDescription = isPageItem ? rawService.shortDescription : rawService.data.shortDescription;
+            const slug = isPageItem ? rawService.slug : rawService.data.slug;
+            const icon = isPageItem ? rawService.icon : rawService.data.icon;
+            const thumbnail = isPageItem ? rawService.thumbnail : rawService.data.thumbnail;
+            const thumbnailAltProp = isPageItem ? rawService.thumbnailAlt : rawService.data.thumbnailAlt;
+
+            const thumbnailSrc = imageSrc(thumbnail);
+            const thumbnailAlt = thumbnailAltProp?.trim() || `Miniatura del servicio ${title}`;
+            const cardField = servicesPage.specialtiesSection.items
+              ? tinaField(servicesPage.specialtiesSection, "items", index)
+              : undefined;
 
             return (
               <a
-                href={`/${service.data.slug}`}
-                aria-label={`Saber más sobre ${service.data.title}`}
+                href={`/${slug}`}
+                aria-label={`Saber más sobre ${title}`}
                 class="group block p-6 bg-gradient-to-b from-white to-warm-50/30 rounded-2xl border border-ink-border/30 border-t-2 border-t-sage/25 shadow-premium hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300 ease-out flex flex-col justify-between"
+                data-tina-field={cardField}
               >
                 <div>
                   {thumbnailSrc ? (
-                    <div class="w-full h-32 overflow-hidden rounded-xl mb-5">
+                    <div class="w-full h-32 overflow-hidden rounded-xl mb-5" data-tina-field={isPageItem ? tinaField(rawService, "thumbnail") : undefined}>
                       <img
                         src={thumbnailSrc}
                         alt={thumbnailAlt}
@@ -189,14 +200,20 @@ const jsonLd = buildJsonLdGraph(
                     </div>
                   ) : (
                     <div class="w-10 h-10 rounded-xl bg-sage/5 flex items-center justify-center mb-5 text-sage transition-colors duration-300">
-                      <DynamicIcon name={service.data.icon} class="w-5 h-5" />
+                      <DynamicIcon name={icon} class="w-5 h-5" />
                     </div>
                   )}
-                  <h3 class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200">
-                    {service.data.title}
+                  <h3
+                    class="font-display text-xl font-normal text-ink mb-2 group-hover:text-sage transition-colors duration-200"
+                    data-tina-field={isPageItem ? tinaField(rawService, "title") : undefined}
+                  >
+                    {title}
                   </h3>
-                  <p class="text-sm text-ink-muted leading-relaxed mb-4 font-body">
-                    {service.data.shortDescription}
+                  <p
+                    class="text-sm text-ink-muted leading-relaxed mb-4 font-body"
+                    data-tina-field={isPageItem ? tinaField(rawService, "shortDescription") : undefined}
+                  >
+                    {shortDescription}
                   </p>
                 </div>
                 <div class="pt-3 border-t border-ink-border/10">
@@ -213,9 +230,12 @@ const jsonLd = buildJsonLdGraph(
   </section>
 
   <CTASection
-    title={settings.cta.title}
-    description={settings.cta.description}
-    ctaLabel={settings.cta.label}
-    ctaHref={settings.cta.href}
+    title={servicesPage.cta?.title ?? settings.cta.title}
+    description={servicesPage.cta?.description ?? settings.cta.description}
+    ctaLabel={servicesPage.cta?.label ?? settings.cta.label}
+    ctaHref={servicesPage.cta?.href ?? settings.cta.href}
+    tinaTitleField={servicesPage.cta ? tinaField(servicesPage.cta, "title") : undefined}
+    tinaDescriptionField={servicesPage.cta ? tinaField(servicesPage.cta, "description") : undefined}
+    tinaCtaLabelField={servicesPage.cta ? tinaField(servicesPage.cta, "label") : undefined}
   />
 </Layout>

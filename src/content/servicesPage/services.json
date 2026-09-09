@@ -41,6 +41,46 @@
   "specialtiesSection": {
     "label": "Áreas de acompañamiento",
     "title": "¿En qué situaciones puedo acompañarte?",
-    "description": "Cada proceso es único. Trabajamos sobre tus dificultades desde una mirada científica y libre de juicios."
+    "description": "Cada proceso es único. Trabajamos sobre tus dificultades desde una mirada científica y libre de juicios.",
+    "items": [
+      {
+        "title": "Duelo y pérdidas",
+        "shortDescription": "Acompañamiento en pérdidas afectivas, materiales o vitales desde un enfoque humano y basado en evidencia.",
+        "slug": "terapia-duelo",
+        "icon": "lucide:heart-handshake",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      },
+      {
+        "title": "Ansiedad y estrés",
+        "shortDescription": "Herramientas para entender y gestionar la ansiedad, el estrés crónico y el malestar emocional.",
+        "slug": "terapia-ansiedad",
+        "icon": "lucide:sun-medium",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      },
+      {
+        "title": "Adicciones y conductas problemáticas",
+        "shortDescription": "Acompañamiento en adicciones comportamentales, dependencias emocionales y conductas que generan malestar o pérdida de control.",
+        "slug": "terapia-adicciones",
+        "icon": "lucide:shield-check",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      },
+      {
+        "title": "Terapia infantil y juvenil",
+        "shortDescription": "Acompañamiento psicológico para niños y adolescentes, con atención a su contexto familiar y escolar.",
+        "slug": "terapia-infantil-juvenil",
+        "icon": "lucide:sparkles",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      }
+    ]
+  },
+  "cta": {
+    "title": "¿Hablamos?",
+    "description": "El primer paso es contactar. Sin compromiso.",
+    "label": "Contactar",
+    "href": "/contacto"
   }
 }

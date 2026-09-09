@@ -35,9 +35,17 @@ try {
   }
 } catch {}
 
-const finalFaqItems = rawFaqs.map((f) => ({
+const rawFaqList = settings.faqSection?.items ?? rawFaqs.map((f) => ({
   question: f.data.question,
   answer: f.data.answer,
+}));
+
+const finalFaqItems = rawFaqList.map((f: any, index: number) => ({
+  question: f.question ?? f.data?.question,
+  answer: f.answer ?? f.data?.answer,
+  tinaFieldItem: settings.faqSection?.items ? tinaField(settings.faqSection, "items", index) : undefined,
+  tinaFieldQuestion: settings.faqSection?.items ? tinaField(f, "question") : undefined,
+  tinaFieldAnswer: settings.faqSection?.items ? tinaField(f, "answer") : undefined,
 }));
 
 const businessOverrides = {
@@ -59,7 +67,17 @@ const jsonLd = buildJsonLdGraph(
 );
 
 const modalityHrefs = ["/terapia-presencial", "/terapia-online"];
-const clinicalServices = services.filter((s) => !modalityHrefs.includes(s.href));
+const rawServicesList = settings.servicesSection?.items ?? services.filter((s) => !modalityHrefs.includes(s.href));
+const clinicalServices = rawServicesList.map((s: any, index: number) => {
+  const isSettingsItem = Boolean(settings.servicesSection?.items);
+  return {
+    ...s,
+    tinaFieldCard: isSettingsItem ? tinaField(settings.servicesSection, "items", index) : undefined,
+    tinaFieldTitle: isSettingsItem ? tinaField(s, "title") : undefined,
+    tinaFieldDescription: isSettingsItem ? tinaField(s, "shortDescription") : undefined,
+    tinaFieldThumbnail: isSettingsItem ? tinaField(s, "thumbnail") : undefined,
+  };
+});
 
 const experienceItems = rawExp;
 const trainingItems = rawTraining;

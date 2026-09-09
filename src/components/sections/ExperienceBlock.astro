@@ -2,6 +2,7 @@
 import Container from "@/components/ui/Container.astro";
 import { Icon } from "astro-icon/components";
 import { getSiteSettings, getPublishedExperience } from "@/lib/content/collections";
+import { tinaField } from "@tinacms/astro";
 
 interface Props {
   experienceSection?: any;
@@ -19,6 +20,7 @@ const {
 
 const experienceSection = propsSection ?? (await getSiteSettings()).experienceSection;
 const rawItems = items ?? (await getPublishedExperience());
+const itemsToRender = experienceSection.items ?? rawItems;
 ---
 
 <section class="section-gap bg-gradient-to-b from-warm-200 to-warm-300/30">
@@ -35,17 +37,20 @@ const rawItems = items ?? (await getPublishedExperience());
 
     <div class="grid sm:grid-cols-2 gap-6">
       {
-        rawItems.map((item: any) => {
+        itemsToRender.map((item: any, index: number) => {
           const area = item.data?.area ?? item.area;
+          const itemField = tinaField(experienceSection, "items", index) || (item.tinaNode ? tinaField(item.tinaNode, "area") : undefined);
           return (
             <div
               class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-ink-border/30 shadow-premium transition-all duration-300 hover:border-sage/20 hover:shadow-premium-hover hover:-translate-y-0.5"
+              data-tina-field={itemField}
             >
               <div class="flex-shrink-0 w-8 h-8 rounded-full bg-sage/5 border border-sage/10 flex items-center justify-center text-sage">
                 <Icon name="lucide:check-circle" class="w-4 h-4" aria-hidden="true" />
               </div>
               <span
                 class="text-base text-ink-muted leading-relaxed font-body mt-0.5"
+                data-tina-field={tinaField(item, "area")}
               >
                 {area}
               </span>

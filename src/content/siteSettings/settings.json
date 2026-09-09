@@ -48,17 +48,100 @@
   },
   "servicesSection": {
     "label": "Especialidades",
-    "title": "¿En qué puedo ayudarte?"
+    "title": "¿En qué puedo ayudarte?",
+    "items": [
+      {
+        "title": "Duelo y pérdidas",
+        "shortDescription": "Acompañamiento en pérdidas afectivas, materiales o vitales desde un enfoque humano y basado en evidencia.",
+        "href": "/terapia-duelo",
+        "icon": "lucide:heart-handshake",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      },
+      {
+        "title": "Ansiedad y estrés",
+        "shortDescription": "Herramientas para entender y gestionar la ansiedad, el estrés crónico y el malestar emocional.",
+        "href": "/terapia-ansiedad",
+        "icon": "lucide:sun-medium",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      },
+      {
+        "title": "Adicciones y conductas problemáticas",
+        "shortDescription": "Acompañamiento en adicciones comportamentales, dependencias emocionales y conductas que generan malestar o pérdida de control.",
+        "href": "/terapia-adicciones",
+        "icon": "lucide:shield-check",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      },
+      {
+        "title": "Terapia infantil y juvenil",
+        "shortDescription": "Acompañamiento psicológico para niños y adolescentes, con atención a su contexto familiar y escolar.",
+        "href": "/terapia-infantil-juvenil",
+        "icon": "lucide:sparkles",
+        "thumbnail": null,
+        "thumbnailAlt": null
+      }
+    ]
   },
   "experienceSection": {
     "label": "Trayectoria",
-    "title": "Experiencia clínica"
+    "title": "Experiencia clínica",
+    "items": [
+      {
+        "area": "Terapia para adultos y parejas"
+      },
+      {
+        "area": "Psicología infantil y juvenil"
+      },
+      {
+        "area": "Duelo y pérdidas"
+      },
+      {
+        "area": "Adicciones comportamentales"
+      },
+      {
+        "area": "Estrés laboral"
+      },
+      {
+        "area": "Ansiedad y regulación emocional"
+      }
+    ]
   },
   "trainingSection": {
     "label": "Cualificación",
     "title": "Formación",
     "clinicalTitle": "Formación clínica",
-    "complementaryTitle": "Formación complementaria"
+    "clinicalItems": [
+      {
+        "degree": "Grado en Psicología",
+        "institution": "Universidad de Málaga",
+        "year": "2022"
+      },
+      {
+        "degree": "Máster en Psicología General Sanitaria",
+        "institution": "Universidad de Málaga",
+        "year": "2024"
+      },
+      {
+        "degree": "Máster en Terapias Contextuales y de Tercera Generación",
+        "institution": "Ítaca formación. UDIMA",
+        "year": "2024"
+      }
+    ],
+    "complementaryTitle": "Formación complementaria",
+    "complementaryItems": [
+      {
+        "degree": "Máster en Dirección y Gestión de Personas",
+        "institution": "VIU",
+        "year": null
+      },
+      {
+        "degree": "Orientadora Laboral",
+        "institution": "AOSLA-Gizalan",
+        "year": null
+      }
+    ]
   },
   "cta": {
     "title": "¿Hablamos?",
@@ -79,7 +162,37 @@
   "faqSection": {
     "label": "Preguntas frecuentes",
     "title": "Respuestas sobre el proceso de terapia",
-    "description": "Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza."
+    "description": "Resolver tus dudas antes de comenzar es fundamental para dar el paso con tranquilidad y confianza.",
+    "items": [
+      {
+        "question": "¿Qué es la Terapia de Aceptación y Compromiso (ACT) y el enfoque contextual?",
+        "answer": "La Terapia de Aceptación y Compromiso (ACT) es una terapia de tercera generación respaldada por sólida evidencia científica. En lugar de desgastarte luchando contra pensamientos intrusivos o emociones difíciles, aprendemos a relacionarnos con ellos desde la flexibilidad y el autoconocimiento. El propósito central no es suprimir el dolor a toda costa, sino dotarte de herramientas para orientar tu conducta hacia lo que de verdad te importa y construir una vida valiosa."
+      },
+      {
+        "question": "¿Cuánto dura una sesión?",
+        "answer": "Las sesiones tienen una duración estándar de 50 minutos. En casos puntuales, como primeras consultas o sesiones de evaluación, puede acordarse un tiempo diferente."
+      },
+      {
+        "question": "¿Funciona la terapia online igual que la presencial?",
+        "answer": "La evidencia científica muestra que la terapia online es igual de efectiva que la presencial para la mayoría de los problemas psicológicos. La elección entre una y otra depende de las preferencias personales y de las circunstancias de cada persona."
+      },
+      {
+        "question": "¿En cuántas sesiones notaré cambios?",
+        "answer": "No hay una respuesta única. Depende del motivo de consulta, de los objetivos y del proceso de cada persona. En las primeras sesiones se trabaja la evaluación y el establecimiento de objetivos. Los cambios pueden aparecer en diferentes momentos del proceso."
+      },
+      {
+        "question": "¿Necesito un diagnóstico para ir a terapia?",
+        "answer": "No. No es necesario tener un diagnóstico previo para iniciar un proceso terapéutico. Muchas personas acuden a terapia por malestar emocional, situaciones vitales difíciles o simplemente porque quieren conocerse mejor."
+      },
+      {
+        "question": "¿Cómo funciona la primera cita?",
+        "answer": "La primera sesión es una toma de contacto. Sirve para que puedas contar lo que te trae, hacer las preguntas que necesites y explorar si hay algo en lo que trabajar juntos. No hay ningún compromiso de continuidad después de esa primera consulta."
+      },
+      {
+        "question": "¿Qué pasa si necesito cancelar una sesión?",
+        "answer": "Si necesitas cancelar o reprogramar una cita, es importante comunicarlo con la mayor antelación posible. La política de cancelación se comunica al inicio del proceso terapéutico."
+      }
+    ]
   },
   "coursesPage": {
     "label": "Formación profesional",

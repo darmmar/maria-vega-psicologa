@@ -1,5 +1,5 @@
 import type { Collection } from "tinacms";
-import { singletonUi } from "../shared/helpers";
+import { ctaLinkFields, imageFieldUi, singletonUi } from "../shared/helpers";
 
 export const servicesPageCollection: Collection = {
   name: "servicesPage",
@@ -178,6 +178,78 @@ export const servicesPageCollection: Collection = {
           required: true,
           ui: { component: "textarea" },
         },
+        {
+          type: "object",
+          name: "items",
+          label: "Tarjetas de especialidades clínicas",
+          list: true,
+          ui: {
+            itemProps: (item) => ({
+              label: item?.title || "Nueva especialidad",
+            }),
+          },
+          fields: [
+            {
+              type: "string",
+              name: "title",
+              label: "Título de la especialidad",
+              description: "Ej: «Duelo y pérdidas» o «Ansiedad y regulación emocional».",
+              required: true,
+            },
+            {
+              type: "string",
+              name: "shortDescription",
+              label: "Descripción breve",
+              description: "Resumen breve para la tarjeta.",
+              required: true,
+              ui: { component: "textarea" },
+            },
+            {
+              type: "string",
+              name: "slug",
+              label: "Identificador de enlace (Slug)",
+              description: "Ruta de la página (ej: duelo, ansiedad, infanto-juvenil, adicciones).",
+            },
+            {
+              type: "string",
+              name: "icon",
+              label: "Icono vectorial (opcional si hay miniatura)",
+              description: "Identificador Lucide (ej: lucide:heart-crack, lucide:sparkles).",
+            },
+            {
+              type: "image",
+              name: "thumbnail",
+              label: "Imagen en miniatura (opcional)",
+              ui: imageFieldUi,
+            },
+            {
+              type: "string",
+              name: "thumbnailAlt",
+              label: "Texto alternativo de la miniatura",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "object",
+      name: "cta",
+      label: "4. Bloque final de llamada a la acción (Contacto)",
+      fields: [
+        {
+          type: "string",
+          name: "title",
+          label: "Título destacado",
+          required: true,
+        },
+        {
+          type: "string",
+          name: "description",
+          label: "Texto de invitación",
+          required: true,
+          ui: { component: "textarea" },
+        },
+        ...ctaLinkFields,
       ],
     },
     {

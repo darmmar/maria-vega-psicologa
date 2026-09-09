@@ -3,28 +3,25 @@ export const prerender = false;
 import Layout from "@/components/layout/Layout.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import ServicePage from "@/components/pages/ServicePage.astro";
-import { getServiceBySlug, getSiteSettings } from "@/lib/content/collections";
+import { getServiceBySlug } from "@/lib/content/collections";
 import { buildServicePageJsonLd } from "@/lib/seo";
 
 import { tinaField } from "@tinacms/astro";
 
-let [settings, service] = await Promise.all([
-  getSiteSettings(),
-  getServiceBySlug("terapia-online"),
-]);
+let service = await getServiceBySlug("terapia-online");
+if (!service) return Astro.redirect("/404");
 
 try {
   const { requestWithMetadata } = await import("@tinacms/astro");
   const client = (await import("../../tina/__generated__/client")).default;
-  const tinaSettingsRes = await requestWithMetadata(
-    client.queries.siteSettings({ relativePath: "settings.json" })
+  const tinaServiceRes = await requestWithMetadata(
+    client.queries.services({ relativePath: "terapia-online.mdx" }),
+    { priority: "primary" }
   );
-  if (tinaSettingsRes?.data?.siteSettings) {
-    settings = { ...settings, ...(tinaSettingsRes.data.siteSettings as any) };
+  if (tinaServiceRes?.data?.services) {
+    service.data = { ...service.data, ...(tinaServiceRes.data.services as any) };
   }
 } catch (e) {}
-
-if (!service) return Astro.redirect("/404");
 
 const pageUrl = "/terapia-online";
 const jsonLd = buildServicePageJsonLd({

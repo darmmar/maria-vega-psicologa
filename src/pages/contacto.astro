@@ -28,10 +28,13 @@ try {
 }
 
 const { hero, firstConsultation, contactDetails, formSection } = page;
-const { email, whatsapp, telegram, phone } = settings.contact;
+const email = contactDetails.email || settings.contact.email;
+const phone = contactDetails.phone || settings.contact.phone;
+const whatsapp = contactDetails.whatsapp || settings.contact.whatsapp;
+const telegram = settings.contact.telegram;
 
-// Fuente única de verdad (SSOT): dirección y mapa configurados en Ajustes Globales
-const displayAddress = settings.legal.address;
+// Fuente única de verdad (SSOT): dirección y mapa configurados en Ajustes Globales o específicos de la página
+const displayAddress = contactDetails.address || settings.legal.address;
 const googleMapsEmbedUrl = settings.contact.googleMapsEmbedUrl;
 const googleMapsLink =
   settings.contact.googleMapsLink ||
@@ -131,11 +134,12 @@ const jsonLd = buildJsonLdGraph(
                         <a
                           href={`mailto:${email}`}
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium"
+                          data-tina-field={tinaField(page.contactDetails, "email")}
                         >
                           {email}
                         </a>
                       ) : (
-                        <p class="text-ink-muted italic text-sm font-body">[EMAIL PENDIENTE]</p>
+                        <p class="text-ink-muted italic text-sm font-body" data-tina-field={tinaField(page.contactDetails, "email")}>[EMAIL PENDIENTE]</p>
                       )
                     }
                   </div>
@@ -155,12 +159,13 @@ const jsonLd = buildJsonLdGraph(
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium inline-flex items-center gap-1"
                           target="_blank"
                           rel="noopener noreferrer"
+                          data-tina-field={tinaField(page.contactDetails, "whatsapp")}
                         >
                           Escribir por WhatsApp
                           <Icon name="lucide:arrow-up-right" class="w-3.5 h-3.5 text-ink-muted" />
                         </a>
                       ) : (
-                        <p class="text-ink-muted italic text-sm font-body">[WHATSAPP PENDIENTE]</p>
+                        <p class="text-ink-muted italic text-sm font-body" data-tina-field={tinaField(page.contactDetails, "whatsapp")}>[WHATSAPP PENDIENTE]</p>
                       )
                     }
                   </div>
@@ -178,6 +183,7 @@ const jsonLd = buildJsonLdGraph(
                         <a
                           href={`tel:${phone.replace(/\s+/g, '')}`}
                           class="text-ink text-sm hover:text-sage transition-colors font-body font-medium"
+                          data-tina-field={tinaField(page.contactDetails, "phone")}
                         >
                           {phone}
                         </a>
@@ -195,7 +201,7 @@ const jsonLd = buildJsonLdGraph(
                       </div>
                       <div>
                         <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Ubicación</p>
-                        <p class="text-ink text-sm font-body font-medium">
+                        <p class="text-ink text-sm font-body font-medium" data-tina-field={tinaField(page.contactDetails, "address")}>
                           {displayAddress}
                         </p>
                       </div>

@@ -104,8 +104,104 @@ export const profileCollection: Collection = {
     },
     {
       type: "object",
+      name: "trainingSection",
+      label: "3. Sección «Formación académica y clínica»",
+      fields: [
+        {
+          type: "string",
+          name: "label",
+          label: "Etiqueta superior",
+          description: "Ej: «Cualificación».",
+          required: true,
+        },
+        {
+          type: "string",
+          name: "title",
+          label: "Título de la sección",
+          description: "Ej: «Formación académica».",
+          required: true,
+        },
+        {
+          type: "string",
+          name: "clinicalTitle",
+          label: "Título del bloque de formación sanitaria",
+          description: "Ej: «Formación Sanitaria y Habilitación Clínica».",
+          required: true,
+        },
+        {
+          type: "object",
+          name: "clinicalItems",
+          label: "Titulaciones sanitarias y clínicas",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.degree || "Titulación clínica" }),
+          },
+          fields: [
+            { type: "string", name: "degree", label: "Título / Grado / Máster", required: true },
+            { type: "string", name: "institution", label: "Institución / Universidad", required: true },
+            { type: "string", name: "year", label: "Año (opcional)" },
+          ],
+        },
+        {
+          type: "string",
+          name: "complementaryTitle",
+          label: "Título del bloque de formación continuada",
+          description: "Ej: «Formación Continuada y Especialización».",
+          required: true,
+        },
+        {
+          type: "object",
+          name: "complementaryItems",
+          label: "Titulaciones complementarias",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.degree || "Titulación complementaria" }),
+          },
+          fields: [
+            { type: "string", name: "degree", label: "Título / Grado / Máster", required: true },
+            { type: "string", name: "institution", label: "Institución / Universidad", required: true },
+            { type: "string", name: "year", label: "Año (opcional)" },
+          ],
+        },
+      ],
+    },
+    {
+      type: "object",
+      name: "experienceSection",
+      label: "4. Sección «Trayectoria y experiencia clínica»",
+      fields: [
+        {
+          type: "string",
+          name: "label",
+          label: "Etiqueta superior",
+          description: "Ej: «Trayectoria».",
+          required: true,
+        },
+        {
+          type: "string",
+          name: "title",
+          label: "Título de la sección",
+          description: "Ej: «Experiencia clínica».",
+          required: true,
+        },
+        {
+          type: "object",
+          name: "items",
+          label: "Áreas de experiencia y trayectoria",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.area || "Área de experiencia" }),
+          },
+          fields: [
+            { type: "string", name: "area", label: "Puesto o área de experiencia", required: true },
+          ],
+        },
+      ],
+    },
+    {
+      type: "object",
       name: "cta",
-      label: "3. Bloque final de llamada a la acción (Contacto / Reserva)",
+      label: "5. Bloque final de llamada a la acción (Contacto / Reserva)",
       fields: [
         {
           type: "string",

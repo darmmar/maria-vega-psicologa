@@ -16,6 +16,65 @@
       "Trabajo desde las terapias contextuales, especialmente la Terapia de Aceptación y Compromiso (ACT) incorporando técnicas de otros enfoques pero siempre con una base clara. Estos enfoques entienden el malestar como algo que tiene sentido dentro del contexto de cada persona, y trabajan para que puedas relacionarte de otra forma con lo que sientes, sin necesidad de controlar ni eliminar cada pensamiento o emoción difícil. Incorporo también una perspectiva humana y de género. Esto significa que presto atención a los contextos sociales, relacionales e históricos que influyen en el bienestar de cada persona, y que acompaño sin imponer una única forma de ser o de estar en el mundo. La terapia es un espacio tuyo. Mi función es acompañarte en el proceso de entender qué está pasando, qué quieres que cambie y cómo llegar hasta ahí de la forma más honesta y sostenible posible."
     ]
   },
+  "trainingSection": {
+    "label": "Cualificación",
+    "title": "Formación académica",
+    "clinicalTitle": "Formación Sanitaria y Habilitación Clínica",
+    "clinicalItems": [
+      {
+        "degree": "Grado en Psicología",
+        "institution": "Universidad de Málaga",
+        "year": "2022"
+      },
+      {
+        "degree": "Máster en Psicología General Sanitaria",
+        "institution": "Universidad de Málaga",
+        "year": "2024"
+      },
+      {
+        "degree": "Máster en Terapias Contextuales y de Tercera Generación",
+        "institution": "Ítaca formación. UDIMA",
+        "year": "2024"
+      }
+    ],
+    "complementaryTitle": "Formación Continuada y Especialización",
+    "complementaryItems": [
+      {
+        "degree": "Máster en Dirección y Gestión de Personas",
+        "institution": "VIU",
+        "year": null
+      },
+      {
+        "degree": "Orientadora Laboral",
+        "institution": "AOSLA-Gizalan",
+        "year": null
+      }
+    ]
+  },
+  "experienceSection": {
+    "label": "Trayectoria",
+    "title": "Experiencia clínica",
+    "items": [
+      {
+        "area": "Terapia para adultos y parejas"
+      },
+      {
+        "area": "Psicología infantil y juvenil"
+      },
+      {
+        "area": "Duelo y pérdidas"
+      },
+      {
+        "area": "Adicciones comportamentales"
+      },
+      {
+        "area": "Estrés laboral"
+      },
+      {
+        "area": "Ansiedad y regulación emocional"
+      }
+    ]
+  },
   "cta": {
     "title": "¿Empezamos?",
     "description": "Si sientes que este espacio puede ser útil para ti, puedes reservar una primera cita sin compromiso.",

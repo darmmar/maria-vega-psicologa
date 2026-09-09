@@ -2,6 +2,7 @@
 import Container from "@/components/ui/Container.astro";
 import { Icon } from "astro-icon/components";
 import { getSiteSettings, getPublishedTraining } from "@/lib/content/collections";
+import { tinaField } from "@tinacms/astro";
 
 interface Props {
   trainingSection?: any;
@@ -24,8 +25,8 @@ const {
 const trainingSection = propsSection ?? (await getSiteSettings()).trainingSection;
 
 const trainingItems = items ?? (await getPublishedTraining());
-const clinical = trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "clinical");
-const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "complementary");
+const clinical = trainingSection.clinicalItems ?? trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "clinical");
+const complementary = trainingSection.complementaryItems ?? trainingItems.filter((i: any) => (i.data?.category ?? i.category) === "complementary");
 ---
 
 <section class="section-gap bg-gradient-to-b from-warm-100 to-warm-200">
@@ -50,18 +51,22 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
         </h3>
         <div class="space-y-6">
           {
-            clinical.map((item: any) => {
+            clinical.map((item: any, index: number) => {
               const degree = item.data?.degree ?? item.degree;
               const institution = item.data?.institution ?? item.institution;
               const year = item.data?.year ?? item.year;
+              const itemField = tinaField(trainingSection, "clinicalItems", index) || (item.tinaNode ? tinaField(item.tinaNode, "degree") : undefined);
 
               return (
-                <div class="border-l-2 border-sage pl-5 relative py-0.5">
+                <div
+                  class="border-l-2 border-sage pl-5 relative py-0.5"
+                  data-tina-field={itemField}
+                >
                   <div class="absolute w-2 h-2 rounded-full bg-sage -left-[5px] top-2 border border-white" />
-                  <p class="font-medium text-ink leading-snug font-body">
+                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaField(item, "degree")}>
                     {degree}
                   </p>
-                  <p class="text-sm text-ink-muted mt-1 font-body">
+                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaField(item, "institution")}>
                     {institution}
                     {year ? ` · ${year}` : ""}
                   </p>
@@ -81,18 +86,22 @@ const complementary = trainingItems.filter((i: any) => (i.data?.category ?? i.ca
         </h3>
         <div class="space-y-6">
           {
-            complementary.map((item: any) => {
+            complementary.map((item: any, index: number) => {
               const degree = item.data?.degree ?? item.degree;
               const institution = item.data?.institution ?? item.institution;
               const year = item.data?.year ?? item.year;
+              const itemField = tinaField(trainingSection, "complementaryItems", index) || (item.tinaNode ? tinaField(item.tinaNode, "degree") : undefined);
 
               return (
-                <div class="border-l-2 border-blush pl-5 relative py-0.5">
+                <div
+                  class="border-l-2 border-blush pl-5 relative py-0.5"
+                  data-tina-field={itemField}
+                >
                   <div class="absolute w-2 h-2 rounded-full bg-blush -left-[5px] top-2 border border-white" />
-                  <p class="font-medium text-ink leading-snug font-body">
+                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaField(item, "degree")}>
                     {degree}
                   </p>
-                  <p class="text-sm text-ink-muted mt-1 font-body">
+                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaField(item, "institution")}>
                     {institution}
                     {year ? ` · ${year}` : ""}
                   </p>
