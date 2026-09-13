@@ -31,6 +31,19 @@ function resolveBranch(locals: App.Locals, request: Request): string {
   return "main";
 }
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export const OPTIONS: APIRoute = async () => {
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders,
+  });
+};
+
 // GET: Consulta el estado actual del entorno y si es posible publicar a producción
 export const GET: APIRoute = async ({ locals, request }) => {
   const currentBranch = resolveBranch(locals, request);
@@ -49,6 +62,7 @@ export const GET: APIRoute = async ({ locals, request }) => {
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
+        ...corsHeaders,
       },
     }
   );
@@ -66,14 +80,14 @@ export const POST: APIRoute = async ({ locals, request }) => {
         ok: false,
         error: `Acción no permitida: la publicación solo se puede iniciar desde el entorno «dev». La rama actual es «${currentBranch}».`,
       }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 
   // 2. Comprobar token secreto de GitHub
   const token =
     runtimeEnv.GITHUB_DISPATCH_TOKEN?.trim() ||
-    process.env.GITHUB_DISPATCH_TOKEN?.trim();
+    (process.env.GITHUB_DISPATCH_TOKEN as string | undefined)?.trim();
 
   if (!token) {
     return new Response(
@@ -82,7 +96,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
         error:
           "Falta la variable secreta GITHUB_DISPATCH_TOKEN en Cloudflare Pages para conectar con la API de GitHub.",
       }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 
@@ -126,7 +140,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
           message:
             "¡Publicación iniciada con éxito! GitHub Actions está fusionando los cambios de «dev» a «main» y Cloudflare Pages desplegará automáticamente la web oficial en 1-2 minutos.",
         }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
 
@@ -136,7 +150,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
         ok: false,
         error: `Error de la API de GitHub (Status ${response.status}): ${errorData}`,
       }),
-      { status: response.status, headers: { "Content-Type": "application/json" } }
+      { status: response.status, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
@@ -145,7 +159,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
         ok: false,
         error: `Excepción interna al conectar con GitHub: ${message}`,
       }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
 };

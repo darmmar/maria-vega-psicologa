@@ -30,6 +30,7 @@ export function registerPublishPlugin(cms: TinaCMS) {
     layout: "popup",
     Component() {
       const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+      const [confirming, setConfirming] = useState(false);
       const [branchInfo, setBranchInfo] = useState<{
         currentBranch: string;
         canPublish: boolean;
@@ -68,18 +69,15 @@ export function registerPublishPlugin(cms: TinaCMS) {
       }, []);
 
       const handlePublish = async () => {
-        if (
-          !window.confirm(
-            "¿Deseas publicar los cambios ahora? Se fusionará la rama 'dev' en 'main' y se lanzará el despliegue a la web oficial."
-          )
-        ) {
-          return;
-        }
         setStatus("loading");
         setMessage("");
+        setConfirming(false);
 
         try {
-          const res = await fetch("/api/publish", { method: "POST" });
+          const res = await fetch("/api/publish", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          });
           const data = await res.json();
           if (res.ok && data.ok) {
             setStatus("success");
@@ -186,52 +184,109 @@ export function registerPublishPlugin(cms: TinaCMS) {
             </div>
           </div>
 
-          {/* Botón de acción */}
+          {/* Botón de acción con confirmación en dos pasos en la UI */}
           {branchInfo.canPublish ? (
             <div>
-              <button
-                type="button"
-                onClick={handlePublish}
-                disabled={status === "loading"}
-                style={{
-                  backgroundColor: status === "loading" ? "#94a3b8" : "#475b4c",
-                  color: "#ffffff",
-                  padding: "0.75rem 1.4rem",
-                  borderRadius: "0.5rem",
-                  border: "none",
-                  fontWeight: 600,
-                  fontSize: "0.95rem",
-                  cursor: status === "loading" ? "not-allowed" : "pointer",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.55rem",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
-                  transition: "background-color 0.15s ease",
-                }}
-              >
-                {status === "loading" ? (
-                  <>
-                    <svg
-                      style={{ animation: "spin 1s linear infinite", width: "16px", height: "16px" }}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
+              {status === "loading" ? (
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.6rem",
+                    backgroundColor: "#94a3b8",
+                    color: "#ffffff",
+                    padding: "0.75rem 1.4rem",
+                    borderRadius: "0.5rem",
+                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                  }}
+                >
+                  <svg
+                    style={{ animation: "spin 1s linear infinite", width: "16px", height: "16px" }}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                    <path d="M12 2a10 10 0 0 1 10 10" />
+                  </svg>
+                  <span>Lanzando publicación en GitHub Actions...</span>
+                </div>
+              ) : confirming ? (
+                <div
+                  style={{
+                    padding: "1rem 1.25rem",
+                    borderRadius: "0.5rem",
+                    background: "#f0fdf4",
+                    border: "1px solid #bbf7d0",
+                  }}
+                >
+                  <p style={{ margin: "0 0 0.85rem 0", fontSize: "0.95rem", fontWeight: 600, color: "#166534" }}>
+                    ¿Confirmas la publicación inmediata en la web oficial (mariavegagarcia.es)?
+                  </p>
+                  <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+                    <button
+                      type="button"
+                      onClick={handlePublish}
+                      style={{
+                        backgroundColor: "#16a34a",
+                        color: "#ffffff",
+                        padding: "0.65rem 1.3rem",
+                        borderRadius: "0.375rem",
+                        border: "none",
+                        fontWeight: 600,
+                        fontSize: "0.92rem",
+                        cursor: "pointer",
+                        boxShadow: "0 1px 2px rgba(0,0,0,0.1)",
+                      }}
                     >
-                      <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
-                      <path d="M12 2a10 10 0 0 1 10 10" />
-                    </svg>
-                    <span>Lanzando publicación a producción...</span>
-                  </>
-                ) : (
-                  <>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                    </svg>
-                    <span>Publicar ahora en Producción</span>
-                  </>
-                )}
-              </button>
+                      ✓ Sí, publicar ahora
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setConfirming(false)}
+                      style={{
+                        backgroundColor: "#ffffff",
+                        color: "#475569",
+                        padding: "0.65rem 1.1rem",
+                        borderRadius: "0.375rem",
+                        border: "1px solid #cbd5e1",
+                        fontWeight: 500,
+                        fontSize: "0.92rem",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setConfirming(true)}
+                  style={{
+                    backgroundColor: "#475b4c",
+                    color: "#ffffff",
+                    padding: "0.75rem 1.4rem",
+                    borderRadius: "0.5rem",
+                    border: "none",
+                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.55rem",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
+                    transition: "background-color 0.15s ease",
+                  }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                  </svg>
+                  <span>Publicar ahora en Producción</span>
+                </button>
+              )}
             </div>
           ) : (
             <div
