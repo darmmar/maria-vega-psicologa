@@ -31,14 +31,15 @@ const {
 } = Astro.props;
 
 function resolveAbsoluteUrl(pathOrUrl: string | undefined, defaultPath: string): string {
+  const baseUrl = siteConfig.siteUrl || "https://mariavegagarcia.es";
   if (!pathOrUrl || pathOrUrl.trim() === "") {
-    return new URL(defaultPath, siteConfig.siteUrl).href;
+    return new URL(defaultPath, baseUrl).href;
   }
   const trimmed = pathOrUrl.trim();
   if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
     return trimmed;
   }
-  return new URL(trimmed.startsWith("/") ? trimmed : `/${trimmed}`, siteConfig.siteUrl).href;
+  return new URL(trimmed.startsWith("/") ? trimmed : `/${trimmed}`, baseUrl).href;
 }
 
 const canonicalUrl = resolveAbsoluteUrl(canonical, Astro.url.pathname);

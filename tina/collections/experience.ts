@@ -5,6 +5,9 @@ export const experienceCollection: Collection = {
   label: "Conóceme · Trayectoria y experiencia",
   path: "src/content/experience",
   format: "json",
+  ui: {
+    router: () => "/conoceme",
+  },
   fields: [
     {
       type: "string",

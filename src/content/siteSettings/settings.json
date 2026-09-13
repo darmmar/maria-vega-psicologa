@@ -156,6 +156,8 @@
   },
   "courseHighlight": {
     "label": "Formación profesional",
+    "title": "Formación clínica en duelo",
+    "description": "Formación profesional para psicólogos/as y profesionales de la salud mental que quieren adquirir destrezas para acompañar el duelo en consulta.",
     "ctaLabel": "Ver cursos",
     "ctaHref": "/cursos"
   },

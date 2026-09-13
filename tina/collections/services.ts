@@ -91,13 +91,13 @@ export const servicesCollection: Collection = {
       type: "string",
       name: "ctaLabel",
       label: "Texto del botón de acción inferior (opcional)",
-      description: "Por defecto: «Reservar cita».",
+      description: "Por defecto: «Contactar».",
     },
     {
       type: "string",
       name: "ctaHref",
       label: "Enlace del botón inferior (opcional)",
-      description: "Por defecto: /reserva.",
+      description: "Por defecto: /contacto.",
     },
     {
       type: "image",

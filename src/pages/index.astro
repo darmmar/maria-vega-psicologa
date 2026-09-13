@@ -118,12 +118,14 @@ const pageDescription = settings.seo?.homeDescription ?? settings.hero.descripti
   />
   <SectionDivider />
   <CourseHighlight
-    title={course?.data.title}
-    description={course?.data.shortDescription}
+    title={settings.courseHighlight?.title || course?.data.title}
+    description={settings.courseHighlight?.description || course?.data.shortDescription}
     label={settings.courseHighlight.label}
     ctaLabel={settings.courseHighlight.ctaLabel}
     ctaHref={settings.courseHighlight.ctaHref}
     tinaLabelField={tinaField(settings.courseHighlight, "label")}
+    tinaTitleField={tinaField(settings.courseHighlight, "title")}
+    tinaDescriptionField={tinaField(settings.courseHighlight, "description")}
     tinaCtaLabelField={tinaField(settings.courseHighlight, "ctaLabel")}
   />
   <HomeFaq

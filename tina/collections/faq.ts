@@ -5,6 +5,9 @@ export const faqCollection: Collection = {
   label: "Inicio · Preguntas frecuentes",
   path: "src/content/faq",
   format: "json",
+  ui: {
+    router: () => "/",
+  },
   fields: [
     {
       type: "string",

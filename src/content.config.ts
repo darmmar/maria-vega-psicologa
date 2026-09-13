@@ -227,6 +227,8 @@ const siteSettings = defineCollection({
     }),
     courseHighlight: z.object({
       label: z.string(),
+      title: z.string().optional().nullable(),
+      description: z.string().optional().nullable(),
       ctaLabel: z.string(),
       ctaHref: z.string(),
     }),

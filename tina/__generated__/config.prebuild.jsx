@@ -313,6 +313,19 @@ var siteSettingsCollection = {
       label: "7. Portada \u2014 Bloque promocional de Cursos",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: \xABFormaci\xF3n\xBB)", required: true },
+        {
+          type: "string",
+          name: "title",
+          label: "T\xEDtulo del bloque de curso",
+          description: "Ej: \xABFormaci\xF3n cl\xEDnica en duelo\xBB. Si se deja vac\xEDo, toma el t\xEDtulo del curso."
+        },
+        {
+          type: "string",
+          name: "description",
+          label: "Descripci\xF3n del bloque",
+          description: "Texto explicativo del curso. Si se deja vac\xEDo, toma la descripci\xF3n del curso.",
+          ui: { component: "textarea" }
+        },
         { type: "string", name: "ctaLabel", label: "Texto del bot\xF3n", required: true },
         {
           type: "string",
@@ -1261,13 +1274,13 @@ var servicesCollection = {
       type: "string",
       name: "ctaLabel",
       label: "Texto del bot\xF3n de acci\xF3n inferior (opcional)",
-      description: "Por defecto: \xABReservar cita\xBB."
+      description: "Por defecto: \xABContactar\xBB."
     },
     {
       type: "string",
       name: "ctaHref",
       label: "Enlace del bot\xF3n inferior (opcional)",
-      description: "Por defecto: /reserva."
+      description: "Por defecto: /contacto."
     },
     {
       type: "image",
@@ -1797,6 +1810,9 @@ var faqCollection = {
   label: "Inicio \xB7 Preguntas frecuentes",
   path: "src/content/faq",
   format: "json",
+  ui: {
+    router: () => "/"
+  },
   fields: [
     {
       type: "string",
@@ -1839,6 +1855,9 @@ var experienceCollection = {
   label: "Con\xF3ceme \xB7 Trayectoria y experiencia",
   path: "src/content/experience",
   format: "json",
+  ui: {
+    router: () => "/conoceme"
+  },
   fields: [
     {
       type: "string",
@@ -1867,6 +1886,9 @@ var trainingCollection = {
   label: "Con\xF3ceme \xB7 Formaci\xF3n acad\xE9mica",
   path: "src/content/training",
   format: "json",
+  ui: {
+    router: () => "/conoceme"
+  },
   fields: [
     {
       type: "string",

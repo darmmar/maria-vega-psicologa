@@ -98,6 +98,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
   courseHighlight {
     __typename
     label
+    title
+    description
     ctaLabel
     ctaHref
   }

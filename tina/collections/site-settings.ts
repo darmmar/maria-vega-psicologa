@@ -283,6 +283,19 @@ export const siteSettingsCollection: Collection = {
       label: "7. Portada — Bloque promocional de Cursos",
       fields: [
         { type: "string", name: "label", label: "Etiqueta superior (ej: «Formación»)", required: true },
+        {
+          type: "string",
+          name: "title",
+          label: "Título del bloque de curso",
+          description: "Ej: «Formación clínica en duelo». Si se deja vacío, toma el título del curso.",
+        },
+        {
+          type: "string",
+          name: "description",
+          label: "Descripción del bloque",
+          description: "Texto explicativo del curso. Si se deja vacío, toma la descripción del curso.",
+          ui: { component: "textarea" },
+        },
         { type: "string", name: "ctaLabel", label: "Texto del botón", required: true },
         {
           type: "string",

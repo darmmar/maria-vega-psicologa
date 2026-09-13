@@ -5,6 +5,9 @@ export const trainingCollection: Collection = {
   label: "Conóceme · Formación académica",
   path: "src/content/training",
   format: "json",
+  ui: {
+    router: () => "/conoceme",
+  },
   fields: [
     {
       type: "string",

@@ -77,7 +77,7 @@ export const siteConfig: SiteConfig = {
     "Psicóloga en Málaga y terapia online. Terapia basada en evidencia científica para problemas emocionales, relacionales, duelo, ansiedad, autocuidado y adicciones.",
   siteUrl:
     envString(import.meta.env.PUBLIC_SITE_URL) ??
-    (import.meta.env.DEV ? "http://localhost:4321" : ""),
+    (import.meta.env.DEV ? "http://localhost:4321" : "https://mariavegagarcia.es"),
   location: {
     city: "Málaga",
     province: "Málaga",

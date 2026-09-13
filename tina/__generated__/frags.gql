@@ -90,6 +90,8 @@ fragment SiteSettingsParts on SiteSettings {
   courseHighlight {
     __typename
     label
+    title
+    description
     ctaLabel
     ctaHref
   }
