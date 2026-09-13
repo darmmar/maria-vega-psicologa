@@ -100,7 +100,7 @@ function run(command, args = []) {
     : command;
   const result = spawnSync(cmd, args, {
     stdio: "inherit",
-    shell: false,
+    shell: isWindows,
     env: process.env,
   });
   if (result.status !== 0) {

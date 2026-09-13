@@ -21,8 +21,8 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# TinaCMS generated
-tina/__generated__/
+# TinaCMS generated cache
+tina/__generated__/.cache/
 
 # Editor
 .vscode/settings.json
