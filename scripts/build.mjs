@@ -9,7 +9,7 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 function loadEnvFile(filename) {
@@ -172,6 +172,13 @@ Ejecuta \`pnpm run build\` para regenerar /admin.
 El panel no cargará en producción. Revisa tinacms build y tina/config.ts.
 `);
     process.exit(1);
+  }
+
+  // Prevenir falsos positivos de "Failed loading TinaCMS assets" en conexiones más lentas aumentando el timeout de 2s a 15s
+  if (html.includes("}, 2000)")) {
+    const patchedHtml = html.replace("}, 2000)", "}, 15000)");
+    writeFileSync(adminIndex, patchedHtml, "utf8");
+    console.log("✓ public/admin/index.html — asset timeout ajustado a 15s");
   }
 
   console.log("✓ public/admin/index.html — rutas de producción OK");
