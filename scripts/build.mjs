@@ -192,5 +192,34 @@ run("pnpm", ["exec", "tinacms", ...tinaArgs]);
 
 assertProductionAdminHtml();
 
-console.log("✓ Tina build OK — running astro build");
+function patchTinaAstroMiddleware() {
+  const files = [
+    join(process.cwd(), "node_modules", "@tinacms", "astro", "dist", "is-edit-mode.js"),
+    join(process.cwd(), "node_modules", "@tinacms", "astro", "dist", "middleware.js"),
+  ];
+  for (const f of files) {
+    if (!existsSync(f)) continue;
+    let code = readFileSync(f, "utf8");
+    let changed = false;
+    if (code.includes("SameSite=Strict")) {
+      code = code.replaceAll("SameSite=Strict", "SameSite=Lax; Secure");
+      changed = true;
+    }
+    if (code.includes('if (dest !== "iframe") return false;')) {
+      code = code.replace(
+        'if (dest !== "iframe") return false;',
+        '// allow in-iframe and fetch navigations'
+      );
+      changed = true;
+    }
+    if (changed) {
+      writeFileSync(f, code, "utf8");
+      console.log("✓ Tina astro middleware parcheado para navegación fluida en iframe");
+    }
+  }
+}
+
+console.log("✓ Tina build OK — preparando astro build");
+patchTinaAstroMiddleware();
 run("pnpm", ["exec", "astro", "build"]);
+

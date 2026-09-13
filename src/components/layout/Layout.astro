@@ -45,5 +45,31 @@ const { title, description, canonical, ogImage, noindex, jsonLd, ogType, publish
     <Footer />
     <!-- Cloudflare Web Analytics (Privacy-first, 0-cookie, RGPD compliant) -->
     <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "1d02960f26d54b1d917b3bcfe9901b9f"}'></script>
+
+    <!-- TinaCMS visual editor in-iframe helper: asegura la inyección de formularios y selección de colección al navegar por la web en el admin -->
+    <script is:inline>
+      if (typeof window !== "undefined" && window.self !== window.top) {
+        document.cookie = "__tina_edit=1; path=/; SameSite=Lax; max-age=86400";
+        document.addEventListener(
+          "click",
+          (e) => {
+            const target = e.target;
+            const anchor = target instanceof Element ? target.closest("a") : null;
+            if (!anchor || !anchor.href) return;
+            try {
+              const url = new URL(anchor.href, window.location.origin);
+              if (url.origin === window.location.origin && !url.pathname.startsWith("/admin")) {
+                if (!url.searchParams.has("tina-edit")) {
+                  url.searchParams.set("tina-edit", "1");
+                  anchor.href = url.pathname + url.search + url.hash;
+                }
+                anchor.setAttribute("data-astro-reload", "");
+              }
+            } catch {}
+          },
+          true
+        );
+      }
+    </script>
   </body>
 </html>
