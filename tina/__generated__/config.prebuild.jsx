@@ -1983,24 +1983,58 @@ function registerPublishPlugin(cms) {
   cms.plugins.add({
     __type: "screen",
     name: "Publicar a Producci\xF3n",
-    Icon: () => React.createElement("svg", { style: { width: "1.1rem", height: "1.1rem" }, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2 }, React.createElement("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" })),
+    Icon: () => React.createElement(
+      "svg",
+      {
+        style: {
+          width: "1.15rem",
+          height: "1.15rem",
+          marginRight: "0.75rem",
+          display: "inline-block",
+          verticalAlign: "middle",
+          flexShrink: 0
+        },
+        fill: "none",
+        viewBox: "0 0 24 24",
+        stroke: "currentColor",
+        strokeWidth: 1.8
+      },
+      React.createElement(
+        "path",
+        {
+          strokeLinecap: "round",
+          strokeLinejoin: "round",
+          d: "M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+        }
+      )
+    ),
     layout: "popup",
     Component() {
       const [status, setStatus] = useState("idle");
-      const [branchInfo, setBranchInfo] = useState(null);
+      const [branchInfo, setBranchInfo] = useState(() => {
+        const isDevHost = typeof window !== "undefined" && (window.location.hostname.includes("dev.") || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
+        return {
+          currentBranch: isDevHost ? "dev" : "main",
+          canPublish: isDevHost,
+          message: isDevHost ? "Listo para publicar cambios a producci\xF3n (main)." : "Est\xE1s en el entorno de producci\xF3n (main)."
+        };
+      });
       const [message, setMessage] = useState("");
       useEffect(() => {
-        fetch("/api/publish").then((res) => res.json()).then((data) => setBranchInfo(data)).catch(
-          () => setBranchInfo({
-            currentBranch: "desconocida",
-            canPublish: false,
-            message: "No se pudo consultar el estado del endpoint /api/publish."
-          })
-        );
+        fetch("/api/publish").then(async (res) => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        }).then((data) => {
+          if (data && typeof data.currentBranch === "string") {
+            setBranchInfo(data);
+          }
+        }).catch((err) => {
+          console.warn("Consulta al endpoint /api/publish usando detecci\xF3n local:", err);
+        });
       }, []);
       const handlePublish = async () => {
         if (!window.confirm(
-          "\xBFDeseas publicar los cambios ahora? Se fusionar\xE1 la rama 'dev' en 'main' y se lanzar\xE1 el despliegue a producci\xF3n."
+          "\xBFDeseas publicar los cambios ahora? Se fusionar\xE1 la rama 'dev' en 'main' y se lanzar\xE1 el despliegue a la web oficial."
         )) {
           return;
         }
@@ -2021,81 +2055,149 @@ function registerPublishPlugin(cms) {
           setMessage(err instanceof Error ? err.message : String(err));
         }
       };
-      return React.createElement("div", { style: { padding: "2rem", maxWidth: "620px", fontFamily: "system-ui, sans-serif" } }, React.createElement("h2", { style: { fontSize: "1.4rem", fontWeight: 600, marginBottom: "0.5rem", color: "#1e2921" } }, "Publicar cambios de Desarrollo a Producci\xF3n"), React.createElement("p", { style: { color: "#4b5563", fontSize: "0.95rem", lineHeight: 1.5, marginBottom: "1.5rem" } }, "Este bot\xF3n activa el flujo automatizado en GitHub Actions para fusionar todos los cambios guardados en la rama ", React.createElement("strong", null, "dev"), " directamente a la rama ", React.createElement("strong", null, "main"), ", disparando el despliegue autom\xE1tico de Cloudflare Pages a la web p\xFAblica."), React.createElement(
+      const isDev = branchInfo.currentBranch === "dev" || branchInfo.currentBranch === "local";
+      return React.createElement("div", { style: { padding: "2.25rem", maxWidth: "640px", fontFamily: "system-ui, -apple-system, sans-serif" } }, React.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" } }, React.createElement("h2", { style: { fontSize: "1.35rem", fontWeight: 700, margin: 0, color: "#1e2921", letterSpacing: "-0.01em" } }, "Publicar a Producci\xF3n"), React.createElement(
+        "span",
+        {
+          style: {
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.35rem",
+            fontSize: "0.75rem",
+            fontWeight: 600,
+            padding: "0.25rem 0.65rem",
+            borderRadius: "9999px",
+            backgroundColor: isDev ? "#ecfdf5" : "#f1f5f9",
+            color: isDev ? "#047857" : "#475569",
+            border: isDev ? "1px solid #a7f3d0" : "1px solid #cbd5e1"
+          }
+        },
+        React.createElement(
+          "span",
+          {
+            style: {
+              width: "6px",
+              height: "6px",
+              borderRadius: "50%",
+              backgroundColor: isDev ? "#10b981" : "#64748b"
+            }
+          }
+        ),
+        isDev ? "Entorno: Pruebas (dev)" : "Entorno: Producci\xF3n"
+      )), React.createElement("p", { style: { color: "#4b5563", fontSize: "0.92rem", lineHeight: 1.55, margin: "0 0 1.5rem 0" } }, "Cuando hayas terminado de editar y revisar el contenido en este panel, pulsa el bot\xF3n inferior para sincronizar y publicar todos los cambios en la web oficial (", React.createElement("strong", null, "mariavegagarcia.es"), ")."), React.createElement(
         "div",
         {
           style: {
-            padding: "1rem",
-            borderRadius: "0.5rem",
-            background: "#f9fafb",
-            border: "1px solid #e5e7eb",
-            marginBottom: "1.5rem",
-            fontSize: "0.9rem",
-            color: "#374151"
+            padding: "1rem 1.25rem",
+            borderRadius: "0.625rem",
+            background: "#f8fafc",
+            border: "1px solid #e2e8f0",
+            marginBottom: "1.5rem"
           }
         },
-        React.createElement("div", null, React.createElement("strong", null, "Entorno / Rama detectada:"), " ", React.createElement("code", { style: { background: "#e5e7eb", padding: "2px 6px", borderRadius: "4px" } }, branchInfo?.currentBranch ?? "Comprobando...")),
+        React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "0.75rem" } }, React.createElement("div", null, React.createElement("span", { style: { display: "block", fontSize: "0.75rem", color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" } }, "Rama Origen (Pruebas)"), React.createElement("span", { style: { fontSize: "0.95rem", fontWeight: 700, color: "#0f172a" } }, branchInfo.currentBranch)), React.createElement("div", null, React.createElement("span", { style: { display: "block", fontSize: "0.75rem", color: "#64748b", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" } }, "Rama Destino (Oficial)"), React.createElement("span", { style: { fontSize: "0.95rem", fontWeight: 700, color: "#0f172a" } }, "main"))),
         React.createElement(
           "div",
           {
             style: {
-              marginTop: "0.5rem",
-              color: branchInfo?.canPublish ? "#16a34a" : "#dc2626",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              paddingTop: "0.65rem",
+              borderTop: "1px solid #e2e8f0",
+              fontSize: "0.85rem",
+              color: branchInfo.canPublish ? "#047857" : "#64748b",
               fontWeight: 500
             }
           },
-          branchInfo?.message ?? "Consultando permisos..."
+          React.createElement("svg", { width: "15", height: "15", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.2", strokeLinecap: "round", strokeLinejoin: "round" }, branchInfo.canPublish ? React.createElement("path", { d: "M22 11.08V12a10 10 0 1 1-5.93-9.14 M22 4L12 14.01l-3-3" }) : React.createElement("circle", { cx: "12", cy: "12", r: "10" })),
+          React.createElement("span", null, branchInfo.message)
         )
-      ), branchInfo?.canPublish ? React.createElement("div", null, React.createElement(
+      ), branchInfo.canPublish ? React.createElement("div", null, React.createElement(
         "button",
         {
           type: "button",
           onClick: handlePublish,
           disabled: status === "loading",
           style: {
-            backgroundColor: status === "loading" ? "#9ca3af" : "#475b4c",
+            backgroundColor: status === "loading" ? "#94a3b8" : "#475b4c",
             color: "#ffffff",
-            padding: "0.75rem 1.5rem",
+            padding: "0.75rem 1.4rem",
             borderRadius: "0.5rem",
             border: "none",
             fontWeight: 600,
-            fontSize: "1rem",
+            fontSize: "0.95rem",
             cursor: status === "loading" ? "not-allowed" : "pointer",
             display: "inline-flex",
             alignItems: "center",
-            gap: "0.5rem",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+            gap: "0.55rem",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
+            transition: "background-color 0.15s ease"
           }
         },
-        status === "loading" ? "Iniciando publicaci\xF3n en GitHub..." : "Publicar ahora en Producci\xF3n"
-      )) : React.createElement("div", { style: { color: "#6b7280", fontSize: "0.9rem" } }, "El bot\xF3n de publicaci\xF3n solo se habilita cuando el panel se ejecuta en la rama ", React.createElement("strong", null, "dev"), "."), status === "success" && React.createElement(
+        status === "loading" ? React.createElement(React.Fragment, null, React.createElement(
+          "svg",
+          {
+            style: { animation: "spin 1s linear infinite", width: "16px", height: "16px" },
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            strokeWidth: "2.5"
+          },
+          React.createElement("circle", { cx: "12", cy: "12", r: "10", strokeOpacity: "0.25" }),
+          React.createElement("path", { d: "M12 2a10 10 0 0 1 10 10" })
+        ), React.createElement("span", null, "Lanzando publicaci\xF3n a producci\xF3n...")) : React.createElement(React.Fragment, null, React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement("path", { d: "M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" })), React.createElement("span", null, "Publicar ahora en Producci\xF3n"))
+      )) : React.createElement(
         "div",
         {
           style: {
-            marginTop: "1.5rem",
-            padding: "1rem",
+            padding: "0.85rem 1rem",
             borderRadius: "0.5rem",
-            background: "#dcfce7",
-            color: "#166534",
-            border: "1px solid #bbf7d0",
-            fontSize: "0.95rem"
+            background: "#f1f5f9",
+            color: "#475569",
+            fontSize: "0.88rem",
+            lineHeight: 1.4
           }
         },
-        message
+        "El bot\xF3n de publicaci\xF3n solo se habilita en el entorno de pruebas (",
+        React.createElement("strong", null, "dev"),
+        "). En producci\xF3n los cambios ya est\xE1n en directo."
+      ), status === "success" && React.createElement(
+        "div",
+        {
+          style: {
+            marginTop: "1.25rem",
+            padding: "1rem 1.25rem",
+            borderRadius: "0.5rem",
+            background: "#ecfdf5",
+            color: "#065f46",
+            border: "1px solid #a7f3d0",
+            fontSize: "0.92rem",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "0.65rem"
+          }
+        },
+        React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", style: { flexShrink: 0, marginTop: "2px" } }, React.createElement("path", { d: "M22 11.08V12a10 10 0 1 1-5.93-9.14" }), React.createElement("polyline", { points: "22 4 12 14.01 9 11.01" })),
+        React.createElement("span", null, message)
       ), status === "error" && React.createElement(
         "div",
         {
           style: {
-            marginTop: "1.5rem",
-            padding: "1rem",
+            marginTop: "1.25rem",
+            padding: "1rem 1.25rem",
             borderRadius: "0.5rem",
-            background: "#fee2e2",
+            background: "#fef2f2",
             color: "#991b1b",
             border: "1px solid #fecaca",
-            fontSize: "0.95rem"
+            fontSize: "0.92rem",
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "0.65rem"
           }
         },
-        React.createElement("div", { style: { display: "flex", alignItems: "center", gap: "0.5rem" } }, React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, React.createElement("circle", { cx: "12", cy: "12", r: "10" }), React.createElement("line", { x1: "12", y1: "8", x2: "12", y2: "12" }), React.createElement("line", { x1: "12", y1: "16", x2: "12.01", y2: "16" })), React.createElement("span", null, message))
+        React.createElement("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", style: { flexShrink: 0, marginTop: "2px" } }, React.createElement("circle", { cx: "12", cy: "12", r: "10" }), React.createElement("line", { x1: "12", y1: "8", x2: "12", y2: "12" }), React.createElement("line", { x1: "12", y1: "16", x2: "12.01", y2: "16" })),
+        React.createElement("span", null, message)
       ));
     }
   });

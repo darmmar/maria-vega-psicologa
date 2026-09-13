@@ -1,25 +1,51 @@
-interface Env {
+export const prerender = false;
+
+import type { APIRoute } from "astro";
+
+interface CloudflareEnv {
   GITHUB_DISPATCH_TOKEN?: string;
   GITHUB_REPO_OWNER?: string;
   GITHUB_REPO_NAME?: string;
+  GITHUB_BRANCH?: string;
+  PUBLIC_TINA_BRANCH?: string;
   CF_PAGES_BRANCH?: string;
-  PUBLISH_SECRET?: string;
 }
 
-// GET: Consulta el estado y si es posible publicar desde esta rama
-export const onRequestGet: PagesFunction<Env> = async (context) => {
-  const branch = context.env.CF_PAGES_BRANCH || "local";
-  const isDev = branch === "dev" || branch === "local";
+function resolveBranch(locals: App.Locals, request: Request): string {
+  const runtimeEnv = ((locals as unknown as { runtime?: { env?: CloudflareEnv } })?.runtime?.env) || {};
+  const host = request.headers.get("host") || new URL(request.url).hostname;
+
+  if (runtimeEnv.CF_PAGES_BRANCH) return runtimeEnv.CF_PAGES_BRANCH;
+  if (runtimeEnv.GITHUB_BRANCH) return runtimeEnv.GITHUB_BRANCH;
+  if (runtimeEnv.PUBLIC_TINA_BRANCH) return runtimeEnv.PUBLIC_TINA_BRANCH;
+  if (import.meta.env.PUBLIC_TINA_BRANCH) return import.meta.env.PUBLIC_TINA_BRANCH;
+
+  if (
+    host.includes("dev.") ||
+    host.includes("localhost") ||
+    host.includes("127.0.0.1")
+  ) {
+    return "dev";
+  }
+
+  return "main";
+}
+
+// GET: Consulta el estado actual del entorno y si es posible publicar a producción
+export const GET: APIRoute = async ({ locals, request }) => {
+  const currentBranch = resolveBranch(locals, request);
+  const isDev = currentBranch === "dev" || currentBranch === "local";
 
   return new Response(
     JSON.stringify({
-      currentBranch: branch,
+      currentBranch,
       canPublish: isDev,
       message: isDev
         ? "Listo para publicar cambios a producción (main)."
-        : `Esta función solo se ejecuta en el entorno de desarrollo (dev). Rama actual: ${branch}.`,
+        : `Esta función solo se ejecuta en el entorno de desarrollo (dev). Rama actual: ${currentBranch}.`,
     }),
     {
+      status: 200,
       headers: {
         "Content-Type": "application/json",
         "Cache-Control": "no-store",
@@ -29,35 +55,45 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 };
 
 // POST: Desencadena el flujo de fusión de dev a main en GitHub Actions
-export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const currentBranch = context.env.CF_PAGES_BRANCH || "local";
+export const POST: APIRoute = async ({ locals, request }) => {
+  const runtimeEnv = ((locals as unknown as { runtime?: { env?: CloudflareEnv } })?.runtime?.env) || {};
+  const currentBranch = resolveBranch(locals, request);
 
-  // 1. Solo permitir ejecución desde la rama dev (o local en desarrollo)
+  // 1. Solo permitir publicación desde la rama dev (o local)
   if (currentBranch !== "dev" && currentBranch !== "local") {
     return new Response(
       JSON.stringify({
         ok: false,
-        error: `Acción bloqueada: la publicación solo se permite desde la rama «dev». La rama actual es «${currentBranch}».`,
+        error: `Acción no permitida: la publicación solo se puede iniciar desde el entorno «dev». La rama actual es «${currentBranch}».`,
       }),
       { status: 400, headers: { "Content-Type": "application/json" } }
     );
   }
 
-  // 2. Comprobar token secreto de GitHub en el servidor (Cloudflare Pages Secret)
-  const token = context.env.GITHUB_DISPATCH_TOKEN?.trim();
+  // 2. Comprobar token secreto de GitHub
+  const token =
+    runtimeEnv.GITHUB_DISPATCH_TOKEN?.trim() ||
+    process.env.GITHUB_DISPATCH_TOKEN?.trim();
+
   if (!token) {
     return new Response(
       JSON.stringify({
         ok: false,
         error:
-          "Falta la variable de entorno GITHUB_DISPATCH_TOKEN en el panel de Cloudflare Pages. Añade un Personal Access Token con permisos de contenido.",
+          "Falta la variable secreta GITHUB_DISPATCH_TOKEN en Cloudflare Pages para conectar con la API de GitHub.",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 
-  const owner = context.env.GITHUB_REPO_OWNER?.trim() || "darmmar";
-  const repo = context.env.GITHUB_REPO_NAME?.trim() || "maria-vega-psicologa";
+  const owner =
+    runtimeEnv.GITHUB_REPO_OWNER?.trim() ||
+    process.env.GITHUB_REPO_OWNER?.trim() ||
+    "darmmar";
+  const repo =
+    runtimeEnv.GITHUB_REPO_NAME?.trim() ||
+    process.env.GITHUB_REPO_NAME?.trim() ||
+    "maria-vega-psicologa";
 
   try {
     const response = await fetch(
@@ -88,7 +124,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         JSON.stringify({
           ok: true,
           message:
-            "¡Publicación iniciada con éxito! GitHub Actions está fusionando los cambios de «dev» a «main» y Cloudflare Pages desplegará la web en ~1-2 minutos.",
+            "¡Publicación iniciada con éxito! GitHub Actions está fusionando los cambios de «dev» a «main» y Cloudflare Pages desplegará automáticamente la web oficial en 1-2 minutos.",
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
