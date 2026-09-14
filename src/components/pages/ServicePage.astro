@@ -52,17 +52,19 @@ const iconName = heroIcon ?? service.data.icon ?? "lucide:leaf";
 const layoutTitle = service.data.seoTitle ?? service.data.title;
 const layoutDescription = service.data.seoDescription ?? service.data.description;
 const pageUrl = `/${service.data.slug}`;
-const jsonLd = buildServicePageJsonLd({
-  title: service.data.title,
-  description: service.data.description,
-  path: pageUrl,
-});
 
 const heroImage = (service.data as any).heroImage || service.data.image;
 const heroImageAlt = (service.data as any).heroImageAlt || service.data.imageAlt || service.data.title;
 const tinaHeroImageField = (service.data as any).heroImage
   ? tinaField(service.data as any, "heroImage")
   : tinaField(service.data, "image");
+
+const jsonLd = buildServicePageJsonLd({
+  title: service.data.title,
+  description: service.data.description,
+  path: pageUrl,
+  image: heroImage,
+});
 
 const heroProps = {
   label: service.data.heroLabel?.trim(),
@@ -84,7 +86,7 @@ const heroProps = {
 
 {
   standalone ? (
-    <Layout title={layoutTitle} description={layoutDescription} canonical={pageUrl} jsonLd={jsonLd}>
+    <Layout title={layoutTitle} description={layoutDescription} canonical={pageUrl} jsonLd={jsonLd} ogImage={heroImage}>
       <PageHero {...heroProps} />
 
       <ServiceContentSection

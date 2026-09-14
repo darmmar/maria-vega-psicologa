@@ -34,6 +34,7 @@ const jsonLd = buildServicePageJsonLd({
   title: service.data.title,
   description: service.data.description,
   path: pageUrl,
+  image: service.data.image,
 });
 ---
 
@@ -42,6 +43,7 @@ const jsonLd = buildServicePageJsonLd({
   description={service.data.seoDescription ?? service.data.description}
   canonical={pageUrl}
   jsonLd={jsonLd}
+  ogImage={service.data.image}
 >
   <ServicePage slug="terapia-presencial" heroLayout="split" standalone={false} />
   <CTASection
