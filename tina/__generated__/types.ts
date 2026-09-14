@@ -462,6 +462,8 @@ export type SiteSettingsCoursesPage = {
   label: Scalars['String']['output'];
   title: Scalars['String']['output'];
   intro: Scalars['String']['output'];
+  image?: Maybe<Scalars['String']['output']>;
+  imageAlt?: Maybe<Scalars['String']['output']>;
   seoTitle: Scalars['String']['output'];
   seoDescription: Scalars['String']['output'];
 };
@@ -471,6 +473,8 @@ export type SiteSettingsResourcesPage = {
   label: Scalars['String']['output'];
   title: Scalars['String']['output'];
   intro: Scalars['String']['output'];
+  image?: Maybe<Scalars['String']['output']>;
+  imageAlt?: Maybe<Scalars['String']['output']>;
   seoTitle: Scalars['String']['output'];
   seoDescription: Scalars['String']['output'];
 };
@@ -663,6 +667,8 @@ export type SiteSettingsCoursesPageFilter = {
   label?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   intro?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  imageAlt?: InputMaybe<StringFilter>;
   seoTitle?: InputMaybe<StringFilter>;
   seoDescription?: InputMaybe<StringFilter>;
 };
@@ -671,6 +677,8 @@ export type SiteSettingsResourcesPageFilter = {
   label?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   intro?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  imageAlt?: InputMaybe<StringFilter>;
   seoTitle?: InputMaybe<StringFilter>;
   seoDescription?: InputMaybe<StringFilter>;
 };
@@ -1160,6 +1168,8 @@ export type Services = Node & Document & {
   thumbnailAlt?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   imageAlt?: Maybe<Scalars['String']['output']>;
+  heroImage?: Maybe<Scalars['String']['output']>;
+  heroImageAlt?: Maybe<Scalars['String']['output']>;
   seoTitle?: Maybe<Scalars['String']['output']>;
   seoDescription?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['JSON']['output']>;
@@ -1217,6 +1227,8 @@ export type ServicesFilter = {
   thumbnailAlt?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
   imageAlt?: InputMaybe<StringFilter>;
+  heroImage?: InputMaybe<ImageFilter>;
+  heroImageAlt?: InputMaybe<StringFilter>;
   seoTitle?: InputMaybe<StringFilter>;
   seoDescription?: InputMaybe<StringFilter>;
   body?: InputMaybe<ServicesBodyFilter>;
@@ -1877,6 +1889,8 @@ export type SiteSettingsCoursesPageMutation = {
   label?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   intro?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  imageAlt?: InputMaybe<Scalars['String']['input']>;
   seoTitle?: InputMaybe<Scalars['String']['input']>;
   seoDescription?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1885,6 +1899,8 @@ export type SiteSettingsResourcesPageMutation = {
   label?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   intro?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  imageAlt?: InputMaybe<Scalars['String']['input']>;
   seoTitle?: InputMaybe<Scalars['String']['input']>;
   seoDescription?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2100,6 +2116,8 @@ export type ServicesMutation = {
   thumbnailAlt?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   imageAlt?: InputMaybe<Scalars['String']['input']>;
+  heroImage?: InputMaybe<Scalars['String']['input']>;
+  heroImageAlt?: InputMaybe<Scalars['String']['input']>;
   seoTitle?: InputMaybe<Scalars['String']['input']>;
   seoDescription?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['JSON']['input']>;
@@ -2330,6 +2348,8 @@ export type SiteSettingsCoursesPageFilter = {
   label?: StringFilter | null | undefined;
   title?: StringFilter | null | undefined;
   intro?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  imageAlt?: StringFilter | null | undefined;
   seoTitle?: StringFilter | null | undefined;
   seoDescription?: StringFilter | null | undefined;
 };
@@ -2338,6 +2358,8 @@ export type SiteSettingsResourcesPageFilter = {
   label?: StringFilter | null | undefined;
   title?: StringFilter | null | undefined;
   intro?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  imageAlt?: StringFilter | null | undefined;
   seoTitle?: StringFilter | null | undefined;
   seoDescription?: StringFilter | null | undefined;
 };
@@ -2600,6 +2622,8 @@ export type ServicesFilter = {
   thumbnailAlt?: StringFilter | null | undefined;
   image?: ImageFilter | null | undefined;
   imageAlt?: StringFilter | null | undefined;
+  heroImage?: ImageFilter | null | undefined;
+  heroImageAlt?: StringFilter | null | undefined;
   seoTitle?: StringFilter | null | undefined;
   seoDescription?: StringFilter | null | undefined;
   body?: ServicesBodyFilter | null | undefined;
@@ -2770,7 +2794,7 @@ export type ContactPageFilter = {
   formSection?: ContactPageFormSectionFilter | null | undefined;
 };
 
-export type SiteSettingsPartsFragment = { __typename: 'SiteSettings', brand: { __typename: 'SiteSettingsBrand', logo: string | null, logoAlt: string | null, favicon: string | null } | null, hero: { __typename: 'SiteSettingsHero', label: string, title: string, description: string, badges: Array<string | null> | null, image: string | null, imageAlt: string | null, imagePlaceholder: string | null, primaryCta: { __typename: 'SiteSettingsHeroPrimaryCta', label: string, href: string } | null, secondaryCta: { __typename: 'SiteSettingsHeroSecondaryCta', label: string, href: string } | null } | null, therapyApproach: { __typename: 'SiteSettingsTherapyApproach', label: string, title: string, description: string, pillars: Array<{ __typename: 'SiteSettingsTherapyApproachPillars', title: string, description: string, icon: string | null } | null> | null } | null, servicesSection: { __typename: 'SiteSettingsServicesSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsServicesSectionItems', title: string, shortDescription: string, href: string, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, experienceSection: { __typename: 'SiteSettingsExperienceSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsExperienceSectionItems', area: string } | null> | null } | null, trainingSection: { __typename: 'SiteSettingsTrainingSection', label: string, title: string, clinicalTitle: string, complementaryTitle: string, clinicalItems: Array<{ __typename: 'SiteSettingsTrainingSectionClinicalItems', degree: string, institution: string, year: string | null } | null> | null, complementaryItems: Array<{ __typename: 'SiteSettingsTrainingSectionComplementaryItems', degree: string, institution: string, year: string | null } | null> | null } | null, cta: { __typename: 'SiteSettingsCta', title: string, description: string, label: string, href: string } | null, courseHighlight: { __typename: 'SiteSettingsCourseHighlight', label: string, title: string | null, description: string | null, ctaLabel: string, ctaHref: string } | null, faqSection: { __typename: 'SiteSettingsFaqSection', label: string, title: string, description: string, items: Array<{ __typename: 'SiteSettingsFaqSectionItems', question: string, answer: string } | null> | null } | null, coursesPage: { __typename: 'SiteSettingsCoursesPage', label: string, title: string, intro: string, seoTitle: string, seoDescription: string } | null, resourcesPage: { __typename: 'SiteSettingsResourcesPage', label: string, title: string, intro: string, seoTitle: string, seoDescription: string } | null, contact: { __typename: 'SiteSettingsContact', email: string, phone: string | null, whatsapp: string | null, instagram: string | null, telegram: string | null, tiktok: string | null, linkedin: string | null, googleMapsEmbedUrl: string | null, googleMapsLink: string | null } | null, legal: { __typename: 'SiteSettingsLegal', collegiateNumber: string | null, businessName: string | null, taxId: string | null, address: string | null } | null, seo: { __typename: 'SiteSettingsSeo', homeTitle: string, homeDescription: string } | null, booking: { __typename: 'SiteSettingsBooking', calComUrl: string | null, presencialUrl: string | null, onlineUrl: string | null } | null };
+export type SiteSettingsPartsFragment = { __typename: 'SiteSettings', brand: { __typename: 'SiteSettingsBrand', logo: string | null, logoAlt: string | null, favicon: string | null } | null, hero: { __typename: 'SiteSettingsHero', label: string, title: string, description: string, badges: Array<string | null> | null, image: string | null, imageAlt: string | null, imagePlaceholder: string | null, primaryCta: { __typename: 'SiteSettingsHeroPrimaryCta', label: string, href: string } | null, secondaryCta: { __typename: 'SiteSettingsHeroSecondaryCta', label: string, href: string } | null } | null, therapyApproach: { __typename: 'SiteSettingsTherapyApproach', label: string, title: string, description: string, pillars: Array<{ __typename: 'SiteSettingsTherapyApproachPillars', title: string, description: string, icon: string | null } | null> | null } | null, servicesSection: { __typename: 'SiteSettingsServicesSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsServicesSectionItems', title: string, shortDescription: string, href: string, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, experienceSection: { __typename: 'SiteSettingsExperienceSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsExperienceSectionItems', area: string } | null> | null } | null, trainingSection: { __typename: 'SiteSettingsTrainingSection', label: string, title: string, clinicalTitle: string, complementaryTitle: string, clinicalItems: Array<{ __typename: 'SiteSettingsTrainingSectionClinicalItems', degree: string, institution: string, year: string | null } | null> | null, complementaryItems: Array<{ __typename: 'SiteSettingsTrainingSectionComplementaryItems', degree: string, institution: string, year: string | null } | null> | null } | null, cta: { __typename: 'SiteSettingsCta', title: string, description: string, label: string, href: string } | null, courseHighlight: { __typename: 'SiteSettingsCourseHighlight', label: string, title: string | null, description: string | null, ctaLabel: string, ctaHref: string } | null, faqSection: { __typename: 'SiteSettingsFaqSection', label: string, title: string, description: string, items: Array<{ __typename: 'SiteSettingsFaqSectionItems', question: string, answer: string } | null> | null } | null, coursesPage: { __typename: 'SiteSettingsCoursesPage', label: string, title: string, intro: string, image: string | null, imageAlt: string | null, seoTitle: string, seoDescription: string } | null, resourcesPage: { __typename: 'SiteSettingsResourcesPage', label: string, title: string, intro: string, image: string | null, imageAlt: string | null, seoTitle: string, seoDescription: string } | null, contact: { __typename: 'SiteSettingsContact', email: string, phone: string | null, whatsapp: string | null, instagram: string | null, telegram: string | null, tiktok: string | null, linkedin: string | null, googleMapsEmbedUrl: string | null, googleMapsLink: string | null } | null, legal: { __typename: 'SiteSettingsLegal', collegiateNumber: string | null, businessName: string | null, taxId: string | null, address: string | null } | null, seo: { __typename: 'SiteSettingsSeo', homeTitle: string, homeDescription: string } | null, booking: { __typename: 'SiteSettingsBooking', calComUrl: string | null, presencialUrl: string | null, onlineUrl: string | null } | null };
 
 export type FaqPartsFragment = { __typename: 'Faq', question: string, answer: string, order: number | null, category: string | null, published: boolean | null };
 
@@ -2782,7 +2806,7 @@ export type TrainingPartsFragment = { __typename: 'Training', degree: string, in
 
 export type ServicesPagePartsFragment = { __typename: 'ServicesPage', seoTitle: string, seoDescription: string, hero: { __typename: 'ServicesPageHero', label: string, title: string, description: string } | null, modalitiesSection: { __typename: 'ServicesPageModalitiesSection', label: string, title: string, items: Array<{ __typename: 'ServicesPageModalitiesSectionItems', title: string, badge: string | null, icon: string, description: string, schedule: string, feature: string, featureIcon: string, primaryButtonText: string, primaryButtonHref: string, secondaryButtonText: string, secondaryButtonHref: string } | null> | null } | null, specialtiesSection: { __typename: 'ServicesPageSpecialtiesSection', label: string, title: string, description: string, items: Array<{ __typename: 'ServicesPageSpecialtiesSectionItems', title: string, shortDescription: string, slug: string | null, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, cta: { __typename: 'ServicesPageCta', title: string, description: string, label: string, href: string } | null };
 
-export type ServicesPartsFragment = { __typename: 'Services', title: string, slug: string, heroLabel: string | null, shortDescription: string, description: string, published: boolean | null, order: number | null, icon: string | null, ctaTitle: string | null, ctaDescription: string | null, ctaLabel: string | null, ctaHref: string | null, thumbnail: string | null, thumbnailAlt: string | null, image: string | null, imageAlt: string | null, seoTitle: string | null, seoDescription: string | null, body: any };
+export type ServicesPartsFragment = { __typename: 'Services', title: string, slug: string, heroLabel: string | null, shortDescription: string, description: string, published: boolean | null, order: number | null, icon: string | null, ctaTitle: string | null, ctaDescription: string | null, ctaLabel: string | null, ctaHref: string | null, thumbnail: string | null, thumbnailAlt: string | null, image: string | null, imageAlt: string | null, heroImage: string | null, heroImageAlt: string | null, seoTitle: string | null, seoDescription: string | null, body: any };
 
 export type ResourcesPartsFragment = { __typename: 'Resources', title: string, heroLabel: string | null, slug: string, description: string, published: boolean | null, featured: boolean | null, publishedAt: string | null, image: string | null, tags: Array<string | null> | null, ctaLabel: string | null, ctaHref: string | null, seoTitle: string | null, seoDescription: string | null, body: any };
 
@@ -2795,7 +2819,7 @@ export type SiteSettingsQueryVariables = Exact<{
 }>;
 
 
-export type SiteSettingsQuery = { siteSettings: { __typename: 'SiteSettings', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, brand: { __typename: 'SiteSettingsBrand', logo: string | null, logoAlt: string | null, favicon: string | null } | null, hero: { __typename: 'SiteSettingsHero', label: string, title: string, description: string, badges: Array<string | null> | null, image: string | null, imageAlt: string | null, imagePlaceholder: string | null, primaryCta: { __typename: 'SiteSettingsHeroPrimaryCta', label: string, href: string } | null, secondaryCta: { __typename: 'SiteSettingsHeroSecondaryCta', label: string, href: string } | null } | null, therapyApproach: { __typename: 'SiteSettingsTherapyApproach', label: string, title: string, description: string, pillars: Array<{ __typename: 'SiteSettingsTherapyApproachPillars', title: string, description: string, icon: string | null } | null> | null } | null, servicesSection: { __typename: 'SiteSettingsServicesSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsServicesSectionItems', title: string, shortDescription: string, href: string, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, experienceSection: { __typename: 'SiteSettingsExperienceSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsExperienceSectionItems', area: string } | null> | null } | null, trainingSection: { __typename: 'SiteSettingsTrainingSection', label: string, title: string, clinicalTitle: string, complementaryTitle: string, clinicalItems: Array<{ __typename: 'SiteSettingsTrainingSectionClinicalItems', degree: string, institution: string, year: string | null } | null> | null, complementaryItems: Array<{ __typename: 'SiteSettingsTrainingSectionComplementaryItems', degree: string, institution: string, year: string | null } | null> | null } | null, cta: { __typename: 'SiteSettingsCta', title: string, description: string, label: string, href: string } | null, courseHighlight: { __typename: 'SiteSettingsCourseHighlight', label: string, title: string | null, description: string | null, ctaLabel: string, ctaHref: string } | null, faqSection: { __typename: 'SiteSettingsFaqSection', label: string, title: string, description: string, items: Array<{ __typename: 'SiteSettingsFaqSectionItems', question: string, answer: string } | null> | null } | null, coursesPage: { __typename: 'SiteSettingsCoursesPage', label: string, title: string, intro: string, seoTitle: string, seoDescription: string } | null, resourcesPage: { __typename: 'SiteSettingsResourcesPage', label: string, title: string, intro: string, seoTitle: string, seoDescription: string } | null, contact: { __typename: 'SiteSettingsContact', email: string, phone: string | null, whatsapp: string | null, instagram: string | null, telegram: string | null, tiktok: string | null, linkedin: string | null, googleMapsEmbedUrl: string | null, googleMapsLink: string | null } | null, legal: { __typename: 'SiteSettingsLegal', collegiateNumber: string | null, businessName: string | null, taxId: string | null, address: string | null } | null, seo: { __typename: 'SiteSettingsSeo', homeTitle: string, homeDescription: string } | null, booking: { __typename: 'SiteSettingsBooking', calComUrl: string | null, presencialUrl: string | null, onlineUrl: string | null } | null } };
+export type SiteSettingsQuery = { siteSettings: { __typename: 'SiteSettings', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, brand: { __typename: 'SiteSettingsBrand', logo: string | null, logoAlt: string | null, favicon: string | null } | null, hero: { __typename: 'SiteSettingsHero', label: string, title: string, description: string, badges: Array<string | null> | null, image: string | null, imageAlt: string | null, imagePlaceholder: string | null, primaryCta: { __typename: 'SiteSettingsHeroPrimaryCta', label: string, href: string } | null, secondaryCta: { __typename: 'SiteSettingsHeroSecondaryCta', label: string, href: string } | null } | null, therapyApproach: { __typename: 'SiteSettingsTherapyApproach', label: string, title: string, description: string, pillars: Array<{ __typename: 'SiteSettingsTherapyApproachPillars', title: string, description: string, icon: string | null } | null> | null } | null, servicesSection: { __typename: 'SiteSettingsServicesSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsServicesSectionItems', title: string, shortDescription: string, href: string, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, experienceSection: { __typename: 'SiteSettingsExperienceSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsExperienceSectionItems', area: string } | null> | null } | null, trainingSection: { __typename: 'SiteSettingsTrainingSection', label: string, title: string, clinicalTitle: string, complementaryTitle: string, clinicalItems: Array<{ __typename: 'SiteSettingsTrainingSectionClinicalItems', degree: string, institution: string, year: string | null } | null> | null, complementaryItems: Array<{ __typename: 'SiteSettingsTrainingSectionComplementaryItems', degree: string, institution: string, year: string | null } | null> | null } | null, cta: { __typename: 'SiteSettingsCta', title: string, description: string, label: string, href: string } | null, courseHighlight: { __typename: 'SiteSettingsCourseHighlight', label: string, title: string | null, description: string | null, ctaLabel: string, ctaHref: string } | null, faqSection: { __typename: 'SiteSettingsFaqSection', label: string, title: string, description: string, items: Array<{ __typename: 'SiteSettingsFaqSectionItems', question: string, answer: string } | null> | null } | null, coursesPage: { __typename: 'SiteSettingsCoursesPage', label: string, title: string, intro: string, image: string | null, imageAlt: string | null, seoTitle: string, seoDescription: string } | null, resourcesPage: { __typename: 'SiteSettingsResourcesPage', label: string, title: string, intro: string, image: string | null, imageAlt: string | null, seoTitle: string, seoDescription: string } | null, contact: { __typename: 'SiteSettingsContact', email: string, phone: string | null, whatsapp: string | null, instagram: string | null, telegram: string | null, tiktok: string | null, linkedin: string | null, googleMapsEmbedUrl: string | null, googleMapsLink: string | null } | null, legal: { __typename: 'SiteSettingsLegal', collegiateNumber: string | null, businessName: string | null, taxId: string | null, address: string | null } | null, seo: { __typename: 'SiteSettingsSeo', homeTitle: string, homeDescription: string } | null, booking: { __typename: 'SiteSettingsBooking', calComUrl: string | null, presencialUrl: string | null, onlineUrl: string | null } | null } };
 
 export type SiteSettingsConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -2807,7 +2831,7 @@ export type SiteSettingsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type SiteSettingsConnectionQuery = { siteSettingsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'SiteSettings', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, brand: { __typename: 'SiteSettingsBrand', logo: string | null, logoAlt: string | null, favicon: string | null } | null, hero: { __typename: 'SiteSettingsHero', label: string, title: string, description: string, badges: Array<string | null> | null, image: string | null, imageAlt: string | null, imagePlaceholder: string | null, primaryCta: { __typename: 'SiteSettingsHeroPrimaryCta', label: string, href: string } | null, secondaryCta: { __typename: 'SiteSettingsHeroSecondaryCta', label: string, href: string } | null } | null, therapyApproach: { __typename: 'SiteSettingsTherapyApproach', label: string, title: string, description: string, pillars: Array<{ __typename: 'SiteSettingsTherapyApproachPillars', title: string, description: string, icon: string | null } | null> | null } | null, servicesSection: { __typename: 'SiteSettingsServicesSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsServicesSectionItems', title: string, shortDescription: string, href: string, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, experienceSection: { __typename: 'SiteSettingsExperienceSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsExperienceSectionItems', area: string } | null> | null } | null, trainingSection: { __typename: 'SiteSettingsTrainingSection', label: string, title: string, clinicalTitle: string, complementaryTitle: string, clinicalItems: Array<{ __typename: 'SiteSettingsTrainingSectionClinicalItems', degree: string, institution: string, year: string | null } | null> | null, complementaryItems: Array<{ __typename: 'SiteSettingsTrainingSectionComplementaryItems', degree: string, institution: string, year: string | null } | null> | null } | null, cta: { __typename: 'SiteSettingsCta', title: string, description: string, label: string, href: string } | null, courseHighlight: { __typename: 'SiteSettingsCourseHighlight', label: string, title: string | null, description: string | null, ctaLabel: string, ctaHref: string } | null, faqSection: { __typename: 'SiteSettingsFaqSection', label: string, title: string, description: string, items: Array<{ __typename: 'SiteSettingsFaqSectionItems', question: string, answer: string } | null> | null } | null, coursesPage: { __typename: 'SiteSettingsCoursesPage', label: string, title: string, intro: string, seoTitle: string, seoDescription: string } | null, resourcesPage: { __typename: 'SiteSettingsResourcesPage', label: string, title: string, intro: string, seoTitle: string, seoDescription: string } | null, contact: { __typename: 'SiteSettingsContact', email: string, phone: string | null, whatsapp: string | null, instagram: string | null, telegram: string | null, tiktok: string | null, linkedin: string | null, googleMapsEmbedUrl: string | null, googleMapsLink: string | null } | null, legal: { __typename: 'SiteSettingsLegal', collegiateNumber: string | null, businessName: string | null, taxId: string | null, address: string | null } | null, seo: { __typename: 'SiteSettingsSeo', homeTitle: string, homeDescription: string } | null, booking: { __typename: 'SiteSettingsBooking', calComUrl: string | null, presencialUrl: string | null, onlineUrl: string | null } | null } | null } | null> | null } };
+export type SiteSettingsConnectionQuery = { siteSettingsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'SiteSettings', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, brand: { __typename: 'SiteSettingsBrand', logo: string | null, logoAlt: string | null, favicon: string | null } | null, hero: { __typename: 'SiteSettingsHero', label: string, title: string, description: string, badges: Array<string | null> | null, image: string | null, imageAlt: string | null, imagePlaceholder: string | null, primaryCta: { __typename: 'SiteSettingsHeroPrimaryCta', label: string, href: string } | null, secondaryCta: { __typename: 'SiteSettingsHeroSecondaryCta', label: string, href: string } | null } | null, therapyApproach: { __typename: 'SiteSettingsTherapyApproach', label: string, title: string, description: string, pillars: Array<{ __typename: 'SiteSettingsTherapyApproachPillars', title: string, description: string, icon: string | null } | null> | null } | null, servicesSection: { __typename: 'SiteSettingsServicesSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsServicesSectionItems', title: string, shortDescription: string, href: string, icon: string | null, thumbnail: string | null, thumbnailAlt: string | null } | null> | null } | null, experienceSection: { __typename: 'SiteSettingsExperienceSection', label: string, title: string, items: Array<{ __typename: 'SiteSettingsExperienceSectionItems', area: string } | null> | null } | null, trainingSection: { __typename: 'SiteSettingsTrainingSection', label: string, title: string, clinicalTitle: string, complementaryTitle: string, clinicalItems: Array<{ __typename: 'SiteSettingsTrainingSectionClinicalItems', degree: string, institution: string, year: string | null } | null> | null, complementaryItems: Array<{ __typename: 'SiteSettingsTrainingSectionComplementaryItems', degree: string, institution: string, year: string | null } | null> | null } | null, cta: { __typename: 'SiteSettingsCta', title: string, description: string, label: string, href: string } | null, courseHighlight: { __typename: 'SiteSettingsCourseHighlight', label: string, title: string | null, description: string | null, ctaLabel: string, ctaHref: string } | null, faqSection: { __typename: 'SiteSettingsFaqSection', label: string, title: string, description: string, items: Array<{ __typename: 'SiteSettingsFaqSectionItems', question: string, answer: string } | null> | null } | null, coursesPage: { __typename: 'SiteSettingsCoursesPage', label: string, title: string, intro: string, image: string | null, imageAlt: string | null, seoTitle: string, seoDescription: string } | null, resourcesPage: { __typename: 'SiteSettingsResourcesPage', label: string, title: string, intro: string, image: string | null, imageAlt: string | null, seoTitle: string, seoDescription: string } | null, contact: { __typename: 'SiteSettingsContact', email: string, phone: string | null, whatsapp: string | null, instagram: string | null, telegram: string | null, tiktok: string | null, linkedin: string | null, googleMapsEmbedUrl: string | null, googleMapsLink: string | null } | null, legal: { __typename: 'SiteSettingsLegal', collegiateNumber: string | null, businessName: string | null, taxId: string | null, address: string | null } | null, seo: { __typename: 'SiteSettingsSeo', homeTitle: string, homeDescription: string } | null, booking: { __typename: 'SiteSettingsBooking', calComUrl: string | null, presencialUrl: string | null, onlineUrl: string | null } | null } | null } | null> | null } };
 
 export type FaqQueryVariables = Exact<{
   relativePath: string;
@@ -2909,7 +2933,7 @@ export type ServicesQueryVariables = Exact<{
 }>;
 
 
-export type ServicesQuery = { services: { __typename: 'Services', id: string, title: string, slug: string, heroLabel: string | null, shortDescription: string, description: string, published: boolean | null, order: number | null, icon: string | null, ctaTitle: string | null, ctaDescription: string | null, ctaLabel: string | null, ctaHref: string | null, thumbnail: string | null, thumbnailAlt: string | null, image: string | null, imageAlt: string | null, seoTitle: string | null, seoDescription: string | null, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ServicesQuery = { services: { __typename: 'Services', id: string, title: string, slug: string, heroLabel: string | null, shortDescription: string, description: string, published: boolean | null, order: number | null, icon: string | null, ctaTitle: string | null, ctaDescription: string | null, ctaLabel: string | null, ctaHref: string | null, thumbnail: string | null, thumbnailAlt: string | null, image: string | null, imageAlt: string | null, heroImage: string | null, heroImageAlt: string | null, seoTitle: string | null, seoDescription: string | null, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ServicesConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -2921,7 +2945,7 @@ export type ServicesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ServicesConnectionQuery = { servicesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Services', id: string, title: string, slug: string, heroLabel: string | null, shortDescription: string, description: string, published: boolean | null, order: number | null, icon: string | null, ctaTitle: string | null, ctaDescription: string | null, ctaLabel: string | null, ctaHref: string | null, thumbnail: string | null, thumbnailAlt: string | null, image: string | null, imageAlt: string | null, seoTitle: string | null, seoDescription: string | null, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type ServicesConnectionQuery = { servicesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Services', id: string, title: string, slug: string, heroLabel: string | null, shortDescription: string, description: string, published: boolean | null, order: number | null, icon: string | null, ctaTitle: string | null, ctaDescription: string | null, ctaLabel: string | null, ctaHref: string | null, thumbnail: string | null, thumbnailAlt: string | null, image: string | null, imageAlt: string | null, heroImage: string | null, heroImageAlt: string | null, seoTitle: string | null, seoDescription: string | null, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type ResourcesQueryVariables = Exact<{
   relativePath: string;
@@ -3094,6 +3118,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -3102,6 +3128,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -3298,6 +3326,8 @@ export const ServicesPartsFragmentDoc = gql`
   thumbnailAlt
   image
   imageAlt
+  heroImage
+  heroImageAlt
   seoTitle
   seoDescription
   body

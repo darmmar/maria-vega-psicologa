@@ -232,6 +232,8 @@ type SiteSettingsCoursesPage {
   label: String!
   title: String!
   intro: String!
+  image: String
+  imageAlt: String
   seoTitle: String!
   seoDescription: String!
 }
@@ -240,6 +242,8 @@ type SiteSettingsResourcesPage {
   label: String!
   title: String!
   intro: String!
+  image: String
+  imageAlt: String
   seoTitle: String!
   seoDescription: String!
 }
@@ -427,6 +431,8 @@ input SiteSettingsCoursesPageFilter {
   label: StringFilter
   title: StringFilter
   intro: StringFilter
+  image: ImageFilter
+  imageAlt: StringFilter
   seoTitle: StringFilter
   seoDescription: StringFilter
 }
@@ -435,6 +441,8 @@ input SiteSettingsResourcesPageFilter {
   label: StringFilter
   title: StringFilter
   intro: StringFilter
+  image: ImageFilter
+  imageAlt: StringFilter
   seoTitle: StringFilter
   seoDescription: StringFilter
 }
@@ -892,6 +900,8 @@ type Services implements Node & Document {
   thumbnailAlt: String
   image: String
   imageAlt: String
+  heroImage: String
+  heroImageAlt: String
   seoTitle: String
   seoDescription: String
   body: JSON
@@ -949,6 +959,8 @@ input ServicesFilter {
   thumbnailAlt: StringFilter
   image: ImageFilter
   imageAlt: StringFilter
+  heroImage: ImageFilter
+  heroImageAlt: StringFilter
   seoTitle: StringFilter
   seoDescription: StringFilter
   body: ServicesBodyFilter
@@ -1438,6 +1450,8 @@ input SiteSettingsCoursesPageMutation {
   label: String
   title: String
   intro: String
+  image: String
+  imageAlt: String
   seoTitle: String
   seoDescription: String
 }
@@ -1446,6 +1460,8 @@ input SiteSettingsResourcesPageMutation {
   label: String
   title: String
   intro: String
+  image: String
+  imageAlt: String
   seoTitle: String
   seoDescription: String
 }
@@ -1661,6 +1677,8 @@ input ServicesMutation {
   thumbnailAlt: String
   image: String
   imageAlt: String
+  heroImage: String
+  heroImageAlt: String
   seoTitle: String
   seoDescription: String
   body: JSON

@@ -378,6 +378,18 @@ var siteSettingsCollection = {
           required: true,
           ui: { component: "textarea" }
         },
+        {
+          type: "image",
+          name: "image",
+          label: "Imagen de portada / cabecera",
+          description: "Foto destacada de la cabecera para la p\xE1gina de cursos.",
+          ui: imageFieldUi
+        },
+        {
+          type: "string",
+          name: "imageAlt",
+          label: "Descripci\xF3n de la foto (accesibilidad y SEO)"
+        },
         { type: "string", name: "seoTitle", label: "T\xEDtulo SEO para Google", required: true },
         {
           type: "string",
@@ -401,6 +413,18 @@ var siteSettingsCollection = {
           label: "Texto de introducci\xF3n al cat\xE1logo",
           required: true,
           ui: { component: "textarea" }
+        },
+        {
+          type: "image",
+          name: "image",
+          label: "Imagen de portada / cabecera",
+          description: "Foto destacada de la cabecera para la p\xE1gina de recursos.",
+          ui: imageFieldUi
+        },
+        {
+          type: "string",
+          name: "imageAlt",
+          label: "Descripci\xF3n de la foto (accesibilidad y SEO)"
         },
         { type: "string", name: "seoTitle", label: "T\xEDtulo SEO para Google", required: true },
         {
@@ -1298,15 +1322,28 @@ var servicesCollection = {
     {
       type: "image",
       name: "image",
-      label: "Foto o ilustraci\xF3n lateral en la p\xE1gina del servicio (opcional)",
+      label: "Foto o ilustraci\xF3n principal del servicio (opcional)",
+      description: "Imagen que se muestra en la cabecera / hero y en el cuerpo del servicio.",
       ui: imageFieldUi
     },
     {
       type: "string",
       name: "imageAlt",
-      label: "Descripci\xF3n de la foto lateral (para accesibilidad y SEO)",
+      label: "Descripci\xF3n de la foto principal (para accesibilidad y SEO)",
       description: "Describe la imagen para Google y lectores de pantalla. Ej.: \xABSesi\xF3n de terapia presencial en consulta\xBB.",
       ui: { component: "textarea" }
+    },
+    {
+      type: "image",
+      name: "heroImage",
+      label: "Foto espec\xEDfica de cabecera / Hero (opcional)",
+      description: "Si se especifica, sustituye a la foto principal en la cabecera de la p\xE1gina. Si se deja vac\xEDa, se usar\xE1 la foto principal.",
+      ui: imageFieldUi
+    },
+    {
+      type: "string",
+      name: "heroImageAlt",
+      label: "Descripci\xF3n de la foto de cabecera (para accesibilidad y SEO)"
     },
     {
       type: "string",

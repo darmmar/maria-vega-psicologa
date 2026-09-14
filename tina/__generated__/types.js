@@ -119,6 +119,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -127,6 +129,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -323,6 +327,8 @@ export const ServicesPartsFragmentDoc = gql`
   thumbnailAlt
   image
   imageAlt
+  heroImage
+  heroImageAlt
   seoTitle
   seoDescription
   body

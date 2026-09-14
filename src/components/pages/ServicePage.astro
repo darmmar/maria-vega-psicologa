@@ -52,15 +52,24 @@ const jsonLd = buildServicePageJsonLd({
   path: pageUrl,
 });
 
+const heroImage = (service.data as any).heroImage || service.data.image;
+const heroImageAlt = (service.data as any).heroImageAlt || service.data.imageAlt || service.data.title;
+const tinaHeroImageField = (service.data as any).heroImage
+  ? tinaField(service.data as any, "heroImage")
+  : tinaField(service.data, "image");
+
 const heroProps = {
   label: service.data.heroLabel?.trim() || "Psicología",
   title: service.data.title,
   description: service.data.description,
   descriptionClass: "text-ink-muted text-xl leading-relaxed",
-  layout: heroLayout === "centered" ? ("default" as const) : ("split" as const),
-  align: heroLayout === "centered" ? ("center" as const) : ("left" as const),
+  layout: heroImage ? ("split" as const) : (heroLayout === "centered" ? ("default" as const) : ("split" as const)),
+  align: heroImage ? ("left" as const) : (heroLayout === "centered" ? ("center" as const) : ("left" as const)),
   maxWidth: "3xl" as const,
   icon: heroLayout === "split" ? iconName : undefined,
+  image: heroImage,
+  imageAlt: heroImageAlt,
+  tinaImageField: tinaHeroImageField,
   tinaLabelField: tinaField(service.data, "heroLabel"),
   tinaTitleField: tinaField(service.data, "title"),
   tinaDescriptionField: tinaField(service.data, "description"),
@@ -73,7 +82,7 @@ const heroProps = {
       <PageHero {...heroProps} />
 
       <ServiceContentSection
-        image={service.data.image}
+        image={(service.data as any).heroImage ? service.data.image : undefined}
         imageAlt={service.data.imageAlt}
         fallbackAlt={`Ilustración del servicio ${service.data.title}`}
         tinaImageField={tinaField(service.data, "image")}
@@ -97,7 +106,7 @@ const heroProps = {
       <PageHero {...heroProps} />
 
       <ServiceContentSection
-        image={service.data.image}
+        image={(service.data as any).heroImage ? service.data.image : undefined}
         imageAlt={service.data.imageAlt}
         fallbackAlt={`Ilustración del servicio ${service.data.title}`}
         tinaImageField={tinaField(service.data, "image")}
