@@ -348,6 +348,18 @@ export const siteSettingsCollection: Collection = {
           required: true,
           ui: { component: "textarea" },
         },
+        {
+          type: "image",
+          name: "image",
+          label: "Imagen de portada / cabecera",
+          description: "Foto destacada de la cabecera para la página de cursos.",
+          ui: imageFieldUi,
+        },
+        {
+          type: "string",
+          name: "imageAlt",
+          label: "Descripción de la foto (accesibilidad y SEO)",
+        },
         { type: "string", name: "seoTitle", label: "Título SEO para Google", required: true },
         {
           type: "string",
@@ -371,6 +383,18 @@ export const siteSettingsCollection: Collection = {
           label: "Texto de introducción al catálogo",
           required: true,
           ui: { component: "textarea" },
+        },
+        {
+          type: "image",
+          name: "image",
+          label: "Imagen de portada / cabecera",
+          description: "Foto destacada de la cabecera para la página de recursos.",
+          ui: imageFieldUi,
+        },
+        {
+          type: "string",
+          name: "imageAlt",
+          label: "Descripción de la foto (accesibilidad y SEO)",
         },
         { type: "string", name: "seoTitle", label: "Título SEO para Google", required: true },
         {

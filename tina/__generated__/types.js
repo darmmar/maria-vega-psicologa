@@ -119,6 +119,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -127,6 +129,8 @@ export const SiteSettingsPartsFragmentDoc = gql`
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -323,6 +327,8 @@ export const ServicesPartsFragmentDoc = gql`
   thumbnailAlt
   image
   imageAlt
+  heroImage
+  heroImageAlt
   seoTitle
   seoDescription
   body
@@ -1075,7 +1081,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "https://content.tinajs.io/2.4/content/bedea9d3-b5cc-4ca8-be3b-c575755f262f/github/main",
+      url: "http://localhost:4001/graphql",
       queries
     })
   )

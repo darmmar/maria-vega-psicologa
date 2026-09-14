@@ -38,6 +38,8 @@ const services = defineCollection({
     thumbnailAlt: z.string().optional(),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    heroImage: z.string().optional().nullable(),
+    heroImageAlt: z.string().optional().nullable(),
   }),
 });
 
@@ -236,6 +238,8 @@ const siteSettings = defineCollection({
       label: z.string(),
       title: z.string(),
       intro: z.string(),
+      image: z.string().optional().nullable(),
+      imageAlt: z.string().optional().nullable(),
       seoTitle: z.string(),
       seoDescription: z.string(),
     }),
@@ -244,6 +248,8 @@ const siteSettings = defineCollection({
         label: z.string().optional(),
         title: z.string().optional(),
         intro: z.string().optional(),
+        image: z.string().optional().nullable(),
+        imageAlt: z.string().optional().nullable(),
         seoTitle: z.string().optional(),
         seoDescription: z.string().optional(),
       })

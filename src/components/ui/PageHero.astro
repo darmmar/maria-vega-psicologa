@@ -1,15 +1,19 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import DynamicIcon from "@/components/ui/DynamicIcon.astro";
+import { imageSrc } from "@/lib/images";
 
 interface Props {
-  label?: string;
+  label?: string | null;
   title: string;
-  description?: string;
+  description?: string | null;
   align?: "center" | "left";
   maxWidth?: "2xl" | "3xl" | "4xl";
   layout?: "default" | "split";
-  icon?: string;
+  icon?: string | null;
+  image?: string | null;
+  imageAlt?: string | null;
+  tinaImageField?: string;
   class?: string;
   descriptionClass?: string;
   tinaLabelField?: string;
@@ -25,6 +29,9 @@ const {
   maxWidth = "2xl",
   layout = "default",
   icon,
+  image,
+  imageAlt,
+  tinaImageField,
   class: className = "",
   descriptionClass = "text-ink-muted text-lg leading-relaxed font-body",
   tinaLabelField,
@@ -32,13 +39,16 @@ const {
   tinaDescriptionField,
 } = Astro.props;
 
+const resolvedImage = imageSrc(image);
+const isSplit = Boolean(resolvedImage || layout === "split");
+
 const widthClass = {
   "2xl": "max-w-2xl",
   "3xl": "max-w-3xl",
   "4xl": "max-w-4xl",
 }[maxWidth];
 
-const alignClass = align === "center" ? "mx-auto text-center" : "";
+const alignClass = !isSplit && align === "center" ? "mx-auto text-center" : "";
 
 const isDuplicateLabel = Boolean(
   label && title && label.trim().toLowerCase() === title.trim().toLowerCase()
@@ -47,12 +57,11 @@ const showLabel = Boolean((label && !isDuplicateLabel) || tinaLabelField);
 ---
 
 <section class:list={["section-hero bg-warm-200 border-b border-ink-border/40 overflow-hidden relative", className]}>
-  
   <Container class="relative">
     {
-      layout === "split" ? (
-        <div class="grid md:grid-cols-2 gap-8 items-center animate-fade-in-up">
-          <div>
+      isSplit ? (
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center animate-fade-in-up">
+          <div class={resolvedImage ? "lg:col-span-7" : "md:col-span-1"}>
             {showLabel && <p class="label-caps text-sage mb-3 animate-fade-in" data-tina-field={tinaLabelField}>{label}</p>}
             <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-4 leading-tight" data-tina-field={tinaTitleField}>
               {title}
@@ -60,11 +69,24 @@ const showLabel = Boolean((label && !isDuplicateLabel) || tinaLabelField);
             {(description || tinaDescriptionField) && <p class={descriptionClass} data-tina-field={tinaDescriptionField}>{description}</p>}
             <slot />
           </div>
-          {icon && (
+          {resolvedImage ? (
+            <div class="lg:col-span-5 relative w-full max-w-lg mx-auto lg:max-w-none animate-fade-in" data-tina-field={tinaImageField}>
+              <div class="relative overflow-hidden rounded-3xl border border-ink-border/30 shadow-premium aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] bg-warm-100 group">
+                <img
+                  src={resolvedImage}
+                  alt={imageAlt?.trim() || title}
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-102"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <div class="absolute -bottom-3 -right-3 w-24 h-24 rounded-full bg-sage/15 -z-10 blur-xl pointer-events-none"></div>
+            </div>
+          ) : icon ? (
             <div class="hidden md:flex justify-end animate-fade-in" aria-hidden="true">
               <DynamicIcon name={icon} class="w-40 h-40 text-sage opacity-10" />
             </div>
-          )}
+          ) : null}
         </div>
       ) : (
         <div class:list={[widthClass, alignClass, "animate-fade-in-up"]}>
@@ -79,4 +101,5 @@ const showLabel = Boolean((label && !isDuplicateLabel) || tinaLabelField);
     }
   </Container>
 </section>
+
 

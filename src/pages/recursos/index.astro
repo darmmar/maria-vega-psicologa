@@ -5,6 +5,7 @@ import Container from '@/components/ui/Container.astro'
 import Badge from '@/components/ui/Badge.astro'
 import PageHero from '@/components/ui/PageHero.astro'
 import { getPublishedResources, getSiteSettings } from '@/lib/content/collections'
+import { imageSrc } from '@/lib/images'
 import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from '@/lib/seo'
 import { tinaField } from '@tinacms/astro'
 
@@ -44,6 +45,8 @@ const resourcesPage = {
   label: settings.resourcesPage?.label || 'Recursos',
   title: settings.resourcesPage?.title || 'Recursos psicoeducativos',
   intro: settings.resourcesPage?.intro || 'Artículos para entender mejor el malestar emocional y el proceso terapéutico.',
+  image: settings.resourcesPage?.image || undefined,
+  imageAlt: settings.resourcesPage?.imageAlt || undefined,
   seoTitle: settings.resourcesPage?.seoTitle || 'Recursos psicoeducativos',
   seoDescription: settings.resourcesPage?.seoDescription || 'Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional.',
 };
@@ -73,7 +76,9 @@ const jsonLd = buildJsonLdGraph(
     label={resourcesPage.label}
     title={resourcesPage.title}
     description={resourcesPage.intro}
-    maxWidth="3xl"
+    image={resourcesPage.image}
+    imageAlt={resourcesPage.imageAlt || resourcesPage.title}
+    tinaImageField={tinaField(settings.resourcesPage, 'image')}
     tinaLabelField={tinaField(settings.resourcesPage, 'label')}
     tinaTitleField={tinaField(settings.resourcesPage, 'title')}
     tinaDescriptionField={tinaField(settings.resourcesPage, 'intro')}
@@ -93,6 +98,17 @@ const jsonLd = buildJsonLdGraph(
                 data-tina-field={tinaNode ? tinaField(tinaNode, 'title') : undefined}
               >
                 <div>
+                  {r.data.image && (
+                    <div class="w-full aspect-[16/10] overflow-hidden rounded-xl mb-4 bg-warm-100" data-tina-field={tinaNode ? tinaField(tinaNode, "image") : undefined}>
+                      <img
+                        src={imageSrc(r.data.image)}
+                        alt={r.data.title}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-102"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  )}
                   {r.data.tags.length > 0 && (
                     <div class="mb-3" data-tina-field={tinaNode ? tinaField(tinaNode, 'tags') : undefined}>
                       <Badge variant="blush">{r.data.tags[0]}</Badge>
