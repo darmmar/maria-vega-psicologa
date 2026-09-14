@@ -46,6 +46,14 @@ const canonicalUrl = resolveAbsoluteUrl(canonical, Astro.url.pathname);
 const ogImageUrl = resolveAbsoluteUrl(ogImage, "/og-default.jpg");
 const fullTitle = buildFullTitle(title, siteConfig.siteName);
 
+const hostname = Astro.url.hostname || "";
+const isPreviewHost =
+  hostname.includes("pages.dev") ||
+  hostname.includes("localhost") ||
+  hostname.includes("127.0.0.1");
+
+const shouldNoindex = Boolean(noindex || isPreviewHost);
+
 function normalizeStructuredData(
   data: JsonLdNode | JsonLdNode[] | JsonLdDocument | undefined,
 ): JsonLdDocument | null {
@@ -81,7 +89,7 @@ const structuredData = normalizeStructuredData(jsonLd);
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
 {
-  noindex ? (
+  shouldNoindex ? (
     <meta name="robots" content="noindex, nofollow" />
   ) : (
     <meta name="robots" content="index, follow" />

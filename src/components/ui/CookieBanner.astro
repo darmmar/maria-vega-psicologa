@@ -1,0 +1,116 @@
+---
+// Componente de Consentimiento de Cookies (Cumplimiento RGPD / Directrices AEPD)
+---
+
+<aside
+  id="cookie-consent-banner"
+  class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-50 transform transition-all duration-500 opacity-0 translate-y-8 pointer-events-none"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Aviso y consentimiento de cookies"
+>
+  <div class="bg-white/95 backdrop-blur-md border border-ink-border/30 rounded-2xl p-5 shadow-2xl shadow-ink/10 text-ink">
+    <div class="flex items-start gap-3.5 mb-3.5">
+      <div class="w-9 h-9 rounded-xl bg-sage/10 text-sage flex items-center justify-center shrink-0 mt-0.5">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+          <path d="M8.5 8.5v.01" />
+          <path d="M7 15v.01" />
+          <path d="M12 17v.01" />
+          <path d="M17 14v.01" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-display text-base font-medium text-ink leading-snug">
+          Tu privacidad es lo primero
+        </h3>
+        <p class="text-xs text-ink-muted leading-relaxed mt-1 font-body">
+          Utilizamos cookies técnicas imprescindibles para el correcto funcionamiento del sitio. Respetamos tu privacidad conforme al RGPD y la AEPD. Consulta nuestra{' '}
+          <a
+            href="/legal/cookies"
+            class="text-sage font-medium underline underline-offset-2 hover:text-sage-600 transition-colors"
+          >
+            Política de cookies
+          </a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2.5 pt-2 border-t border-ink-border/20">
+      <button
+        type="button"
+        id="btn-cookie-accept-all"
+        class="flex-1 text-xs font-medium bg-sage text-white px-3.5 py-2.5 rounded-lg hover:bg-sage-600 active:scale-[0.98] transition-all shadow-sm font-body cursor-pointer text-center"
+      >
+        Aceptar todas
+      </button>
+      <button
+        type="button"
+        id="btn-cookie-necessary"
+        class="flex-1 text-xs font-medium bg-warm-100 text-ink-muted hover:text-ink hover:bg-warm-200 border border-ink-border/30 px-3.5 py-2.5 rounded-lg active:scale-[0.98] transition-all font-body cursor-pointer text-center"
+      >
+        Solo necesarias
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (() => {
+    function initCookieBanner() {
+      // En modo edición de TinaCMS dentro de iframe, no mostrar para no interferir en la edición
+      if (typeof window !== "undefined" && window.self !== window.top) {
+        return;
+      }
+
+      const STORAGE_KEY = "mv_cookie_consent_v1";
+      const banner = document.getElementById("cookie-consent-banner");
+      const acceptAllBtn = document.getElementById("btn-cookie-accept-all");
+      const necessaryBtn = document.getElementById("btn-cookie-necessary");
+
+      if (!banner) return;
+
+      const consent = localStorage.getItem(STORAGE_KEY);
+      if (consent) {
+        // Ya se ha otorgado o denegado consentimiento previamente
+        return;
+      }
+
+      // Mostrar el banner suavemente tras 600ms
+      setTimeout(() => {
+        banner.classList.remove("opacity-0", "translate-y-8", "pointer-events-none");
+        banner.classList.add("opacity-100", "translate-y-0", "pointer-events-auto");
+      }, 600);
+
+      function hideBanner(choice) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            choice,
+            timestamp: new Date().toISOString()
+          }));
+        } catch (e) {}
+
+        banner.classList.remove("opacity-100", "translate-y-0", "pointer-events-auto");
+        banner.classList.add("opacity-0", "translate-y-8", "pointer-events-none");
+
+        window.dispatchEvent(new CustomEvent("cookie-consent-updated", { detail: { choice } }));
+      }
+
+      if (acceptAllBtn) {
+        acceptAllBtn.addEventListener("click", () => hideBanner("all"));
+      }
+      if (necessaryBtn) {
+        necessaryBtn.addEventListener("click", () => hideBanner("necessary"));
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCookieBanner);
+    } else {
+      initCookieBanner();
+    }
+
+    // Compatibilidad con Astro View Transitions
+    document.addEventListener("astro:page-load", initCookieBanner);
+  })();
+</script>

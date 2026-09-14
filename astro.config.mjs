@@ -26,7 +26,7 @@ export default defineConfig({
     }),
     mdx(),
     sitemap({
-      filter: (page) => !page.includes("/admin"),
+      filter: (page) => !page.includes("/admin") && !page.includes("/legal/"),
     }),
     icon(),
   ],
