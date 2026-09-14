@@ -48,16 +48,52 @@ const { title, description, canonical, ogImage, noindex, jsonLd, ogType, publish
     <!-- Cloudflare Web Analytics (Privacy-first, 0-cookie, RGPD compliant) -->
     <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "1d02960f26d54b1d917b3bcfe9901b9f"}'></script>
 
-    <!-- TinaCMS visual editor in-iframe helper: asegura la inyección de formularios y selección de colección al navegar por la web en el admin -->
+    <!-- TinaCMS visual editor in-iframe helper: navegación con doble-clic o Ctrl/Alt+clic y preservación del modo edición -->
     <script is:inline>
       if (typeof window !== "undefined" && window.self !== window.top) {
         document.cookie = "__tina_edit=1; path=/; SameSite=Lax; max-age=86400";
+
+        // Doble-clic en cualquier botón o enlace para navegar directamente dentro del editor visual
+        document.addEventListener(
+          "dblclick",
+          (e) => {
+            const anchor = e.target instanceof Element ? e.target.closest("a") : null;
+            if (anchor && anchor.href) {
+              try {
+                const url = new URL(anchor.href, window.location.origin);
+                if (url.origin === window.location.origin && !url.pathname.startsWith("/admin")) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  url.searchParams.set("tina-edit", "1");
+                  window.location.href = url.pathname + url.search + url.hash;
+                }
+              } catch {}
+            }
+          },
+          true
+        );
+
         document.addEventListener(
           "click",
           (e) => {
             const target = e.target;
             const anchor = target instanceof Element ? target.closest("a") : null;
             if (!anchor || !anchor.href) return;
+
+            // Si el usuario mantiene Ctrl, Cmd o Alt, navega directamente en vez de abrir el campo para editar
+            if (e.ctrlKey || e.metaKey || e.altKey) {
+              try {
+                const url = new URL(anchor.href, window.location.origin);
+                if (url.origin === window.location.origin && !url.pathname.startsWith("/admin")) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  url.searchParams.set("tina-edit", "1");
+                  window.location.href = url.pathname + url.search + url.hash;
+                  return;
+                }
+              } catch {}
+            }
+
             try {
               const url = new URL(anchor.href, window.location.origin);
               if (url.origin === window.location.origin && !url.pathname.startsWith("/admin")) {
