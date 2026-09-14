@@ -29,7 +29,13 @@ try {
     { priority: "primary" }
   );
   if (tinaRes?.data?.courses) {
-    course.data = { ...course.data, ...(tinaRes.data.courses as any) };
+    const tinaData = tinaRes.data.courses as any;
+    course.data = {
+      ...course.data,
+      ...tinaData,
+      image: tinaData.image?.trim() ? tinaData.image : course.data.image,
+      imageAlt: tinaData.imageAlt?.trim() ? tinaData.imageAlt : course.data.imageAlt,
+    };
   }
 } catch (e) {
   // Mantener fallback

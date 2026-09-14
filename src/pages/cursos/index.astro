@@ -29,8 +29,8 @@ try {
       coursesPage: {
         ...settings.coursesPage,
         ...tinaSettings.coursesPage,
-        image: tinaSettings.coursesPage?.image ?? settings.coursesPage?.image,
-        imageAlt: tinaSettings.coursesPage?.imageAlt ?? settings.coursesPage?.imageAlt,
+        image: tinaSettings.coursesPage?.image?.trim() ? tinaSettings.coursesPage.image : settings.coursesPage?.image,
+        imageAlt: tinaSettings.coursesPage?.imageAlt?.trim() ? tinaSettings.coursesPage.imageAlt : settings.coursesPage?.imageAlt,
       },
     };
   }
