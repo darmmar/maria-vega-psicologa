@@ -30,8 +30,8 @@ try {
       resourcesPage: {
         ...settings.resourcesPage,
         ...tinaSettings.resourcesPage,
-        image: tinaSettings.resourcesPage?.image ?? settings.resourcesPage?.image,
-        imageAlt: tinaSettings.resourcesPage?.imageAlt ?? settings.resourcesPage?.imageAlt,
+        image: tinaSettings.resourcesPage?.image?.trim() ? tinaSettings.resourcesPage.image : settings.resourcesPage?.image,
+        imageAlt: tinaSettings.resourcesPage?.imageAlt?.trim() ? tinaSettings.resourcesPage.imageAlt : settings.resourcesPage?.imageAlt,
       },
     };
   }
