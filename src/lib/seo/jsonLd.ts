@@ -143,6 +143,7 @@ export function buildProfessionalService(options: {
   description: string;
   url: string;
   serviceType?: string;
+  image?: string;
 }): JsonLdNode {
   return {
     "@type": ["PsychologicalService", "ProfessionalService"],
@@ -162,6 +163,7 @@ export function buildProfessionalService(options: {
       },
     ],
     ...(options.serviceType && { serviceType: options.serviceType }),
+    ...(options.image && { image: options.image }),
   };
 }
 
@@ -253,8 +255,14 @@ export function buildServicePageJsonLd(options: {
   title: string;
   description: string;
   path: string;
+  image?: string;
 }): JsonLdDocument {
   const url = absoluteUrl(options.path);
+  const imageUrl = options.image
+    ? options.image.startsWith("http")
+      ? options.image
+      : absoluteUrl(options.image)
+    : undefined;
 
   return buildJsonLdGraph(
     buildMedicalBusiness(),
@@ -264,6 +272,7 @@ export function buildServicePageJsonLd(options: {
       description: options.description,
       url,
       serviceType: options.title,
+      ...(imageUrl && { image: imageUrl }),
     }),
     buildBreadcrumbList([
       { name: "Inicio", url: "/" },
