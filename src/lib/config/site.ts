@@ -98,7 +98,7 @@ export const siteConfig: SiteConfig = {
       online: "terapia-online",
     },
     availability: {
-      presencial: "Lunes, 11:00–14:00 y 16:00–20:00 (Málaga)",
+      presencial: "Lunes, 11:00–14:00 y 16:00–20:00",
       online: "Martes a jueves, 11:00–14:00 y 16:00–20:00; viernes 10:00–14:00",
     },
   },

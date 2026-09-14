@@ -111,6 +111,8 @@ fragment SiteSettingsParts on SiteSettings {
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -119,6 +121,8 @@ fragment SiteSettingsParts on SiteSettings {
     label
     title
     intro
+    image
+    imageAlt
     seoTitle
     seoDescription
   }
@@ -309,6 +313,8 @@ fragment ServicesParts on Services {
   thumbnailAlt
   image
   imageAlt
+  heroImage
+  heroImageAlt
   seoTitle
   seoDescription
   body

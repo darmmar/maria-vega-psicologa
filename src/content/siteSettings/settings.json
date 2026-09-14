@@ -7,7 +7,7 @@
   "hero": {
     "label": "Psicóloga General Sanitaria",
     "title": "Un espacio para cuidarte",
-    "description": "Terapia psicológica presencial en consulta (Málaga) y online por videollamada. Acompañamiento en duelo, ansiedad, regulación emocional y momentos de cambio desde un enfoque humano y basado en la evidencia.",
+    "description": "Terapia psicológica en consulta presencial y online por videollamada. Acompañamiento en duelo, ansiedad, regulación emocional y momentos de cambio desde un enfoque humano y basado en la evidencia.",
     "primaryCta": {
       "label": "Reservar cita",
       "href": "https://cal.com/maria-vega"
@@ -200,6 +200,8 @@
     "label": "Formación profesional",
     "title": "Cursos para profesionales",
     "intro": "Formaciones para psicólogos/as y profesionales de la salud mental. Aprende destrezas clínicas con rigor y sensibilidad.",
+    "image": "/images/cursos-portada-cabecera.png",
+    "imageAlt": "Formación clínica y cursos para profesionales de la psicología",
     "seoTitle": "Cursos para profesionales de la salud mental",
     "seoDescription": "Cursos y formaciones para psicólogos y profesionales de la salud mental. Formación clínica en duelo y otras especialidades."
   },
@@ -207,6 +209,8 @@
     "label": "Recursos",
     "title": "Recursos psicoeducativos",
     "intro": "Artículos para entender mejor el malestar emocional y el proceso terapéutico.",
+    "image": "/images/recursos-portada-cabecera.png",
+    "imageAlt": "Artículos y lecturas de psicología y bienestar emocional",
     "seoTitle": "Recursos psicoeducativos",
     "seoDescription": "Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional."
   },
