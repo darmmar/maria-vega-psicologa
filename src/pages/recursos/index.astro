@@ -23,7 +23,17 @@ try {
     { priority: 'primary' }
   );
   if (tinaRes?.data?.siteSettings) {
-    settings = tinaRes.data.siteSettings as any;
+    const tinaSettings = tinaRes.data.siteSettings as any;
+    settings = {
+      ...settings,
+      ...tinaSettings,
+      resourcesPage: {
+        ...settings.resourcesPage,
+        ...tinaSettings.resourcesPage,
+        image: tinaSettings.resourcesPage?.image ?? settings.resourcesPage?.image,
+        imageAlt: tinaSettings.resourcesPage?.imageAlt ?? settings.resourcesPage?.imageAlt,
+      },
+    };
   }
 
   const resConn = await requestWithMetadata(
@@ -42,42 +52,47 @@ try {
 }
 
 const resourcesPage = {
-  label: settings.resourcesPage?.label || 'Recursos',
-  title: settings.resourcesPage?.title || 'Recursos psicoeducativos',
-  intro: settings.resourcesPage?.intro || 'Artículos para entender mejor el malestar emocional y el proceso terapéutico.',
+  label: settings.resourcesPage?.label,
+  title: settings.resourcesPage?.title,
+  intro: settings.resourcesPage?.intro,
   image: settings.resourcesPage?.image || undefined,
-  imageAlt: settings.resourcesPage?.imageAlt || undefined,
-  seoTitle: settings.resourcesPage?.seoTitle || 'Recursos psicoeducativos',
-  seoDescription: settings.resourcesPage?.seoDescription || 'Artículos y recursos psicoeducativos sobre ansiedad, duelo, terapia y bienestar emocional.',
+  imageAlt: settings.resourcesPage?.imageAlt,
+  seoTitle: settings.resourcesPage?.seoTitle,
+  seoDescription: settings.resourcesPage?.seoDescription,
 };
+
+const pageTitle = resourcesPage.seoTitle ?? resourcesPage.title ?? "";
+const pageDescription = resourcesPage.seoDescription ?? "";
+const heroTitle = resourcesPage.title ?? "";
 
 const jsonLd = buildJsonLdGraph(
   buildPerson(),
   {
     "@type": "CollectionPage",
-    name: resourcesPage.title,
-    description: resourcesPage.seoDescription,
+    name: heroTitle,
+    description: pageDescription,
     url: "/recursos",
     inLanguage: "es-ES",
   },
   buildBreadcrumbList([
     { name: "Inicio", url: "/" },
-    { name: resourcesPage.title, url: "/recursos" },
+    { name: heroTitle, url: "/recursos" },
   ])
-)
+);
 ---
+
 <Layout
-  title={resourcesPage.seoTitle ?? resourcesPage.title}
-  description={resourcesPage.seoDescription}
+  title={pageTitle}
+  description={pageDescription}
   canonical="/recursos"
   jsonLd={jsonLd}
 >
   <PageHero
     label={resourcesPage.label}
-    title={resourcesPage.title}
+    title={heroTitle}
     description={resourcesPage.intro}
     image={resourcesPage.image}
-    imageAlt={resourcesPage.imageAlt || resourcesPage.title}
+    imageAlt={resourcesPage.imageAlt || heroTitle}
     tinaImageField={tinaField(settings.resourcesPage, 'image')}
     tinaLabelField={tinaField(settings.resourcesPage, 'label')}
     tinaTitleField={tinaField(settings.resourcesPage, 'title')}
