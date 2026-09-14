@@ -71,7 +71,9 @@ const jsonLd = buildJsonLdGraph(
   <PageHero
     label={heroLabel}
     title={course.data.title}
-    maxWidth="3xl"
+    image={course.data.image}
+    imageAlt={course.data.imageAlt || course.data.title}
+    tinaImageField={tinaField(course.data, "image")}
     tinaLabelField={tinaField(course.data, "heroLabel")}
     tinaTitleField={tinaField(course.data, "title")}
   >

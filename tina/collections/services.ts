@@ -115,16 +115,29 @@ export const servicesCollection: Collection = {
     {
       type: "image",
       name: "image",
-      label: "Foto o ilustración lateral en la página del servicio (opcional)",
+      label: "Foto o ilustración principal del servicio (opcional)",
+      description: "Imagen que se muestra en la cabecera / hero y en el cuerpo del servicio.",
       ui: imageFieldUi,
     },
     {
       type: "string",
       name: "imageAlt",
-      label: "Descripción de la foto lateral (para accesibilidad y SEO)",
+      label: "Descripción de la foto principal (para accesibilidad y SEO)",
       description:
         "Describe la imagen para Google y lectores de pantalla. Ej.: «Sesión de terapia presencial en consulta».",
       ui: { component: "textarea" },
+    },
+    {
+      type: "image",
+      name: "heroImage",
+      label: "Foto específica de cabecera / Hero (opcional)",
+      description: "Si se especifica, sustituye a la foto principal en la cabecera de la página. Si se deja vacía, se usará la foto principal.",
+      ui: imageFieldUi,
+    },
+    {
+      type: "string",
+      name: "heroImageAlt",
+      label: "Descripción de la foto de cabecera (para accesibilidad y SEO)",
     },
     {
       type: "string",
