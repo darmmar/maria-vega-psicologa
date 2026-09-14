@@ -75,7 +75,7 @@ export function buildPerson(options?: {
   const phone = options?.overrides?.phone || siteConfig.contact.phone;
   const email = options?.overrides?.email || siteConfig.contact.email;
   const collegiateNumber =
-    options?.overrides?.collegiateNumber || siteConfig.legal.collegiateNumber || "AO-10293";
+    options?.overrides?.collegiateNumber || siteConfig.legal.collegiateNumber || "AO-13370";
   const instagram = options?.overrides?.instagram || siteConfig.contact.instagram;
   const linkedin = options?.overrides?.linkedin || siteConfig.contact.linkedin;
 
