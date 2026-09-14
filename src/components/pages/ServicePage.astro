@@ -38,8 +38,8 @@ try {
     service.data = {
       ...service.data,
       ...tinaData,
-      image: tinaData.image ?? service.data.image,
-      imageAlt: tinaData.imageAlt ?? service.data.imageAlt,
+      image: tinaData.image?.trim() ? tinaData.image : service.data.image,
+      imageAlt: tinaData.imageAlt?.trim() ? tinaData.imageAlt : service.data.imageAlt,
     };
   }
 } catch (e) {
