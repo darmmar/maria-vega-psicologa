@@ -71,7 +71,7 @@ const jsonLd = buildJsonLdGraph(
   publishedTime={resource.data.publishedAt}
 >
   <PageHero
-    label={(resource.data as any).heroLabel || "Recurso"}
+    label={(resource.data as any).heroLabel}
     title={resource.data.title}
     description={resource.data.description}
     image={resource.data.image}

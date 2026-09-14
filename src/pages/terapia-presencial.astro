@@ -19,7 +19,13 @@ try {
     { priority: "primary" }
   );
   if (tinaServiceRes?.data?.services) {
-    service.data = { ...service.data, ...(tinaServiceRes.data.services as any) };
+    const tinaData = tinaServiceRes.data.services as any;
+    service.data = {
+      ...service.data,
+      ...tinaData,
+      image: tinaData.image ?? service.data.image,
+      imageAlt: tinaData.imageAlt ?? service.data.imageAlt,
+    };
   }
 } catch (e) {}
 
@@ -39,10 +45,10 @@ const jsonLd = buildServicePageJsonLd({
 >
   <ServicePage slug="terapia-presencial" heroLayout="split" standalone={false} />
   <CTASection
-    title={service.data.ctaTitle || "¿Quieres empezar tu proceso?"}
-    description={service.data.ctaDescription || "Elige el día y la hora que mejor se adapten a tu horario para tu sesión presencial en consulta."}
-    ctaLabel={service.data.ctaLabel || "Reservar cita presencial"}
-    ctaHref={service.data.ctaHref || "https://cal.com/maria-vega/terapia-presencial"}
+    title={service.data.ctaTitle}
+    description={service.data.ctaDescription}
+    ctaLabel={service.data.ctaLabel}
+    ctaHref={service.data.ctaHref}
     secondaryCtaLabel="Escribir un mensaje"
     secondaryCtaHref="/contacto"
     tinaTitleField={tinaField(service.data, "ctaTitle")}

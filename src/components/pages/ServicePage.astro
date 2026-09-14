@@ -34,10 +34,16 @@ try {
     { priority: "primary" }
   );
   if (tinaRes?.data?.services) {
-    service.data = { ...service.data, ...(tinaRes.data.services as any) };
+    const tinaData = tinaRes.data.services as any;
+    service.data = {
+      ...service.data,
+      ...tinaData,
+      image: tinaData.image ?? service.data.image,
+      imageAlt: tinaData.imageAlt ?? service.data.imageAlt,
+    };
   }
 } catch (e) {
-  // Mantener fallback
+  // Mantener datos locales
 }
 
 const { Content } = await render(service);
@@ -59,7 +65,7 @@ const tinaHeroImageField = (service.data as any).heroImage
   : tinaField(service.data, "image");
 
 const heroProps = {
-  label: service.data.heroLabel?.trim() || "Psicología",
+  label: service.data.heroLabel?.trim(),
   title: service.data.title,
   description: service.data.description,
   descriptionClass: "text-ink-muted text-xl leading-relaxed",
@@ -92,8 +98,8 @@ const heroProps = {
       </ServiceContentSection>
 
       <CTASection
-        title={service.data.ctaTitle || undefined}
-        description={service.data.ctaDescription || undefined}
+        title={service.data.ctaTitle}
+        description={service.data.ctaDescription}
         ctaLabel={service.data.ctaLabel}
         ctaHref={service.data.ctaHref}
         tinaTitleField={tinaField(service.data, "ctaTitle")}

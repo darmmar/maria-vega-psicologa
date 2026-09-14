@@ -21,7 +21,7 @@ export type SeoBusinessOverrides = {
 };
 
 export function buildMedicalBusiness(overrides?: SeoBusinessOverrides): JsonLdNode {
-  const address = overrides?.address || siteConfig.legal.address || "Calle Zamarrilla 15, Málaga";
+  const address = overrides?.address || siteConfig.legal.address || "";
   const phone = overrides?.phone || siteConfig.contact.phone;
   const email = overrides?.email || siteConfig.contact.email;
   const mapsLink = overrides?.googleMapsLink || `https://maps.google.com/?q=${encodeURIComponent(address)}`;
@@ -71,11 +71,11 @@ export function buildPerson(options?: {
   description?: string;
   overrides?: SeoBusinessOverrides;
 }): JsonLdNode {
-  const address = options?.overrides?.address || siteConfig.legal.address || "Calle Zamarrilla 15, Málaga";
+  const address = options?.overrides?.address || siteConfig.legal.address;
   const phone = options?.overrides?.phone || siteConfig.contact.phone;
   const email = options?.overrides?.email || siteConfig.contact.email;
   const collegiateNumber =
-    options?.overrides?.collegiateNumber || siteConfig.legal.collegiateNumber || "AO-13370";
+    options?.overrides?.collegiateNumber || siteConfig.legal.collegiateNumber;
   const instagram = options?.overrides?.instagram || siteConfig.contact.instagram;
   const linkedin = options?.overrides?.linkedin || siteConfig.contact.linkedin;
 

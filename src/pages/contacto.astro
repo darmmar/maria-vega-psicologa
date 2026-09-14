@@ -40,8 +40,8 @@ const googleMapsLink =
   settings.contact.googleMapsLink ||
   (displayAddress ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(displayAddress)}` : "");
 
-const mapCardTitle = contactDetails.mapCardTitle || "Consulta presencial";
-const mapNote = contactDetails.mapNote || "";
+const mapCardTitle = contactDetails.mapCardTitle;
+const mapNote = contactDetails.mapNote;
 
 const pageTitle = page.seoTitle ?? hero.title;
 const pageDescription = page.seoDescription ?? hero.intro;
@@ -95,21 +95,21 @@ const jsonLd = buildJsonLdGraph(
                 </div>
                 <div class="space-y-1 text-sm font-body">
                   <p class="font-medium text-ink" data-tina-field={tinaField(page.firstConsultation, "title")}>
-                    {firstConsultation?.title || "¿Prefieres agendar directamente?"}
+                    {firstConsultation?.title}
                   </p>
                   <p class="text-ink-muted text-xs sm:text-sm leading-relaxed">
-                    {firstConsultation?.calendarCta?.prefix || "Si deseas agendar tu sesión directamente sin esperar respuesta, puedes acceder a mi "}
+                    {firstConsultation?.calendarCta?.prefix}
                     <a
-                      href={firstConsultation?.calendarCta?.linkHref || "https://cal.com/maria-vega"}
+                      href={firstConsultation?.calendarCta?.linkHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       class="text-sage font-semibold underline underline-offset-4 hover:text-sage-700 inline-flex items-center gap-0.5"
                       data-tina-field={tinaField(page.firstConsultation.calendarCta, "linkLabel")}
                     >
-                      <span>{firstConsultation?.calendarCta?.linkLabel || "agenda online en Cal.com"}</span>
+                      <span>{firstConsultation?.calendarCta?.linkLabel}</span>
                       <span aria-hidden="true" class="text-xs">↗</span>
                     </a>
-                    {firstConsultation?.calendarCta?.suffix || "."}
+                    {firstConsultation?.calendarCta?.suffix}
                   </p>
                 </div>
               </div>
@@ -362,7 +362,7 @@ const jsonLd = buildJsonLdGraph(
 
               <div>
                 <label for="nombre" class="block text-sm font-medium text-ink mb-1.5 font-body" data-tina-field={tinaField(page.formSection, "nameLabel")}>
-                  {formSection.nameLabel || "Nombre"}
+                  {formSection.nameLabel}
                 </label>
                 <input
                   id="nombre"
@@ -371,13 +371,13 @@ const jsonLd = buildJsonLdGraph(
                   required
                   autocomplete="name"
                   class="w-full rounded-xl border border-ink-border/30 bg-white px-4 py-3 text-ink placeholder-ink-muted/50 focus:border-sage focus:outline-none focus:ring-4 focus:ring-sage/10 transition-all duration-200 font-body text-sm"
-                  placeholder={formSection.namePlaceholder || "Tu nombre"}
+                  placeholder={formSection.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label for="email" class="block text-sm font-medium text-ink mb-1.5 font-body" data-tina-field={tinaField(page.formSection, "emailLabel")}>
-                  {formSection.emailLabel || "Email"}
+                  {formSection.emailLabel}
                 </label>
                 <input
                   id="email"
@@ -386,13 +386,13 @@ const jsonLd = buildJsonLdGraph(
                   required
                   autocomplete="email"
                   class="w-full rounded-xl border border-ink-border/30 bg-white px-4 py-3 text-ink placeholder-ink-muted/50 focus:border-sage focus:outline-none focus:ring-4 focus:ring-sage/10 transition-all duration-200 font-body text-sm"
-                  placeholder={formSection.emailPlaceholder || "tu@email.com"}
+                  placeholder={formSection.emailPlaceholder}
                 />
               </div>
 
               <div>
                 <label for="mensaje" class="block text-sm font-medium text-ink mb-1.5 font-body" data-tina-field={tinaField(page.formSection, "messageLabel")}>
-                  {formSection.messageLabel || "Mensaje"}
+                  {formSection.messageLabel}
                 </label>
                 <textarea
                   id="mensaje"
@@ -400,7 +400,7 @@ const jsonLd = buildJsonLdGraph(
                   required
                   rows={5}
                   class="w-full rounded-xl border border-ink-border/30 bg-white px-4 py-3 text-ink placeholder-ink-muted/50 focus:border-sage focus:outline-none focus:ring-4 focus:ring-sage/10 transition-all duration-200 font-body text-sm resize-none"
-                  placeholder={formSection.messagePlaceholder || "¿En qué puedo ayudarte?"}
+                  placeholder={formSection.messagePlaceholder}
                 ></textarea>
               </div>
 

@@ -22,7 +22,17 @@ try {
     { priority: "primary" }
   );
   if (tinaRes?.data?.siteSettings) {
-    settings = tinaRes.data.siteSettings as any;
+    const tinaSettings = tinaRes.data.siteSettings as any;
+    settings = {
+      ...settings,
+      ...tinaSettings,
+      coursesPage: {
+        ...settings.coursesPage,
+        ...tinaSettings.coursesPage,
+        image: tinaSettings.coursesPage?.image ?? settings.coursesPage?.image,
+        imageAlt: tinaSettings.coursesPage?.imageAlt ?? settings.coursesPage?.imageAlt,
+      },
+    };
   }
 
   const coursesConn = await requestWithMetadata(
