@@ -16,7 +16,7 @@ const normalizePath = (p: string) => p.replace(/\/$/, "") || "/";
 const normalizedPath = normalizePath(pathname);
 
 const navItems = mainNav;
-const bookingUrl = settings.booking?.calComUrl || settings.hero?.primaryCta?.href || "https://cal.com/maria-vega";
+const bookingUrl = settings.booking?.calComUrl || settings.hero?.primaryCta?.href || siteConfig.booking.calComUrl || "/contacto";
 const bookingLabel = "Reservar cita";
 ---
 

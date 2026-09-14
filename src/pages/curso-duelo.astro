@@ -44,7 +44,7 @@ const paymentLink =
 const pageTitle = course.data.seoTitle ?? course.data.title;
 const pageDescription = course.data.seoDescription ?? course.data.description;
 const pageUrl = "/curso-duelo";
-const heroLabel = course.data.heroLabel?.trim() || "Formación profesional";
+const heroLabel = course.data.heroLabel?.trim();
 const audienceIntro = course.data.audienceIntro?.trim();
 
 const jsonLd = buildJsonLdGraph(
@@ -84,11 +84,11 @@ const jsonLd = buildJsonLdGraph(
     <div class="flex gap-4 justify-center flex-wrap">
       {paymentLink ? (
         <Button href={paymentLink} variant="primary" size="lg" external data-tina-field={tinaField(course.data, "ctaLabel")}>
-          {course.data.ctaLabel?.trim() || "Inscribirme en la formación"}
+          {course.data.ctaLabel?.trim()}
         </Button>
       ) : (
         <Button href="/contacto" variant="primary" size="lg" data-tina-field={tinaField(course.data, "ctaLabel")}>
-          {course.data.ctaLabel?.trim() || "Solicitar información"}
+          {course.data.ctaLabel?.trim()}
         </Button>
       )}
     </div>
@@ -105,10 +105,10 @@ const jsonLd = buildJsonLdGraph(
   </section>
 
   <CTASection
-    title={(course.data as any).bottomCta?.title || "¿Tienes preguntas sobre la formación?"}
-    description={(course.data as any).bottomCta?.description || "Puedes escribirme para conocer el programa, la modalidad y los requisitos. Sin compromiso."}
-    ctaLabel={(course.data as any).bottomCta?.ctaLabel || course.data.ctaLabel?.trim() || "Solicitar información"}
-    ctaHref={(course.data as any).bottomCta?.ctaHref || "/contacto"}
+    title={(course.data as any).bottomCta?.title}
+    description={(course.data as any).bottomCta?.description}
+    ctaLabel={(course.data as any).bottomCta?.ctaLabel || course.data.ctaLabel?.trim()}
+    ctaHref={(course.data as any).bottomCta?.ctaHref}
     tinaTitleField={tinaField((course.data as any).bottomCta, "title")}
     tinaDescriptionField={tinaField((course.data as any).bottomCta, "description")}
     tinaCtaLabelField={tinaField((course.data as any).bottomCta, "ctaLabel") || tinaField(course.data, "ctaLabel")}
