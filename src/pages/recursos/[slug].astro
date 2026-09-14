@@ -32,7 +32,12 @@ try {
   );
   if (tinaRes?.data?.resources) {
     tinaData = tinaRes.data.resources;
-    resource.data = { ...resource.data, ...tinaData };
+    resource.data = {
+      ...resource.data,
+      ...tinaData,
+      image: tinaData.image?.trim() ? tinaData.image : (resource.data as any).image,
+      imageAlt: tinaData.imageAlt?.trim() ? tinaData.imageAlt : (resource.data as any).imageAlt,
+    };
   }
 } catch (e) {
   console.error("[Tina recurso error]", e);
