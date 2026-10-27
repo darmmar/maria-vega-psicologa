@@ -59,6 +59,7 @@ const jsonLd = buildJsonLdGraph(
     name: course.data.title,
     description: course.data.description,
     url: pageUrl,
+    image: course.data.image,
   }),
   buildBreadcrumbList([
     { name: "Inicio", url: "/" },
@@ -73,6 +74,7 @@ const jsonLd = buildJsonLdGraph(
   description={pageDescription}
   canonical={pageUrl}
   jsonLd={jsonLd}
+  ogImage={course.data.image}
 >
   <PageHero
     label={heroLabel}

@@ -12,7 +12,7 @@ interface Props {
   title: string;
   description: string;
   canonical?: string;
-  ogImage?: string;
+  ogImage?: string | null;
   noindex?: boolean;
   jsonLd?: JsonLdNode | JsonLdNode[] | JsonLdDocument;
   ogType?: "website" | "article";
@@ -30,7 +30,7 @@ const {
   publishedTime,
 } = Astro.props;
 
-function resolveAbsoluteUrl(pathOrUrl: string | undefined, defaultPath: string): string {
+function resolveAbsoluteUrl(pathOrUrl: string | undefined | null, defaultPath: string): string {
   const baseUrl = siteConfig.siteUrl || "https://mariavegagarcia.es";
   if (!pathOrUrl || pathOrUrl.trim() === "") {
     return new URL(defaultPath, baseUrl).href;
