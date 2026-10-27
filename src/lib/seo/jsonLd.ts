@@ -232,7 +232,14 @@ export function buildCourse(options: {
   name: string;
   description: string;
   url: string;
+  image?: string;
 }): JsonLdNode {
+  const imageUrl = options.image
+    ? options.image.startsWith("http")
+      ? options.image
+      : absoluteUrl(options.image)
+    : undefined;
+
   return {
     "@type": "Course",
     "@id": `${options.url}#course`,
@@ -241,6 +248,7 @@ export function buildCourse(options: {
     url: options.url,
     inLanguage: "es-ES",
     provider: { "@id": PERSON_ID },
+    ...(imageUrl && { image: imageUrl }),
   };
 }
 
