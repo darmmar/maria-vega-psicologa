@@ -14,10 +14,32 @@ const [page, settings] = await Promise.all([
 ]);
 
 const { hero, firstConsultation, contactDetails, formSection } = page;
-const privacyConsentParts = (
+const rawConsent =
   formSection.privacyConsentText ||
-  "He leído la política de privacidad y consiento el tratamiento de mis datos para atender mi consulta."
-).split(/(política de privacidad)/iu);
+  "He leído la política de privacidad y consiento el tratamiento de mis datos para atender mi consulta.";
+
+const mdLinkMatch = rawConsent.match(/\[([^\]]+)\]\(([^)]+)\)/);
+let consentBefore = rawConsent;
+let consentLinkText = "";
+let consentLinkHref = "/legal/privacidad";
+let consentAfter = "";
+
+if (mdLinkMatch) {
+  const [fullMatch, text, href] = mdLinkMatch;
+  const matchIndex = rawConsent.indexOf(fullMatch);
+  consentBefore = rawConsent.slice(0, matchIndex);
+  consentLinkText = text;
+  consentLinkHref = href;
+  consentAfter = rawConsent.slice(matchIndex + fullMatch.length);
+} else {
+  const parts = rawConsent.split(/(política de privacidad)/iu);
+  if (parts.length >= 3) {
+    consentBefore = parts[0];
+    consentLinkText = parts[1];
+    consentLinkHref = "/legal/privacidad";
+    consentAfter = parts.slice(2).join("");
+  }
+}
 const email = contactDetails.email || settings.contact.email;
 const phone = contactDetails.phone || settings.contact.phone;
 const whatsapp = contactDetails.whatsapp || settings.contact.whatsapp;
@@ -404,19 +426,23 @@ const jsonLd = buildJsonLdGraph(
                   class="mt-1 h-4 w-4 shrink-0 rounded border-ink-border/40 text-sage focus:ring-sage"
                 />
                 <label for="privacidad" class="text-sm text-ink-muted leading-relaxed font-body" data-tina-field={tinaField(page.formSection, "privacyConsentText")}>
-                  {privacyConsentParts.map((text, index) => (
-                    index % 2 === 1 ? (
+                  {consentLinkText ? (
+                    <>
+                      {consentBefore}
                       <a
-                        href="/legal/privacidad"
+                        href={consentLinkHref}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Política de privacidad (se abre en una pestaña nueva)"
+                        aria-label={`${consentLinkText} (se abre en una pestaña nueva)`}
                         class="text-sage underline underline-offset-4 hover:text-sage-600"
                       >
-                        {text}
+                        {consentLinkText}
                       </a>
-                    ) : text
-                  ))}
+                      {consentAfter}
+                    </>
+                  ) : (
+                    rawConsent
+                  )}
                 </label>
               </div>
 

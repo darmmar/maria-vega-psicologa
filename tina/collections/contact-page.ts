@@ -217,7 +217,8 @@ export const contactPageCollection: Collection = {
           type: "string",
           name: "privacyConsentText",
           label: "Texto de consentimiento de privacidad",
-          description: "Texto junto a la casilla de verificación de privacidad.",
+          description:
+            "Texto junto al checkbox. «política de privacidad» se enlaza automáticamente a /legal/privacidad. También puedes usar formato [texto](/enlace) para personalizar el hipervínculo.",
           ui: { component: "textarea" },
         },
         {
