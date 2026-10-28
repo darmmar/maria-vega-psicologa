@@ -63,10 +63,10 @@ const complementary = trainingSection.complementaryItems ?? trainingItems.filter
                   data-tina-field={itemField}
                 >
                   <div class="absolute w-2 h-2 rounded-full bg-sage -left-[5px] top-2 border border-white" />
-                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaField(item, "degree")}>
+                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaField(item.data ?? item, "degree")}>
                     {degree}
                   </p>
-                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaField(item, "institution")}>
+                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaField(item.data ?? item, "institution")}>
                     {institution}
                     {year ? ` · ${year}` : ""}
                   </p>
@@ -98,10 +98,10 @@ const complementary = trainingSection.complementaryItems ?? trainingItems.filter
                   data-tina-field={itemField}
                 >
                   <div class="absolute w-2 h-2 rounded-full bg-blush -left-[5px] top-2 border border-white" />
-                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaField(item, "degree")}>
+                  <p class="font-medium text-ink leading-snug font-body" data-tina-field={tinaField(item.data ?? item, "degree")}>
                     {degree}
                   </p>
-                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaField(item, "institution")}>
+                  <p class="text-sm text-ink-muted mt-1 font-body" data-tina-field={tinaField(item.data ?? item, "institution")}>
                     {institution}
                     {year ? ` · ${year}` : ""}
                   </p>

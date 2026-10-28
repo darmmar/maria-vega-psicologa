@@ -1,0 +1,9 @@
+---
+export const prerender = false;
+import CoursePage from "@/components/tina/CoursePage.astro";
+import { hasDocument } from "@/lib/content/collections";
+const slug = Astro.params.slug!;
+if (!(await hasDocument("courses", slug, Boolean(Astro.locals.tinaEdit)))) return Astro.redirect("/404");
+if (slug === "curso-duelo") return Astro.redirect("/curso-duelo", 301);
+---
+<CoursePage slug={slug} />

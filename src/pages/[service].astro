@@ -1,0 +1,8 @@
+---
+export const prerender = false;
+import ServicePage from "@/components/pages/ServicePage.astro";
+import { hasDocument } from "@/lib/content/collections";
+const slug = Astro.params.service!;
+if (!(await hasDocument("services", slug, Boolean(Astro.locals.tinaEdit)))) return Astro.redirect("/404");
+---
+<ServicePage slug={slug} />

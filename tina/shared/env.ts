@@ -1,9 +1,11 @@
 export const branch =
+  process.env.CF_PAGES_BRANCH ??
+  process.env.WORKERS_CI_BRANCH ??
   process.env.PUBLIC_TINA_BRANCH ??
   process.env.NEXT_PUBLIC_TINA_BRANCH ??
+  process.env.GITHUB_HEAD_REF ??
+  process.env.GITHUB_REF_NAME ??
   process.env.GITHUB_BRANCH ??
-  process.env.CF_PAGES_BRANCH ??
-  process.env.VERCEL_GIT_COMMIT_REF ??
   process.env.HEAD ??
   "main";
 
