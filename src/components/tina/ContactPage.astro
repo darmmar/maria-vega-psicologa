@@ -14,6 +14,10 @@ const [page, settings] = await Promise.all([
 ]);
 
 const { hero, firstConsultation, contactDetails, formSection } = page;
+const privacyConsentParts = (
+  formSection.privacyConsentText ||
+  "He leído la política de privacidad y consiento el tratamiento de mis datos para atender mi consulta."
+).split(/(política de privacidad)/iu);
 const email = contactDetails.email || settings.contact.email;
 const phone = contactDetails.phone || settings.contact.phone;
 const whatsapp = contactDetails.whatsapp || settings.contact.whatsapp;
@@ -72,7 +76,7 @@ const jsonLd = buildJsonLdGraph(
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
 
           {/* Columna Izquierda: Aviso de Cita, Datos de Contacto y Mapa */}
-          <div class="space-y-6 lg:col-span-5">
+          <div class="min-w-0 space-y-6 lg:col-span-5">
 
             {/* Aviso sutil y directo al calendario de reservas */}
             <div class="p-4 sm:p-5 rounded-2xl bg-sage/5 border border-sage/15 transition-all hover:bg-sage/10">
@@ -114,13 +118,13 @@ const jsonLd = buildJsonLdGraph(
                   <div class="w-8 h-8 rounded-lg bg-sage/5 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
                     <Icon name="lucide:mail" class="w-4 h-4" />
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <p class="text-[10px] label-caps text-ink-muted mb-0.5 tracking-wider">Email</p>
                     {
                       email ? (
                         <a
                           href={`mailto:${email}`}
-                          class="text-ink text-sm hover:text-sage transition-colors font-body font-medium"
+                          class="text-ink text-sm hover:text-sage transition-colors font-body font-medium [overflow-wrap:anywhere]"
                           data-tina-field={tinaField(page.contactDetails, "email")}
                         >
                           {email}
@@ -224,9 +228,9 @@ const jsonLd = buildJsonLdGraph(
             {
               googleMapsEmbedUrl && (
                 <div class="p-5 sm:p-6 rounded-2xl bg-white border border-ink-border/20 shadow-sm space-y-3">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <Icon name="lucide:map" class="w-4 h-4 text-sage" />
+                  <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                    <div class="flex min-w-0 items-center gap-2">
+                      <Icon name="lucide:map" class="w-4 h-4 shrink-0 text-sage" />
                       <h4 class="font-display text-base font-normal text-ink" data-tina-field={tinaField(page.contactDetails, "mapCardTitle")}>
                         {mapCardTitle}
                       </h4>
@@ -237,10 +241,10 @@ const jsonLd = buildJsonLdGraph(
                           href={googleMapsLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="inline-flex items-center gap-1 text-xs text-sage font-medium hover:text-sage-700 underline underline-offset-2 transition-colors"
+                          class="inline-flex shrink-0 items-center gap-1 text-xs text-sage font-medium hover:text-sage-700 underline underline-offset-2 transition-colors"
                         >
                           <span>Cómo llegar</span>
-                          <Icon name="lucide:external-link" class="w-3 h-3" />
+                          <Icon name="lucide:external-link" class="w-3 h-3 shrink-0" />
                         </a>
                       )
                     }
@@ -249,10 +253,10 @@ const jsonLd = buildJsonLdGraph(
                   <div
                     id="maps-consent-wrapper"
                     data-embed-url={googleMapsEmbedUrl}
-                    class="rounded-xl overflow-hidden border border-ink-border/15 aspect-[16/10] w-full bg-warm-50/50 relative flex items-center justify-center text-center p-5"
+                    class="relative flex min-h-[340px] sm:min-h-[300px] w-full items-center justify-center overflow-hidden rounded-xl border border-ink-border/15 bg-warm-50/50 p-4 sm:p-6 text-center"
                   >
                     <!-- Tarjeta de consentimiento previo (Doble Clic) -->
-                    <div id="maps-consent-card" class="space-y-3 max-w-xs mx-auto">
+                    <div id="maps-consent-card" class="mx-auto w-full max-w-xs space-y-3">
                       <div class="w-10 h-10 rounded-xl bg-sage/10 text-sage flex items-center justify-center mx-auto" aria-hidden="true">
                         <Icon name="lucide:map-pin" class="w-5 h-5" />
                       </div>
@@ -262,14 +266,14 @@ const jsonLd = buildJsonLdGraph(
                           Para proteger tu privacidad, este mapa se carga bajo demanda. Al activarlo, conectas con Google Maps y aceptas sus cookies.
                         </p>
                       </div>
-                      <div class="flex flex-col sm:flex-row items-center justify-center gap-2 pt-1">
+                      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 pt-2 w-full max-w-xs mx-auto">
                         <button
                           id="btn-load-map"
                           type="button"
-                          class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-sage text-white text-xs font-medium font-body hover:bg-sage-600 transition-colors shadow-soft"
+                          class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-sage px-4 py-2.5 text-xs font-medium font-body text-white shadow-soft transition-colors hover:bg-sage-600"
                         >
-                          <Icon name="lucide:map" class="w-3.5 h-3.5" />
-                          Cargar mapa
+                          <Icon name="lucide:map" class="w-4 h-4 shrink-0" />
+                          <span>Cargar mapa</span>
                         </button>
                         {
                           googleMapsLink && (
@@ -277,10 +281,10 @@ const jsonLd = buildJsonLdGraph(
                               href={googleMapsLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-ink-border/30 text-ink text-xs font-medium font-body hover:bg-warm-50 transition-colors"
+                              class="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg border border-ink-border/30 bg-white px-4 py-2.5 text-xs font-medium font-body text-ink transition-colors hover:bg-warm-50"
                             >
                               <span>Abrir fuera</span>
-                              <Icon name="lucide:external-link" class="w-3 h-3 text-ink-muted" />
+                              <Icon name="lucide:external-link" class="w-3.5 h-3.5 shrink-0 text-ink-muted" />
                             </a>
                           )
                         }
@@ -305,7 +309,7 @@ const jsonLd = buildJsonLdGraph(
           </div>
 
           {/* Columna Derecha: Formulario de Mensaje */}
-          <div class="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-white border border-ink-border/20 shadow-premium">
+          <div class="min-w-0 lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-white border border-ink-border/20 shadow-premium">
             <h2 class="font-display text-2xl font-normal text-ink mb-6" data-tina-field={tinaField(page.formSection, "title")}>
               {formSection.title}
             </h2>
@@ -397,23 +401,22 @@ const jsonLd = buildJsonLdGraph(
                   name="privacidad"
                   type="checkbox"
                   required
-                  class="mt-1 h-4 w-4 rounded border-ink-border/40 text-sage focus:ring-sage"
+                  class="mt-1 h-4 w-4 shrink-0 rounded border-ink-border/40 text-sage focus:ring-sage"
                 />
                 <label for="privacidad" class="text-sm text-ink-muted leading-relaxed font-body" data-tina-field={tinaField(page.formSection, "privacyConsentText")}>
-                  {formSection.privacyConsentText ? (
-                    formSection.privacyConsentText
-                  ) : (
-                    <>
-                      He leído la{" "}
+                  {privacyConsentParts.map((text, index) => (
+                    index % 2 === 1 ? (
                       <a
                         href="/legal/privacidad"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Política de privacidad (se abre en una pestaña nueva)"
                         class="text-sage underline underline-offset-4 hover:text-sage-600"
                       >
-                        política de privacidad
-                      </a>{" "}
-                      y consiento el tratamiento de mis datos para atender mi consulta.
-                    </>
-                  )}
+                        {text}
+                      </a>
+                    ) : text
+                  ))}
                 </label>
               </div>
 

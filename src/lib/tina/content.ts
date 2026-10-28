@@ -29,6 +29,11 @@ export async function editableEntry<K extends CollectionKey>(
   if (!document) throw new Error(`Tina returned no document for ${entry.collection}/${relativePath}`);
 
   const merged: Record<string, unknown> = { ...entry.data, ...document };
+  if ("tags" in merged && !Array.isArray(merged.tags)) {
+    merged.tags = Array.isArray((entry.data as Record<string, unknown>).tags)
+      ? (entry.data as Record<string, unknown>).tags
+      : [];
+  }
   for (const key of ["publishedAt", "dateModified"]) {
     if (typeof merged[key] === "string") merged[key] = new Date(merged[key]);
   }

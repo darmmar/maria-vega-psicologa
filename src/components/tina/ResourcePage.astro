@@ -73,7 +73,7 @@ const jsonLd = buildJsonLdGraph(
   <section class="section-gap-tight">
     <Container>
       <article class="max-w-2xl mx-auto animate-fade-in-up">
-        {resource.data.tags.length > 0 && (
+        {resource.data.tags && resource.data.tags.length > 0 && (
           <div class="flex gap-2 flex-wrap mb-6" data-tina-field={tinaData ? tinaField(tinaData, "tags") : undefined}>
             {resource.data.tags.map((tag) => <Badge variant="blush">{tag}</Badge>)}
           </div>
