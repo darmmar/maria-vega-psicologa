@@ -33,7 +33,15 @@ test("visual forms survive iframe navigation and unsaved changes render", async 
 
   // Exercise the real sidebar -> updateData -> island POST -> DOM path.
   const title = page.locator('input[name="hero.title"]');
+  const update = page.waitForResponse((response) =>
+    response.url().endsWith("/tina-island/home") &&
+    response.request().method() === "POST" &&
+    Boolean(response.request().postData()?.includes("de prueba sin guardar")),
+  );
   await title.fill("Título de prueba sin guardar");
+  const response = await update;
+  expect(response.status()).toBe(200);
+  expect((await response.text()).includes("Título de prueba sin guardar")).toBe(true);
   await expect(preview.locator('h1[data-tina-field$="siteSettings.hero.title"]')).toHaveText("Título de prueba sin guardar");
   expect(previewErrors).toEqual([]);
   // No save: the test never writes to content files or Tina Cloud.
