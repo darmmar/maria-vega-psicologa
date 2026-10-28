@@ -12,7 +12,7 @@
     "dev:astro": "astro dev",
     "build": "node scripts/build.mjs",
     "build:astro": "astro build",
-    "preview": "wrangler pages dev dist",
+    "preview": "wrangler pages dev dist --compatibility-date=2026-01-16 --compatibility-flag=nodejs_compat",
     "typecheck": "astro check",
     "cms": "tinacms dev -c \"astro dev\"",
     "cms:build": "pnpm build",

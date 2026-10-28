@@ -38,7 +38,7 @@ La navegación usa cargas de página normales de Astro. La integración oficial 
 
 ## Cloudflare y ramas
 
-Cloudflare Pages compila con `pnpm build`, publica `dist/` y ejecuta el SSR en Pages Functions. `wrangler.jsonc` fija `nodejs_compat`, necesario para los contextos de petición de Tina.
+Cloudflare Pages compila con `pnpm build`, publica `dist/` y ejecuta el SSR en Pages Functions. Las variables y la compatibilidad `nodejs_compat`, necesaria para Tina, se gestionan en el proyecto de Pages. No se añade un archivo Wrangler que sustituya esa configuración.
 
 Configura las variables de build de `.env.example` en Production y Preview. El ID y el token de lectura de Tina se incorporan al cliente durante el build. Los secretos de publicación de GitHub se configuran como bindings de runtime.
 

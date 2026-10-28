@@ -8,7 +8,7 @@ Preview: https://dev.maria-vega-psicologa.pages.dev — rama dev.
 - Build: pnpm build. Directorio de salida: dist.
 - public/_routes.json reserva /admin y los recursos estáticos para Pages; /tina-island/* y las API siguen ejecutándose en el Worker. Evita generar una regla por cada bundle del admin.
 - Node 24; pnpm 11.3.0; instalar con el lockfile.
-- Activar nodejs_compat (wrangler.jsonc) para node:async_hooks.
+- Mantener nodejs_compat en la configuración de Preview y Production del proyecto de Pages, para node:async_hooks. Las variables se gestionan allí; un archivo Wrangler sin migrarlas haría que el build las ignorase.
 - Definir PUBLIC_SITE_URL, PUBLIC_TINA_CLIENT_ID (o su alias NEXT_PUBLIC_TINA_CLIENT_ID), TINA_TOKEN y, opcionalmente, TINA_SEARCH_TOKEN en las variables de build de ambos entornos.
 - No fijar GITHUB_BRANCH=main ni PUBLIC_TINA_BRANCH=main en Preview. Cloudflare proporciona CF_PAGES_BRANCH. Workers Builds proporciona WORKERS_CI_BRANCH.
 - Configurar GITHUB_DISPATCH_TOKEN únicamente como secreto de runtime en dev si se mantiene la publicación desde Tina. El acceso al entorno y a /api/publish debe estar protegido con Cloudflare Access.
