@@ -7,18 +7,7 @@ import PageHero from '@/components/ui/PageHero.astro'
 import { siteConfig } from '@/lib/config/site'
 import { getSiteSettings } from '@/lib/content/collections'
 
-let settings = await getSiteSettings();
-try {
-  const { requestWithMetadata } = await import("@tinacms/astro");
-  const client = (await import("../../../tina/__generated__/client")).default;
-  const tinaRes = await requestWithMetadata(
-    client.queries.siteSettings({ relativePath: "settings.json" }),
-    { priority: "primary" }
-  );
-  if (tinaRes?.data?.siteSettings) {
-    settings = { ...settings, ...(tinaRes.data.siteSettings as any) };
-  }
-} catch (e) {}
+const settings = await getSiteSettings();
 ---
 
 <Layout

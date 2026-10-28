@@ -6,18 +6,19 @@ import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 import cloudflare from "@astrojs/cloudflare";
 import tina from "@tinacms/astro/integration";
+import { tinaAdminDevRedirect } from "@tinacms/astro/vite";
 
 const siteUrl = process.env.PUBLIC_SITE_URL?.trim() || "http://localhost:4321";
 
 export default defineConfig({
   site: siteUrl,
   output: "static",
-  security: {
-    checkOrigin: false,
-  },
   adapter: cloudflare({
     imageService: "compile",
   }),
+  vite: {
+    plugins: [tinaAdminDevRedirect()],
+  },
   integrations: [
     tina(),
     react(),

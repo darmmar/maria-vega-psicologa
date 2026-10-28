@@ -33,27 +33,25 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Generate Tina client and verify schema lock
+        run: |
+          pnpm exec tinacms build --local --skip-indexing --skip-cloud-checks --skip-search-index --no-client-build-cache
+          if ! git diff --quiet -- tina/tina-lock.json; then
+            echo "::error::tina/tina-lock.json is stale. Run pnpm tina:sync and commit the lock."
+            exit 1
+          fi
+
       - name: TypeScript check
         run: pnpm typecheck
 
-      - name: Verify tina-lock when schema changes
-        run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            CHANGED=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD)
-          else
-            CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || true)
-          fi
-          if echo "$CHANGED" | grep -q '^tina/config.ts$'; then
-            pnpm tina:sync
-            if ! git diff --quiet tina/tina-lock.json; then
-              echo "::error::tina/tina-lock.json desactualizado. Ejecuta pnpm tina:sync y commitea el lock."
-              git diff tina/tina-lock.json | head -50
-              exit 1
-            fi
-          fi
-
       - name: Build
         run: pnpm build:astro
+
+      - name: Install browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Verify visual editing
+        run: pnpm test:editor
 
       - name: Check for secrets in diff
         run: |

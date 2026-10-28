@@ -1,0 +1,204 @@
+---
+const editing = Boolean(Astro.locals.tinaEdit || Astro.props.preview);
+import Layout from "@/components/layout/Layout.astro";
+import Container from "@/components/ui/Container.astro";
+import ExperienceBlock from "@/components/sections/ExperienceBlock.astro";
+import TrainingBlock from "@/components/sections/TrainingBlock.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import SectionDivider from "@/components/ui/SectionDivider.astro";
+import { Icon } from "astro-icon/components";
+import { tinaField } from "@tinacms/astro/tina-field";
+import { buildBreadcrumbList, buildJsonLdGraph, buildPerson } from "@/lib/seo";
+import { getProfile, getPublishedExperience, getPublishedTraining, getSiteSettings } from "@/lib/content/collections";
+import { imageSrc } from "@/lib/images";
+
+const [profile, settings, rawExp, rawTraining] = await Promise.all([
+  getProfile(editing),
+  getSiteSettings(),
+  getPublishedExperience(),
+  getPublishedTraining(),
+]);
+
+const experienceItems = rawExp;
+const trainingItems = rawTraining;
+
+const { hero, approach, cta } = profile;
+const photoSrc = imageSrc(hero.photo);
+const secondaryPhotoSrc = imageSrc(hero.secondaryPhoto);
+const secondaryPhotoAlt = hero.secondaryPhotoAlt?.trim() || hero.photoAlt;
+
+const businessOverrides = {
+  address: settings.legal.address,
+  phone: settings.contact.phone,
+  email: settings.contact.email,
+  googleMapsLink: settings.contact.googleMapsLink,
+  collegiateNumber: settings.legal.collegiateNumber,
+  businessName: settings.legal.businessName,
+  instagram: settings.contact.instagram,
+  linkedin: settings.contact.linkedin,
+};
+
+const pageTitle = profile.seoTitle ?? profile.hero.title;
+const pageDescription = profile.seoDescription ?? profile.hero.intro.join(" ");
+
+const jsonLd = buildJsonLdGraph(
+  buildPerson({
+    description: pageDescription,
+    overrides: businessOverrides,
+  }),
+  buildBreadcrumbList([
+    { name: "Inicio", url: "/" },
+    { name: "Conóceme", url: "/conoceme" },
+  ]),
+);
+---
+
+<Layout preview={Astro.props.preview} island="profile"
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/conoceme"
+  jsonLd={jsonLd}
+  ogImage={photoSrc}
+>
+  <section class="section-hero bg-warm-200 border-b border-ink-border/40 relative overflow-hidden">
+    <Container class="relative">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in-up">
+        <div class="lg:col-span-7">
+          <p class="label-caps text-sage mb-4" data-tina-field={tinaField(profile.hero, "label")}>{hero.label}</p>
+          <h1 class="font-display text-4xl lg:text-5xl font-normal text-ink mb-6 leading-tight" data-tina-field={tinaField(profile.hero, "title")}>
+            {hero.title}
+          </h1>
+          <div data-tina-field={tinaField(profile.hero, "intro")}>
+            {
+              hero.intro.map((paragraph) => (
+                <p class="text-ink-muted text-lg leading-relaxed mb-4 last:mb-0 font-body">{paragraph}</p>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 w-full max-w-xs mx-auto lg:mx-0">
+          {
+            photoSrc ? (
+              <figure class="relative group" data-tina-field={tinaField(profile.hero, "photo")}>
+                <img
+                  src={photoSrc}
+                  alt={hero.photoAlt}
+                  class="aspect-[3/4] w-full rounded-2xl object-cover border border-ink-border/20 shadow-premium transition-transform duration-500 hover:scale-[1.01]"
+                  loading="eager"
+                  decoding="async"
+                />
+              </figure>
+            ) : (
+              <div
+                class="aspect-[3/4] w-full rounded-2xl bg-warm-200/50 flex flex-col items-center justify-center border border-ink-border/30 gap-3 shadow-premium"
+                aria-hidden="true"
+                data-tina-field={tinaField(profile.hero, "photo")}
+              >
+                <Icon name="lucide:user" class="w-16 h-16 text-warm-500 opacity-60" aria-hidden="true" />
+                <p class="text-ink-muted text-sm font-body text-center px-6">{hero.photoPlaceholder}</p>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="section-gap bg-gradient-to-b from-warm-50/40 to-warm-100/20">
+    <Container>
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start animate-fade-in-up">
+        <div class="lg:col-span-7">
+          <span class="label-caps text-sage block mb-3" data-tina-field={tinaField(profile.approach, "label")}>{approach.label}</span>
+          <h2 class="font-display text-3xl lg:text-4xl font-normal text-ink mb-6 leading-tight" data-tina-field={tinaField(profile.approach, "title")}>
+            {approach.title}
+          </h2>
+
+          <div class="space-y-4 text-ink-muted text-lg leading-relaxed font-body" data-tina-field={tinaField(profile.approach, "paragraphs")}>
+            {approach.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 w-full">
+          {
+            secondaryPhotoSrc ? (
+              <figure class="relative group" data-tina-field={tinaField(profile.hero, "secondaryPhoto")}>
+                <img
+                  src={secondaryPhotoSrc}
+                  alt={secondaryPhotoAlt}
+                  class="aspect-[4/3] w-full rounded-2xl object-cover border border-ink-border/20 shadow-premium"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            ) : (
+              <div
+                class="p-6 sm:p-7 rounded-2xl bg-white/70 border border-ink-border/20 shadow-premium backdrop-blur-sm space-y-5"
+                data-tina-field={tinaField(profile.hero, "secondaryPhoto")}
+              >
+                <p class="label-caps text-sage">Principios del proceso</p>
+                <div class="space-y-4">
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-sage/10 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                      <Icon name="lucide:heart-handshake" class="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-ink font-body text-sm">Espacio seguro y sin juicios</h4>
+                      <p class="text-xs text-ink-muted mt-0.5 leading-relaxed font-body">Un entorno de respeto y confidencialidad para expresarte a tu ritmo.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-sage/10 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                      <Icon name="lucide:shield-check" class="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-ink font-body text-sm">Basado en evidencia científica</h4>
+                      <p class="text-xs text-ink-muted mt-0.5 leading-relaxed font-body">Terapias contextuales (ACT) y técnicas avaladas clínicamente.</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3.5">
+                    <div class="w-8 h-8 rounded-lg bg-sage/10 flex items-center justify-center text-sage flex-shrink-0 mt-0.5" aria-hidden="true">
+                      <Icon name="lucide:compass" class="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-ink font-body text-sm">Enfoque humano y contextual</h4>
+                      <p class="text-xs text-ink-muted mt-0.5 leading-relaxed font-body">Atención sensible a tu historia, relaciones y momento vital.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <SectionDivider />
+  <TrainingBlock
+    trainingSection={profile.trainingSection ?? settings.trainingSection}
+    items={trainingItems}
+    tinaLabelField={profile.trainingSection ? tinaField(profile.trainingSection, "label") : undefined}
+    tinaTitleField={profile.trainingSection ? tinaField(profile.trainingSection, "title") : undefined}
+    tinaClinicalTitleField={profile.trainingSection ? tinaField(profile.trainingSection, "clinicalTitle") : undefined}
+    tinaComplementaryTitleField={profile.trainingSection ? tinaField(profile.trainingSection, "complementaryTitle") : undefined}
+  />
+  <SectionDivider />
+  <ExperienceBlock
+    experienceSection={profile.experienceSection ?? settings.experienceSection}
+    items={experienceItems}
+    tinaLabelField={profile.experienceSection ? tinaField(profile.experienceSection, "label") : undefined}
+    tinaTitleField={profile.experienceSection ? tinaField(profile.experienceSection, "title") : undefined}
+  />
+  <SectionDivider />
+
+  <CTASection
+    title={cta.title}
+    description={cta.description}
+    ctaLabel={cta.label}
+    ctaHref={cta.href}
+    tinaTitleField={tinaField(profile.cta, "title")}
+    tinaDescriptionField={tinaField(profile.cta, "description")}
+    tinaCtaLabelField={tinaField(profile.cta, "label")}
+  />
+</Layout>

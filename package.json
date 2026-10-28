@@ -12,11 +12,12 @@
     "dev:astro": "astro dev",
     "build": "node scripts/build.mjs",
     "build:astro": "astro build",
-    "preview": "astro preview",
+    "preview": "wrangler pages dev dist",
     "typecheck": "astro check",
     "cms": "tinacms dev -c \"astro dev\"",
-    "cms:build": "tinacms build --skip-cloud-checks --skip-search-index && astro build",
-    "tina:sync": "tinacms dev --no-server"
+    "cms:build": "pnpm build",
+    "tina:sync": "tinacms dev --no-server",
+    "test:editor": "playwright test"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.3",
@@ -24,26 +25,28 @@
     "@astrojs/react": "^4.0.0",
     "@astrojs/sitemap": "^3.0.0",
     "@astrojs/tailwind": "^5.1.0",
-    "@tinacms/astro": "^0.7.0",
     "@fontsource/dm-sans": "^5.3.0",
     "@fontsource/lora": "^5.3.0",
     "@iconify-json/lucide": "^1.2.108",
     "@iconify-json/simple-icons": "^1.2.83",
     "@tailwindcss/typography": "^0.5.19",
-    "@tinacms/cli": "^2.7.0",
+    "@tinacms/astro": "^0.8.0",
+    "@tinacms/cli": "^4.0.4",
     "astro": "^5.0.0",
     "astro-icon": "^1.1.5",
     "lucide-react": "^1.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^3.4.0",
-    "tinacms": "^3.13.0"
+    "tinacms": "^3.15.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
+    "@playwright/test": "^1.64.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "sharp": "^0.34.5",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "wrangler": "4.59.2"
   }
 }

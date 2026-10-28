@@ -1,6 +1,6 @@
 ---
 import Container from "@/components/ui/Container.astro";
-import FAQAccordion from "@/components/islands/FAQAccordion";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   items: any[];
@@ -36,7 +36,19 @@ const {
         </p>
       </div>
 
-      <FAQAccordion items={items} client:visible />
+      <div class="space-y-4">
+        {items.map((item) => (
+          <details name="home-faq" class="group bg-white rounded-2xl border border-ink-border/20 shadow-premium overflow-hidden" data-tina-field={item.tinaFieldItem}>
+            <summary class="flex justify-between items-center px-6 py-5 cursor-pointer list-none font-body font-medium text-ink hover:text-sage [&::-webkit-details-marker]:hidden">
+              <span class="text-base pr-4 leading-snug" data-tina-field={item.tinaFieldQuestion}>{item.question}</span>
+              <span class="w-8 h-8 rounded-full bg-sage/5 flex items-center justify-center text-sage shrink-0 transition-transform group-open:rotate-180">
+                <Icon name="lucide:chevron-down" class="w-4 h-4" aria-hidden="true" />
+              </span>
+            </summary>
+            <div class="px-6 pb-6 text-ink-muted text-base leading-relaxed font-body" data-tina-field={item.tinaFieldAnswer}>{item.answer}</div>
+          </details>
+        ))}
+      </div>
     </div>
   </Container>
 </section>

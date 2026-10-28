@@ -50,7 +50,7 @@ const itemsToRender = experienceSection.items ?? rawItems;
               </div>
               <span
                 class="text-base text-ink-muted leading-relaxed font-body mt-0.5"
-                data-tina-field={tinaField(item, "area")}
+                data-tina-field={tinaField(item.data ?? item, "area")}
               >
                 {area}
               </span>

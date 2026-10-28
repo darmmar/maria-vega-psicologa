@@ -21,8 +21,21 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# TinaCMS generated cache
-tina/__generated__/.cache/
+# TinaCMS generated files (tina/tina-lock.json stays versioned)
+tina/__generated__/
+public/admin/
+.cache/
+.wrangler/
+
+# Browser test output
+playwright-report/
+test-results/
+
+# Temporary files
+scratch/
+*.bak
+*.tmp
+.temp*
 
 # Editor
 .vscode/settings.json
@@ -31,6 +44,3 @@ tina/__generated__/.cache/
 .cursor/
 
 .env*.local
-
-# Documentation & notes
-docs/

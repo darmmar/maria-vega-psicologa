@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "maria-vega-psicologa",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-01-16",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
