@@ -1,6 +1,7 @@
 # Project guidance
 
 - This project runs Astro 5 on **Cloudflare Pages**, with Pages Functions for SSR and Tina previews. Consult the current official Astro and TinaCMS documentation before changing their integration. Do not introduce another hosting platform.
+- Deployment variables and `nodejs_compat` live in the existing Pages project. Do not add a Wrangler configuration that overrides the dashboard's build variables. Local production preview supplies compatibility flags through the Wrangler CLI.
 - Keep page rendering and unsaved preview rendering together. Register editable regions in `src/lib/tina/islands.ts`; use the official `TinaIsland`, `requestWithMetadata`, and `experimental_createIslandRoute` APIs.
 - Use normal page navigation. Do not mutate the admin's parent hash, force editor cookies, intercept navigation clicks, or patch `node_modules` or generated files.
 - Visitors read deployed content files. Only editor requests query Tina. Preserve request metadata and render Tina rich text when previewing unsaved MDX changes.
