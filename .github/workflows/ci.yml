@@ -53,6 +53,14 @@ jobs:
       - name: Verify visual editing
         run: pnpm test:editor
 
+      - name: Upload browser diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editor-browser-diagnostics
+          path: test-results/
+          retention-days: 3
+
       - name: Check for secrets in diff
         run: |
           if git diff --name-only origin/main...HEAD | xargs grep -l -E "(sk_live|pk_live|AIza|AKIA|password\s*=\s*['\"][^'\"]{8,})" 2>/dev/null; then

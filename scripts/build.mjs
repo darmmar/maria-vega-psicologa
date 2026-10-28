@@ -1,6 +1,10 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { loadEnvFile } from "node:process";
+import { createRequire } from "node:module";
+import { dirname, resolve } from "node:path";
+
+const require = createRequire(import.meta.url);
 
 for (const file of [".env.local", ".env"]) {
   if (existsSync(file)) loadEnvFile(file);
@@ -16,10 +20,11 @@ if (!clientId || !process.env.TINA_TOKEN?.trim()) {
 }
 process.env.PUBLIC_TINA_CLIENT_ID = clientId;
 
-function run(args) {
-  const pnpm = process.env.npm_execpath;
-  if (!pnpm) throw new Error("Run this script through pnpm build.");
-  const result = spawnSync(process.execPath, [pnpm, ...args], {
+function run(packageName, command, args) {
+  const manifestPath = require.resolve(`${packageName}/package.json`);
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  const script = resolve(dirname(manifestPath), manifest.bin[command]);
+  const result = spawnSync(process.execPath, [script, ...args], {
     stdio: "inherit",
   });
   if (result.error) throw result.error;
@@ -27,9 +32,9 @@ function run(args) {
 }
 
 // Workers have no writable filesystem. Disable the cache through the CLI.
-const args = ["exec", "tinacms", "build", "--no-client-build-cache", "--skip-search-index"];
+const args = ["build", "--no-client-build-cache", "--skip-search-index"];
 if (process.env.TINA_RUN_CLOUD_CHECKS !== "1") args.push("--skip-cloud-checks");
-run(args);
+run("@tinacms/cli", "tinacms", args);
 if (readFileSync("tina/__generated__/client.ts", "utf8").includes("cacheDir:")) {
   throw new Error("Tina generated a filesystem cache. Cloudflare builds require --no-client-build-cache.");
 }
@@ -37,7 +42,7 @@ const admin = readFileSync("public/admin/index.html", "utf8");
 if (!admin.includes("/admin/assets/") || admin.includes("/@vite/client")) {
   throw new Error("Tina did not generate a production admin. Run pnpm build again.");
 }
-run(["exec", "astro", "build"]);
+run("astro", "astro", ["build"]);
 if (!existsSync("dist/admin/bridge.js")) {
   throw new Error("The Tina integration did not emit dist/admin/bridge.js.");
 }
