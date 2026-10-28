@@ -47,7 +47,7 @@ const bookingLabel = "Reservar cita";
       </a>
 
       <!-- Desktop nav -->
-      <nav class="hidden md:flex md:items-center md:gap-7" aria-label="Navegación principal">
+      <nav class="hidden md:flex md:items-center md:gap-3.5 lg:gap-6" aria-label="Navegación principal">
         {
           navItems.map((item) => {
             const itemNormalized = normalizePath(item.href);
@@ -58,7 +58,7 @@ const bookingLabel = "Reservar cita";
             return (
               <a
                 href={item.href}
-                class:list={["nav-link", { active: isActive }]}
+                class:list={["nav-link text-xs lg:text-sm px-1 py-1", { active: isActive }]}
                 aria-current={isActive ? "page" : undefined}
               >
                 {item.label}
@@ -74,7 +74,7 @@ const bookingLabel = "Reservar cita";
           href={bookingUrl}
           external={bookingUrl.startsWith("http")}
           size="sm"
-          class="hidden md:inline-flex shrink-0"
+          class="hidden xl:inline-flex shrink-0"
         >
           {bookingLabel}
         </Button>

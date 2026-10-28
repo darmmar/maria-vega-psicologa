@@ -28,6 +28,8 @@ Abre http://localhost:4321/admin y pulsa **Enter Edit Mode**. Tina local guarda 
 
 Para las pruebas, instala antes el navegador con `pnpm exec playwright install chromium`.
 
+Wrangler es la [herramienta oficial de Cloudflare para probar Pages y Functions en local](https://developers.cloudflare.com/pages/functions/local-development/). Se incluye como dependencia de desarrollo y `pnpm preview` la usa para servir `dist/` después de `pnpm build`, ejecutando el Worker con `nodejs_compat`. Para editar la web y el contenido, usa `pnpm dev`. El despliegue sigue conectado a Git desde el panel de Cloudflare.
+
 ## Arquitectura
 
 El contenido versionado de `src/content/` sirve la web pública. Dentro del editor, los loaders de `src/lib/content/collections.ts` consultan Tina y consumen los cambios sin guardar mediante `requestWithMetadata`. Cada página tiene una región `TinaIsland` y un renderer compartido con su vista previa. La ruta oficial `/tina-island/[name]` usa `experimental_createIslandRoute` para devolver fragmentos HTML.
